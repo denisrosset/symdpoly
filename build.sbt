@@ -90,7 +90,7 @@ lazy val commonSettings = Seq(
 
 lazy val publishSettings = Seq(
   homepage := Some(url("http://denisrosset.github.io/symdpoly")),
-  licenses += ("AGPL-3.0", url("https://opensource.org/licenses/AGPL-3.0")),
+  licenses += ("AGPL-V3", url("https://opensource.org/licenses/AGPL-3.0")),
   bintrayRepository := "maven",
   publishArtifact in Test := false
 )
