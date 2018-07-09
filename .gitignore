@@ -1,0 +1,8 @@
+.ensime_lucene
+target
+.ensime
+.idea
+*~
+lib
+/*.txt
+/*.dat-s
