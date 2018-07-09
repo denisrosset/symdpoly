@@ -1,6 +1,5 @@
-package net.alasc.symdpoly.examples
-
-import net.alasc.symdpoly.{GSet, Mono, evaluation, free, quotient}
+package net.alasc.symdpoly
+package examples
 
 object CHSH extends App {
 
