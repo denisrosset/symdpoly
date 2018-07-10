@@ -1,12 +1,12 @@
-package net.alasc.symdpoly.solvers
+package net.alasc.symdpoly
+package solvers
 
 import spire.syntax.cfor.cforRange
-
-import net.alasc.symdpoly.GramMatrix
 
 object LowerTriangular {
 
   case class SparseMatrix(rows: Array[Int], cols: Array[Int], data: Array[Double]) {
+    def nTerms: Int = rows.length
     override def toString:String = s"SparseMatrix(${rows.toSeq}, ${cols.toSeq}, ${data.toSeq})"
   }
 

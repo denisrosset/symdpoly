@@ -6,7 +6,7 @@ import spire.syntax.cfor._
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types._
 
-class SDPT3Instance(relaxation: Relaxation[_, _, _]) extends Instance {
+class SDPT3Instance(val relaxation: Relaxation[_, _, _]) extends Instance {
 
   import SDPT3Instance.{SparseMatrix, SparseVector}
   import relaxation.{gramMatrix, objectiveVector}

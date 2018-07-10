@@ -1,12 +1,9 @@
 package net.alasc.symdpoly
 
+import net.alasc.symdpoly.solvers.MosekInstance
+
 package object mosek {
 
-  implicit class RelaxationMosekOps(val relaxation: Relaxation[_, _, _]) extends AnyVal {
-
-    def mosekInstance: net.alasc.symdpoly.mosek.MosekInstance =
-      new net.alasc.symdpoly.mosek.MosekInstance(relaxation)
-
-  }
+  implicit def RichMosekInstance(instance: MosekInstance): RichMosekInstance = new RichMosekInstance(instance)
 
 }

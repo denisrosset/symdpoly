@@ -5,11 +5,10 @@ import java.io.{BufferedWriter, FileWriter, Writer}
 
 import spire.syntax.cfor.cforRange
 
-class SDPAInstance(relaxation: Relaxation[_, _, _]) extends Instance {
+class SDPAInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import net.alasc.symdpoly.solvers.UpperTriangular.SparseMatrix
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.matrixSize
-  require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
 
   val m: Int = gramMatrix.nUniqueMonomials - 1 // number of dual variables
   val nBlocks: Int = 1

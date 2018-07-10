@@ -6,7 +6,7 @@ import spire.syntax.cfor.cforRange
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types.{MLArray, MLDouble, MLSparse, MLStructure}
 
-class SeDuMiInstance(relaxation: Relaxation[_, _, _]) extends Instance {
+class SeDuMiInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import SeDuMiInstance.{SparseMatrix, SparseVector}
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.matrixSize

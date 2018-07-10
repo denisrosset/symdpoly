@@ -70,6 +70,7 @@ object I3322 extends App {
   relaxation.writePhaseMatrix("i3322_phase_matrix.txt")
   relaxation.writeMomentIndexMatrix("i3322_moment_index_matrix.txt")
   relaxation.writeCanonicalMonomials("i3322_canonical_monomials.txt")
+  relaxation.mosekInstance.writeCBF("i3322.cbf")
   /*
   relaxation.mosekInstance.writeFile("i3322.cbf")
   relaxation.mosekInstance.writeFile("i3322.task")

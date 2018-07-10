@@ -1,8 +1,7 @@
-package net.alasc.symdpoly.solvers
+package net.alasc.symdpoly
+package solvers
 
 import spire.syntax.cfor.cforRange
-
-import net.alasc.symdpoly.GramMatrix
 
 object UpperTriangular {
 

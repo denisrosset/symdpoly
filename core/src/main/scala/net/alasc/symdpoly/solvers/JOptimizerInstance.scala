@@ -11,10 +11,10 @@ import scalin.immutable.dense._
 import com.joptimizer.functions.{LinearMultivariateRealFunction, SDPLogarithmicBarrier}
 import com.joptimizer.optimizers.{BarrierMethod, OptimizationRequest}
 
-class JOptimizerInstance(relaxation: Relaxation[_, _, _]) extends Instance {
+class JOptimizerInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.matrixSize
-  require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
+
   val nDualVariables: Int = gramMatrix.nUniqueMonomials - 1
 
   def Gmatrix: Array[Array[Double]] = {

@@ -7,7 +7,7 @@ import com.jmatio.io.MatFileWriter
 import com.jmatio.types.{MLArray, MLDouble, MLSparse, MLStructure}
 
 /** Data provided in the format of https://github.com/bodono/scs-matlab */
-class SCSInstance(relaxation: Relaxation[_, _, _]) extends Instance {
+class SCSInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import SCSInstance.{SparseMatrix, SparseVector}
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.{matrixSize => d}

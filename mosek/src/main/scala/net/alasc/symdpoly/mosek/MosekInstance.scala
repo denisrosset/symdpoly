@@ -10,34 +10,11 @@ import scalin.immutable.dense._
 import scalin.syntax.all._
 import scalin.Sparse
 
-import net.alasc.symdpoly.solvers.Instance
+import net.alasc.symdpoly.solvers.{Instance, MosekInstance}
 
-class MosekInstance(relaxation: Relaxation[_, _, _]) extends Instance {
+class RichMosekInstance(val instance: solvers.MosekInstance) {
 
-  import net.alasc.symdpoly.solvers.LowerTriangular.SparseMatrix
-  import relaxation.{gramMatrix, objectiveVector}
-  import gramMatrix.matrixSize
-
-  require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
-  val m = gramMatrix.nUniqueMonomials - 1 // number of constraints in the primal / variables in the dual
-  val numcon = m
-  val numbarvar = 1 // number of semidefinite variables in the primal / LMI in the dual
-  val d = matrixSize
-  val dimbarvar = Array(d) // dimension of semidefinite cone
-  val lenbarvar = Array(d * (d + 1) / 2) // number of scalar semidefinite variables
-  val cfix = cycloToDouble(objectiveVector(0))
-
-  // vector b
-
-  //val bkc = Array.fill(m)(mosek.boundkey.fx)
-  val blc = Array.tabulate(m)(i => cycloToDouble(objectiveVector(i + 1)))
-  val buc = blc
-
-  // LMI constant
-  val c = SparseMatrix.forMoment(gramMatrix, 0)
-
-  // LMI matrices
-  val a = Vector.tabulate(m)(i => SparseMatrix.forMoment(gramMatrix, i + 1, -1.0))
+  import instance._
 
   def populateTask(task: _root_.mosek.Task): Unit = {
     /* Append 'NUMCON' empty constraints.
@@ -138,22 +115,4 @@ class MosekInstance(relaxation: Relaxation[_, _, _]) extends Instance {
     }
     res
   }
-}
-
-object MosekInstance {
-
-  def fromLowerTriangularColStacked[F:Sparse](d: Int, vec: Vec[F]): Mat[F] = {
-    import scalin.immutable.csc._
-    Mat.fromMutable(d, d, Sparse[F].zero) { mat =>
-      var i = 0
-      cforRange(0 until d) { c =>
-        cforRange(c until d) { r =>
-          mat(r, c) := vec(i)
-          mat(c, r) := vec(i)
-          i += 1
-        }
-      }
-    }
-  }
-
 }
