@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package solvers
 
-import java.io.{BufferedWriter, FileWriter, Writer}
+import java.io.{BufferedWriter, FileWriter, PrintWriter, Writer}
 
 import scalin.Sparse
 import scalin.immutable.{Mat, Vec}
@@ -95,6 +95,17 @@ class MosekInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
       writeCBFData(fileWriter)
     }
   }
+
+  def printCBF(): Unit = {
+    import resource._
+    for {
+      consoleWriter <- managed(new PrintWriter(System.out))
+      bufferedWriter <- managed(new BufferedWriter(consoleWriter))
+    } {
+      writeCBFData(bufferedWriter)
+    }
+  }
+
 
 
 }
