@@ -30,7 +30,7 @@ object PairRules {
   val Custom = 5
   @inline def cellIndex(i: Int, j: Int, width: Int): Int = {
     val jcoarse = j >>> 3
-    val jfine = j & 0x7
+    // val jfine = j & 0x7
     i * (width >>> 3) + jcoarse
   }
   @inline def getMaskIndex(j: Int, cellValue: Int): Int = {

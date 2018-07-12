@@ -1,13 +1,13 @@
 package net.alasc.symdpoly
 
-import org.scalacheck.Shrink
-import org.scalacheck.Test.Parameters
-import org.scalactic.{Prettifier, source}
-import org.scalatest.enablers.UnitCheckerAsserting
-import org.scalatest.exceptions.{GeneratorDrivenPropertyCheckFailedException, StackDepthException}
-import org.scalatest.{Assertion, Succeeded}
+//import org.scalacheck.Shrink
+//import org.scalacheck.Test.Parameters
+//import org.scalactic.{Prettifier, source}
+//import org.scalatest.enablers.UnitCheckerAsserting
+//import org.scalatest.exceptions.{GeneratorDrivenPropertyCheckFailedException, StackDepthException}
+//import org.scalatest.{Assertion, Succeeded}
 import org.typelevel.discipline.Laws
-import shapeless.Witness
+//import shapeless.Witness
 import spire.algebra._
 import spire.syntax.all._
 import org.scalacheck.{Arbitrary, Prop}

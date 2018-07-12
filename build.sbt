@@ -82,7 +82,8 @@ lazy val commonSettings = Seq(
     "com.chuusai" %% "shapeless" % shapelessVersion,
     "com.lihaoyi" %% "sourcecode" % sourcecodeVersion,
     "com.joptimizer" % "joptimizer" % jOptimizerVersion,
-    "com.jsuereth" %% "scala-arm" % scalaARMVersion
+    "com.jsuereth" %% "scala-arm" % scalaARMVersion,
+    "org.scala-lang" % "scala-compiler" % scalaVersion.value
   ),
   scalacOptions in (Compile, console) ~= {_.filterNot("-Ywarn-unused-import" == _)},
   scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value

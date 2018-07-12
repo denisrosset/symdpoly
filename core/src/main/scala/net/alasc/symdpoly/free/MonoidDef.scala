@@ -84,14 +84,12 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     def *(rhs: Phase): PhasedOp = PhasedOp(rhs, lhs)
     def *(rhs: Op): Mono[Free, Free] = Mono(lhs, rhs)
     def +[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      Op.toPoly(lhs) + ev(rhs)
+      opToPoly(lhs) + ev(rhs)
     def -[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      Op.toPoly(lhs) - ev(rhs)
+      opToPoly(lhs) - ev(rhs)
   }
 
-  object Op {
-    implicit val toPoly: ToPoly[Op, Free, Free] = {  op => symdpoly.Poly.fromMono(Mono.fromOp(op)) }
-  }
+  implicit val opToPoly: ToPoly[Op, Free, Free] = {  op => symdpoly.Poly.fromMono(Mono.fromOp(op)) }
 
   trait OpType {
     def allInstances: Seq[Op]
