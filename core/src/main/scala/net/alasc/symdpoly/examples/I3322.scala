@@ -5,16 +5,11 @@ object I3322 extends App {
 
   object FM extends free.MonoidDef {
 
-    case class A(x: Int) extends Op
-    object A extends Hermitian1(0 to 2)
+    case class A(x: Int) extends HermitianOp
+    object A extends HermitianType1(0 to 2)
 
-    case class B(y: Int) extends Op
-    object B extends Hermitian1(0 to 2)
-
-    val adjoint = {
-      case A(x) => A(x)
-      case B(y) => B(y)
-    }
+    case class B(y: Int) extends HermitianOp
+    object B extends HermitianType1(0 to 2)
 
     val operators = Seq(A, B)
   }
@@ -72,7 +67,6 @@ object I3322 extends App {
   relaxation.writeCanonicalMonomials("i3322_canonical_monomials.txt")
   relaxation.mosekInstance.writeCBF("i3322.cbf")
   /*
-  relaxation.mosekInstance.writeFile("i3322.cbf")
   relaxation.mosekInstance.writeFile("i3322.task")
   relaxation.mosekInstance.writeFile("i3322.jtask")
   */

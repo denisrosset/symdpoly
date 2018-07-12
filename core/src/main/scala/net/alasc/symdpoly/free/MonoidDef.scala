@@ -35,12 +35,6 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
 
   def operators: Seq[OpType]
 
-  /** User-defined method that, for each operator in this ring, returns its adjoint.
-    *
-    * For Hermitian operators, the adjoint operation corresponds to the identity.
-    */
-  def adjoint: Op => Op
-
   type Free = monoidDef.type
   def Free: Free = this
 
@@ -62,7 +56,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
   private[this] lazy val adjointIndices: Array[Int] = {
     val indices = new Array[Int](nOperators)
     cforRange(0 until nOperators) { i =>
-      val op = adjoint(opFromIndex(i))
+      val op = opFromIndex(i).adjoint
       indices(i) = indexFromOp(op)
     }
     indices
@@ -79,6 +73,12 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     * Instances must be declared using "declare" before using them in monomials/polynomials.
     */
   abstract class Op extends Product { lhs =>
+    /** User-defined method that, for each operator in this ring, returns its adjoint.
+      *
+      * For Hermitian operators, the adjoint operation corresponds to the identity.
+      */
+    def adjoint: Op
+
     def index: Int = indexFromOp(this)
     def unary_- : PhasedOp = lhs * Phase.minusOne
     def *(rhs: Phase): PhasedOp = PhasedOp(rhs, lhs)
@@ -97,23 +97,27 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     def allInstances: Seq[Op]
   }
 
-  abstract class Hermitian1(iSeq: Seq[Int]) extends OpType {
+  abstract class HermitianOp extends Op {
+    def adjoint: Op = this
+  }
+
+  abstract class HermitianType1(iSeq: Seq[Int]) extends OpType {
     val allInstances: Seq[Op] = iSeq.map(apply)
     def apply(i: Int): Op
   }
 
-  abstract class NonHermitian1(iSeq: Seq[Int]) extends OpType {
+  abstract class NonHermitianType1(iSeq: Seq[Int]) extends OpType {
     val allInstances: Seq[Op] = for (i <- iSeq; a <- Seq(false, true)) yield apply(i, a)
     def apply(i: Int, adjoint: Boolean): Op
   }
 
-  abstract class Hermitian2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
+  abstract class Hermitian2Type(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i)) yield apply(i, j)
     def apply(i: Int, j: Int): Op
   }
 
-  abstract class NonHermitian2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
+  abstract class NonHermitian2Type(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); a <- Seq(false, true)) yield apply(i, j, a)
     def apply(i: Int, j: Int, adjoint: Boolean): Op

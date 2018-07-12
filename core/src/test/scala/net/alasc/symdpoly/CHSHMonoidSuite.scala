@@ -10,16 +10,11 @@ class CHSHMonoidSuite extends CommonSuite {
 
   object FM extends free.MonoidDef {
 
-    case class A(x: Int) extends Op
-    object A extends Hermitian1(0 to 1)
+    case class A(x: Int) extends HermitianOp
+    object A extends HermitianType1(0 to 1)
 
-    case class B(y: Int) extends Op
-    object B extends Hermitian1(0 to 1)
-
-    val adjoint = {
-      case A(x) => A(x)
-      case B(y) => B(y)
-    }
+    case class B(y: Int) extends HermitianOp
+    object B extends HermitianType1(0 to 1)
 
     val operators = Seq(A, B)
   }

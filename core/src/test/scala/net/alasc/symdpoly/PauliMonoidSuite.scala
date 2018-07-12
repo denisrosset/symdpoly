@@ -9,16 +9,12 @@ class PauliMonoidSuite extends CommonSuite {
 
   object FM extends free.MonoidDef {
 
-    case class σ(i: Int) extends Op {
+    case class σ(i: Int) extends HermitianOp {
       require(i >= 1 && i <= 3)
     }
-    object σ extends Hermitian1(1 to 3)
+    object σ extends HermitianType1(1 to 3)
 
     val operators = Seq(σ)
-
-    val adjoint = {
-      case σ(i) => σ(i)
-    }
 
   }
 

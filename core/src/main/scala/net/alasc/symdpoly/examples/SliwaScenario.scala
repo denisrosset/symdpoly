@@ -4,20 +4,16 @@ package examples
 object SliwaScenario {
 
   object FM extends free.MonoidDef {
-    case class A(x: Int) extends Op
-    object A extends Hermitian1(0 to 1)
+    case class A(x: Int) extends HermitianOp
+    object A extends HermitianType1(0 to 1)
 
-    case class B(y: Int) extends Op
-    object B extends Hermitian1(0 to 1)
+    case class B(y: Int) extends HermitianOp
+    object B extends HermitianType1(0 to 1)
 
-    case class C(z: Int) extends Op
-    object C extends Hermitian1(0 to 1)
+    case class C(z: Int) extends HermitianOp
+    object C extends HermitianType1(0 to 1)
 
     val operators = Seq(A, B, C)
-
-    val adjoint = {
-      case op => op
-    }
   }
 
   import FM.{A, B, C}
