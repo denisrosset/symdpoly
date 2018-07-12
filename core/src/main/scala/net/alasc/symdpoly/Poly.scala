@@ -174,8 +174,8 @@ class Poly[
   def *:(realLhs: Cyclo): Poly[M, F] =
     if (realLhs.isZero) Poly.zero[M, F] else new Poly[M, F](keys, values.map(realLhs * _))
 
-  def +(rhs: F#Op)(implicit ev: M =:= F): Poly[M, F] = lhs + F.opToPoly(rhs).asInstanceOf[Poly[M, F]]
-  def -(rhs: F#Op)(implicit ev: M =:= F): Poly[M, F] = lhs + F.opToPoly(rhs).asInstanceOf[Poly[M, F]]
+  def +(rhs: F#Op)(implicit ev: M =:= F): Poly[M, F] = lhs + F.Op.toPoly(rhs).asInstanceOf[Poly[M, F]]
+  def -(rhs: F#Op)(implicit ev: M =:= F): Poly[M, F] = lhs + F.Op.toPoly(rhs).asInstanceOf[Poly[M, F]]
 
   def +(rhs: F#PhasedOp)(implicit ev: M =:= F): Poly[M, F] = lhs + F.PhasedOp.toPoly(rhs).asInstanceOf[Poly[M, F]]
   def -(rhs: F#PhasedOp)(implicit ev: M =:= F): Poly[M, F] = lhs + F.PhasedOp.toPoly(rhs).asInstanceOf[Poly[M, F]]

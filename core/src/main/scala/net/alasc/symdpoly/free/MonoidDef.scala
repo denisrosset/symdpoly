@@ -72,31 +72,33 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     *
     * Instances must be declared using "declare" before using them in monomials/polynomials.
     */
-  abstract class Op extends Product { lhs =>
-    /** User-defined method that, for each operator in this ring, returns its adjoint.
-      *
-      * For Hermitian operators, the adjoint operation corresponds to the identity.
-      */
-    def adjoint: Op
-
+  abstract class Op { lhs =>
     def index: Int = indexFromOp(this)
     def unary_- : PhasedOp = lhs * Phase.minusOne
     def *(rhs: Phase): PhasedOp = PhasedOp(rhs, lhs)
     def *(rhs: Op): Mono[Free, Free] = Mono(lhs, rhs)
     def +[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      opToPoly(lhs) + ev(rhs)
+      Op.toPoly(lhs) + ev(rhs)
     def -[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      opToPoly(lhs) - ev(rhs)
+      Op.toPoly(lhs) - ev(rhs)
+
+    /** Method that, for each operator in this ring, returns its adjoint.
+      *
+      * For Hermitian operators, the adjoint operation corresponds to the identity.
+      */
+    def adjoint: Op
   }
 
-  implicit val opToPoly: ToPoly[Op, Free, Free] = {  op => symdpoly.Poly.fromMono(Mono.fromOp(op)) }
+  object Op {
+    implicit val toPoly: ToPoly[Op, Free, Free] = {  op => symdpoly.Poly.fromMono(Mono.fromOp(op)) }
+  }
+
+  abstract class HermitianOp extends Op { selfOp =>
+    def adjoint: Op = selfOp
+  }
 
   trait OpType {
     def allInstances: Seq[Op]
-  }
-
-  abstract class HermitianOp extends Op {
-    def adjoint: Op = this
   }
 
   abstract class HermitianType1(iSeq: Seq[Int]) extends OpType {

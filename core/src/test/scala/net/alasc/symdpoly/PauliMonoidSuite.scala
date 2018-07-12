@@ -15,7 +15,6 @@ class PauliMonoidSuite extends CommonSuite {
     object σ extends HermitianType1(1 to 3)
 
     val operators = Seq(σ)
-
   }
 
   import FM.σ
