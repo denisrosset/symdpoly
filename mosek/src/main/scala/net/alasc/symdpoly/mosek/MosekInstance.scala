@@ -5,12 +5,10 @@ import scala.annotation.tailrec
 
 import spire.syntax.cfor.cforRange
 
-import scalin.immutable.{Mat, Vec}
+import scalin.immutable.Vec
 import scalin.immutable.dense._
-import scalin.syntax.all._
-import scalin.Sparse
 
-import net.alasc.symdpoly.solvers.{Instance, MosekInstance}
+import net.alasc.symdpoly.solvers.MosekInstance
 
 class RichMosekInstance(val instance: solvers.MosekInstance) {
 

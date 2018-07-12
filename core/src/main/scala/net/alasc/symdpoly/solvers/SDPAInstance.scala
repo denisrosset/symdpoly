@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package solvers
 
-import java.io.{BufferedWriter, FileWriter, Writer}
+import java.io.{BufferedWriter, FileWriter, PrintWriter, Writer}
 
 import spire.syntax.cfor.cforRange
 
@@ -38,6 +38,16 @@ class SDPAInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
     }
   }
 
+  def print(): Unit = {
+    import resource._
+    for {
+      consoleWriter <- managed(new PrintWriter(System.out))
+      bufferedWriter <- managed(new BufferedWriter(consoleWriter))
+    } {
+      writeData(bufferedWriter)
+    }
+  }
+
   def writeFile(fileName: String): Unit = {
     val file = new java.io.File(fileName)
     import resource._
@@ -45,7 +55,7 @@ class SDPAInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
       fileWriter <- managed(new FileWriter(file))
       bufferedWriter <- managed(new BufferedWriter(fileWriter))
     } {
-      writeData(fileWriter)
+      writeData(bufferedWriter)
     }
   }
 
