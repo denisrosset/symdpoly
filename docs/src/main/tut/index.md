@@ -4,10 +4,10 @@ title:  "Home"
 section: "home"
 ---
 
-# atto
+![alt text](/symdpoly/img/symdpoly_logo.png "SymDPoly")
 
-[![Join the chat at https://gitter.im/tpolecat/atto](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tpolecat/atto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Travis CI](https://travis-ci.org/tpolecat/atto.svg?branch=master)](https://travis-ci.org/tpolecat/atto)
+[![Join the chat at https://gitter.im/denisrosset/symdpoly](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/denisrosset/symdpoly)
+[![Travis CI](https://travis-ci.org/denisrosset/symdpoly.svg?branch=master)](https://travis-ci.org/denisrosset/symdpoly)
 
 **atto** is a compact, pure-functional, incremental text parsing library for Scala. The API is non-invasive (nothing to extend!) and uses sensible and familiar abstractions. **atto** parsers are a fun and principled tool for everyday parsing.
 

@@ -153,17 +153,12 @@ lazy val docSettings = Seq(
   micrositeName := "SymDPoly",
   micrositeDescription := "Symmetry-adapted moment relaxations for noncommutative polynomial optimization",
   micrositeAuthor := "Denis Rosset",
-/*  micrositeFooterText := Some(
-    """
-      |<p>© 2017 <a href="https://github.com/typelevel/cats#maintainers">The Cats Maintainers</a></p>
-      |<p style="font-size: 80%; margin-top: 10px">Website built with <a href="https://47deg.github.io/sbt-microsites/">sbt-microsites © 2016 47 Degrees</a></p>
-      |""".stripMargin),*/
   micrositeHighlightTheme := "atom-one-light",
   micrositeHomepage := "http://denisrosset.github.io/symdpoly",
   micrositeBaseUrl := "symdpoly",
   micrositeDocumentationUrl := "/symdpoly/api/net/alasc/symdpoly/index.html",
   micrositeDocumentationLabelDescription := "API Documentation",
-  micrositeGithubOwner := "typelevel",
+  micrositeGithubOwner := "denisrosset",
   micrositeGithubRepo := "symdpoly",
   micrositePalette := Map(
     "brand-primary" -> "#5B5988",
