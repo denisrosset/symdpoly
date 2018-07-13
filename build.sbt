@@ -110,7 +110,6 @@ lazy val commonSettings = Seq(
     "net.alasc" %% "cyclo-core" % spireCycloVersion,
     "net.alasc" %% "alasc-core" % alascVersion,
     "net.alasc" %% "scalin-core" % scalinVersion,
-    "net.alasc" %% "scalin-alasc" % scalinVersion,
     "com.chuusai" %% "shapeless" % shapelessVersion,
     "com.lihaoyi" %% "sourcecode" % sourcecodeVersion,
     "com.jsuereth" %% "scala-arm" % scalaARMVersion
