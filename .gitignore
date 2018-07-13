@@ -6,3 +6,4 @@ target
 lib
 /*.txt
 /*.dat-s
+._*
