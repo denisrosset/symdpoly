@@ -42,8 +42,6 @@ lazy val core = (project in file("core"))
   .settings(moduleName := "symdpoly-core")
   .settings(symdpolySettings)
 
-// unmanagedJars in Compile += file(Path.userHome+"/software/mosek/8/tools/platform/linux64x86/bin/mosek.jar")
-
 lazy val matlab = (project in file("matlab"))
   .settings(moduleName := "symdpoly-matlab")
   .settings(symdpolySettings)
@@ -98,9 +96,9 @@ lazy val testsSettings = Seq(
 )
 
 lazy val commonSettings = Seq(
-//  apiURL := Some(url("https://denisrosset.github.io/metal/latest/api")),
+  apiURL := Some(url("https://denisrosset.github.io/symdpoly/api")),
   scmInfo := Some(ScmInfo(url("https://github.com/denisrosset/symdpoly"), "scm:git:git@github.com:denisrosset/symdpoly.git")),
-//  scalacOptions in (Compile, doc) := (scalacOptions in (Compile, doc)).value.filter(_ != "-Xfatal-warnings"),
+  scalacOptions in (Compile, doc) := (scalacOptions in (Compile, doc)).value.filter(_ != "-Xfatal-warnings"),
   testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oDF"),
   scalacOptions ++= commonScalacOptions.diff(Seq(
     "-Xfatal-warnings",
@@ -166,18 +164,6 @@ lazy val docSettings = Seq(
   micrositeDocumentationUrl := "/symdpoly/api/net/alasc/symdpoly/index.html",
   micrositeDocumentationLabelDescription := "API Documentation",
   micrositeGithubOwner := "typelevel",
-  micrositeExtraMdFiles := Map(
-/*    file("CONTRIBUTING.md") -> ExtraMdFileConfig(
-      "contributing.md",
-      "home",
-       Map("title" -> "Contributing", "section" -> "contributing", "position" -> "50")
-    ),*/
-    file("README.md") -> ExtraMdFileConfig(
-      "index.md",
-      "home",
-      Map("title" -> "Home", "section" -> "home", "position" -> "0")
-    )
-  ),
   micrositeGithubRepo := "symdpoly",
   micrositePalette := Map(
     "brand-primary" -> "#5B5988",
