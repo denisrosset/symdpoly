@@ -36,6 +36,7 @@ lazy val core = (project in file("core"))
 
 lazy val matlab = (project in file("matlab"))
   .settings(moduleName := "symdpoly-matlab")
+  .settings(symdpolySettings)
   .settings(matlabSettings)
   .dependsOn(core)
 
