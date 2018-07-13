@@ -60,20 +60,19 @@ object I3322 extends App {
   val problem = L(bellOperator).maximize()
   val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
 
-  println(relaxation.jOptimizerInstance.solve())
   relaxation.writeMomentMatrix("i3322_moment_matrix.txt")
   relaxation.writePhaseMatrix("i3322_phase_matrix.txt")
   relaxation.writeMomentIndexMatrix("i3322_moment_index_matrix.txt")
   relaxation.writeCanonicalMonomials("i3322_canonical_monomials.txt")
   relaxation.mosekInstance.writeCBF("i3322.cbf")
+  relaxation.writeSymmetryGroupDescription("i3322_symmetry_group.mat")
   /*
   relaxation.mosekInstance.writeFile("i3322.task")
   relaxation.mosekInstance.writeFile("i3322.jtask")
-  */
   relaxation.sdpaInstance.writeFile("i3322.dat-s")
   relaxation.sedumiInstance.writeFile("i3322_sedumi.mat")
   relaxation.scsInstance.writeFile("i3322_scs.mat")
   relaxation.sdpt3Instance.writeFile("i3322_sdpt3.mat")
-  relaxation.writeSymmetryGroupDescription("i3322_symmetry_group.mat")
+  */
 
 }

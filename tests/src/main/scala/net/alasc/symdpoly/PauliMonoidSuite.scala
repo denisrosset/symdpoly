@@ -1,11 +1,14 @@
 package net.alasc.symdpoly
 
-import net.alasc.symdpoly.algebra.ExtraMultiplicativeMonoidLaws
 import spire.laws.{InvolutionLaws, RingLaws}
 
 import net.alasc.symdpoly
+import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
 
 class PauliMonoidSuite extends CommonSuite {
+
+  import laws.Monos._
+  import laws.Polys._
 
   object FM extends free.MonoidDef {
 

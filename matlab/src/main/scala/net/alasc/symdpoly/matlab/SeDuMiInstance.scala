@@ -1,10 +1,11 @@
-package net.alasc.symdpoly
-package solvers
+package net.alasc.symdpoly.matlab
 
 import spire.syntax.cfor.cforRange
 
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types.{MLArray, MLDouble, MLSparse, MLStructure}
+import net.alasc.symdpoly.solvers.Instance
+import net.alasc.symdpoly.{GramMatrix, Relaxation}
 
 class SeDuMiInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import SeDuMiInstance.{SparseMatrix, SparseVector}

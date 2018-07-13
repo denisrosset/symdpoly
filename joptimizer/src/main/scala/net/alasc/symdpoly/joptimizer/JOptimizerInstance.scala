@@ -1,5 +1,4 @@
-package net.alasc.symdpoly
-package solvers
+package net.alasc.symdpoly.joptimizer
 
 import scala.annotation.tailrec
 
@@ -10,6 +9,8 @@ import scalin.immutable.dense._
 
 import com.joptimizer.functions.{LinearMultivariateRealFunction, SDPLogarithmicBarrier}
 import com.joptimizer.optimizers.{BarrierMethod, OptimizationRequest}
+import net.alasc.symdpoly.solvers.Instance
+import net.alasc.symdpoly.{OptimumFound, Relaxation, Solution}
 
 class JOptimizerInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import relaxation.{gramMatrix, objectiveVector}

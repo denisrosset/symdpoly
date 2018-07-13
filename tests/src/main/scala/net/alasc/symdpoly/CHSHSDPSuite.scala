@@ -51,11 +51,12 @@ class CHSHSDPSuite extends CommonSuite {
 
     val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
 
+    /*
     val OptimumFound(_, ub, _, _) = relaxation.jOptimizerInstance.solve()
 
     import spire.math.{abs, sqrt}
     val tol = 1e-9
-    assert(abs(sqrt(8.0) - ub) < sqrt(tol))
+    assert(abs(sqrt(8.0) - ub) < sqrt(tol))*/
 
   }
 

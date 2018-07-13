@@ -11,6 +11,7 @@ class PhaseSuite extends CommonSuite {
 
 class PhasesSuite extends CommonSuite {
   import net.alasc.laws.Permutations.arbPerm
+  import laws.GenPerms._
   checkAll("IntPhaseSortedMap.group", RingLaws[Phases].abGroup)
   checkAll("IntPhaseSortedMap.involution", InvolutionLaws[Phases].involution)
   checkAll("IntPhaseSortedMap.action", ActionLaws[Phases, PhasedInt].groupAction)
@@ -18,6 +19,7 @@ class PhasesSuite extends CommonSuite {
 }
 
 class GenPermSuite extends CommonSuite {
+  import laws.GenPerms._
   checkAll("group", RingLaws[GenPerm].group)
   checkAll("action", ActionLaws[GenPerm, PhasedInt].groupAction)
 }

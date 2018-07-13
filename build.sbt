@@ -24,8 +24,9 @@ lazy val symdpoly = (project in file("."))
   .settings(moduleName := "symdpoly")
   .settings(symdpolySettings)
   .settings(noPublishSettings)
-  .aggregate(core, mosek)
-  .dependsOn(core, mosek)
+  .aggregate(core, mosek, jOptimizer, matlab, tests)
+  .dependsOn(core, mosek, jOptimizer, matlab, tests)
+
 
 lazy val core = (project in file("core"))
   .settings(moduleName := "symdpoly-core")
@@ -33,10 +34,27 @@ lazy val core = (project in file("core"))
 
 // unmanagedJars in Compile += file(Path.userHome+"/software/mosek/8/tools/platform/linux64x86/bin/mosek.jar")
 
+lazy val matlab = (project in file("matlab"))
+  .settings(moduleName := "symdpoly-matlab")
+  .settings(matlabSettings)
+  .dependsOn(core)
+
 lazy val mosek = (project in file("mosek"))
   .settings(moduleName := "symdpoly-mosek")
   .settings(symdpolySettings)
   .dependsOn(core)
+
+lazy val jOptimizer = (project in file("joptimizer"))
+  .settings(moduleName := "symdpoly-joptimizer")
+  .settings(symdpolySettings)
+  .settings(jOptimizerSettings)
+  .dependsOn(core)
+
+lazy val tests = (project in file("tests"))
+  .settings(moduleName := "symdpoly-tests")
+  .settings(symdpolySettings)
+  .settings(testsSettings)
+  .dependsOn(core, jOptimizer)
 
 lazy val symdpolySettings = buildSettings ++ commonSettings ++ publishSettings
 
@@ -44,6 +62,28 @@ lazy val buildSettings = Seq(
   name := "symdpoly",
   organization := "net.alasc",
   scalaVersion := scala212Version
+)
+
+lazy val matlabSettings = Seq(
+  libraryDependencies ++= Seq(
+    "com.diffplug.matsim" % "matfilerw" % matFileRWVersion,
+  )
+)
+
+lazy val jOptimizerSettings = Seq(
+  libraryDependencies ++= Seq(
+    "com.joptimizer" % "joptimizer" % jOptimizerVersion
+  )
+)
+
+lazy val testsSettings = Seq(
+  libraryDependencies ++= Seq(
+    "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
+    "org.scalatest" %% "scalatest" % scalaTestVersion,
+    "org.typelevel" %% "discipline" % disciplineVersion,
+    "net.alasc" %% "cyclo-laws" % spireCycloVersion,
+    "net.alasc" %% "alasc-laws" % alascVersion
+  )
 )
 
 lazy val commonSettings = Seq(
@@ -63,27 +103,17 @@ lazy val commonSettings = Seq(
     Resolver.sonatypeRepo("releases")
   ),
   libraryDependencies ++= Seq(
-    "com.diffplug.matsim" % "matfilerw" % matFileRWVersion,
     "com.github.pathikrit" %% "better-files" % betterFilesVersion,
-    "org.typelevel" %% "cats-core" % catsVersion,
-    "org.typelevel" %% "cats-kernel" % catsVersion,
-    "org.typelevel" %% "discipline" % disciplineVersion,
     "org.scala-metal" %% "metal-core" % metalVersion,
     "org.scala-metal" %% "metal-library" % metalVersion,
-    "org.scalacheck" %% "scalacheck" % scalaCheckVersion,
-    "org.scalatest" %% "scalatest" % scalaTestVersion,
     "org.typelevel" %% "spire" % spireVersion,
     "net.alasc" %% "cyclo-core" % spireCycloVersion,
-    "net.alasc" %% "cyclo-laws" % spireCycloVersion,
     "net.alasc" %% "alasc-core" % alascVersion,
-    "net.alasc" %% "alasc-laws" % alascVersion,
     "net.alasc" %% "scalin-core" % scalinVersion,
     "net.alasc" %% "scalin-alasc" % scalinVersion,
     "com.chuusai" %% "shapeless" % shapelessVersion,
     "com.lihaoyi" %% "sourcecode" % sourcecodeVersion,
-    "com.joptimizer" % "joptimizer" % jOptimizerVersion,
-    "com.jsuereth" %% "scala-arm" % scalaARMVersion,
-    "org.scala-lang" % "scala-compiler" % scalaVersion.value
+    "com.jsuereth" %% "scala-arm" % scalaARMVersion
   ),
   scalacOptions in (Compile, console) ~= {_.filterNot("-Ywarn-unused-import" == _)},
   scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value

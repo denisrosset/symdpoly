@@ -2,11 +2,15 @@ package net.alasc.symdpoly
 
 import cyclo.Cyclo
 
-import net.alasc.symdpoly.algebra.ExtraMultiplicativeMonoidLaws
 import org.typelevel.discipline.Predicate
 import spire.laws.{InvolutionLaws, RingLaws}
 
+import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
+
 class CHSHMonoidSuite extends CommonSuite {
+
+  import laws.Monos._
+  import laws.Polys._
 
   object FM extends free.MonoidDef {
 

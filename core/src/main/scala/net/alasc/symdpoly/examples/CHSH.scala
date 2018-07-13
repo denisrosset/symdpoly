@@ -51,7 +51,6 @@ object CHSH extends App {
 
   val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
 
-  println(relaxation.jOptimizerInstance.solve())
   relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
   relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
   relaxation.writeMomentIndexMatrix("chsh_moment_index_matrix.txt")
@@ -61,10 +60,10 @@ object CHSH extends App {
   /*
   relaxation.mosekInstance.writeFile("chsh.task")
   relaxation.mosekInstance.writeFile("chsh.jtask")
-   */
   relaxation.sdpaInstance.writeFile("chsh.dat-s")
   relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
   relaxation.scsInstance.writeFile("chsh_scs.mat")
   relaxation.sdpt3Instance.writeFile("chsh_sdpt3.mat")
+   */
 
 }

@@ -27,12 +27,8 @@ case class Relaxation[
 
   def isObjectiveReal: Boolean = objectiveVector.toIndexedSeq.forall(c => c.isReal)
 
-  def jOptimizerInstance: JOptimizerInstance = new JOptimizerInstance(this)
   def mosekInstance: MosekInstance = new MosekInstance(this)
-  def scsInstance: SCSInstance = new SCSInstance(this)
   def sdpaInstance: SDPAInstance = new SDPAInstance(this)
-  def sdpt3Instance: SDPT3Instance = new SDPT3Instance(this)
-  def sedumiInstance: SeDuMiInstance = new SeDuMiInstance(this)
 
   /** Writes the Gram matrix indices to the file with given filename.
     * The structure of the file is as follows

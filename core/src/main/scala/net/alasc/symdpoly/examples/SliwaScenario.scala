@@ -99,7 +99,6 @@ object GuessYourNeighborInput extends App {
   val objective = QM.quotient( p(0,0,0)(0,0,0) + p(1,1,0)(0,1,1) + p(0,1,1)(1,0,1) + p(1,0,1)(1,1,0) )/4
   val problem = L(objective).maximize()
   val relaxation = problem.symmetricRelaxation(localLevel(1), ambientGroup)
-  println(relaxation.jOptimizerInstance.solve(1e-12))
 
 }
 
@@ -111,6 +110,5 @@ object Mermin3 extends App {
   val objective = QM.quotient( ABC(1,0,0) + ABC(0,1,0) + ABC(0,0,1) - ABC(1,1,1) )
   val problem = L(objective).maximize()
   val relaxation = problem.symmetricRelaxation(localLevel(1), ambientGroup)
-  println(relaxation.jOptimizerInstance.solve(1e-9))
 
 }

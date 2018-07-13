@@ -5,8 +5,6 @@ import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp, GrpGroup}
 import net.alasc.named.{Cyclic, Symmetric}
 import net.alasc.perms.Perm
 import net.alasc.util._
-import org.scalacheck.{Arbitrary, Gen}
-import org.typelevel.discipline.Predicate
 import spire.algebra._
 import spire.math.SafeLong
 import spire.syntax.eq._
@@ -131,15 +129,6 @@ object GenPerm {
   implicit def group: Group[GenPerm] = instances
   implicit def equ: Eq[GenPerm] = instances
   implicit val phasedIntAction: Action[PhasedInt, GenPerm] = new PhasedIntGenPermAction
-
-  def gen: Gen[GenPerm] = for {
-    perm <- net.alasc.laws.Permutations.permForSize(20)
-    phases <- Phases.gen
-  } yield GenPerm(perm, phases)
-
-  implicit val arb: Arbitrary[GenPerm] = Arbitrary(gen)
-  implicit val pred: Predicate[GenPerm] = Predicate(x => true)
-
 
   /** Returns the generalized symmetric group, i.e. the wreath product of the cyclic group
     * of order m and the symmetric group of order n.

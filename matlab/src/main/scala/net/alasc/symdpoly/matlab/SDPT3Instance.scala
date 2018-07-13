@@ -1,10 +1,11 @@
-package net.alasc.symdpoly
-package solvers
+package net.alasc.symdpoly.matlab
 
 import spire.syntax.cfor._
 
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types._
+import net.alasc.symdpoly.solvers.Instance
+import net.alasc.symdpoly.{GramMatrix, Relaxation}
 
 class SDPT3Instance(val relaxation: Relaxation[_, _, _]) extends Instance {
 

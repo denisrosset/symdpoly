@@ -10,7 +10,7 @@ import spire.syntax.cfor._
 import spire.syntax.involution._
 import spire.syntax.order._
 
-import cyclo.{Cyclo, Cyclos}
+import cyclo.Cyclo
 import metal.mutable.{HashMap => MMap}
 import metal.syntax._
 
@@ -276,20 +276,6 @@ object Poly {
     (wM.value: M).polyEq
   implicit def genPermAction[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Action[Poly[M, F], GenPerm] =
     (wM.value: M).polyGenPermAction
-
-  // Methods and instances for randomized tests
-
-  def genSinglePoly[M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton]: Gen[Poly[M, F]] =
-    for {
-      c <- Cyclos.genSimpleCyclo
-      mono <- Mono.gen[M, F]
-    } yield Poly.single(mono, c)
-
-  def gen[M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton]: Gen[Poly[M, F]] =
-    Gen.listOf(genSinglePoly[M, F]).map(_.foldLeft(Poly.zero[M, F])(_ + _))
-
-  implicit def arb[M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton]: Arbitrary[Poly[M, F]] =
-    Arbitrary( gen[M, F] )
 
 }
 

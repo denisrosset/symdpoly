@@ -1,8 +1,6 @@
 package net.alasc.symdpoly.math
 
 import net.alasc.perms.Perm
-import org.scalacheck.{Arbitrary, Gen}
-import org.typelevel.discipline.Predicate
 import spire.algebra.{AbGroup, Action, Eq, Involution}
 import spire.syntax.cfor.cforRange
 import scala.annotation.tailrec
@@ -239,18 +237,11 @@ object Phases {
     new Phases(elements)
   }
 
-  def gen: Gen[Phases] = for {
-    n <- Gen.choose(0, 20)
-    phases <- Gen.containerOfN[Vector, Phase](n, Phase.gen)
-  } yield Phases(phases.zipWithIndex.map(_.swap): _*)
-
   implicit val action: Action[PhasedInt, Phases] = new PhasesPhasedIntAction
   private[this] val instances = new PhasesInstances
   implicit def equ: Eq[Phases] = instances
   implicit def abGroup: AbGroup[Phases] = instances
   implicit def involution: Involution[Phases] = instances
-  implicit val arb: Arbitrary[Phases] = Arbitrary(gen)
-  implicit val pred: Predicate[Phases] = Predicate(x => true)
 
 }
 
