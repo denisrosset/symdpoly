@@ -112,7 +112,6 @@ lazy val commonSettings = Seq(
     Resolver.sonatypeRepo("releases")
   ),
   libraryDependencies ++= Seq(
-    "com.github.pathikrit" %% "better-files" % betterFilesVersion,
     "org.scala-metal" %% "metal-core" % metalVersion,
     "org.scala-metal" %% "metal-library" % metalVersion,
     "org.typelevel" %% "spire" % spireVersion,
@@ -182,6 +181,7 @@ lazy val docSettings = Seq(
   docsMappingsAPIDir := "api",
   addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir),
   ghpagesNoJekyll := false,
+  fork := true,
   fork in tut := true,
   fork in (ScalaUnidoc, unidoc) := true,
   scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(

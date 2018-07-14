@@ -1,9 +1,9 @@
 ---
 layout: docs
-title: Output data and solvers
+title: Interfacing solvers
 ---
 
-### {{page.title}}
+# {{page.title}}
 
 As Scala is a relatively niche programming language in the physics community, we expect our users to use **SymDPoly** as a domain-specific tool (where Scala shines as a domain-specific language with notation close to the mathematical notation), and immediately export the data after the processing is done. Thus **SymDPoly** can output the problem data in a variety of formats.
 
@@ -13,7 +13,7 @@ In the following, we assume that the variable `relaxation` contains the SDP rela
 val relaxation = net.alasc.symdpoly.examples.CHSH.relaxation
 ```
 
-#### Solver input data: text-based formats
+## Solver input data: text-based formats
 
 - Mosek input file in the [Conic Benchmark Format](https://docs.mosek.com/8.1/toolbox/cbf-format.html#doc-shared-cbfformat). Use:
 
@@ -21,7 +21,13 @@ val relaxation = net.alasc.symdpoly.examples.CHSH.relaxation
 relaxation.mosekInstance.writeCBF("chsh_mosek.cbf")
 ```
 
-#### Solver input data: MAT file-based formats
+- Sparse [SDPA](http://sdpa.sourceforge.net/) input file. Use:
+
+```tut:silent
+ relaxation.sdpaInstance.writeFile("chsh_sdpa.dat-s")
+```
+
+## Solver input data: MAT file-based formats
 
 These require the `symdpoly-matlab` module, and the following import:
 
@@ -50,7 +56,7 @@ relaxation.sdpt3Instance.writeFile("chsh_sdpt3.mat")
 relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
 ```
 
-#### Java native solver
+## Java native solver
 
 For test purposes, **SymDPoly** can interface with the [JOptimizer](http://www.joptimizer.com/) package, able to solve semidefinite programs using a Barrier Method. For that, add the `symdpoly-joptimizer` package to your `build.sbt` and run:
 
@@ -59,7 +65,7 @@ import net.alasc.symdpoly.joptimizer._
 relaxation.jOptimizerInstance.solve()
 ```
 
-#### Running Mosek directly (native problem formats)
+## Running Mosek directly (native problem formats)
 
 You want to run the Mosek solver directly, without writing intermediate files, or write problems in the [Task Format](https://docs.mosek.com/8.1/toolbox/task-format.html#doc-shared-taskformat) or [JSON Format](https://docs.mosek.com/8.1/toolbox/json-format.html#doc-shared-jtaskformat) formats.
 
@@ -82,6 +88,3 @@ relaxation.mosekInstance.writeFile("chsh_mosek.task")
 relaxation.mosekInstance.writeFile("chsh_mosek.jtask")
 ```
 to write files in any of the Mosek supported formats.
-
-#### Exporting the monomial matrix structure
-

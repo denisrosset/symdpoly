@@ -15,7 +15,7 @@ Current version: **{{site.symdpolyVersion}}** for **Scala {{site.scalaVersion}}*
 
 ## A simple example
 
-An evaluation of the Tsirelson's bound for the CHSH inequality can be done in a few lines of code. See the [full explanation](docs/simple-example.html)
+An evaluation of the Tsirelson's bound for the CHSH inequality can be done in a few lines of code. See the [**full explanation**](docs/simple-example.html)
 
 First, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We import the operator types `A` and `B` in global scope.
 ```tut:silent
@@ -60,7 +60,7 @@ relaxation.jOptimizerInstance.solve()
 
 ## How to start a SymDPoly project
 
-See the [Quick Start guide](docs/quick-start.html).
+See the [**Installation guide**](docs/installation.html).
 
 ## Work in progress
 
@@ -118,7 +118,7 @@ When integrating SymDPoly with other Scala libraries, note that it is based on t
 
 SymDPoly and the group theory/linear algebra libraries it depends on were written by [Denis Rosset](https://github.com). For the implementation of the [cyclotomic number field](https://github.com/denisrosset/cyclo), we acknowledge contributions from the [GAP system](http://www.gap-system.org/Gap3/gap3.html) project.
 
-Feedback and suggestions are always welcome. We ask participants to follow the guidelines of the [Typelevel Code of Conduct](https://typelevel.org/conduct.html).
+Feedback and suggestions are always welcome. We ask participants to follow the guidelines of the [Typelevel Code of Conduct](https://typelevel.org/conduct.html) (note that **SymDPoly** is not a Typelevel project, but some of its components, e.g. **Spire** are).
 
 ## License
 

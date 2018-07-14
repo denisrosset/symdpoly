@@ -50,42 +50,24 @@ case class Relaxation[
     * and max_{r c} g(r,c) = M
     *
     */
-  def writeMomentIndexMatrix(fileName: String): Unit = {
+  def momentIndexMatrixDescription: String = {
     import scalin.immutable.dense._
-
-    import better.files._
     import gramMatrix._
     val mat = momentIndexMatrix
-    File(fileName).createIfNotExists()
-      .clear()
-      .appendLine(s"${matrixSize} ${nUniqueMonomials}")
-      .appendLines(Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ):_*)
+    s"${matrixSize} ${nUniqueMonomials}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
   }
 
   /** Writes the sign/phase of the monomials present in the Gram matrix. */
-  def writePhaseMatrix(fileName: String): Unit = {
+  def phaseMatrixDescription: String = {
     import scalin.immutable.dense._
-
-    import better.files._
     import gramMatrix._
     val mat = phaseMatrix
-    File(fileName).createIfNotExists()
-      .clear()
-      .appendLine(s"${matrixSize} ${nUniqueMonomials}")
-      .appendLines(Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ):_*)
+      s"${matrixSize}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
   }
 
-  def writeMomentMatrix(fileName: String): Unit = {
-    import better.files._
-    import gramMatrix._
-    val matString = scalin.Printer.mat(momentMatrix, Int.MaxValue, Int.MaxValue)
-    File(fileName).createIfNotExists()
-      .clear()
-      .append(matString)
-  }
+  def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
 
-  def writeCanonicalMonomials(fileName: String): Unit = {
-    import better.files._
+  def canonicalMonomialsDescription: String = {
     import gramMatrix._
     val monomials = Vector.tabulate(momentSet.nMonomials) { i =>
       import spire.compat._
@@ -93,20 +75,13 @@ case class Relaxation[
         .toSet.toVector.sorted.map(_.normalForm).mkString(", ")
       s"${i} ${momentSet.monomials(i).normalForm.normalForm}: ${orbit}"
     }
-    File(fileName).createIfNotExists()
-      .clear()
-      .appendLines(monomials:_*)
+    monomials.mkString("\n")
   }
 
-  def writeSymmetryGroupDescription(fileName: String): Unit = {
-    import better.files._
+  def symmetryGroupDescription: String = {
     import net.alasc.perms.default._
     val generators = symmetryGroup.smallGeneratingSet.map(g => free.Generator.prettyPrintGenPerm(g, valueOf[F]))
-    File(fileName).createIfNotExists()
-      .clear()
-      .appendLine(s"Number of generators: ${generators.length}")
-      .appendLine(s"Group order: ${symmetryGroup.order}")
-      .appendLines(generators:_*)
+    s"Number of generators: ${generators.length}\n" ++ s"Group order: ${symmetryGroup.order}\n" ++ generators.mkString("\n")
   }
 
 }

@@ -1,10 +1,28 @@
 options:
 
-  - title: Quick Start
-    url: docs/quick-start.html
+  - title: Installation
+    url: docs/installation.html
 
-  - title: Simple problem explained 
+  - title: Simple example 
     url: docs/simple-problem.html
 
-  - title: Output data and solvers 
+  - title: Interfacing solvers 
     url: docs/solvers.html
+
+  - title: Exporting structured data 
+    url: docs/problem-data.html
+
+  - title: Details: free algebra 
+    url: docs/free-algebra.html
+
+  - title: Details: quotient algebra 
+    url: docs/quotient-algebra.html
+
+  - title: Details: symmetries 
+    url: docs/symmetries.html
+
+  - title: Details: evaluation 
+    url: docs/evaluation.html
+
+  - title: Details: relaxation 
+    url: docs/relaxation.html
