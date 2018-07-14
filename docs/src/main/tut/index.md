@@ -73,7 +73,7 @@ See the [**Installation guide**](docs/installation.html).
 4. It does not handle scalar inequality constraints.
 5. Only real semidefinite formulations can be outputted, per the formats of the solvers currently on the market.
 
-In particular, the limitations 1., 4. and 5. are easy to add. The limitations 2. and 3. require specific handling with respect to the symmetries and are currently under active investigation.
+In particular, the limitations 1., 4. and 5. are easy to remove. The limitations 2. and 3. require specific handling with respect to the symmetries and are currently under active investigation.
 
 ## Why SymDPoly?
 
