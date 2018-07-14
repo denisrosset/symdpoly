@@ -107,6 +107,8 @@ resolvers += Resolver.bintrayRepo("denisrosset", "maven")
 libraryDependencies += "net.alasc" %% "symdpoly-core"    % "{{site.symdpolyVersion}}"
 ```
 
+You may want to add the `symdpoly-joptimizer` module if you want to perform SDP computations in native Java (e.g. for testing), `symdpoly-matlab` to export data files for Matlab-based SDP solvers, and `symdpoly-mosek` for advanced Mosek integration.
+
 When integrating SymDPoly with other Scala libraries, note that it is based on the Spire library [spire](https://github.com/non/spire) version {{site.spireVersion}}, which in turn depends on [cats-kernel](https://typelevel.org/cats).
 
 ## Documentation and Support
