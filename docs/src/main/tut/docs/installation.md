@@ -65,7 +65,7 @@ This output corresponds to the problem data in SDPA sparse format, as requested.
 
 ## Working with the Scala Read–Eval–Print Loop (REPL)
 
-Now that we are confident that the toolbox works on your computer as expected, we will perform our future exploration using the REPL. At any time, you can cut'n'paste all the statements that have being used inside a `object MyApp { ... }` in a Scala source code file and run it with `sbt run`. If you have multiple `App` objects, SBT will ask you which one you want to run.
+Now that we are confident that the toolbox works on your computer as expected, we will perform our future exploration using the REPL. At any time, you can cut'n'paste all the statements that have being used inside a `object MyApp extends App { ... }` in a Scala source code file and run it with `sbt run`. If you have multiple `App` objects, SBT will ask you which one you want to run.
 
 Thus the example above would be presented:
 
