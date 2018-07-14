@@ -1,4 +1,10 @@
 options:
 
-  - title: Basic Parsers
-    url: docs/first-steps.html
+  - title: Quick Start
+    url: docs/quick-start.html
+
+  - title: Simple problem explained 
+    url: docs/simple-problem.html
+
+  - title: Solvers 
+    url: docs/solvers.html

@@ -92,7 +92,7 @@ object SliwaScenario {
 
 }
 
-object GuessYourNeighborInput extends App {
+object GuessYourNeighborInput {
 
   import SliwaScenario._
 
@@ -103,7 +103,7 @@ object GuessYourNeighborInput extends App {
 }
 
 
-object Mermin3 extends App {
+object Mermin3 {
 
   import SliwaScenario._
 

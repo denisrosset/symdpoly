@@ -169,6 +169,13 @@ lazy val docSettings = Seq(
     "gray-light" -> "#E5E5E6",
     "gray-lighter" -> "#F4F3F4",
     "white-color" -> "#FFFFFF"),
+  micrositeConfigYaml := ConfigYml(
+    yamlCustomProperties = Map(
+      "symdpolyVersion"    -> version.value,
+      "spireVersion"    -> spireVersion,
+      "scalaVersion"  -> scalaVersion.value
+    )
+  ),
   autoAPIMappings := true,
   unidocProjectFilter in (ScalaUnidoc, unidoc) :=
     inProjects(docsSourcesAndProjects(scalaVersion.value)._2:_*),

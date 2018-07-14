@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package examples
 
-object I3322 extends App {
+object I3322 {
 
   object FM extends free.MonoidDef {
 
@@ -59,14 +59,13 @@ object I3322 extends App {
 
   val problem = L(bellOperator).maximize()
   val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
-
+/*
   relaxation.writeMomentMatrix("i3322_moment_matrix.txt")
   relaxation.writePhaseMatrix("i3322_phase_matrix.txt")
   relaxation.writeMomentIndexMatrix("i3322_moment_index_matrix.txt")
   relaxation.writeCanonicalMonomials("i3322_canonical_monomials.txt")
   relaxation.mosekInstance.writeCBF("i3322.cbf")
   relaxation.writeSymmetryGroupDescription("i3322_symmetry_group.mat")
-  /*
   relaxation.mosekInstance.writeFile("i3322.task")
   relaxation.mosekInstance.writeFile("i3322.jtask")
   relaxation.sdpaInstance.writeFile("i3322.dat-s")
