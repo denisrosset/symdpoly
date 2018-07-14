@@ -114,7 +114,7 @@ When integrating SymDPoly with other Scala libraries, note that it is based on t
 ## Documentation and Support
 
 - Chat it up on [Gitter](https://gitter.im/denisrosset/symdpoly).
-- Check the [tutorial](https://denisrosset.github.io/symdpoly/docs/first-steps.html).
+- Check the [tutorial](https://denisrosset.github.io/symdpoly/docs/installation.html).
 - Check the [Scaladoc](https://denisrosset.github.io/symdpoly/api).
 
 ## Contributors
