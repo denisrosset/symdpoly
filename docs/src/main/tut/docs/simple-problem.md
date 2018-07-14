@@ -1,7 +1,6 @@
 ---
 layout: docs
 title: Simple example
-section: "Simple example"
 position: 2
 ---
 

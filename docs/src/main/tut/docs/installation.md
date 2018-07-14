@@ -1,7 +1,6 @@
 ---
 layout: docs
 title: Installation
-section: Installation
 position: 1
 ---
 

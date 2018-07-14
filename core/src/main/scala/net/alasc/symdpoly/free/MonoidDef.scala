@@ -72,7 +72,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     *
     * Instances must be declared using "declare" before using them in monomials/polynomials.
     */
-  abstract class Op { lhs =>
+  abstract class Op extends Product { lhs =>
     def index: Int = indexFromOp(this)
     def unary_- : PhasedOp = lhs * Phase.minusOne
     def *(rhs: Phase): PhasedOp = PhasedOp(rhs, lhs)
@@ -147,7 +147,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     }
   }
 
-  def generator(f: Op => PhasedOp)(implicit name: sourcecode.Name): Generator[Free] = {
+  def generator(f: Op => PhasedOp)(implicit name: sourcecode.Name): Generator[this.type] = {
     import scala.collection.mutable.{HashMap => MMap}
     val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
     val permImages = new Array[Int](nOperators)

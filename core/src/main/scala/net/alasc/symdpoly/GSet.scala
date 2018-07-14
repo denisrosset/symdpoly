@@ -101,7 +101,9 @@ object GSet {
     }
   }
   case class Ops[F <: free.MonoidDef.Aux[F] with Singleton](opType: F#OpType) extends GSet[F] {
-    override def toString: String = opType.toString // TODO or allInstances.head.productPrefix
+    override def toString: String =
+      if (opType.allInstances.isEmpty) opType.toString
+      else opType.allInstances.head.productPrefix
     def monomials(implicit wF: Witness.Aux[F]): SortedSet[F#Monomial] = {
       implicit def o: Ordering[F#Monomial] = ordering[F]
       opType.allInstances.map(op => symdpoly.Mono.fromOp(op): F#Monomial).to[SortedSet]
@@ -109,7 +111,11 @@ object GSet {
   }
 
   case class Word[F <: free.MonoidDef.Aux[F] with Singleton](seq: Seq[F#OpType]) extends GSet[F] {
-    override def toString: String = seq.map(_.toString).mkString("*")
+    def opTypeString(opType: F#OpType): String =
+      if (opType.allInstances.isEmpty) opType.toString
+      else opType.allInstances.head.productPrefix
+
+    override def toString: String = seq.map(opTypeString).mkString("*")
     def monomials(implicit wF: Witness.Aux[F]): SortedSet[F#Monomial] = {
       def F: F = wF.value
       implicit def o: Ordering[F#Monomial] = ordering[F]

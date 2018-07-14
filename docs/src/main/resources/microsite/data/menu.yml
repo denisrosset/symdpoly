@@ -12,17 +12,17 @@ options:
   - title: Exporting structured data 
     url: docs/problem-data.html
 
-  - title: Details: free algebra 
+  - title: "Details: free algebra"
     url: docs/free-algebra.html
 
-  - title: Details: quotient algebra 
+  - title: "Details: quotient algebra"
     url: docs/quotient-algebra.html
 
-  - title: Details: symmetries 
+  - title: "Details: symmetries"
     url: docs/symmetries.html
 
-  - title: Details: evaluation 
+  - title: "Details: evaluation"
     url: docs/evaluation.html
 
-  - title: Details: relaxation 
+  - title: "Details: relaxation"
     url: docs/relaxation.html

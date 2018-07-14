@@ -17,8 +17,17 @@ package object evaluation {
     new FreeBasedEvaluator[M.type, F](Vector(), false)
   }
 
+  def cyclic[F <: free.MonoidDef.Aux[F] with Singleton]
+  (M: generic.FreeBasedMonoidDef.Aux[F] with Singleton): FreeBasedEvaluator[M.type, F] = {
+    implicit def wM: Witness.Aux[M.type] = M.witness
+    def F: F = M.Free
+    implicit def wF: Witness.Aux[F] = (M.Free: F).witnessFree
+    new FreeBasedEvaluator[M.type, F](Vector(evaluation.Equivalence.cyclic[F](x => true)), false)
+  }
+
+
   def pptSelfAdjoint[F <: free.MonoidDef.Aux[F] with Singleton]
-  (M: generic.FreeBasedMonoidDef.Aux[F] with Singleton)(partition: Seq[F#OpType]*): FreeBasedEvaluator[M.type, F] = {
+    (M: generic.FreeBasedMonoidDef.Aux[F] with Singleton)(partition: Seq[F#OpType]*): FreeBasedEvaluator[M.type, F] = {
     implicit def wM: Witness.Aux[M.type] = M.witness
     def F: F = M.Free
     implicit def wF: Witness.Aux[F] = (M.Free: F).witnessFree

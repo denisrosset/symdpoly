@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Exporting structured data
+position: 3
 ---
 
 # {{page.title}}
@@ -50,4 +51,12 @@ relaxation.phaseMatrixDescription
 Finally, a description of the symmetry group (subgroup of the ambient group) used to formulate the problem can be obtained.
 ```tut
 relaxation.symmetryGroupDescription
+```
+
+## Writing to files
+
+To write any of the above to a file, use:
+
+```tut
+scala.tools.nsc.io.File("matrix.txt").writeAll(relaxation.momentMatrixDescription)
 ```

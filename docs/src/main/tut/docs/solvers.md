@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Interfacing solvers
+position: 2
 ---
 
 # {{page.title}}

@@ -130,8 +130,8 @@ object FreeBasedEvaluator {
         if (order > 1) {
           newN += 1
           cforRange(2 until order) { j => // we do not need the index
-            scratch(newN + 1).setToContentOf(scratch(newN))
-            equiv.inPlace(scratch(newN + 1))
+            scratch(newN).setToContentOf(scratch(newN - 1))
+            equiv.inPlace(scratch(newN))
             newN += 1
           }
         }

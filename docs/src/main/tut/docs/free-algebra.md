@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Details: free algebra
+title: "Details: free algebra"
 ---
 
 # {{page.title}}
@@ -8,7 +8,7 @@ title: Details: free algebra
 
 First, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We then import the operator types `A` and `B` in global scope, instead of writing `Free.A`, `Free.B` when using them.
 ```tut:silent
-import net.alasc.symdpoly._; import net.alasc.symdpoly.joptimizer._
+import net.alasc.symdpoly._
 
 object Free extends free.MonoidDef {
   case class A(x: Int) extends HermitianOp

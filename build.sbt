@@ -182,8 +182,9 @@ lazy val docSettings = Seq(
   addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir),
   ghpagesNoJekyll := false,
   fork := true,
-  fork in tut := true,
-  fork in (ScalaUnidoc, unidoc) := true,
+  javaOptions += "-Xmx4G", // to have enough memory in forks
+//  fork in tut := true,
+//  fork in (ScalaUnidoc, unidoc) := true,
   scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
     "-Xfatal-warnings",
     "-groups",

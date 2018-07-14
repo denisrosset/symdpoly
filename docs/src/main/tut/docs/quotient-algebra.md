@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Details: quotient algebra
+title: "Details: quotient algebra"
 ---
 
 # {{page.title}}

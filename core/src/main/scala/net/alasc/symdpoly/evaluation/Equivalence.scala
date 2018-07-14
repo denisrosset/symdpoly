@@ -50,14 +50,13 @@ object Equivalence {
 
       @tailrec def iterate(prev: Int, current: Int, count: Int): Int =
         if (current == n) {
-          mono.swap(prev, first)
-          count + 1
+          count
         } else {
           mono.swap(prev, current)
-          iterate(current, findNext(current), count + 1)
+          iterate(current, findNext(current + 1), count + 1)
         }
 
-      iterate(first, second, 1)
+      iterate(first, second, 0)
     }
 
     def upperBound(degree: Int): Int = degree

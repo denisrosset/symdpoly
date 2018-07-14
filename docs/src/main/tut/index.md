@@ -1,7 +1,8 @@
 ---
 layout: home
 title:  "Home"
-section: "home"
+section: "Home"
+position: 0
 ---
 
 ![alt text](/symdpoly/img/symdpoly_logo.png "SymDPoly")
