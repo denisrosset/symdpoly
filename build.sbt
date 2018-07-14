@@ -29,25 +29,7 @@ lazy val symdpoly = (project in file("."))
   .settings(noPublishSettings)
   .aggregate(core, mosek, jOptimizer, matlab, tests)
   .dependsOn(core, mosek, jOptimizer, matlab, tests)
-  .settings(
-    bintrayReleaseOnPublish in ThisBuild := false,
-    releaseProcess := Seq[ReleaseStep](
-      checkSnapshotDependencies,
-      inquireVersions,
-      runClean,
-      runTest,
-      releaseStepCommand("docs/tut"), // annoying that we have to do this twice
-      setReleaseVersion,
-      commitReleaseVersion,
-      tagRelease,
-      publishArtifacts,
-      releaseStepCommand("bintrayRelease"),
-      releaseStepCommand("docs/publishMicrosite"),
-      setNextVersion,
-      commitNextVersion,
-      pushChanges
-    )
-  )
+
 lazy val docs = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
@@ -149,7 +131,24 @@ lazy val publishSettings = Seq(
   homepage := Some(url("http://denisrosset.github.io/symdpoly")),
   licenses += ("AGPL-V3", url("https://opensource.org/licenses/AGPL-3.0")),
   bintrayRepository := "maven",
-  publishArtifact in Test := false
+  publishArtifact in Test := false,
+  bintrayReleaseOnPublish in ThisBuild := false,
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runClean,
+    runTest,
+    releaseStepCommand("docs/tut"), // annoying that we have to do this twice
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    publishArtifacts,
+    releaseStepCommand("bintrayRelease"),
+    releaseStepCommand("docs/publishMicrosite"),
+    setNextVersion,
+    commitNextVersion,
+    pushChanges
+  )
 )
 
 
