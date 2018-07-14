@@ -1,4 +1,5 @@
 import microsites._
+import ReleaseTransformations._
 
 val scala212Version = "2.12.6"
 
@@ -28,7 +29,25 @@ lazy val symdpoly = (project in file("."))
   .settings(noPublishSettings)
   .aggregate(core, mosek, jOptimizer, matlab, tests)
   .dependsOn(core, mosek, jOptimizer, matlab, tests)
-
+  .settings(
+    bintrayReleaseOnPublish in ThisBuild := false,
+    releaseProcess := Seq[ReleaseStep](
+      checkSnapshotDependencies,
+      inquireVersions,
+      runClean,
+      runTest,
+      releaseStepCommand("docs/tut"), // annoying that we have to do this twice
+      setReleaseVersion,
+      commitReleaseVersion,
+      tagRelease,
+      publishArtifacts,
+      releaseStepCommand("bintrayRelease"),
+      releaseStepCommand("docs/publishMicrosite"),
+      setNextVersion,
+      commitNextVersion,
+      pushChanges
+    )
+  )
 lazy val docs = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(ScalaUnidocPlugin)
