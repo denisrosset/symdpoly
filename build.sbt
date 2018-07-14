@@ -236,6 +236,7 @@ lazy val commonScalacOptions = Seq(
 
 lazy val noPublishSettings = Seq(
   publish := (()),
+  bintrayRelease := (()),
   publishLocal := (()),
   publishArtifact := false
 )
