@@ -385,6 +385,10 @@
                         <span class="separator"></span>
                         <a class="trait" href="ToPoly.html" title="Typeclass that provides a conversion of an instance of type A to a polynomial."></a>
                         <a href="ToPoly.html" title="Typeclass that provides a conversion of an instance of type A to a polynomial.">ToPoly</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="defaults$.html" title=""></a>
+                        <a href="defaults$.html" title="">defaults</a>
                       </li>
               </ul>
             </div>
@@ -563,6 +567,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.Relaxation#canonicalMonomialsDescription" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="canonicalMonomialsDescription:String"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Relaxation.html#canonicalMonomialsDescription:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">canonicalMonomialsDescription</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -708,6 +728,45 @@
       </span>
       
       
+    </li><li name="net.alasc.symdpoly.Relaxation#momentIndexMatrixDescription" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="momentIndexMatrixDescription:String"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Relaxation.html#momentIndexMatrixDescription:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">momentIndexMatrixDescription</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Writes the Gram matrix indices to the file with given filename.</p><div class="fullcomment"><div class="comment cmt"><p>Writes the Gram matrix indices to the file with given filename.
+The structure of the file is as follows</p><p>Line   1: N M
+Line   2: g11 g12 ... g1N
+...
+Line 1+N: gN1 gN2 ... gNN</p><p>where N is the size of the Gram matrix, and M is the number of monomials involved,
+including the identity.</p><p>The matrix index g(r,c) takes the value</p><p>-  0 if the element is always 0
+-  1 if the element takes the constant value  1 or -1
+-  j if the element corresponds to the expectation value of j-th monomial (with a possible factor -1)</p><p>and max_{r c} g(r,c) = M</p></div></div>
+    </li><li name="net.alasc.symdpoly.Relaxation#momentMatrixDescription" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="momentMatrixDescription:String"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Relaxation.html#momentMatrixDescription:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">momentMatrixDescription</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      
     </li><li name="net.alasc.symdpoly.Relaxation#mosekInstance" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="mosekInstance:net.alasc.symdpoly.solvers.MosekInstance"></a><a id="mosekInstance:MosekInstance"></a>
       <span class="permalink">
@@ -810,6 +869,22 @@
       </span>
       
       
+    </li><li name="net.alasc.symdpoly.Relaxation#phaseMatrixDescription" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="phaseMatrixDescription:String"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Relaxation.html#phaseMatrixDescription:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">phaseMatrixDescription</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Writes the sign/phase of the monomials present in the Gram matrix.</p>
     </li><li name="net.alasc.symdpoly.Relaxation#problem" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="problem:net.alasc.symdpoly.Maximization[E,M,F]"></a><a id="problem:Maximization[E,M,F]"></a>
       <span class="permalink">
@@ -855,6 +930,22 @@
       </span>
       <span class="symbol">
         <span class="name">symmetryGroup</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<a href="math/GenPerm.html" class="extype" name="net.alasc.symdpoly.math.GenPerm">GenPerm</a>]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.Relaxation#symmetryGroupDescription" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="symmetryGroupDescription:String"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Relaxation.html#symmetryGroupDescription:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">symmetryGroupDescription</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
       
@@ -942,93 +1033,6 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="net.alasc.symdpoly.Relaxation#writeCanonicalMonomials" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="writeCanonicalMonomials(fileName:String):Unit"></a><a id="writeCanonicalMonomials(String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Relaxation.html#writeCanonicalMonomials(fileName:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">writeCanonicalMonomials</span><span class="params">(<span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      
-    </li><li name="net.alasc.symdpoly.Relaxation#writeMomentIndexMatrix" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="writeMomentIndexMatrix(fileName:String):Unit"></a><a id="writeMomentIndexMatrix(String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Relaxation.html#writeMomentIndexMatrix(fileName:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">writeMomentIndexMatrix</span><span class="params">(<span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Writes the Gram matrix indices to the file with given filename.</p><div class="fullcomment"><div class="comment cmt"><p>Writes the Gram matrix indices to the file with given filename.
-The structure of the file is as follows</p><p>Line   1: N M
-Line   2: g11 g12 ... g1N
-...
-Line 1+N: gN1 gN2 ... gNN</p><p>where N is the size of the Gram matrix, and M is the number of monomials involved,
-including the identity.</p><p>The matrix index g(r,c) takes the value</p><p>-  0 if the element is always 0
--  1 if the element takes the constant value  1 or -1
--  j if the element corresponds to the expectation value of j-th monomial (with a possible factor -1)</p><p>and max_{r c} g(r,c) = M</p></div></div>
-    </li><li name="net.alasc.symdpoly.Relaxation#writeMomentMatrix" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="writeMomentMatrix(fileName:String):Unit"></a><a id="writeMomentMatrix(String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Relaxation.html#writeMomentMatrix(fileName:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">writeMomentMatrix</span><span class="params">(<span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      
-    </li><li name="net.alasc.symdpoly.Relaxation#writePhaseMatrix" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="writePhaseMatrix(fileName:String):Unit"></a><a id="writePhaseMatrix(String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Relaxation.html#writePhaseMatrix(fileName:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">writePhaseMatrix</span><span class="params">(<span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Writes the sign/phase of the monomials present in the Gram matrix.</p>
-    </li><li name="net.alasc.symdpoly.Relaxation#writeSymmetryGroupDescription" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="writeSymmetryGroupDescription(fileName:String):Unit"></a><a id="writeSymmetryGroupDescription(String):Unit"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Relaxation.html#writeSymmetryGroupDescription(fileName:String):Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">writeSymmetryGroupDescription</span><span class="params">(<span name="fileName">fileName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      
     </li>
               </ol>
             </div>
