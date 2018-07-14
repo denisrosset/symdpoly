@@ -38,7 +38,7 @@ Then we can export the problem in the formats below.
 relaxation.scsInstance.writeFile("chsh_scs.mat")
 ```
 
-- SDPT3 format file, can be used either with [SDPT3](http://www.math.nus.edu.sg/~mattohkc/sdpt3.html), [SDPNAL](http://www.math.nus.edu.sg/~mattohkc/SDPNAL.html) (untested) or [SDPNAL+](http://www.math.nus.edu.sg/~mattohkc/SDPNALplus.html). 
+- SDPT3 format file, which can be used either with [SDPT3](http://www.math.nus.edu.sg/~mattohkc/sdpt3.html), [SDPNAL](http://www.math.nus.edu.sg/~mattohkc/SDPNAL.html) (untested) or [SDPNAL+](http://www.math.nus.edu.sg/~mattohkc/SDPNALplus.html). 
 
 ```tut:silent
 relaxation.sdpt3Instance.writeFile("chsh_sdpt3.mat")
@@ -72,10 +72,16 @@ Then, add a `lib` subfolder at the root of your project, which contains the JAR 
 
 Then, you can call:
 
-```tut:silent
+```tut
 import net.alasc.symdpoly.mosek._
-
+relaxation.mosekInstance.solve()
+```
+to run Mosek directly, and
+```tut:silent
 relaxation.mosekInstance.writeFile("chsh_mosek.task")
 relaxation.mosekInstance.writeFile("chsh_mosek.jtask")
-println(relaxation.mosekInstance.solve())
 ```
+to write files in any of the Mosek supported formats.
+
+#### Exporting the monomial matrix structure
+

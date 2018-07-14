@@ -6,5 +6,5 @@ options:
   - title: Simple problem explained 
     url: docs/simple-problem.html
 
-  - title: Solvers 
+  - title: Output data and solvers 
     url: docs/solvers.html
