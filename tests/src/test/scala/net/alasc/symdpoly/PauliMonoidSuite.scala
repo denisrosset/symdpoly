@@ -30,7 +30,7 @@ class PauliMonoidSuite extends CommonSuite {
 
   // Pauli algebra
   val QM = quotient.MonoidDef(FM)(pairSubstitutions = {
-    case (σ(i), σ(j)) if i == j => symdpoly.Mono.one
+    case (σ(i), σ(j)) if i == j => Mono.one
     case (σ(i), σ(j)) if mod1(i + 1, 3) == j => -Mono(σ(6 - i - j))*Phase.i
     case (σ(i), σ(j)) if mod1(i + 2, 3) == j => Mono(σ(6 - i - j))*Phase.i
   })

@@ -36,7 +36,7 @@ import net.alasc.symdpoly._
 import net.alasc.symdpoly.defaults._
 
 object Test extends App {
-	print(examples.CHSH.relaxation.sdpaInstance.data)
+  print(examples.CHSH.relaxation.sdpaInstance.data)
 }
 ```
 

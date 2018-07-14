@@ -44,7 +44,7 @@ The ambient group is defined simply by:
 val ambientGroup = Free.ambientGroup(swapParties, inputSwapA, outputSwapA0)
 ```
 
-Currently, **SymDPoly** does not preserve metadata about the group, but simply represents it as a finite group (using the [alasc](https://github.com/denisrosset/alasc) computational group theory library). For example, the group order is readily computed, as well as a small set of generators:
+Currently, **SymDPoly** does not preserve metadata about the group (such as the free monoid it acts on), but simply represents it as a finite group of signed/generalized permutations (using the [alasc](https://github.com/denisrosset/alasc) computational group theory library). Using the algorithms of Alasc, the group order is readily computed, as well as a small set of generators:
 
 ```tut
 ambientGroup.order
