@@ -12,14 +12,6 @@ import org.typelevel.discipline.Predicate
   * Conditions: n >= 1 and gcd(k, n) == 1
   */
 class Phase(val encoding: Int) extends AnyVal { lhs =>
-
-  /*
-  override def equals(any: Any): Boolean = any match {
-    case rhs: Phase => lhs.encoding == rhs.encoding
-    case _ => false
-  }
-  override def hashCode: Int = encoding
-    */
   def isEmpty: Boolean = false
   def _1: Int = k
   def _2: Int = n
@@ -88,6 +80,9 @@ final class PhaseInstances extends Eq[Phase] with MultiplicativeAbGroup[Phase] w
 }
 
 object Phase {
+  // implicit conversion
+  implicit def toCyclo(p: Phase): Cyclo = p.toCyclo
+
   def unapply(e: Phase): Phase = e
   val one = Phase(0, 1)
   val i = Phase(1, 4)

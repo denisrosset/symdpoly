@@ -1,13 +1,12 @@
 package net.alasc.symdpoly
 
 import cyclo.Cyclo
-
 import org.typelevel.discipline.Predicate
 import spire.laws.{InvolutionLaws, RingLaws}
-
 import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
+import spire.math.Rational
 
-class CHSHMonoidSuite extends CommonSuite {
+class CHSHAlgebraSuite extends CommonSuite {
 
   import laws.Monos._
   import laws.Polys._
@@ -68,5 +67,50 @@ class CHSHMonoidSuite extends CommonSuite {
   checkAll("nc poly ring", spire.laws.RingLaws[Poly[QM.type, FM.type]].ring)
   checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[Poly[QM.type, FM.type], Cyclo].vectorSpace)
   checkAll("nc ring involution", spire.laws.InvolutionLaws[Poly[QM.type, FM.type]].involutionMultiplicativeMonoid)
+
+  test("Sign interpretation") {
+    val e1 = A(1) - A(0) - A(0)
+    val e2 = - A(0) + A(1) - A(0)
+    val e3 = - A(0) - A(0) + A(1)
+    val e4 = - A(0) - A(0) - A(1)
+    val e5 = - (A(0) + A(0)) - A(1)
+    assert(e1 === e2)
+    assert(e1 === e3)
+    assert(e1 =!= e4)
+    assert(e4 === e5)
+  }
+
+  test("Syntax") {
+    val op = A(0)
+    val phasedOp = -A(0)
+    val mono = A(0)*A(1)
+    val phase1 = Phase.one
+    val int1 = 1
+    val rat1 = Rational.one
+    val cyc1 = Cyclo.one
+
+    // Op unary_-
+    -op
+    // Op +/-
+    op + op
+    op + phasedOp
+    op + mono
+    op + phase1
+    op + int1
+    op + rat1
+    op + cyc1
+    op - op
+    op - phasedOp
+    op - mono
+    op - phase1
+    op - int1
+    op - rat1
+    op - cyc1
+    // Op *
+    op * phase1
+    op * int1
+    op * rat1
+    op * cyc1
+  }
 
 }

@@ -1,13 +1,15 @@
 package net.alasc.symdpoly
 package free
 
+import cyclo.Cyclo
 import spire.algebra._
 import spire.syntax.cfor._
-
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
 import net.alasc.symdpoly.generic.FreeBasedMonoidDef
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
+import shapeless.Witness
+import spire.math.Rational
 
 // TODO rename package to phased
 
@@ -72,25 +74,25 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     *
     * Instances must be declared using "declare" before using them in monomials/polynomials.
     */
-  abstract class Op extends Product { lhs =>
+  abstract class Op extends Product with MonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
+    def wM: Witness.Aux[Free] = witnessFree
     def index: Int = indexFromOp(this)
+
+    def toMono: Mono[Free, Free] = Mono.fromOp(lhs)
+    def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
+    def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
+    def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
+    def *(rhs: Mono[Free, Free]): Mono[Free, Free] = lhs.toMono * rhs
+
+    // Returns PhasedOp
     def unary_- : PhasedOp = lhs * Phase.minusOne
     def *(rhs: Phase): PhasedOp = PhasedOp(rhs, lhs)
-    def *(rhs: Op): Mono[Free, Free] = Mono(lhs, rhs)
-    def +[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      Op.toPoly(lhs) + ev(rhs)
-    def -[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      Op.toPoly(lhs) - ev(rhs)
 
     /** Method that, for each operator in this ring, returns its adjoint.
       *
       * For Hermitian operators, the adjoint operation corresponds to the identity.
       */
     def adjoint: Op
-  }
-
-  object Op {
-    implicit val toPoly: ToPoly[Op, Free, Free] = {  op => symdpoly.Poly.fromMono(Mono.fromOp(op)) }
   }
 
   abstract class HermitianOp extends Op { selfOp =>
@@ -124,19 +126,17 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
   }
 
 
-  case class PhasedOp(phase: Phase, op: Op) { lhs =>
+  case class PhasedOp(phase: Phase, op: Op) extends MonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
     override def toString: String = Mono[Free](phase, op).toString
-    def +[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      PhasedOp.toPoly(lhs) + ev(rhs)
-    def -[A](rhs: A)(implicit ev: ToPoly[A, Free, Free]): Poly[Free, Free] =
-      PhasedOp.toPoly(lhs) - ev(rhs)
+    def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
+    def toMono: Mono[Free, Free] = Mono(lhs)
+    def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
+    def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
+    def *(rhs: Mono[Free, Free]): Mono[Free, Free] = lhs.toMono * rhs
   }
 
   object PhasedOp {
     implicit def fromOp(op: Op): PhasedOp = PhasedOp(Phase.one, op)
-    implicit val toPoly: ToPoly[PhasedOp, Free, Free] = {
-      case PhasedOp(phase, op) => symdpoly.Poly.single(Mono.fromOp(op), phase.toCyclo)
-    }
     implicit val phasedOpGenPermAction: Action[PhasedOp, GenPerm] = new Action[PhasedOp, GenPerm] {
       def actl(g: GenPerm, p: PhasedOp): PhasedOp = actr(p, g.inverse)
       def actr(p: PhasedOp, g: GenPerm): PhasedOp = {

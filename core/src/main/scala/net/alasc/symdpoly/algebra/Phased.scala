@@ -30,4 +30,3 @@ object Phased {
     implicit def phasedOps[A:Phased](a: A): PhasedOps[A] = new PhasedOps(a)
   }
 }
-

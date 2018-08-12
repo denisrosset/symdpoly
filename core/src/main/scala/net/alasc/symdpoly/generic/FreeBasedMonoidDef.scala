@@ -50,10 +50,6 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def polyEq: Eq[Polynomial] = polyInstances
   val polyGenPermAction: Action[Poly[self.type, Free], GenPerm] = new PolyGenPermAction
 
-  val monoToPoly: ToPoly[Mono[self.type, Free], self.type, Free] = {
-    mono => Poly.fromMono(mono)
-  }
-
   /* TODO: needs partition stabilizer in alasc
   def symmetryGroup(nRootsOfUnity: Int): Grp[GenPerm] = {
     val m = nRootsOfUnity
