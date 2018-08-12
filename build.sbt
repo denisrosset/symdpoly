@@ -106,13 +106,14 @@ lazy val commonSettings = Seq(
     "-Ywarn-dead-code",
     "-Ywarn-numeric-widen",
     "-Ywarn-value-discard"
-  )) :+ "-opt:l:inline" :+ "-opt-inline-from:<sources>" :+ "-opt-warnings", // activate optimizations
+  )),
   resolvers ++= Seq(
     "bintray/denisrosset/maven" at "https://dl.bintray.com/denisrosset/maven",
     Resolver.sonatypeRepo("snapshots"),
     Resolver.sonatypeRepo("releases")
   ),
   libraryDependencies ++= Seq(
+    "org.typelevel" %% "cats-core" % catsVersion,
     "org.scala-metal" %% "metal-core" % metalVersion,
     "org.scala-metal" %% "metal-library" % metalVersion,
     "org.typelevel" %% "spire" % spireVersion,
