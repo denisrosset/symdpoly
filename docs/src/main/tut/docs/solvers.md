@@ -77,6 +77,8 @@ libraryDependencies += "net.alasc" %% "symdpoly-mosek"    % "{{site.symdpolyVers
 
 Then, add a `lib` subfolder at the root of your project, which contains the JAR files and shared libraries of `mosek/8/tools/platform/XXX/bin` from your Mosek installation.
 
+If you are running Linux, you may want to add that `lib` subfolder to `LD_LIBRARY_PATH` as well.
+
 Then, you can call:
 
 ```tut
