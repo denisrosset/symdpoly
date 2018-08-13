@@ -32,9 +32,9 @@ val nOutputs = 3
 val nInputs = 2
 object FreeCG extends free.MonoidDef {
   case class A(a: Int, x: Int) extends HermitianOp
-  object A extends Hermitian2Type(0 to nOutputs - 1, 0 to nInputs - 1)
+  object A extends HermitianType2(0 to nOutputs - 1, 0 to nInputs - 1)
   case class B(a: Int, x: Int) extends HermitianOp
-  object B extends Hermitian2Type(0 to nOutputs - 1, 0 to nInputs - 1)
+  object B extends HermitianType2(0 to nOutputs - 1, 0 to nInputs - 1)
   val operators = Seq(A, B)
 }
 val QuotientCG = quotient.MonoidDef(FreeCG) {
