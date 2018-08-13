@@ -347,6 +347,10 @@
                         <a href="MonoPhased.html" title="">MonoPhased</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="MonoTerm.html" title=""></a>
+                        <a href="MonoTerm.html" title="">MonoTerm</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="OptimumFound.html" title=""></a>
                         <a href="OptimumFound.html" title="">OptimumFound</a>
                       </li><li class="current-entities indented3">
@@ -371,6 +375,10 @@
                         <a href="PolyGenPermAction.html" title="">PolyGenPermAction</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="trait" href="PolyTerm.html" title=""></a>
+                        <a href="PolyTerm.html" title="">PolyTerm</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="Relaxation.html" title=""></a>
                         <a href="Relaxation.html" title="">Relaxation</a>
                       </li><li class="current-entities indented3">
@@ -381,10 +389,6 @@
                         <span class="separator"></span>
                         <a class="trait" href="Solution.html" title=""></a>
                         <a href="Solution.html" title="">Solution</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="trait" href="ToPoly.html" title="Typeclass that provides a conversion of an instance of type A to a polynomial."></a>
-                        <a href="ToPoly.html" title="Typeclass that provides a conversion of an instance of type A to a polynomial.">ToPoly</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="object" href="defaults$.html" title=""></a>
@@ -414,7 +418,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Mono</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/FreeBasedMonoidDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton]=net.alasc.symdpoly.generic.FreeBasedMonoidDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="F">F &lt;: <a href="free/MonoidDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton]=net.alasc.symdpoly.free.MonoidDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">Mono</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/FreeBasedMonoidDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton]=net.alasc.symdpoly.generic.FreeBasedMonoidDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="F">F &lt;: <a href="free/MonoidDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton]=net.alasc.symdpoly.free.MonoidDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
       </span>
       </h4>
 
@@ -424,12 +428,12 @@
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
                 <span class="toggle diagram-link">
                   Type Hierarchy
                 </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 146.00 118.00" height="118pt" width="146pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 142,-114 142,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.Mono (this class)" xlink:href="#inheritance-diagram"><path d="M105.6667,-49C105.6667,-49 32.3333,-49 32.3333,-49 28.1667,-49 24,-44.8333 24,-40.6667 24,-40.6667 24,-32.3333 24,-32.3333 24,-28.1667 28.1667,-24 32.3333,-24 32.3333,-24 105.6667,-24 105.6667,-24 109.8333,-24 114,-28.1667 114,-32.3333 114,-32.3333 114,-40.6667 114,-40.6667 114,-44.8333 109.8333,-49 105.6667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../lib/class_diagram.png" y="-43.5" x="34" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="55" text-anchor="start">Mono[M, F]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="scala.AnyRef"><path d="M98.1667,-110C98.1667,-110 39.8333,-110 39.8333,-110 35.6667,-110 31.5,-105.8333 31.5,-101.6667 31.5,-101.6667 31.5,-93.3333 31.5,-93.3333 31.5,-89.1667 35.6667,-85 39.8333,-85 39.8333,-85 98.1667,-85 98.1667,-85 102.3333,-85 106.5,-89.1667 106.5,-93.3333 106.5,-93.3333 106.5,-101.6667 106.5,-101.6667 106.5,-105.8333 102.3333,-110 98.1667,-110" stroke="#418565" fill="#418565"></path><image xlink:href="../../../lib/class_diagram.png" y="-104.5" x="42" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="63" text-anchor="start">AnyRef</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="Mono[M, F] is a subtype of AnyRef"><path d="M69,-77.7386C69,-68.3393 69,-57.3803 69,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="66.5501,-77.8607 69,-84.8608 71.4501,-77.8608 66.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 146.00 118.00" height="118pt" width="146pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 142,-114 142,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.Mono (this class)" xlink:href="#inheritance-diagram"><path d="M105.6667,-49C105.6667,-49 32.3333,-49 32.3333,-49 28.1667,-49 24,-44.8333 24,-40.6667 24,-40.6667 24,-32.3333 24,-32.3333 24,-28.1667 28.1667,-24 32.3333,-24 32.3333,-24 105.6667,-24 105.6667,-24 109.8333,-24 114,-28.1667 114,-32.3333 114,-32.3333 114,-40.6667 114,-40.6667 114,-44.8333 109.8333,-49 105.6667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../lib/class_diagram.png" y="-43.5" x="34" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="55" text-anchor="start">Mono[M, F]</text></a></g></g><!-- node1 --><g class="node trait" id="graph1_1"><g id="a_trait|graph1_1"><a xlink:title="net.alasc.symdpoly.PolyTerm" xlink:href="PolyTerm.html#inheritance-diagram"><path d="M114.1667,-110C114.1667,-110 23.8333,-110 23.8333,-110 19.6667,-110 15.5,-105.8333 15.5,-101.6667 15.5,-101.6667 15.5,-93.3333 15.5,-93.3333 15.5,-89.1667 19.6667,-85 23.8333,-85 23.8333,-85 114.1667,-85 114.1667,-85 118.3333,-85 122.5,-89.1667 122.5,-93.3333 122.5,-93.3333 122.5,-101.6667 122.5,-101.6667 122.5,-105.8333 118.3333,-110 114.1667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../lib/trait_diagram.png" y="-104.5" x="26" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="47" text-anchor="start">PolyTerm[M, F]</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="Mono[M, F] is a subtype of PolyTerm[M, F]"><path d="M69,-77.7386C69,-68.3393 69,-57.3803 69,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="66.5501,-77.8607 69,-84.8608 71.4501,-77.8608 66.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
                 <div id="diagram-controls" class="hiddenContent">
                   <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
                   <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
@@ -460,7 +464,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="net.alasc.symdpoly.Mono"><span>Mono</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="net.alasc.symdpoly.Mono"><span>Mono</span></li><li class="in" name="net.alasc.symdpoly.PolyTerm"><span>PolyTerm</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -538,6 +542,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.Mono#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:net.alasc.symdpoly.Poly[M,F]):net.alasc.symdpoly.Poly[M,F]"></a><a id="*(Poly[M,F]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#*(rhs:net.alasc.symdpoly.Poly[M,F]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a> → <a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.Mono#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="*(rhs:net.alasc.symdpoly.Mono[M,F]):net.alasc.symdpoly.Mono[M,F]"></a><a id="*(Mono[M,F]):Mono[M,F]"></a>
       <span class="permalink">
@@ -570,10 +590,10 @@
       </span>
       
       
-    </li><li name="net.alasc.symdpoly.Mono#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="+[A](rhs:A)(implicitev:net.alasc.symdpoly.ToPoly[A,M,F]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+[A](A)(ToPoly[A,M,F]):Poly[M,F]"></a>
+    </li><li name="net.alasc.symdpoly.PolyTerm#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="*(Cyclo)(Aux[M]):Poly[M,F]"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Mono.html#+[A](rhs:A)(implicitev:net.alasc.symdpoly.ToPoly[A,M,F]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#*(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -582,14 +602,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.Mono.+.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="ToPoly.html" class="extype" name="net.alasc.symdpoly.ToPoly">ToPoly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.+.A">A</span>, <span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
       </span>
       
-      
-    </li><li name="net.alasc.symdpoly.Mono#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="-[A](rhs:A)(implicitev:net.alasc.symdpoly.ToPoly[A,M,F]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-[A](A)(ToPoly[A,M,F]):Poly[M,F]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="*(Rational)(Aux[M]):Poly[M,F]"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Mono.html#-[A](rhs:A)(implicitev:net.alasc.symdpoly.ToPoly[A,M,F]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#*(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -598,10 +618,314 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.Mono.-.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="ToPoly.html" class="extype" name="net.alasc.symdpoly.ToPoly">ToPoly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.-.A">A</span>, <span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
       </span>
       
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="*(Int)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#*(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
       
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.Mono#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:net.alasc.symdpoly.Poly[M,F]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(Poly[M,F]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:net.alasc.symdpoly.Poly[M,F]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a> → <a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:net.alasc.symdpoly.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(Mono[M,F])(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:net.alasc.symdpoly.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(F.PhasedOp)(Aux[M],Is[Mono[F,F],Mono[M,F]]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">F.PhasedOp</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>], <a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(F.Op)(Aux[M],Is[Mono[F,F],Mono[M,F]]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">F.Op</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>], <a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(Cyclo)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:net.alasc.symdpoly.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(Phase)(DummyImplicit,Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:net.alasc.symdpoly.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>, <span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(Rational)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="+(Int)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#+(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:net.alasc.symdpoly.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-(Mono[M,F])(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#-(rhs:net.alasc.symdpoly.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-(F.PhasedOp)(Aux[M],Is[Mono[F,F],Mono[M,F]]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#-(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">F.PhasedOp</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>], <a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-(F.Op)(Aux[M],Is[Mono[F,F],Mono[M,F]]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#-(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.Mono[F,F],net.alasc.symdpoly.Mono[M,F]]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">F.Op</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>], <a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-(Cyclo)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#-(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:net.alasc.symdpoly.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-(Phase)(DummyImplicit,Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#-(rhs:net.alasc.symdpoly.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>, <span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-(Rational)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#-(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="-(Int)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#-(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="/(Cyclo)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#/(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="/(Rational)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#/(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.PolyTerm#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]"></a><a id="/(Int)(Aux[M]):Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#/(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>]</span>)</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
@@ -732,6 +1056,8 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -802,28 +1128,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a> → AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Mono.html#finalize():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.lang.Throwable]</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -841,6 +1145,8 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.Mono#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -989,6 +1295,8 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
         </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
@@ -1007,6 +1315,8 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.Mono#phase" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
@@ -1057,6 +1367,22 @@
       </span>
       
       
+    </li><li name="net.alasc.symdpoly.Mono#pow" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="pow(rhs:Int):net.alasc.symdpoly.Mono[M,F]"></a><a id="pow(Int):Mono[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#pow(rhs:Int):net.alasc.symdpoly.Mono[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">pow</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -1089,6 +1415,22 @@
       </span>
       
       
+    </li><li name="net.alasc.symdpoly.Mono#toPoly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toPoly:net.alasc.symdpoly.Poly[M,F]"></a><a id="toPoly:Poly[M,F]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#toPoly:net.alasc.symdpoly.Poly[M,F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toPoly</span><span class="result">: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.Poly">Poly</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.Mono">Mono</a> → <a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.Mono#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
@@ -1138,28 +1480,6 @@
       
       
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/Mono.html#wait():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
       <a href="../../../net/alasc/symdpoly/Mono.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
@@ -1205,17 +1525,70 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li>
               </ol>
             </div>
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/Mono.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@Deprecated</span>
+              
+                <span class="name">@deprecated</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="net.alasc.symdpoly.PolyTerm">
+              <h3>Inherited from <a href="PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a>[<span class="extype" name="net.alasc.symdpoly.Mono.M">M</span>, <span class="extype" name="net.alasc.symdpoly.Mono.F">F</span>]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

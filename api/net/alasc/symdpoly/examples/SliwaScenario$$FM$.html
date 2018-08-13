@@ -436,9 +436,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef.Op" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="OpextendsProduct"></a><a id="Op:Op"></a>
+      <a id="OpextendsProductwithMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]"></a><a id="Op:Op"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef.html#OpextendsProduct" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef.html#OpextendsProductwithMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -447,7 +447,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Base class for operator variables." href="../free/MonoidDef$Op.html"><span class="name">Op</span></a><span class="result"> extends <span class="extype" name="scala.Product">Product</span></span>
+        <a title="Base class for operator variables." href="../free/MonoidDef$Op.html"><span class="name">Op</span></a><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <a href="../MonoTerm.html" class="extype" name="net.alasc.symdpoly.MonoTerm">MonoTerm</a>[<a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>] with <a href="../PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a>[<a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Base class for operator variables.</p><div class="fullcomment"><div class="comment cmt"><p>Base class for operator variables.</p><p>Instances must be declared using &quot;declare&quot; before using them in monomials/polynomials.
@@ -469,9 +469,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef.PhasedOp" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="PhasedOpextendsProductwithSerializable"></a><a id="PhasedOp:PhasedOp"></a>
+      <a id="PhasedOpextendsMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]withProductwithSerializable"></a><a id="PhasedOp:PhasedOp"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef.html#PhasedOpextendsProductwithSerializable" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef.html#PhasedOpextendsMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]withProductwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -480,7 +480,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="../free/MonoidDef$PhasedOp.html"><span class="name">PhasedOp</span></a><span class="params">(<span name="phase">phase: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>, <span name="op">op: <a href="../free/MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="../free/MonoidDef$PhasedOp.html"><span class="name">PhasedOp</span></a><span class="params">(<span name="phase">phase: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>, <span name="op">op: <a href="../free/MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>)</span><span class="result"> extends <a href="../MonoTerm.html" class="extype" name="net.alasc.symdpoly.MonoTerm">MonoTerm</a>[<a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>] with <a href="../PolyTerm.html" class="extype" name="net.alasc.symdpoly.PolyTerm">PolyTerm</a>[<a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="../free/MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
@@ -606,6 +606,8 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -644,28 +646,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/examples/SliwaScenario$$FM$.html#finalize():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.lang.Throwable]</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef#generator" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="generator(f:MonoidDef.this.Op=&gt;MonoidDef.this.PhasedOp)(implicitname:sourcecode.Name):net.alasc.symdpoly.free.Generator[MonoidDef.this.type]"></a><a id="generator((Op)⇒PhasedOp)(Name):Generator[FM.this.type]"></a>
       <span class="permalink">
@@ -678,7 +658,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">generator</span><span class="params">(<span name="f">f: (<a href="#OpextendsProduct" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>) ⇒ <a href="#PhasedOpextendsProductwithSerializable" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">PhasedOp</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="name">name: <span class="extype" name="sourcecode.Name">Name</span></span>)</span><span class="result">: <a href="../free/Generator.html" class="extype" name="net.alasc.symdpoly.free.Generator">Generator</a>[<a href="" class="extype" name="net.alasc.symdpoly.examples.SliwaScenario.FM">FM</a>.this.type]</span>
+        <span class="name">generator</span><span class="params">(<span name="f">f: (<a href="#OpextendsProductwithMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>) ⇒ <a href="#PhasedOpextendsMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]withProductwithSerializable" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">PhasedOp</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="name">name: <span class="extype" name="sourcecode.Name">Name</span></span>)</span><span class="result">: <a href="../free/Generator.html" class="extype" name="net.alasc.symdpoly.free.Generator">Generator</a>[<a href="" class="extype" name="net.alasc.symdpoly.examples.SliwaScenario.FM">FM</a>.this.type]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
@@ -700,6 +680,8 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
         </dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
@@ -718,6 +700,8 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef#immutableMutableWordMinusOne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -828,7 +812,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">indexFromOp</span><span class="params">(<span name="o">o: <a href="#OpextendsProduct" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">indexFromOp</span><span class="params">(<span name="o">o: <a href="#OpextendsProductwithMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
@@ -928,22 +912,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/FreeBasedMonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef">FreeBasedMonoidDef</a> → <a href="../generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.generic.FreeBasedMonoidDef#monoToPoly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="monoToPoly:net.alasc.symdpoly.ToPoly[net.alasc.symdpoly.Mono[FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free],FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free]"></a><a id="monoToPoly:ToPoly[Mono[FM.this.type,Free],FM.this.type,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/examples/SliwaScenario$$FM$.html#monoToPoly:net.alasc.symdpoly.ToPoly[net.alasc.symdpoly.Mono[FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free],FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">monoToPoly</span><span class="result">: <a href="../ToPoly.html" class="extype" name="net.alasc.symdpoly.ToPoly">ToPoly</a>[<a href="../Mono.html" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<a href="" class="extype" name="net.alasc.symdpoly.examples.SliwaScenario.FM">FM</a>.this.type, <a href="#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.examples.SliwaScenario.FM.Free">Free</a>], <a href="" class="extype" name="net.alasc.symdpoly.examples.SliwaScenario.FM">FM</a>.this.type, <a href="#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.examples.SliwaScenario.FM.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/FreeBasedMonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef">FreeBasedMonoidDef</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef#mutableWordOrder" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="mutableWordOrder:net.alasc.symdpoly.free.MutableWordOrder[MonoidDef.this.Free]"></a><a id="mutableWordOrder:MutableWordOrder[Free]"></a>
       <span class="permalink">
@@ -1010,6 +978,8 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
         </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
@@ -1028,6 +998,8 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic.FreeBasedMonoidDef#one" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -1058,7 +1030,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">opFromIndex</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#OpextendsProduct" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>
+        <span class="name">opFromIndex</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#OpextendsProductwithMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
@@ -1074,7 +1046,7 @@
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">opIndexMap</span><span class="result">: <a href="../free/IndexMap.html" class="extype" name="net.alasc.symdpoly.free.IndexMap">IndexMap</a>[<a href="#OpextendsProduct" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>]</span>
+        <span class="name">opIndexMap</span><span class="result">: <a href="../free/IndexMap.html" class="extype" name="net.alasc.symdpoly.free.IndexMap">IndexMap</a>[<a href="#OpextendsProductwithMonoTerm[MonoidDef.this.Free,MonoidDef.this.Free]withPolyTerm[MonoidDef.this.Free,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
@@ -1287,28 +1259,6 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/examples/SliwaScenario$$FM$.html#wait():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/examples/SliwaScenario$$FM$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
@@ -1348,6 +1298,28 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/examples/SliwaScenario$$FM$.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
@@ -1450,22 +1422,6 @@
       </span>
       
       
-    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="Op"></a><a id="Op:Op"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef.html#Op" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../free/MonoidDef$Op$.html"><span class="name">Op</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef.PhasedOp" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="PhasedOp"></a><a id="PhasedOp:PhasedOp"></a>
       <span class="permalink">
@@ -1488,7 +1444,36 @@
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/examples/SliwaScenario$$FM$.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@Deprecated</span>
+              
+                <span class="name">@deprecated</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">

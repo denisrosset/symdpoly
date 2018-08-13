@@ -187,7 +187,7 @@ this; then code can be reused between free monoids and their quotients.
             <span class="toggle">
               Known Subclasses
             </span>
-            <div class="subClasses hiddenContent"><a href="../examples/CHSH$$Free$.html" class="extype" name="net.alasc.symdpoly.examples.CHSH.Free">Free</a>, <a href="../examples/Cyclic$$Free$.html" class="extype" name="net.alasc.symdpoly.examples.Cyclic.Free">Free</a>, <a href="../examples/I3322$$FM$.html" class="extype" name="net.alasc.symdpoly.examples.I3322.FM">FM</a>, <a href="../examples/SliwaScenario$$FM$.html" class="extype" name="net.alasc.symdpoly.examples.SliwaScenario.FM">FM</a>, <a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a>, <a href="../quotient/MonoidDef.html" class="extype" name="net.alasc.symdpoly.quotient.MonoidDef">MonoidDef</a></div>
+            <div class="subClasses hiddenContent"><a href="../examples/CHSH$$Free$.html" class="extype" name="net.alasc.symdpoly.examples.CHSH.Free">Free</a>, <a href="../examples/Choi$$Free$.html" class="extype" name="net.alasc.symdpoly.examples.Choi.Free">Free</a>, <a href="../examples/Cyclic$$Free$.html" class="extype" name="net.alasc.symdpoly.examples.Cyclic.Free">Free</a>, <a href="../examples/I3322$$FM$.html" class="extype" name="net.alasc.symdpoly.examples.I3322.FM">FM</a>, <a href="../examples/SliwaScenario$$FM$.html" class="extype" name="net.alasc.symdpoly.examples.SliwaScenario.FM">FM</a>, <a href="../free/MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a>, <a href="../quotient/MonoidDef.html" class="extype" name="net.alasc.symdpoly.quotient.MonoidDef">MonoidDef</a></div>
           </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
                 <span class="toggle diagram-link">
                   Type Hierarchy
@@ -501,6 +501,8 @@ this; then code can be reused between free monoids and their quotients.
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -539,28 +541,6 @@ this; then code can be reused between free monoids and their quotients.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/FreeBasedMonoidDef.html#finalize():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.lang.Throwable]</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -578,6 +558,8 @@ this; then code can be reused between free monoids and their quotients.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -597,6 +579,8 @@ this; then code can be reused between free monoids and their quotients.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#impWitness" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -711,22 +695,6 @@ this; then code can be reused between free monoids and their quotients.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef">FreeBasedMonoidDef</a> → <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.generic.FreeBasedMonoidDef#monoToPoly" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="monoToPoly:net.alasc.symdpoly.ToPoly[net.alasc.symdpoly.Mono[FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free],FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free]"></a><a id="monoToPoly:ToPoly[Mono[FreeBasedMonoidDef.this.type,Free],FreeBasedMonoidDef.this.type,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/FreeBasedMonoidDef.html#monoToPoly:net.alasc.symdpoly.ToPoly[net.alasc.symdpoly.Mono[FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free],FreeBasedMonoidDef.this.type,FreeBasedMonoidDef.this.Free]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">monoToPoly</span><span class="result">: <a href="../ToPoly.html" class="extype" name="net.alasc.symdpoly.ToPoly">ToPoly</a>[<a href="../Mono.html" class="extype" name="net.alasc.symdpoly.Mono">Mono</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef">FreeBasedMonoidDef</a>.this.type, <a href="#Free&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton{typeFree=FreeBasedMonoidDef.this.Free}" class="extmbr" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef.Free">Free</a>], <a href="" class="extype" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef">FreeBasedMonoidDef</a>.this.type, <a href="#Free&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton{typeFree=FreeBasedMonoidDef.this.Free}" class="extmbr" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -761,6 +729,8 @@ this; then code can be reused between free monoids and their quotients.
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
         </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
@@ -779,6 +749,8 @@ this; then code can be reused between free monoids and their quotients.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic.FreeBasedMonoidDef#one" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -958,28 +930,6 @@ this; then code can be reused between free monoids and their quotients.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/FreeBasedMonoidDef.html#wait():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/generic/FreeBasedMonoidDef.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
@@ -1019,6 +969,28 @@ this; then code can be reused between free monoids and their quotients.
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/FreeBasedMonoidDef.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
@@ -1079,7 +1051,36 @@ this; then code can be reused between free monoids and their quotients.
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/FreeBasedMonoidDef.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@Deprecated</span>
+              
+                <span class="name">@deprecated</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
