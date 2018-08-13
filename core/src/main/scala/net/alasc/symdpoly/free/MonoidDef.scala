@@ -113,18 +113,29 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     def apply(i: Int, adjoint: Boolean): Op
   }
 
-  abstract class Hermitian2Type(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
+  abstract class HermitianType2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i)) yield apply(i, j)
     def apply(i: Int, j: Int): Op
   }
 
-  abstract class NonHermitian2Type(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
+  abstract class NonHermitianType2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); a <- Seq(false, true)) yield apply(i, j, a)
     def apply(i: Int, j: Int, adjoint: Boolean): Op
   }
 
+  abstract class HermitianType3(iSeq: Seq[Int], jSeq: Int => Seq[Int], kSeq: (Int, Int) => Seq[Int]) extends OpType {
+    def this(iSeq: Seq[Int], jSeq: Seq[Int], kSeq: Seq[Int]) = this(iSeq, i => jSeq, (i, j) => kSeq)
+    val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); k <- kSeq(i, j)) yield apply(i, j, k)
+    def apply(i: Int, j: Int, k: Int): Op
+  }
+
+  abstract class NonHermitianType3(iSeq: Seq[Int], jSeq: Int => Seq[Int], kSeq: (Int, Int) => Seq[Int]) extends OpType {
+    def this(iSeq: Seq[Int], jSeq: Seq[Int], kSeq: Seq[Int]) = this(iSeq, i => jSeq, (i, j) => kSeq)
+    val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); k <- kSeq(i, j); a <- Seq(false, true)) yield apply(i, j, k, a)
+    def apply(i: Int, j: Int, k: Int, adjoint: Boolean): Op
+  }
 
   case class PhasedOp(phase: Phase, op: Op) extends MonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
     override def toString: String = Mono[Free](phase, op).toString
