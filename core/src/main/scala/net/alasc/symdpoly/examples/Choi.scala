@@ -26,11 +26,11 @@ object Choi extends App {
     case (op1, op2) => op1 * op2
   }
 
-  val B = X(1).pow(2)*Y(1).pow(2) + X(2)*X(2)*Y(2)*Y(2) + X(3)*X(3)*Y(3)*Y(3) -
+  val B = X(1).pow(2)*Y(1).pow(2) + X(2).pow(2)*Y(2).pow(2) + X(3).pow(2)*Y(3).pow(2) -
     (X(1)*X(2)*Y(1)*Y(2) + X(2)*X(3)*Y(2)*Y(3) + X(3)*X(1)*Y(3)*Y(1)) * 2 +
-    (X(1)*X(1)*Y(2)*Y(2) + X(2)*X(2)*Y(3)*Y(3) + X(3)*X(3)*Y(1)*Y(1))
+    (X(1).pow(2)*Y(2).pow(2) + X(2).pow(2)*Y(3).pow(2) + X(3).pow(2)*Y(1).pow(2))
 
-  val S = (X(1)*X(1) + X(2)*X(2) + X(3)*X(3) + Y(1)*Y(1) + Y(2)*Y(2) + Y(3)*Y(3))
+  val S = (X(1).pow(2) + X(2).pow(2) + X(3).pow(2) + Y(1).pow(2) + Y(2).pow(2) + Y(3).pow(2))
 
   val flipX1 = Free.generator {
     case X(1) => -X(1)
