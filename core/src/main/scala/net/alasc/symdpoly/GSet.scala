@@ -54,20 +54,20 @@ object GSet {
   }
 
   /** Construct a set of monomials of degree 1 containing the given operators. */
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton](opTypes: F#OpType*): GSet[F] =
-    if (opTypes.length == 0) empty[F]
-    else if (opTypes.length == 1) Ops(opTypes(0))
-    else Sequence(opTypes.map(Ops(_)))
+  def apply[F <: free.MonoidDef.Aux[F] with Singleton](opEnums: F#OpEnum*): GSet[F] =
+    if (opEnums.length == 0) empty[F]
+    else if (opEnums.length == 1) Ops(opEnums(0))
+    else Sequence(opEnums.map(Ops(_)))
 
   /** Construct a set of monomials of degree 1 containing the given operators, adjoined with the identity. */
-  def onePlus[F <: free.MonoidDef.Aux[F] with Singleton](opTypes: F#OpType*): GSet[F] =
-    if (opTypes.length == 0) id[F]
-    else Sequence(id[F] +: opTypes.map(Ops(_)))
+  def onePlus[F <: free.MonoidDef.Aux[F] with Singleton](opEnums: F#OpEnum*): GSet[F] =
+    if (opEnums.length == 0) id[F]
+    else Sequence(id[F] +: opEnums.map(Ops(_)))
 
   /** Construct all possible words containing the given operator types. */
-  def word[F <: free.MonoidDef.Aux[F] with Singleton](opTypes: F#OpType*): GSet[F] =
-    if (opTypes.length == 0) id[F]
-    else Word(opTypes)
+  def word[F <: free.MonoidDef.Aux[F] with Singleton](opEnums: F#OpEnum*): GSet[F] =
+    if (opEnums.length == 0) id[F]
+    else Word(opEnums)
 
   def empty[M <: generic.MonoidDef with Singleton]: GSet[M] = Empty[M]
 
@@ -100,22 +100,22 @@ object GSet {
       SortedSet((wM.value: M).one)
     }
   }
-  case class Ops[F <: free.MonoidDef.Aux[F] with Singleton](opType: F#OpType) extends GSet[F] {
+  case class Ops[F <: free.MonoidDef.Aux[F] with Singleton](opEnum: F#OpEnum) extends GSet[F] {
     override def toString: String =
-      if (opType.allInstances.isEmpty) opType.toString
-      else opType.allInstances.head.productPrefix
+      if (opEnum.allInstances.isEmpty) opEnum.toString
+      else opEnum.allInstances.head.productPrefix
     def monomials(implicit wF: Witness.Aux[F]): SortedSet[F#Monomial] = {
       implicit def o: Ordering[F#Monomial] = ordering[F]
-      opType.allInstances.map(op => symdpoly.Mono.fromOp(op): F#Monomial).to[SortedSet]
+      opEnum.allInstances.map(op => symdpoly.Mono.fromOp(op): F#Monomial).to[SortedSet]
     }
   }
 
-  case class Word[F <: free.MonoidDef.Aux[F] with Singleton](seq: Seq[F#OpType]) extends GSet[F] {
-    def opTypeString(opType: F#OpType): String =
-      if (opType.allInstances.isEmpty) opType.toString
-      else opType.allInstances.head.productPrefix
+  case class Word[F <: free.MonoidDef.Aux[F] with Singleton](seq: Seq[F#OpEnum]) extends GSet[F] {
+    def opEnumString(opEnum: F#OpEnum): String =
+      if (opEnum.allInstances.isEmpty) opEnum.toString
+      else opEnum.allInstances.head.productPrefix
 
-    override def toString: String = seq.map(opTypeString).mkString("*")
+    override def toString: String = seq.map(opEnumString).mkString("*")
     def monomials(implicit wF: Witness.Aux[F]): SortedSet[F#Monomial] = {
       def F: F = wF.value
       implicit def o: Ordering[F#Monomial] = ordering[F]
