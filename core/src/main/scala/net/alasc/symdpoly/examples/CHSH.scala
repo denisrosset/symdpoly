@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package examples
 
-object CHSH {
+object CHSH extends App {
 
   object Free extends free.MonoidDef {
 
@@ -51,6 +51,7 @@ object CHSH {
 
   val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
 
+  relaxation.mosekInstance.writeCBF("chsh.cbf")
 /*  relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
   relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
   relaxation.writeMomentIndexMatrix("chsh_moment_index_matrix.txt")

@@ -11,8 +11,6 @@ import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
 
-// TODO rename package to phased
-
 class IndexMap[A](val index: Map[A, Int], val element: Seq[A]) {
   def size: Int = element.size
 }
@@ -34,6 +32,8 @@ object IndexMap {
   */
 abstract class MonoidDef extends FreeBasedMonoidDef {
   monoidDef =>
+
+  import MonoidDef.booleans
 
   def operators: Seq[OpType]
 
@@ -99,42 +99,75 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     def adjoint: Op = selfOp
   }
 
-  trait OpType {
+  sealed abstract class OpEnum {
+    def name: String
+    def allInstances: Seq[Op]
+  }
+
+  object OpEnum {
+    def fromSeq(name0: String, seq: Seq[Op]): OpEnum =
+      new OpEnum {
+        def name: String = name0
+        def allInstances: Seq[Op] = seq
+      }
+  }
+
+  trait OpType extends OpEnum {
+    def name: String = allInstances match {
+      case Seq(hd, _*) => hd.productPrefix
+      case _ => "{}"
+    }
     def allInstances: Seq[Op]
   }
 
   abstract class HermitianType1(iSeq: Seq[Int]) extends OpType {
     val allInstances: Seq[Op] = iSeq.map(apply)
     def apply(i: Int): Op
+    protected def instances(si: Slice): Seq[Op] = for (i <- iSeq if si.contains(i)) yield apply(i)
+    def slice(si: Slice): OpEnum = OpEnum.fromSeq(s"$name($si)", instances(si))
   }
 
   abstract class NonHermitianType1(iSeq: Seq[Int]) extends OpType {
     val allInstances: Seq[Op] = for (i <- iSeq; a <- Seq(false, true)) yield apply(i, a)
     def apply(i: Int, adjoint: Boolean): Op
+    protected def instances(si: Slice): Seq[Op] = for (i <- iSeq if si.contains(i); a <- booleans) yield apply(i, a)
+    def slice(si: Slice): OpEnum = OpEnum.fromSeq(s"$name($si)", instances(si))
   }
 
   abstract class HermitianType2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i)) yield apply(i, j)
     def apply(i: Int, j: Int): Op
+    protected def instances(si: Slice, sj: Slice): Seq[Op] =
+      for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j)) yield apply(i, j)
+    def slice(si: Slice, sj: Slice): OpEnum = OpEnum.fromSeq(s"$name($si, $sj)", instances(si, sj))
   }
 
   abstract class NonHermitianType2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); a <- Seq(false, true)) yield apply(i, j, a)
     def apply(i: Int, j: Int, adjoint: Boolean): Op
+    protected def instances(si: Slice, sj: Slice): Seq[Op] =
+      for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j); a <- booleans) yield apply(i, j, a)
+    def slice(si: Slice, sj: Slice): OpEnum = OpEnum.fromSeq(s"$name($si, $sj)", instances(si, sj))
   }
 
   abstract class HermitianType3(iSeq: Seq[Int], jSeq: Int => Seq[Int], kSeq: (Int, Int) => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int], kSeq: Seq[Int]) = this(iSeq, i => jSeq, (i, j) => kSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); k <- kSeq(i, j)) yield apply(i, j, k)
     def apply(i: Int, j: Int, k: Int): Op
+    protected def instances(si: Slice, sj: Slice, sk: Slice): Seq[Op] =
+      for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j); k <- kSeq(i, j) if sk.contains(k)) yield apply(i, j, k)
+    def slice(si: Slice, sj: Slice, sk: Slice): OpEnum = OpEnum.fromSeq(s"$name($si, $sj, $sk)", instances(si, sj, sk))
   }
 
   abstract class NonHermitianType3(iSeq: Seq[Int], jSeq: Int => Seq[Int], kSeq: (Int, Int) => Seq[Int]) extends OpType {
     def this(iSeq: Seq[Int], jSeq: Seq[Int], kSeq: Seq[Int]) = this(iSeq, i => jSeq, (i, j) => kSeq)
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); k <- kSeq(i, j); a <- Seq(false, true)) yield apply(i, j, k, a)
     def apply(i: Int, j: Int, k: Int, adjoint: Boolean): Op
+    protected def instances(si: Slice, sj: Slice, sk: Slice): Seq[Op] =
+      for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j); k <- kSeq(i, j) if sk.contains(k); a <- booleans) yield apply(i, j, k, a)
+    def slice(si: Slice, sj: Slice, sk: Slice): OpEnum = OpEnum.fromSeq(s"$name($si, $sj, $sk)", instances(si, sj, sk))
   }
 
   case class PhasedOp(phase: Phase, op: Op) extends MonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
@@ -176,5 +209,6 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
 }
 
 object MonoidDef {
+  val booleans = Seq(true, false)
   type Aux[F <: MonoidDef with Singleton] = MonoidDef { type Free = F }
 }
