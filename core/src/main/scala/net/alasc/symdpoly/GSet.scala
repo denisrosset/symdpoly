@@ -28,7 +28,10 @@ sealed trait GSet[M <: generic.MonoidDef with Singleton] { lhs =>
 
 object GSet {
 
-  implicit class RichGSet[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](val lhs: GSet[M]) {
+  implicit class RichGSet[
+    M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+    F <: free.MonoidDef.Aux[F] with Singleton
+  ](val lhs: GSet[M with FreeBasedMonoidDef.Aux[F]]) {
     def orbit[G](grp: Grp[G])(implicit action: Action[Mono[M, F], G]): GSet[M] = Orbit[G, M, F](lhs, grp)
   }
 
