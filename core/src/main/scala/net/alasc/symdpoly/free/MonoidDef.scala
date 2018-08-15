@@ -99,7 +99,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     def adjoint: Op = selfOp
   }
 
-  sealed abstract class OpEnum {
+  sealed trait OpEnum {
     def name: String
     def allInstances: Seq[Op]
   }
