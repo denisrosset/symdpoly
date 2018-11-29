@@ -57,6 +57,8 @@ case class Relaxation[
     s"${matrixSize} ${nUniqueMonomials}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
   }
 
+  def matrixSymmetryGroup: Grp[GenPerm] = ???
+
   /** Writes the sign/phase of the monomials present in the Gram matrix. */
   def phaseMatrixDescription: String = {
     import scalin.immutable.dense._

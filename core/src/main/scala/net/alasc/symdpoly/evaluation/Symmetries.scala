@@ -122,7 +122,7 @@ object Symmetries {
     } yield coeff * phase.toCyclo) ++ Seq.fill(nOperators * rootOrder)(Cyclo.zero)
     val partition = Partition.fromSeq(coeffSeq)
     val fullDomainSubgroupGenerators = Grp(fullDomainGenerators: _*) // construct group with full action
-      .fixingPartition(action, partition) // find subgroup that fixes partition
+      .orderedPartitionStabilizer(action, partition) // find subgroup that fixes partition
       .smallGeneratingSet // find small subset of generators
     val subgroupGenerators = fullDomainSubgroupGenerators.map(g => (conj |+| g |+| conj.inverse).truncate(nOperators))
     Grp(subgroupGenerators: _*)

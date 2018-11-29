@@ -2,11 +2,14 @@ package net.alasc.symdpoly
 package generic
 
 import cyclo.Cyclo
+import net.alasc.algebra.PermutationAction
 import net.alasc.finite.Grp
+import net.alasc.partitions.Partition
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.free._
 import net.alasc.symdpoly.math.GenPerm
 import net.alasc.perms.default._
+import net.alasc.util._
 import shapeless.Witness
 import spire.algebra.{Action, Eq, Field, FieldAssociativeAlgebra, Involution, Order}
 
@@ -50,7 +53,6 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def polyEq: Eq[Polynomial] = polyInstances
   val polyGenPermAction: Action[Poly[self.type, Free], GenPerm] = new PolyGenPermAction
 
-  /* TODO: needs partition stabilizer in alasc
   def symmetryGroup(nRootsOfUnity: Int): Grp[GenPerm] = {
     val m = nRootsOfUnity
     val n = Free.nOperators
@@ -69,15 +71,13 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
       }
       def movedPointsUpperBound(g: GenPerm): NNOption = NNSome(monoSet.length - 1)
       def actl(g: GenPerm, i: Int): Int = actr(i, g.inverse)
-      def actr(i: Int, g: GenPerm): Int = monoSet.indexOf(monoSet(i) <|+| g)
+      def actr(i: Int, g: GenPerm): Int = monoSet.indexOf(Free.monoGenPermAction.actr(monoSet(i), g))
     }
     val grp = GenPerm.generalizedSymmetricGroup(m, n)
-    println(grp)
     val normalForms = monoSet.iterator.map(self.quotient(_)).toVector
     val partition = Partition.fromSeq(normalForms)
-    println(partition)
-    grp.fixingPartition(action, partition)
-  }*/
+    grp.unorderedPartitionStabilizer(action, partition)
+  }
 
   def ambientGroup(generators: Generator[Free]*): Grp[GenPerm] =
     Grp.fromGenerators(generators.map(_.opAction))
