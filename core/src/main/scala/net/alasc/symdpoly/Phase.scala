@@ -20,7 +20,7 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
   def isOne: Boolean = k == 0
   def isMinusOne: Boolean = (k == 1) && (n == 2)
   def isI: Boolean = (k == 1) && (n == 4)
-  def isMinusI = (k == 3) && (n == 4)
+  def isMinusI: Boolean = (k == 3) && (n == 4)
   def toInt: Int =
     if (isOne) 1
     else if (isMinusOne) -1

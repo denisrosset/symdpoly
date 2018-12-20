@@ -57,7 +57,6 @@ case class Relaxation[
     s"${matrixSize} ${nUniqueMonomials}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
   }
 
-  def matrixSymmetryGroup: Grp[GenPerm] = ???
 
   /** Writes the sign/phase of the monomials present in the Gram matrix. */
   def phaseMatrixDescription: String = {
@@ -80,10 +79,14 @@ case class Relaxation[
     monomials.mkString("\n")
   }
 
-  def symmetryGroupDescription: String = {
+  def describeGroup(grp: Grp[GenPerm], printGen: GenPerm => String): String = {
     import net.alasc.perms.default._
-    val generators = symmetryGroup.smallGeneratingSet.map(g => free.Generator.prettyPrintGenPerm(g, valueOf[F]))
-    s"Number of generators: ${generators.length}\n" ++ s"Group order: ${symmetryGroup.order}\n" ++ generators.mkString("\n")
+    val generators = grp.smallGeneratingSet.map(printGen)
+    s"Number of generators: ${generators.length}\n" ++ s"Group order: ${grp.order}\n" ++ generators.mkString("\n")
   }
+
+  def symmetryGroupDescription: String = describeGroup(symmetryGroup, g => free.Generator.prettyPrintGenPerm(g, valueOf[F]))
+
+  def matrixSymmetryGroupDescription: String = describeGroup(gramMatrix.matrixSymmetries, _.toString)
 
 }

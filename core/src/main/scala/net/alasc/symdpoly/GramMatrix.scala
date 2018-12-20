@@ -4,14 +4,13 @@ import shapeless.Witness
 import spire.algebra.Action
 import spire.syntax.action._
 import spire.syntax.cfor._
-
 import scalin.immutable.Mat
 import scalin.immutable.dense._
-
 import net.alasc.finite.Grp
 import net.alasc.perms.Perm
 import net.alasc.perms.default._
 import net.alasc.symdpoly
+import net.alasc.symdpoly.algebra.Homomorphism
 import net.alasc.symdpoly.evaluation.FreeBasedEvaluator
 import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
@@ -22,6 +21,9 @@ class GramMatrix[
   F <: free.MonoidDef.Aux[F] with Singleton
 ](val generatingMoments: OrderedSet[Mono[M, F]],
   val momentSet: MomentSet[M, F],
+  val operatorSymmetries: Grp[GenPerm],
+  val matrixSymmetries: Grp[GenPerm],
+  val homomorphism: Homomorphism[GenPerm, GenPerm],
   private[this] val momentArray: Array[Int],
   private[this] val phaseArray: Array[Int] // phase encoding
  )(implicit wM: Witness.Aux[M]) {
@@ -84,7 +86,7 @@ object GramMatrix {
   def apply[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](gSet: GSet[M], evaluator: FreeBasedEvaluator[M, F], symmetryGroup: Grp[GenPerm] = Grp.trivial[GenPerm])(implicit wM: Witness.Aux[M]): GramMatrix[M, F] = {
+  ](gSet: GSet[M], evaluator: FreeBasedEvaluator[M, F], operatorSymmetries: Grp[GenPerm] = Grp.trivial[GenPerm])(implicit wM: Witness.Aux[M]): GramMatrix[M, F] = {
 
     def M: M = wM.value
     implicit def wF: Witness.Aux[F] = (M.Free: F).witness
@@ -94,8 +96,10 @@ object GramMatrix {
     val maxDegree = Iterator.range(0, generatingMoments.length).map(i => generatingMoments(i).data.length).max
     val sb = MomentSetBuilder.make[F]
 
-    val monoPerms = Grp(symmetryGroup.generators.map(momentSetAction(generatingMoments, _)): _*).iterator.toVector
-    val groupElements = symmetryGroup.iterator.toArray
+    val homomorphism = Homomorphism(operatorSymmetries, (g: GenPerm)  => momentSetAction(generatingMoments, g))
+    val matrixSymmetries = homomorphism.target
+    val monoPerms = matrixSymmetries.iterator.toVector
+    val groupElements = operatorSymmetries.iterator.toArray
     
     val phaseMatrix = Array.fill[Int](n * n)(Phase.one.encoding)
     val unsortedMomentMatrix = Array.fill[Int](n * n)(Int.MinValue)
@@ -170,6 +174,6 @@ object GramMatrix {
       case -1 => -1
       case i => unsortedToSorted.image(i)
     }
-    new GramMatrix[M, F](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
+    new GramMatrix[M, F](generatingMoments, sortedMoments, operatorSymmetries, matrixSymmetries, homomorphism, sortedMomentMatrix, phaseMatrix)
   }
 }
