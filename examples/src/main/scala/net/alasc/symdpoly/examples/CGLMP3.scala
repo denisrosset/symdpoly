@@ -5,6 +5,7 @@ import net.alasc.symdpoly.evaluation.Symmetries
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt}
 import net.alasc.symdpoly.{AmbientGroup, GSet, Mono, Phase, evaluation, free, quotient}
 import scalin.immutable.Mat
+import scalin.immutable.dense._
 
 object CGLMP3 extends App {
   object Free extends free.MonoidDef {
