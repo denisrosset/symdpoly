@@ -1,9 +1,7 @@
-package net.alasc.symdpoly
-package examples
+package net.alasc.symdpoly.examples
 
 import net.alasc.symdpoly.evaluation.Symmetries
-import net.alasc.symdpoly.examples.CHSH.Free
-import net.alasc.symdpoly.examples.CHSH.Free.{A, B}
+import net.alasc.symdpoly.{GSet, evaluation, free, quotient}
 
 object Choi extends App {
 

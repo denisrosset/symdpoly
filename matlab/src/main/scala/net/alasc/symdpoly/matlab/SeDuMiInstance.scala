@@ -1,17 +1,44 @@
 package net.alasc.symdpoly.matlab
 
 import spire.syntax.cfor.cforRange
-
 import com.jmatio.io.MatFileWriter
-import com.jmatio.types.{MLArray, MLDouble, MLSparse, MLStructure}
+import com.jmatio.types._
+import cyclo.Cyclo
+import net.alasc.finite.FaithfulPermutationActionBuilder
+import net.alasc.perms.Perm
+import net.alasc.symdpoly.math.GenPerm
 import net.alasc.symdpoly.solvers.Instance
 import net.alasc.symdpoly.{GramMatrix, Relaxation}
+import net.alasc.syntax.all._
+import scalin.immutable.{Mat, Vec}
 
 class SeDuMiInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import SeDuMiInstance.{SparseMatrix, SparseVector}
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.matrixSize
   require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
+  val nG = gramMatrix.operatorSymmetries.nGenerators
+  val opGens = gramMatrix.operatorSymmetries.generators
+  val fpa = FaithfulPermutationActionBuilder[GenPerm].apply(opGens)
+  val domainSize = fpa.largestMovedPoint(opGens).getOrElse(-1) + 1
+  val G: Seq[Array[Double]] = opGens.map(g => fpa.toPerm(g).images(domainSize).map(i => (i+1).toDouble).toArray)
+
+  // TODO: verify that it corresponds to the published description of GenPerm action
+  def genPermToSparseMatrix(genPerm: GenPerm, n: Int): SparseMatrix = {
+    import genPerm.{perm, phases}
+    require(phases.commonRootOrder <= 2)
+    val rows: Array[Int] = perm.images(n).toArray
+    val cols: Array[Int] = (0 until n).toArray
+    val data: Array[Double] = Array.tabulate(n)(i => phases.phaseFor(perm.image(i)).toCyclo.toRational.toDouble)
+    SparseMatrix(rows, cols, data, n, n)
+  }
+
+  val Gcell: MLCell = new MLCell("G", Array(1, nG))
+  G.zipWithIndex.foreach { case (g, i) => Gcell.set(new MLDouble(null, g, 1), i) }
+
+  val rho: Seq[SparseMatrix] = opGens.map(g => genPermToSparseMatrix(gramMatrix.homomorphism(g), matrixSize))
+  val rhoCell: MLCell = new MLCell("rho", Array(1, nG))
+  rho.zipWithIndex.foreach { case (r, i) => rhoCell.set(r.toMATLAB(null), i) }
 
   val m: Int = gramMatrix.nUniqueMonomials - 1 // number of dual variables
   val n: Int = matrixSize * matrixSize
@@ -60,6 +87,9 @@ class SeDuMiInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
     list.add(dataC)
     list.add(dataA)
     list.add(dataObjShift)
+    list.add(Gcell)
+    list.add(rhoCell)
+
     new MatFileWriter(file, list)
   }
 
@@ -93,6 +123,14 @@ object SeDuMiInstance {
   case class SparseMatrix(rows: Array[Int], cols: Array[Int], data: Array[Double], nRows: Int, nCols: Int) {
     def nEntries: Int = rows.length
     override def toString:String = s"SparseMatrix(${rows.toSeq}, ${cols.toSeq}, ${data.toSeq}, $nRows, $nCols)"
+    def toMATLAB(name: String): MLSparse = {
+      val res = new MLSparse(name, Array(nRows, nCols), 0, nEntries)
+      cforRange(0 until nEntries) { i =>
+        res.set(data(i), rows(i), cols(i))
+      }
+      res
+    }
+
   }
 
 }

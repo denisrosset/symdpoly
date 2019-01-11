@@ -50,6 +50,7 @@ class CHSHSDPSuite extends CommonSuite {
     val problem = L(bellOperator).maximize
 
     val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
+    import net.alasc.symdpoly.matlab._
 
     /*
     val OptimumFound(_, ub, _, _) = relaxation.jOptimizerInstance.solve()

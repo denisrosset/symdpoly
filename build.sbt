@@ -27,8 +27,8 @@ lazy val symdpoly = (project in file("."))
   .settings(moduleName := "symdpoly")
   .settings(symdpolySettings)
   .settings(noPublishSettings)
-  .aggregate(core, mosek, jOptimizer, matlab, tests)
-  .dependsOn(core, mosek, jOptimizer, matlab, tests)
+  .aggregate(core, mosek, jOptimizer, matlab, examples, tests)
+  .dependsOn(core, mosek, jOptimizer, matlab, examples, tests)
 
 lazy val docs = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
@@ -64,7 +64,14 @@ lazy val tests = (project in file("tests"))
   .settings(moduleName := "symdpoly-tests")
   .settings(symdpolySettings)
   .settings(testsSettings)
-  .dependsOn(core, jOptimizer)
+  .dependsOn(core, jOptimizer, matlab)
+
+lazy val examples = (project in file("examples"))
+  .settings(moduleName := "symdpoly-examples")
+  .settings(noPublishSettings)
+  .settings(symdpolySettings)
+  .settings(testsSettings)
+  .dependsOn(core, jOptimizer, matlab)
 
 lazy val symdpolySettings = buildSettings ++ commonSettings ++ publishSettings
 
