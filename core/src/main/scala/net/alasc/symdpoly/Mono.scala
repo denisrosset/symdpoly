@@ -87,7 +87,6 @@ class Mono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Au
   def apply(i: Int)(implicit ev: F =:= M): F#Op = data(i)
   def phase(implicit ev: F =:= M): Phase = data.phase
   def mutableCopy(implicit ev: F =:= M): MutableWord[F] = data.mutableCopy
-  def abs(implicit ev: F =:= M): Word[F] = Word(mutableCopy.setPhase(Phase.one).setImmutable())
 
   // to polynomials
   def toPoly: Poly[M, F] = Poly(lhs)

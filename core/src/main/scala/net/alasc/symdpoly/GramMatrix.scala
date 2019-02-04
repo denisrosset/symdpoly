@@ -1,16 +1,16 @@
 package net.alasc.symdpoly
 
 import shapeless.Witness
-import spire.algebra.Action
+import spire.algebra.{Action, Group}
 import spire.syntax.action._
 import spire.syntax.cfor._
 import scalin.immutable.Mat
 import scalin.immutable.dense._
-import net.alasc.finite.Grp
+import net.alasc.finite.{AbstractGrp, Grp}
 import net.alasc.perms.Perm
 import net.alasc.perms.default._
 import net.alasc.symdpoly
-import net.alasc.symdpoly.algebra.Homomorphism
+import net.alasc.symdpoly.algebra.{Morphism}
 import net.alasc.symdpoly.evaluation.FreeBasedEvaluator
 import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
@@ -23,7 +23,7 @@ class GramMatrix[
   val momentSet: MomentSet[M, F],
   val operatorSymmetries: Grp[GenPerm],
   val matrixSymmetries: Grp[GenPerm],
-  val homomorphism: Homomorphism[GenPerm, GenPerm],
+  val homomorphism: Morphism[GenPerm, GenPerm, Group],
   private[this] val momentArray: Array[Int],
   private[this] val phaseArray: Array[Int] // phase encoding
  )(implicit wM: Witness.Aux[M]) {
@@ -85,7 +85,7 @@ object GramMatrix {
 
   def apply[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    F <: free.MonoidDef.Aux[F] with Singleton,
   ](gSet: GSet[M], evaluator: FreeBasedEvaluator[M, F], operatorSymmetries: Grp[GenPerm] = Grp.trivial[GenPerm])(implicit wM: Witness.Aux[M]): GramMatrix[M, F] = {
 
     def M: M = wM.value
@@ -95,9 +95,8 @@ object GramMatrix {
     val generatingMomentsAdjoint = Array.tabulate(n)(i => generatingMoments(i).adjoint)
     val maxDegree = Iterator.range(0, generatingMoments.length).map(i => generatingMoments(i).data.length).max
     val sb = MomentSetBuilder.make[F]
-
-    val homomorphism = Homomorphism(operatorSymmetries, (g: GenPerm)  => momentSetAction(generatingMoments, g))
-    val matrixSymmetries = homomorphism.target
+    val homomorphism: Morphism[GenPerm, GenPerm, Group] = Morphism((g: GenPerm) => momentSetAction(generatingMoments, g))
+    val matrixSymmetries = homomorphism.grpImage(operatorSymmetries)
     val monoPerms = matrixSymmetries.iterator.toVector
     val groupElements = operatorSymmetries.iterator.toArray
     

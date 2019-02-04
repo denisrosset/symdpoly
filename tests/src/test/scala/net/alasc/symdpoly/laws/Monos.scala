@@ -4,7 +4,7 @@ package laws
 import shapeless.Witness
 import spire.NoImplicit
 
-import net.alasc.symdpoly.free.{MutableWord, Word}
+import net.alasc.symdpoly.free.MutableWord
 import net.alasc.symdpoly.generic.FreeBasedMonoidDef
 import net.alasc.symdpoly.{Mono, Phase, free}
 import org.scalacheck.{Arbitrary, Gen}
@@ -13,11 +13,14 @@ object Monos {
 
   // Generators
 
-  def genNonZeroFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Gen[Mono[F, F]] =
+  def genNonZeroFree[F <: free.MonoidDef.Aux[F] with Singleton](implicit wF: Witness.Aux[F]): Gen[Mono[F, F]] = {
+    import wF.{value => F}
     for {
       phase <- Phase.gen
-      word <- Word.gen
-    } yield new Mono[F, F](new MutableWord[F](phase, word.data.length, word.data.indices, false))
+      length <- Gen.choose(0, 8)
+      indices <- Gen.containerOfN[Array, Int](length, Gen.choose(0, F.nOperators - 1))
+    } yield new Mono[F, F](new MutableWord[F](phase, length, indices, false))
+  }
 
   // Generator for a random free monomial
   def genFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Gen[Mono[F, F]] =
