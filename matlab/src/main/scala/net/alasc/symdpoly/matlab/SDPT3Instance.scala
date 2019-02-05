@@ -6,13 +6,14 @@ import com.jmatio.io.MatFileWriter
 import com.jmatio.types._
 import net.alasc.symdpoly.solvers.Instance
 import net.alasc.symdpoly.{GramMatrix, Relaxation}
+import net.alasc.symdpoly.algebra.Phased.syntax._
 
 class SDPT3Instance(val relaxation: Relaxation[_, _, _]) extends Instance {
 
   import SDPT3Instance.{SparseMatrix, SparseVector}
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.{matrixSize => d}
-  require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
+  // TODO require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
   val m: Int = gramMatrix.nUniqueMonomials - 1 // number of dual variables
   val n: Int = d * (d + 1) / 2
 

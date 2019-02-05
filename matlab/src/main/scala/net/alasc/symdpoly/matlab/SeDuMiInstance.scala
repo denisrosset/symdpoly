@@ -11,12 +11,13 @@ import net.alasc.symdpoly.solvers.Instance
 import net.alasc.symdpoly.{GramMatrix, Relaxation}
 import net.alasc.syntax.all._
 import scalin.immutable.{Mat, Vec}
+import net.alasc.symdpoly.algebra.Phased.syntax._
 
 class SeDuMiInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import SeDuMiInstance.{SparseMatrix, SparseVector}
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.matrixSize
-  require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
+  // TODO require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
   val nG = gramMatrix.operatorSymmetries.nGenerators
   val opGens = gramMatrix.operatorSymmetries.generators
   val fpa = FaithfulPermutationActionBuilder[GenPerm].apply(opGens)

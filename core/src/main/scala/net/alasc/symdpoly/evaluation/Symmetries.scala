@@ -17,6 +17,7 @@ import net.alasc.perms.Perm
 import net.alasc.perms.default._
 import net.alasc.symdpoly.math.{GenPerm, GenPermFaithfulPermutationAction, Phases}
 import net.alasc.symdpoly.{Mono, OrderedSet, free, generic}
+import algebra.Phased.syntax._
 
 object Symmetries {
 

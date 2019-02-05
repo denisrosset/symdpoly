@@ -82,7 +82,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
     def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
     def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
-    def *(rhs: Mono[Free, Free]): Mono[Free, Free] = lhs.toMono * rhs
+    def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
 
     // Returns PhasedOp
     def unary_- : PhasedOp = lhs * Phase.minusOne
@@ -176,7 +176,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     def toMono: Mono[Free, Free] = Mono(lhs)
     def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
     def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
-    def *(rhs: Mono[Free, Free]): Mono[Free, Free] = lhs.toMono * rhs
+    def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
   }
 
   object PhasedOp {

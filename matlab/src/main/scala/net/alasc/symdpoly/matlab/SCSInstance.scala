@@ -5,14 +5,15 @@ import spire.syntax.cfor._
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types.{MLArray, MLDouble, MLSparse, MLStructure}
 import net.alasc.symdpoly.solvers.Instance
-import net.alasc.symdpoly.{GramMatrix, Relaxation}
+import net.alasc.symdpoly.{GramMatrix, Relaxation, algebra}
+import net.alasc.symdpoly.algebra.Phased.syntax._
 
 /** Data provided in the format of https://github.com/bodono/scs-matlab */
 class SCSInstance(val relaxation: Relaxation[_, _, _]) extends Instance {
   import SCSInstance.{SparseMatrix, SparseVector}
   import relaxation.{gramMatrix, objectiveVector}
   import gramMatrix.{matrixSize => d}
-  require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
+  // TODO require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
   val m: Int = gramMatrix.nUniqueMonomials - 1 // number of dual variables
   val n: Int = d * (d + 1) / 2
 

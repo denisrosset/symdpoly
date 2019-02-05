@@ -18,6 +18,7 @@ import net.alasc.symdpoly.generic.{FreeBasedMonoidDef, MonoidDef}
 import net.alasc.symdpoly.math.GenPerm
 import org.scalacheck.{Arbitrary, Gen}
 import org.typelevel.discipline.Predicate
+import algebra.Phased.syntax._
 
 trait PolyTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] { lhs =>
 

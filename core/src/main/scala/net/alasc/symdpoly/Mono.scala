@@ -1,13 +1,14 @@
 package net.alasc.symdpoly
 
 import cats.evidence.Is
+import cats.kernel.Eq
 import shapeless.Witness
-import spire.algebra.{Action, Involution, Order}
+import spire.algebra.{Action, Involution, MultiplicativeMonoid, Order}
+
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.free._
 import net.alasc.symdpoly.generic.{MonoidDef => _, _}
 import net.alasc.symdpoly.math.GenPerm
-import org.scalacheck.{Arbitrary, Gen}
 import org.typelevel.discipline.Predicate
 
 trait MonoTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] {
@@ -15,13 +16,13 @@ trait MonoTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDe
 
   // Abstract methods to overload
   def toMono: Mono[M, F]
-  def *(rhs: Mono[M, F]): Mono[M, F]
+  def *(rhs: Mono[M, F])(implicit mm: MultiplicativeMonoid[Mono[M, F]]): Mono[M, F]
 
-  def pow(rhs: Int): Mono[M, F] = toMono.pow(rhs)
+  def pow(rhs: Int)(implicit mm: MultiplicativeMonoid[Mono[M, F]]): Mono[M, F] = toMono.pow(rhs)
 
-  def *(rhs: F#Op)(implicit wM: Witness.Aux[M], ev: Mono[F, F] Is Mono[M, F]): Mono[M, F] = lhs * ev.coerce(rhs.toMono)
+  def *(rhs: F#Op)(implicit mm: MultiplicativeMonoid[Mono[M, F]], ev: Mono[F, F] Is Mono[M, F]): Mono[M, F] = lhs * ev.coerce(rhs.toMono)
 
-  def *(rhs: F#PhasedOp)(implicit wM: Witness.Aux[M], ev: Mono[F, F] Is Mono[M, F]): Mono[M, F] = lhs * (ev.coerce(rhs.toMono): Mono[M, F])
+  def *(rhs: F#PhasedOp)(implicit mm: MultiplicativeMonoid[Mono[M, F]], ev: Mono[F, F] Is Mono[M, F]): Mono[M, F] = lhs * (ev.coerce(rhs.toMono): Mono[M, F])
 }
 
 /** An element of a MonoidDef, which represents a monomial in a polynomial ring.
@@ -41,46 +42,13 @@ class Mono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Au
   }
   override def hashCode: Int = data.hashCode
   def normalForm: Mono[F, F] = new Mono[F, F](data)
-  def compareTo(rhs: Mono[M, F]): Int = lhs.data.compareTo(rhs.data)
-
-  def isZero: Boolean = data.isZero
-  def isOne: Boolean = data.isOne
-  def unary_- : Mono[M, F] =
-    new Mono[M, F](data.mutableCopy().multiplyBySignOf(-1).setImmutable())
-  def timesSignOf(rhs: Int): Mono[M, F] =
-    if (rhs == 0) Mono.zero[M, F]
-    else if (rhs > 0) this
-    else new Mono[M, F](data.mutableCopy().multiplyBySignOf(-1).setImmutable())
-  def *(rhs: Phase): Mono[M, F] =
-    new Mono[M, F]((data.mutableCopy() *= rhs).setImmutable())
-  def *(rhs: Mono[M, F]): Mono[M, F] =
-    if (lhs.isZero) lhs
-    else if (lhs.isOne) rhs
-    else if (rhs.isZero) rhs
-    else if (rhs.isOne) lhs
-    else {
-      val res = lhs.data.mutableCopy(lhs.data.length + rhs.data.length)
-      res *= rhs.data
-      M.inPlaceNormalForm(res)
-      new Mono[M, F](res.setImmutable())
-    }
-  def adjoint: Mono[M, F] =
-    if (lhs.isZero || lhs.isOne) lhs else {
-      val res = lhs.data.mutableCopy()
-      res.inPlaceAdjoint()
-      M.inPlaceNormalForm(res)
-      new Mono[M, F](res.setImmutable())
-    }
-  def pow(rhs: Int): Mono[M, F] = rhs match {
-    case 0 => Mono.one[M, F]
-    case 1 => lhs
-    case i if i > 1 => Vector.fill(i)(lhs).reduce(_ * _)
-    case _  => sys.error("Cannot exponentiate to negate powers")
-  }
-
-  // we have this === phaseCanonical * phaseOffset
-  def phaseOffset: Phase = data.phase
-  def phaseCanonical: Mono[M, F] = new Mono[M, F](lhs.data.mutableCopy().setPhase(Phase.one).setImmutable())
+  def isZero(implicit mb: MultiplicativeBinoid[Mono[M, F]], equ: Eq[Mono[M, F]]): Boolean = mb.isZero(lhs)
+  def isOne(implicit mm: MultiplicativeMonoid[Mono[M, F]], equ: Eq[Mono[M, F]]): Boolean = mm.isOne(lhs)
+  def unary_- (implicit phased: Phased[Mono[M, F]]): Mono[M, F] = phased.gtimesl(Phase.minusOne, lhs)
+  def *(rhs: Phase)(implicit phased: Phased[Mono[M, F]]): Mono[M, F] = phased.gtimesr(lhs, rhs)
+  def *(rhs: Mono[M, F])(implicit mm: MultiplicativeMonoid[Mono[M, F]]): Mono[M, F] = mm.times(lhs, rhs)
+  def adjoint(implicit inv: Involution[Mono[M, F]]): Mono[M, F] = inv.adjoint(lhs)
+  def pow(rhs: Int)(implicit mm: MultiplicativeMonoid[Mono[M, F]]): Mono[M, F] = mm.pow(lhs, rhs)
 
   // methods that are valid when F =:= M
   def length(implicit ev: F =:= M): Int = data.length
@@ -211,23 +179,43 @@ final class MonoInstances[
   F <: free.MonoidDef.Aux[F] with Singleton
 ](implicit wM: Witness.Aux[M]) extends MultiplicativeBinoid[Mono[M, F]]
   with Involution[Mono[M, F]]
-  with Order[Mono[M, F]]
-  {
+  with Order[Mono[M, F]] {
   implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
+  def M: M = wM.value
+  def F: F = wF.value
   def zero: Mono[M, F] = Mono.zero[M, F]
+  override def isZero(a: Mono[M, F])(implicit ev: Eq[Mono[M, F]]): Boolean = a.data.isZero
   def one: Mono[M, F] = Mono.one[M, F]
-  def adjoint(a: Mono[M, F]): Mono[M, F] = a.adjoint
-  def compare(x: Mono[M, F], y: Mono[M, F]): Int = x.compareTo(y)
-  def times(x: Mono[M, F], y: Mono[M, F]): Mono[M, F] = x * y
+  override def isOne(a: Mono[M, F])(implicit ev: Eq[Mono[M, F]]): Boolean = a.data.isOne
+  def adjoint(lhs: Mono[M, F]): Mono[M, F] =
+    if (lhs.isZero || lhs.isOne) lhs else {
+    val res = lhs.data.mutableCopy()
+    res.inPlaceAdjoint()
+    lhs.M.inPlaceNormalForm(res)
+    new Mono[M, F](res.setImmutable())
+  }
+
+  def compare(x: Mono[M, F], y: Mono[M, F]): Int = x.data.compareTo(y.data)
+  def times(lhs: Mono[M, F], rhs: Mono[M, F]): Mono[M, F] =
+    if (lhs.isZero) lhs
+  else if (lhs.isOne) rhs
+  else if (rhs.isZero) rhs
+  else if (rhs.isOne) lhs
+  else {
+    val res = lhs.data.mutableCopy(lhs.data.length + rhs.data.length)
+    res *= rhs.data
+      M.inPlaceNormalForm(res) // TODO: update
+    new Mono[M, F](res.setImmutable())
+  }
 
 }
 
 final class MonoPhased[
   M <: FreeBasedMonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-] extends Phased[Mono[M, F]] {
-  def phaseOffset(a: Mono[M, F]): Phase = a.phaseOffset
-  def phaseCanonical(a: Mono[M, F]): Mono[M, F] = a.phaseCanonical
-  def gtimesl(phase: Phase, m: Mono[M, F]): Mono[M, F] = m * (phase.reciprocal)
-  def gtimesr(m: Mono[M, F], phase: Phase): Mono[M, F] = m * phase
+](implicit wM: Witness.Aux[M]) extends Phased[Mono[M, F]] {
+  def phaseOffset(mono: Mono[M, F]): Phase = mono.data.phase
+  def phaseCanonical(mono: Mono[M, F]): Mono[M, F] = new Mono[M, F](mono.data.mutableCopy().setPhase(Phase.one).setImmutable())
+  def gtimesl(phase: Phase, mono: Mono[M, F]): Mono[M, F] = gtimesr(mono, phase.reciprocal)
+  def gtimesr(mono: Mono[M, F], phase: Phase): Mono[M, F] = new Mono[M, F]((mono.data.mutableCopy() *= phase).setImmutable())
 }
