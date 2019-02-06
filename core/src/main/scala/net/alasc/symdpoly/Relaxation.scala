@@ -85,7 +85,7 @@ case class Relaxation[
     s"Number of generators: ${generators.length}\n" ++ s"Group order: ${grp.order}\n" ++ generators.mkString("\n")
   }
 
-  def symmetryGroupDescription: String = describeGroup(symmetryGroup, g => free.OpGenPerm.prettyPrintGenPerm(g, valueOf[F]))
+  def symmetryGroupDescription: String = describeGroup(symmetryGroup, g => free.OpPermutation.prettyPrintGenPerm(g, valueOf[F]))
 
   def matrixSymmetryGroupDescription: String = describeGroup(gramMatrix.matrixSymmetries, _.toString)
 

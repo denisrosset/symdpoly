@@ -3,7 +3,7 @@ package net.alasc.symdpoly
 import shapeless.Witness
 
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.{EvaluatedPoly, Symmetries}
+import net.alasc.symdpoly.evaluation.{EvaluatedPoly, EvaluatedPoly2, Symmetries}
 import net.alasc.symdpoly.math.GenPerm
 import spire.std.int._
 
@@ -44,3 +44,4 @@ case class Maximization[
     Relaxation(this, generatingSet, group)
 
 }
+

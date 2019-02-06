@@ -6,5 +6,5 @@ import shapeless.Witness
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt}
 
 class Generator[F <: free.MonoidDef with Singleton:Witness.Aux] protected[symdpoly](val name: String, val opAction: GenPerm) {
-  override def toString: String = name + ": " + OpGenPerm.prettyPrintGenPerm(opAction, valueOf[F])
+  override def toString: String = name + ": " + OpPermutation.prettyPrintGenPerm(opAction, valueOf[F])
 }

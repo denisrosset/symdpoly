@@ -1,9 +1,9 @@
 package net.alasc.symdpoly
-package evaluation
+package math
 
 import net.alasc.perms.Perm
-import org.scalacheck.Arbitrary
 import net.alasc.perms.default._
+import org.scalacheck.Arbitrary
 
 class GrpDecompositionSuite extends CommonSuite {
   implicit val arbPerm: Arbitrary[Perm] = Arbitrary(net.alasc.laws.Permutations.permForSize(6))

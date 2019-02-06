@@ -1,7 +1,7 @@
 package net.alasc.symdpoly.algebra
 
 import cats.{Contravariant, Invariant}
-import spire.algebra.{Field, VectorSpace}
+import spire.algebra.{Action, Field, VectorSpace}
 import spire.math.SafeLong
 
 import algebra.{CommutativeGroup, Eq}
@@ -13,6 +13,11 @@ import cats.instances.eq.catsContravariantMonoidalForEq
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 
 object Instances {
+
+  def trivialAction[A]: Action[A, Unit] = new Action[A, Unit] {
+    def actl(g: Unit, a: A): A = a
+    def actr(a: A, g: Unit): A = a
+  }
 
   implicit val symdpolyContravariantForPermutationAction: Contravariant[PermutationAction] = new Contravariant[PermutationAction] {
     def contramap[A, B](fa: PermutationAction[A])(f: B => A): PermutationAction[B] = new PermutationAction[B] {
