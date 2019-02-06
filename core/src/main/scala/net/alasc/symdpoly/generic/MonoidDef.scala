@@ -43,4 +43,6 @@ abstract class MonoidDef { self =>
   def polyInvolution: Involution[Polynomial]
   def polyEq: Eq[Polynomial]
 
+  def monomialToPolynomial(m: Monomial): Polynomial
+
 }

@@ -31,6 +31,8 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def quotient(word: Mono[Free, Free]): Monomial
   def quotient(gset: GSet[Free]): GSet[self.type] = GSet.Quotient[self.type, Free](gset)
 
+  def monomialToPolynomial(m: Mono[self.type, Free]): Poly[self.type, Free] = Poly[self.type, Free](m)
+
   private[this] val monoInstances: MonoInstances[self.type, Free] = new MonoInstances[self.type, Free]
   def monoMultiplicativeMonoid: MultiplicativeBinoid[Monomial] = monoInstances
   def monoInvolution: Involution[Monomial] = monoInstances

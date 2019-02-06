@@ -53,4 +53,3 @@ class FreeMonoOpPermutationAction[F <: free.MonoidDef.Aux[F] with Singleton:Witn
 
   def actl(g: OpPermutation[F], mono: Mono[F, F]): Mono[F, F] = actr(mono, g.inverse)
 }
-

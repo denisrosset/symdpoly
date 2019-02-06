@@ -23,7 +23,7 @@ import spire.math.SafeLong
 import net.alasc.perms.Perm
 import Instances._
 
-trait Morphism[S, T, F[_]] extends Function1[S, T] with Attributable {
+trait Morphism[S, T, F[_]] extends Function1[S, T] {
   def S: F[S]
   def T: F[T]
   def apply(s: S): T
@@ -48,6 +48,20 @@ object Morphism {
   }
 }
 
+trait SurjectiveMorphism[S, T, F[_]] extends Morphism[S, T, F] {
+  def preimageRepresentative(t: T): S
+}
+
+object SurjectiveMorphism {
+
+  def apply[S, T, F[_]](image: S => T)(preimage: T => S)(implicit S0: F[S], T0: F[T]): SurjectiveMorphism[S, T, F] = new SurjectiveMorphism[S, T, F] {
+    def S: F[S] = S0
+    def T: F[T] = T0
+    def apply(s: S): T = image(s)
+    def preimageRepresentative(t: T): S = preimage(t)
+  }
+
+}
 
 trait MorphismFromGeneratorImages[S, T] {
 
@@ -97,4 +111,3 @@ object MorphismFromGeneratorImages extends MorphismFromGeneratorImages0 {
   }
 
 }
-
