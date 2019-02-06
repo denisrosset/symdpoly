@@ -30,7 +30,7 @@ import scalin.syntax.all._
 import net.alasc.syntax.group._
 import net.alasc.bsgs.{Chain, GrpChain, GrpChainPermutationAction, Node, Term}
 import net.alasc.symdpoly.evaluation.FreeBasedEvaluator.FreeScratchPad
-import net.alasc.symdpoly.free.{MutableWord, OpPermutation}
+import net.alasc.symdpoly.free.{MutableWord, FreePermutation}
 
 class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
   

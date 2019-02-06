@@ -27,8 +27,8 @@ case class Maximization2[
   def E: E = valueOf[E]
   def M: M = valueOf[M]
 
-  def relaxation(generatingSet: GSet[M]): Relaxation2[E, M, Unit] =
-    Relaxation2(this, generatingSet, Grp.trivial[Unit], Instances.trivialAction[M#Monomial])
+  //def relaxation(generatingSet: GSet[M]): Relaxation2[E, M, Unit] =
+  //  Relaxation2(this, generatingSet, Grp.trivial[Unit], Instances.trivialAction[M#Monomial])
 
   /*
   /** Constructs a symmetric relaxation from the subgroup of the ambient group that preserves
@@ -55,7 +55,7 @@ case class Maximization2[
 
 }
 
-case class Relaxation2[
+case class SymmetricRelaxation2[
   E <: evaluation.Evaluator2[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux,
   G

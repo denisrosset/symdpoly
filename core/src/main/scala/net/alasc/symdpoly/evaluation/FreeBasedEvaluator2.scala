@@ -7,13 +7,13 @@ import shapeless.Witness
 import spire.syntax.cfor.cforRange
 
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.free.OpPermutation
+import net.alasc.symdpoly.free.FreePermutation
 import net.alasc.symdpoly.math.GrpDecomposition
 import net.alasc.symdpoly.{Mono, Phase, Poly, generic, valueOf}
 
 class FreeBasedEvaluator2[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton](val equivalences: Vector[Equivalence[F]], val optGrp: Option[Grp[OpPermutation[F]]] = None) extends Evaluator2[M] {
+  F <: free.MonoidDef.Aux[F] with Singleton](val equivalences: Vector[Equivalence[F]], val optGrp: Option[Grp[FreePermutation[F]]] = None) extends Evaluator2[M] {
 
   def M: M = valueOf[M]
 
@@ -21,7 +21,7 @@ class FreeBasedEvaluator2[
 
   val grpDecomposition = {
     import net.alasc.perms.default._
-    optGrp.fold(GrpDecomposition.empty[OpPermutation[F]])(grp => GrpDecomposition(grp))
+    optGrp.fold(GrpDecomposition.empty[FreePermutation[F]])(grp => GrpDecomposition(grp))
   }
 
   def reduce(word: free.MutableWord[F], pad: FreeScratchPad2[F]): free.MutableWord[F] = {
@@ -38,7 +38,7 @@ class FreeBasedEvaluator2[
   }
 
 
-  def apply(poly: Poly[M, F])(implicit d: DummyImplicit): EvaluatedPoly2[this.type, M] = {
+  override def apply(poly: Poly[M, F])(implicit d: DummyImplicit): EvaluatedPoly2[this.type, M] = {
     val pad = FreeScratchPad2[F] // TODO: reuse
     val resPoly = free.MutablePoly.empty[F](poly.nTerms)
     cforRange(0 until poly.nTerms) { i =>
@@ -82,7 +82,7 @@ class FreeBasedEvaluator2[
     iter(0)
   }
 
-  def applyElementsAndCheckForZero(fsp: FreeScratchPad2[F], elements: Vector[OpPermutation[F]]): Boolean = {
+  def applyElementsAndCheckForZero(fsp: FreeScratchPad2[F], elements: Vector[FreePermutation[F]]): Boolean = {
     fsp.ensureMinimalSize(fsp.n * elements.length)
     var newN = fsp.n
     cforRange(1 until elements.length) { i =>
@@ -98,7 +98,7 @@ class FreeBasedEvaluator2[
   }
 
   def applyGrpAndCheckForZero(fsp: FreeScratchPad2[F]): Boolean = {
-    @tailrec def iter(chain: List[Vector[OpPermutation[F]]]): Boolean = chain match {
+    @tailrec def iter(chain: List[Vector[FreePermutation[F]]]): Boolean = chain match {
       case Nil => false
       case hd :: tl =>
         if (applyElementsAndCheckForZero(fsp, hd)) true
