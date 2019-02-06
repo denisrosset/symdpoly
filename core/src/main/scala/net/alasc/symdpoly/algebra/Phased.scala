@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 package algebra
 
 
+import cats.Invariant
 import spire.algebra.MultiplicativeAction
 import spire.macros.Ops
 
@@ -21,12 +22,25 @@ trait Phased[A] extends MultiplicativeAction[A, Phase] {
 }
 
 object Phased {
+
   def apply[A](implicit ev: Phased[A]): Phased[A] = ev
+
   final class PhasedOps[A](lhs: A)(implicit ev: Phased[A]) {
     def phaseOffset(): Phase = macro Ops.unop[Phase]
     def phaseCanonical(): A = macro Ops.unop[A]
   }
+
   object syntax {
     implicit def phasedOps[A:Phased](a: A): PhasedOps[A] = new PhasedOps(a)
   }
+
+  implicit val invariant: Invariant[Phased] = new Invariant[Phased] {
+    def imap[A, B](fa: Phased[A])(f: A => B)(g: B => A): Phased[B] = new Phased[B] {
+      def phaseOffset(b: B): Phase = fa.phaseOffset(g(b))
+      def phaseCanonical(b: B): B = f(fa.phaseCanonical(g(b)))
+      def gtimesl(phase: Phase, b: B): B = f(fa.gtimesl(phase, g(b)))
+      def gtimesr(b: B, phase: Phase): B = f(fa.gtimesr(g(b), phase))
+    }
+  }
+
 }

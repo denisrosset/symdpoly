@@ -5,16 +5,23 @@ import net.alasc.attributes.Attributable
 import net.alasc.finite._
 import spire.syntax.group._
 import spire.algebra.{Eq, Group}
+
 import net.alasc.perms.default._
 import net.alasc.std.product._
 import net.alasc.symdpoly.free.{FreeGroup, Word}
 import spire.std.tuples._
+
 import net.alasc.syntax.all._
 import net.alasc.util.NNOption
 import shapeless.Witness
-
 import scala.annotation.tailrec
 import scala.reflect.ClassTag
+
+import cats.{Contravariant, Invariant, InvariantMonoidal}
+import spire.math.SafeLong
+
+import net.alasc.perms.Perm
+import Instances._
 
 trait Morphism[S, T, F[_]] extends Function1[S, T] with Attributable {
   def S: F[S]
@@ -76,13 +83,7 @@ object MorphismFromGeneratorImages extends MorphismFromGeneratorImages0 {
       val sourceGenerators = source.generators
       val targetGenerators = images.filterNot(_.isEmpty)
       val sAction: PermutationAction[S] = FaithfulPermutationActionBuilder[S].apply(sourceGenerators)
-      val combinedAction: PermutationAction[(S, T)] = new PermutationAction[(S, T)] {
-        def isFaithful: Boolean = true
-        def findMovedPoint(g: (S, T)): NNOption = sAction.findMovedPoint(g._1)
-        def movedPointsUpperBound(g: (S, T)): NNOption = sAction.movedPointsUpperBound(g._1)
-        def actl(g: (S, T), p: Int): Int = sAction.actl(g._1, p)
-        def actr(p: Int, g: (S, T)): Int = sAction.actr(p, g._1)
-      }
+      val combinedAction: PermutationAction[(S, T)] = Contravariant[PermutationAction].contramap[S, (S, T)](sAction)(_._1)
       val combinedGrp: Grp[(S, T)] = Grp(sourceGenerators zip targetGenerators: _*)
       val nPoints = combinedGrp.largestMovedPoint(combinedAction).getOrElse(-1) + 1
       assert(combinedGrp.pointwiseStabilizer(combinedAction, 0 until nPoints: _*).isTrivial,
@@ -96,3 +97,4 @@ object MorphismFromGeneratorImages extends MorphismFromGeneratorImages0 {
   }
 
 }
+

@@ -206,6 +206,21 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     new Generator[Free](name.value, GenPerm(perm, phases))
   }
 
+  def permutation(f: Op => PhasedOp): OpGenPerm[this.type] = {
+    import scala.collection.mutable.{HashMap => MMap}
+    val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
+    val permImages = new Array[Int](nOperators)
+    cforRange(0 until nOperators) { i =>
+      val PhasedOp(newPhase, newOp) = f(opFromIndex(i))
+      val newI = indexFromOp(newOp)
+      phaseMap(newI) = newPhase
+      permImages(i) = newI
+    }
+    val perm = Perm.fromImages(permImages)
+    val phases = Phases(phaseMap.toVector: _*)
+    new OpGenPerm[this.type](GenPerm(perm, phases))
+  }
+
 }
 
 object MonoidDef {

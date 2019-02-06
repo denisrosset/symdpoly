@@ -16,6 +16,7 @@ import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import net.alasc.util._
 import algebra.Phased.syntax._
+
 class GramMatrix[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton

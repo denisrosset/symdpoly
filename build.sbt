@@ -11,6 +11,7 @@ val disciplineVersion = "0.8"
 val fastParseVersion = "1.0.0"
 val jGraphTVersion = "1.2.0"
 val jOptimizerVersion = "4.0.0"
+val kindProjectorVersion = "0.9.8"
 val matFileRWVersion = "3.0.1"
 val metalVersion = "0.16.0.0"
 val progressBarVersion = "0.7.0"
@@ -104,6 +105,7 @@ lazy val testsSettings = Seq(
 )
 
 lazy val commonSettings = Seq(
+  addCompilerPlugin("org.spire-math" %% "kind-projector" % kindProjectorVersion),
   apiURL := Some(url("https://denisrosset.github.io/symdpoly/api")),
   scmInfo := Some(ScmInfo(url("https://github.com/denisrosset/symdpoly"), "scm:git:git@github.com:denisrosset/symdpoly.git")),
   scalacOptions in (Compile, doc) := (scalacOptions in (Compile, doc)).value.filter(_ != "-Xfatal-warnings"),
