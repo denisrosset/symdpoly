@@ -20,7 +20,7 @@ class PairRules[F <: free.MonoidDef.Aux[F] with Singleton](val width: Int, val l
     case PairRules.Custom => custom((op1, op2))
   }
   /** Returns the lcm of the denominators of the phases present in the rewriting rules. */
-  val nRootsOfUnity: Int = custom.values.map(_.normalForm.phase.n).foldLeft(1)(spire.math.lcm)
+  val nRootsOfUnity: Int = custom.values.map(_.normalForm.phase.n.toLong).foldLeft(2L)(spire.math.lcm).toInt
 }
 
 object PairRules {

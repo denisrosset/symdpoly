@@ -78,6 +78,8 @@ class QuotientPermutation[
 object QuotientPermutation {
   def applyUnsafe[M <: quotient.MonoidDef with Singleton:Witness.Aux](g: FreePermutation[M#Free]): QuotientPermutation[M] =
     new QuotientPermutation[M](g.genPerm)
+  implicit def faithfulPermutationActionBuilder[M <: quotient.MonoidDef with Singleton]: FaithfulPermutationActionBuilder[QuotientPermutation[M]] =
+    FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
   implicit def equ[M <: quotient.MonoidDef with Singleton]: Eq[QuotientPermutation[M]] = Eq[GenPerm].contramap(_.genPerm)
   implicit def group[M <: quotient.MonoidDef with Singleton:Witness.Aux]: Group[QuotientPermutation[M]] = Group[GenPerm].imap(new QuotientPermutation[M](_))(_.genPerm)
   implicit def quotientMonoAction[M <: quotient.MonoidDef with Singleton:Witness.Aux]: Action[M#Monomial, QuotientPermutation[M]] = {

@@ -4,12 +4,15 @@ package free
 import cyclo.Cyclo
 import spire.algebra._
 import spire.syntax.cfor._
+
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
 import net.alasc.symdpoly.generic.FreeBasedMonoidDef
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
+
+import net.alasc.finite.Grp
 
 class IndexMap[A](val index: Map[A, Int], val element: Seq[A]) {
   def size: Int = element.size
@@ -39,6 +42,14 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
 
   type Free = monoidDef.type
   def Free: Free = this
+
+  // TODO: remove old symmetryGroup and replace by this one
+  def buildSymmetryGroup(nRootsOfUnity: Int = 2): Grp[FreePermutation[monoidDef.type]] = {
+    import net.alasc.perms.default._
+    val grp = GenPerm.generalizedSymmetricGroup(nRootsOfUnity, nOperators)
+    val generators = grp.generators.map(new FreePermutation(_))
+    Grp.fromGeneratorsAndOrder(generators, grp.order)
+  }
 
   // quotient morphism are trivial
   def quotient(word: Mono[Free, Free]): Monomial = word
