@@ -1,5 +1,6 @@
 package net.alasc.symdpoly
 package quotient
+import net.alasc.algebra.PermutationAction
 import net.alasc.symdpoly.free.{FreePermutation, MutablePoly, MutableWord, QuotientPermutation}
 import net.alasc.symdpoly.generic.FreeBasedMonoidDef
 import spire.syntax.cfor._
@@ -7,18 +8,16 @@ import spire.syntax.cfor._
 import scala.annotation.tailrec
 import net.alasc.symdpoly
 import net.alasc.symdpoly.Phase
+import net.alasc.symdpoly.math.GenPerm
+import net.alasc.util._
 
 abstract class MonoidDef extends FreeBasedMonoidDef {
   monoidDef =>
 
-  def pairRules: PairRu bles[Free]
+  def pairRules: PairRules[Free]
 
   lazy val (monoSet, action, partition) = {
-
-  }
-  /*
-    def symmetryGroup(nRootsOfUnity: Int): Grp[GenPerm] = {
-    val m = nRootsOfUnity
+    val m = pairRules.nRootsOfUnity
     val n = Free.nOperators
     def op(i: Int): Free#Op = Free.opFromIndex(i)
     def monoFromOpIndex(i: Int): Mono[Free, Free] = Mono(op(i))
@@ -27,16 +26,20 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     val monos2: Vector[Mono[Free, Free]] = Vector.tabulate(n, n)( (i, j) => Mono(op(i), op(j)) ).flatten
     val monos: Vector[Mono[Free, Free]] = Vector(Mono.one[Free, Free]) ++ (monos1 ++ monos2).flatMap(m => phases.map(p => m * p))
     val monoSet: OrderedSet[Mono[Free, Free]] = OrderedSet.fromUnique(monos)
-    val action = new PermutationAction[GenPerm] {
+    val action = new PermutationAction[FreePermutation[Free]] {
       def isFaithful: Boolean = true
-      def findMovedPoint(g: GenPerm): NNOption = g.largestMovedPoint match {
+      def findMovedPoint(g: FreePermutation[Free]): NNOption = g.genPerm.largestMovedPoint match {
         case NNOption(i) => NNSome(monoSet.indexOf(monoFromOpIndex(i)))
         case _ => NNNone
       }
-      def movedPointsUpperBound(g: GenPerm): NNOption = NNSome(monoSet.length - 1)
-      def actl(g: GenPerm, i: Int): Int = actr(i, g.inverse)
-      def actr(i: Int, g: GenPerm): Int = monoSet.indexOf(Free.monoGenPermAction.actr(monoSet(i), g))
+      def movedPointsUpperBound(g: FreePermutation[Free]): NNOption = NNSome(monoSet.length - 1)
+      def actl(g: FreePermutation[Free], i: Int): Int = actr(i, g.inverse)
+      def actr(i: Int, g: FreePermutation[Free]): Int = monoSet.indexOf(Free.monoGenPermAction.actr(monoSet(i), g))
     }
+
+
+  }
+  /*
     val grp = GenPerm.generalizedSymmetricGroup(m, n)
     val normalForms = monoSet.iterator.map(self.quotient(_)).toVector
     val partition = Partition.fromSeq(normalForms)
