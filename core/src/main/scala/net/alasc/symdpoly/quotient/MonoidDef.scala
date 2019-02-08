@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package quotient
 import net.alasc.algebra.PermutationAction
-import net.alasc.symdpoly.free.{FreePermutation, MutablePoly, MutableWord, QuotientPermutation}
+import net.alasc.symdpoly.free.{FreePermutation, MutablePoly, MutableWord}
 import net.alasc.symdpoly.generic.FreeBasedMonoidDef
 import spire.syntax.cfor._
 import scala.annotation.tailrec

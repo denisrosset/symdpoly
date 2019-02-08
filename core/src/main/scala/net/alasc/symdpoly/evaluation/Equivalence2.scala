@@ -9,7 +9,7 @@ import spire.algebra.Action
 import spire.syntax.action._
 import spire.syntax.involution._
 
-import net.alasc.symdpoly.free.GenericPermutation
+import net.alasc.symdpoly.generic.GenericPermutation
 
 /** A transformation that generates equivalent monomials under evaluation by the linear functional. */
 trait Equivalence2[M <: generic.MonoidDef with Singleton] {
