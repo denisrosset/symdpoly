@@ -2,11 +2,9 @@ package net.alasc.symdpoly
 package generic
 
 import cyclo.Cyclo
-
-import net.alasc.symdpoly.algebra.Phased
+import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import shapeless.Witness
 import spire.algebra._
-
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.math.GenPerm
 
@@ -30,7 +28,7 @@ abstract class MonoidDef { self =>
 
   def zero: Monomial
   def one: Monomial
-  def monoMultiplicativeMonoid: MultiplicativeMonoid[Monomial]
+  def monoMultiplicativeBinoid: MultiplicativeBinoid[Monomial]
   def monoInvolution: Involution[Monomial]
   def monoOrder: Order[Monomial]
   def monoPhased: Phased[Monomial]

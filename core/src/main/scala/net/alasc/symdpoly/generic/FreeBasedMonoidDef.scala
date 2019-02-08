@@ -34,7 +34,7 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def monomialToPolynomial(m: Mono[self.type, Free]): Poly[self.type, Free] = Poly[self.type, Free](m)
 
   private[this] val monoInstances: MonoInstances[self.type, Free] = new MonoInstances[self.type, Free]
-  def monoMultiplicativeMonoid: MultiplicativeBinoid[Monomial] = monoInstances
+  def monoMultiplicativeBinoid: MultiplicativeBinoid[Monomial] = monoInstances
   def monoInvolution: Involution[Monomial] = monoInstances
   def monoOrder: Order[Monomial] = monoInstances
   val monoPhased: Phased[Monomial] = new MonoPhased

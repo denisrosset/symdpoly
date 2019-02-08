@@ -21,6 +21,7 @@ class PairRules[F <: free.MonoidDef.Aux[F] with Singleton](val width: Int, val l
   }
   /** Returns the lcm of the denominators of the phases present in the rewriting rules. */
   val nRootsOfUnity: Int = custom.values.map(_.normalForm.phase.n.toLong).foldLeft(2L)(spire.math.lcm).toInt
+  // TODO remove the lcm(2L, ...) when complex phases have been clarified
 }
 
 object PairRules {
