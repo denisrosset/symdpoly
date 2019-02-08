@@ -247,7 +247,7 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
     lhs
   }
 
-  def applyGenPermAction(rhs: GenPerm): MutableWord[F] = {
+  def applyGenPermAction(rhs: GenPerm): MutableWord[F] = if (length == -1) lhs else {
     @tailrec def iter(i: Int, currentPhase: Phase): Unit =
       if (i == length)
         phase = currentPhase

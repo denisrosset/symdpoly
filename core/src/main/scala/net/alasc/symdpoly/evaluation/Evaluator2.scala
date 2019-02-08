@@ -66,7 +66,7 @@ final class Evaluator2[M <: generic.MonoidDef with Singleton: Witness.Aux](val e
 
 object Evaluator2 {
 
-  def natural[M <: generic.MonoidDef with Singleton: Witness.Aux]: Evaluator2[M] = new Evaluator2[M](Vector.empty)
+  def natural(M: generic.MonoidDef with Singleton): Evaluator2[M.type] = new Evaluator2[M.type](Vector.empty)(M.witness)
 
   implicit class FreeEvaluator2Syntax[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,

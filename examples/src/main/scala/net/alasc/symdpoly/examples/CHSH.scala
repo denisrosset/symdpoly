@@ -53,9 +53,9 @@ object CHSH {
 
   val relaxation = problem.symmetricRelaxation(generatingSet, G.grp)
   val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
-  val L1 = evaluation.Evaluator2.natural[Quotient.type]
+  val L1 = evaluation.Evaluator2.natural(Quotient)
   val symGrp = feasGrp.stabilizes(L1(bellOperator))
-  val L2 = evaluation.Evaluator2.natural[Quotient.type].adjoint.symmetric(symGrp)
+  val L2 = evaluation.Evaluator2.natural(Quotient).adjoint.symmetric(symGrp)
   val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
 
 /*relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
@@ -77,7 +77,8 @@ object CHSH {
 
 object CHSHApp extends App {
   import CHSH._
-  relaxation1.jOptimizerInstance.solve()
+  println(relaxation1.gramMatrix.momentMatrix)
+  println(relaxation1.jOptimizerInstance.solve())
 
   relaxation.mosekInstance.writeCBF("chsh.cbf")
 }
@@ -141,9 +142,9 @@ object Distributed {
   val relaxation = problem.relaxation(generatingSet)
 
   val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
-  val L1 = evaluation.Evaluator2.natural[Quotient.type]
+  val L1 = evaluation.Evaluator2.natural(Quotient)
   val symGrp = feasGrp.stabilizes(L1(bellOperator))
-  val L2 = evaluation.Evaluator2.natural[Quotient.type].adjoint.symmetric(symGrp)
+  val L2 = evaluation.Evaluator2.natural(Quotient).adjoint.symmetric(symGrp)
   val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
   relaxation1.jOptimizerInstance.solve()
 
