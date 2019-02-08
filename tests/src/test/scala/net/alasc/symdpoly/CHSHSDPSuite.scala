@@ -39,7 +39,7 @@ class CHSHSDPSuite extends CommonSuite {
       case (op1, op2) => op1 * op2
     }
 
-    val bellOperator = QM.restrictedGroup(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
+    val bellOperator = QM.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
 
     val ambientGroup = FM.ambientGroup(swapParties, inputSwapA, outputSwapA0)
 

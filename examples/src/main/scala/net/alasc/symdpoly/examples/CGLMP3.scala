@@ -65,7 +65,7 @@ object CGLMP3 extends App {
     1,0,-1,0,-1,1
   )
 
-  val cglmp3 = Quotient.restrictedGroup((for {
+  val cglmp3 = Quotient.quotient((for {
     a <- 0 to 2
     x <- 0 to 1
     b <- 0 to 2

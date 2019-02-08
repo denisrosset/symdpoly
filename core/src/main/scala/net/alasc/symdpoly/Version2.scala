@@ -14,7 +14,7 @@ import net.alasc.symdpoly.algebra.{Instances, Morphism, MultiplicativeBinoid}
 import net.alasc.symdpoly.evaluation._
 import net.alasc.symdpoly.internal.{MomentSet, MomentSet2, MomentSetBuilder, MomentSetBuilder2}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
-import net.alasc.symdpoly.solvers.{MosekInstance, SDPAInstance}
+import net.alasc.symdpoly.solvers.{MosekInstance, MosekInstance2, SDPAInstance, SDPAInstance2}
 import net.alasc.util.Tuple2Int
 import spire.syntax.multiplicativeMonoid._
 import spire.syntax.involution._
@@ -33,31 +33,8 @@ case class Maximization2[
   def E: E = valueOf[E]
   def M: M = valueOf[M]
 
-  //def relaxation(generatingSet: GSet[M]): Relaxation2[E, M, Unit] =
-  //  Relaxation2(this, generatingSet, Grp.trivial[Unit], Instances.trivialAction[M#Monomial])
-
-  /*
-  /** Constructs a symmetric relaxation from the subgroup of the ambient group that preserves
-    * the objective (thus computes that subgroup).
-    *
-    * Note that the ambient group should be compatible with both the quotient monoid
-    * and the evaluation function.
-    *
-    */
-  def symmetricRelaxation(generatingSet: GSet[M], ambientGroup: Grp[GenPerm]): Relaxation[E, M, F] =
-    Relaxation(this, generatingSet, Symmetries.symmetrySubgroup(evaluatedPoly, ambientGroup))
-
-  def symmetricRelaxation(generatingSet: GSet[M]): Relaxation[E, M, F] = {
-    // TODO: prove that it is enough
-    val ambientGroup = M.symmetryGroup(cyclotomicOrder(evaluatedPoly.normalForm))
-    symmetricRelaxation(generatingSet, ambientGroup)
-  }
-
-  /** Constructs a symmetric relaxation forcing symmetry by the given group. */
-  def forcedSymmetricRelaxation(generatingSet: GSet[M], group: Grp[GenPerm]): Relaxation[E, M, F] =
-    Relaxation(this, generatingSet, group)*/
-
-  // def cyclotomicOrder(poly: GenPoly[_]): Int = (0 until poly.nTerms).map(i => poly.coeff(i).order).foldLeft(2)(spire.math.lcm[Int](_, _))
+  def relaxation(generatingSet: GSet[M]): Relaxation2[E, M] =
+    Relaxation2(this, generatingSet)
 
 }
 
@@ -69,74 +46,15 @@ case class Relaxation2[
   val objective: EvaluatedPoly2[E, M] =
     valueOf[E].apply(problem.evaluatedPoly.normalForm)
 
-/*  val gramMatrix: GramMatrix2[E, M] = GramMatrix2(generatingSet, valueOf[E])
+  val gramMatrix: GramMatrix2[E, M] = GramMatrix2(valueOf[E], generatingSet)
 
-  val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(gramMatrix.momentSet.monomials)
+  val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(gramMatrix.momentSet.elements)
 
   def isObjectiveReal: Boolean = objectiveVector.toIndexedSeq.forall(c => c.isReal)
 
-  def mosekInstance: MosekInstance = new MosekInstance(this)
-  def sdpaInstance: SDPAInstance = new SDPAInstance(this)
+  def mosekInstance: MosekInstance2 = new MosekInstance2(this)
+  def sdpaInstance: SDPAInstance2 = new SDPAInstance2(this)
 
-  /** Writes the Gram matrix indices to the file with given filename.
-    * The structure of the file is as follows
-    *
-    * Line   1: N M
-    * Line   2: g11 g12 ... g1N
-    * ...
-    * Line 1+N: gN1 gN2 ... gNN
-    *
-    * where N is the size of the Gram matrix, and M is the number of monomials involved,
-    * including the identity.
-    *
-    * The matrix index g(r,c) takes the value
-    *
-    * -  0 if the element is always 0
-    * -  1 if the element takes the constant value  1 or -1
-    * -  j if the element corresponds to the expectation value of j-th monomial (with a possible factor -1)
-    *
-    * and max_{r c} g(r,c) = M
-    *
-    */
-  def momentIndexMatrixDescription: String = {
-    import scalin.immutable.dense._
-    import gramMatrix._
-    val mat = momentIndexMatrix
-    s"${matrixSize} ${nUniqueMonomials}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
-  }
-
-
-  /** Writes the sign/phase of the monomials present in the Gram matrix. */
-  def phaseMatrixDescription: String = {
-    import scalin.immutable.dense._
-    import gramMatrix._
-    val mat = phaseMatrix
-    s"${matrixSize}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
-  }
-
-  def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
-
-  def canonicalMonomialsDescription: String = {
-    import gramMatrix._
-    val monomials = Vector.tabulate(momentSet.nMonomials) { i =>
-      import spire.compat._
-      val orbit = symmetryGroup.iterator.map((g: GenPerm) => valueOf[E].apply(momentSet.monomials(i) <|+| g).normalForm)
-        .toSet.toVector.sorted.map(_.normalForm).mkString(", ")
-      s"${i} ${momentSet.monomials(i).normalForm.normalForm}: ${orbit}"
-    }
-    monomials.mkString("\n")
-  }
-
-  def describeGroup(grp: Grp[GenPerm], printGen: GenPerm => String): String = {
-    import net.alasc.perms.default._
-    val generators = grp.smallGeneratingSet.map(printGen)
-    s"Number of generators: ${generators.length}\n" ++ s"Group order: ${grp.order}\n" ++ generators.mkString("\n")
-  }
-
-  def symmetryGroupDescription: String = describeGroup(symmetryGroup, g => free.OpGenPerm.prettyPrintGenPerm(g, valueOf[F]))
-
-  def matrixSymmetryGroupDescription: String = describeGroup(gramMatrix.matrixSymmetries, _.toString)
-*/
 }
 
 class GramMatrix2[
@@ -185,10 +103,10 @@ class GramMatrix2[
 object GramMatrix2 {
 
   def apply[
-    E <: Evaluator2[M] with Singleton: Witness.Aux,
+    E <: Evaluator2[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](gSet: GSet[M]): GramMatrix2[E, M] = {
-    def E: E = valueOf[E]
+  ](E: E, gSet: GSet[M]): GramMatrix2[E, M] = {
+    implicit def witnessE: Witness.Aux[E] = (E: E).witness
     def M: M = valueOf[M]
     val generatingMoments = OrderedSet.fromOrdered(gSet.monomials.toVector)
     val n = generatingMoments.length
@@ -201,7 +119,7 @@ object GramMatrix2 {
         if (unsortedMomentMatrix(inMat(r, c)) == Int.MinValue) {
           implicit def involution: Involution[M#Monomial] = M.monoInvolution
           implicit def monoMultiplicativeBinoid: MultiplicativeBinoid[M#Monomial] = M.monoMultiplicativeBinoid
-          val phased: EvaluatedMono2[E, M] = E(generatingMoments(r).adjoint * generatingMoments(c))
+          val phased: EvaluatedMono2[E, M] = (E: E)(generatingMoments(r).adjoint * generatingMoments(c))
           val phase = phased.phaseOffset
           val canonical = phased.phaseCanonical
           // TODO: check phase support when complex is supported
@@ -215,7 +133,7 @@ object GramMatrix2 {
             phaseMatrix(inMat(r, c)) = phase.encoding
             phaseMatrix(inMat(c, r)) = phase.encoding
           } else {
-            val phasedAdj = E(generatingMoments(c).adjoint * generatingMoments(r))
+            val phasedAdj = (E: E)(generatingMoments(c).adjoint * generatingMoments(r))
             val phaseAdj = phasedAdj.phaseOffset
             val canonicalAdj = phasedAdj.phaseCanonical
             val tuple = sb.getElement(canonical, canonicalAdj)
