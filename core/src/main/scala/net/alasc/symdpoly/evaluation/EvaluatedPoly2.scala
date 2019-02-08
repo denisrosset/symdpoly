@@ -1,4 +1,5 @@
-package net.alasc.symdpoly.evaluation
+package net.alasc.symdpoly
+package evaluation
 
 import shapeless.Witness
 import spire.algebra.{Eq, Order, VectorSpace}
@@ -35,9 +36,13 @@ final class EvaluatedPoly2[E <: Evaluator2[M] with Singleton:Witness.Aux, M <: g
       }
     }
 
+  def maximize: Maximization2[E, M] = new Maximization2[E, M](lhs)
 }
 
 object EvaluatedPoly2 {
+
   implicit def equ[E <: Evaluator2[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton]: Eq[EvaluatedPoly2[E, M]] = valueOf[E].evaluatedPolyEq
+
   implicit def vectorSpace[E <: Evaluator2[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton]: VectorSpace[EvaluatedPoly2[E, M], Cyclo] = valueOf[E].evaluatedPolyVectorSpace
+
 }

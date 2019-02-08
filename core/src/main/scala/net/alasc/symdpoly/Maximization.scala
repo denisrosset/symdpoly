@@ -44,4 +44,3 @@ case class Maximization[
     Relaxation(this, generatingSet, group)
 
 }
-

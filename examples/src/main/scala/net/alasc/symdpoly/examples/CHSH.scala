@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 package examples
 
 import cyclo.Cyclo
+import net.alasc.symdpoly.joptimizer._
 
 object CHSH {
 
@@ -51,6 +52,11 @@ object CHSH {
   val problem = L(bellOperator).maximize
 
   val relaxation = problem.symmetricRelaxation(generatingSet, G.grp)
+  val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
+  val L1 = evaluation.Evaluator2.natural[Quotient.type]
+  val symGrp = feasGrp.stabilizes(L1(bellOperator))
+  val L2 = evaluation.Evaluator2.natural[Quotient.type].adjoint.symmetric(symGrp)
+  val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
 
 /*relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
   relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
@@ -71,6 +77,7 @@ object CHSH {
 
 object CHSHApp extends App {
   import CHSH._
+  relaxation1.jOptimizerInstance.solve()
 
   relaxation.mosekInstance.writeCBF("chsh.cbf")
 }
@@ -132,6 +139,13 @@ object Distributed {
   val problem = L(bellOperator).maximize
 
   val relaxation = problem.relaxation(generatingSet)
+
+  val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
+  val L1 = evaluation.Evaluator2.natural[Quotient.type]
+  val symGrp = feasGrp.stabilizes(L1(bellOperator))
+  val L2 = evaluation.Evaluator2.natural[Quotient.type].adjoint.symmetric(symGrp)
+  val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
+  relaxation1.jOptimizerInstance.solve()
 
   /*relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
     relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
