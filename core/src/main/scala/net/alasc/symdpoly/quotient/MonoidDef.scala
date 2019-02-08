@@ -21,10 +21,12 @@ import cats.syntax.traverse._
 abstract class MonoidDef extends FreeBasedMonoidDef {
   monoidDef =>
 
+  def cyclotomicOrder: Int = Free.cyclotomicOrder
+
   def pairRules: PairRules[Free]
 
   lazy val (action, partition) = {
-    val m = pairRules.nRootsOfUnity
+    val m = Free.cyclotomicOrder
     val n = Free.nOperators
     def op(i: Int): Free#Op = Free.opFromIndex(i)
     def monoFromOpIndex(i: Int): Mono[Free, Free] = Mono(op(i))

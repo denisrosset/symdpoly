@@ -44,6 +44,13 @@ object Instances {
     }
   }
 
+  implicit def symdpolyInvariantForAction[G]: Invariant[Lambda[P => Action[P, G]]] = new Invariant[Lambda[P => Action[P, G]]] {
+    def imap[A, B](fa: Action[A, G])(f1: A => B)(f2: B => A): Action[B, G] = new Action[B, G] {
+      def actl(g: G, b: B): B = f1(fa.actl(g, f2(b)))
+      def actr(b: B, g: G): B = f1(fa.actr(f2(b), g))
+    }
+  }
+
   implicit def symdpolyInvariantForVectorSpace[F]: Invariant[Lambda[V => VectorSpace[V, F]]] = new Invariant[Lambda[V => VectorSpace[V, F]]] {
     def imap[A, B](fa: VectorSpace[A, F])(f: A => B)(g: B => A): VectorSpace[B, F] = new VectorSpace[B, F] {
       override def divr(v: B, s: F): B = f(fa.divr(g(v), s))

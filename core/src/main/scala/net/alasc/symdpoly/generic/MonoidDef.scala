@@ -10,6 +10,9 @@ import net.alasc.symdpoly.math.GenPerm
 
 abstract class MonoidDef { self =>
 
+  /** Maximal order of cyclotomic appearing in all constructions based on this monoid. */
+  def cyclotomicOrder: Int
+
   // Dependent type machinery
 
   val witness: Witness.Aux[self.type] = Witness.mkWitness[self.type](self)

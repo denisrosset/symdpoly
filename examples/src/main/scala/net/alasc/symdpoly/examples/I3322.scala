@@ -5,7 +5,7 @@ import net.alasc.symdpoly.math.{GenPerm, PhasedInt}
 
 object I3322 {
 
-  object FM extends free.MonoidDef {
+  object FM extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianType1(0 to 2)
@@ -80,7 +80,7 @@ object I3322 {
 
 object I3322A extends App {
 
-  object FM extends free.MonoidDef {
+  object FM extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianType1(0 to 2)

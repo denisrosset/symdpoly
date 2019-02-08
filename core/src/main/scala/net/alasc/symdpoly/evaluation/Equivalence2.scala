@@ -3,11 +3,13 @@ package evaluation
 
 import scala.annotation.tailrec
 
-import net.alasc.finite.Grp
+import net.alasc.finite.{Grp, GrpGroup}
 import shapeless.Witness
 import spire.algebra.Action
 import spire.syntax.action._
 import spire.syntax.involution._
+
+import net.alasc.symdpoly.free.GenericPermutation
 
 /** A transformation that generates equivalent monomials under evaluation by the linear functional. */
 trait Equivalence2[M <: generic.MonoidDef with Singleton] {

@@ -5,7 +5,7 @@ import net.alasc.symdpoly.{GSet, evaluation, free, quotient}
 
 object Choi extends App {
 
-  object Free extends free.MonoidDef {
+  object Free extends free.MonoidDef(2) {
 
     case class X(i: Int) extends HermitianOp
     object X extends HermitianType1(1 to 3)

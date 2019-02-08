@@ -29,12 +29,15 @@ trait MonoTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDe
   *
   * @param data Normal form of the monoid element, with a possible phase
   */
-class Mono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](protected[symdpoly] val data: MutableWord[F])(implicit wM: Witness.Aux[M]) extends PolyTerm[M, F] { lhs =>
+class Mono[
+  M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoidDef.Aux[F] with Singleton
+](protected[symdpoly] val data: MutableWord[F]) extends PolyTerm[M, F] { lhs =>
   require(!data.mutable)
-  implicit def wF: Witness.Aux[F] = data.wF
-  def M: M = wM.value
-
-  def F: F = wF.value
+  def M: M = valueOf[M]
+  def F: F = (M: M).Free
+  require(F.cyclotomicOrder % data.phase.n == 0)
+  implicit def witnessF: Witness.Aux[F] = (F: F).witness
   override def toString: String = if (M eq F) data.toString else s"[$data]"
   override def equals(any: Any): Boolean = any match {
     case rhs: Mono[M, F] if (lhs.M eq rhs.M) && (lhs.F eq rhs.F) => lhs.data == rhs.data

@@ -5,7 +5,7 @@ import cyclo.Cyclo
 
 object CHSH {
 
-  object Free extends free.MonoidDef {
+  object Free extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianType1(0 to 1)
@@ -77,7 +77,7 @@ object CHSHApp extends App {
 
 object Distributed {
 
-  object Free extends free.MonoidDef {
+  object Free extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianType1(0 to 1)

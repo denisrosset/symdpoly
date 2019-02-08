@@ -33,7 +33,7 @@ object IndexMap {
   * - Call declare for each operator with the relevant range of indices.
   * - Implement the abstract method "adjoint".
   */
-abstract class MonoidDef extends FreeBasedMonoidDef {
+abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   monoidDef =>
 
   import MonoidDef.booleans
@@ -44,9 +44,9 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
   def Free: Free = this
 
   // TODO: remove old symmetryGroup and replace by this one
-  def buildSymmetryGroup(nRootsOfUnity: Int = 2): Grp[FreePermutation[monoidDef.type]] = {
+  def symmetryGroup2: Grp[FreePermutation[monoidDef.type]] = {
     import net.alasc.perms.default._
-    val grp = GenPerm.generalizedSymmetricGroup(nRootsOfUnity, nOperators)
+    val grp = GenPerm.generalizedSymmetricGroup(cyclotomicOrder, nOperators)
     val generators = grp.generators.map(new FreePermutation(_))
     Grp.fromGeneratorsAndOrder(generators, grp.order)
   }
@@ -223,6 +223,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     val permImages = new Array[Int](nOperators)
     cforRange(0 until nOperators) { i =>
       val PhasedOp(newPhase, newOp) = f(opFromIndex(i))
+      assert(cyclotomicOrder % newPhase.n == 0, s"Phase $newPhase for operator $newOp incompatible with declared cyclotomic order $cyclotomicOrder")
       val newI = indexFromOp(newOp)
       phaseMap(newI) = newPhase
       permImages(i) = newI

@@ -8,7 +8,7 @@ import scalin.immutable.Mat
 import scalin.immutable.dense._
 
 object CGLMP3 extends App {
-  object Free extends free.MonoidDef {
+  object Free extends free.MonoidDef(2) {
 
     case class A(a: Int, x: Int) extends HermitianOp
     object A extends HermitianType2(0 to 2, 0 to 1)

@@ -3,7 +3,7 @@ package examples
 
 object SliwaScenario {
 
-  object FM extends free.MonoidDef {
+  object FM extends free.MonoidDef(2) {
     case class A(x: Int) extends HermitianOp
     object A extends HermitianType1(0 to 1)
 

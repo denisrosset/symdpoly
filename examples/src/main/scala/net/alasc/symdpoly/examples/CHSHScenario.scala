@@ -4,7 +4,7 @@ import net.alasc.symdpoly.{AmbientGroup, GSet, Mono, evaluation, free, quotient}
 
 object CHSHScenario extends App {
 
-  object Free extends free.MonoidDef {
+  object Free extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianType1(0 to 1)
