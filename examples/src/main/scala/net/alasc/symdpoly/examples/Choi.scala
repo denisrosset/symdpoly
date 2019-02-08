@@ -56,7 +56,7 @@ object Choi extends App {
 
   val ambientGroup = Free.ambientGroup(flipX1, cyclic, swapX1X2)
 
-  val obj = Quotient.quotient(-B*S)
+  val obj = Quotient.restrictedGroup(-B*S)
   val problem = L(obj).maximize
 
   val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)

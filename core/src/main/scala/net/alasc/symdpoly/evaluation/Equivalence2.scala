@@ -1,6 +1,8 @@
 package net.alasc.symdpoly
 package evaluation
 
+import scala.annotation.tailrec
+
 import net.alasc.finite.Grp
 import shapeless.Witness
 import spire.algebra.Action
@@ -16,7 +18,7 @@ final class SymmetryEquivalence2[M <: generic.MonoidDef with Singleton, G](val g
   def apply(mono: M#Monomial): Set[M#Monomial] = grp.iterator.map(g => mono <|+| g).toSet
 }
 
-final class FullAdjointEquivalence2[M <: generic.MonoidDef with Singleton:Witness.Aux] extends Equivalence2[M] {
+final class AdjointEquivalence2[M <: generic.MonoidDef with Singleton:Witness.Aux] extends Equivalence2[M] {
   def M: M = valueOf[M]
   def apply(mono: M#Monomial): Set[M#Monomial] = Set(mono, M.monoInvolution.adjoint(mono))
 }
@@ -24,10 +26,21 @@ final class FullAdjointEquivalence2[M <: generic.MonoidDef with Singleton:Witnes
 final class FreeBasedEquivalence2[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](val equivalence: Equivalence[M]) extends Equivalence2[M] {
+](val equivalence: Equivalence[F]) extends Equivalence2[M] {
   def M: M = valueOf[M]
-  def apply(mono: Mono[M, F]): Set[Mono[M, F]] = {
-    val word = mono.normalForm.mutableCopy
-    val iterations = equivalence.inPlace()
+  def apply(mono: M#Monomial): Set[M#Monomial] = {
+    val word = (mono: Mono[M, F]).normalForm.mutableCopy
+    equivalence.inPlace(word) match {
+      case 1 => Set(mono)
+      case n =>
+        @tailrec def acc(set: Set[Mono[M, F]], i: Int): Set[Mono[M, F]] = {
+          val newSet = set + new Mono[M, F](word.immutableCopy)
+          if (i + 1 < n) {
+            equivalence.inPlace(word)
+            acc(newSet, i + 1)
+          } else newSet
+        }
+        acc(Set(mono), 1)
+    }
   }
 }

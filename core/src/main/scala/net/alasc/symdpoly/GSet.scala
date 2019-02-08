@@ -128,7 +128,7 @@ object GSet {
         case Seq(hd, tl@_*) => for {
           x <- hd.allInstances.map(op => symdpoly.Mono.fromOp(op)).to[SortedSet]
           y <- Word(tl).monomials
-        } yield F.monoMultiplicativeMonoid.times(x, y)
+        } yield F.monoMultiplicativeBinoid.times(x, y)
       }
     }
   }
@@ -145,7 +145,7 @@ object GSet {
           for {
             x <- gm.monomials
             y <- Power(gm, exp - 1).monomials
-          } yield M.monoMultiplicativeMonoid.times(x, y)
+          } yield M.monoMultiplicativeBinoid.times(x, y)
       }
     }
   }
@@ -162,7 +162,7 @@ object GSet {
           for {
             x <- hd.monomials
             y <- Tensor(tl).monomials
-          } yield M.monoMultiplicativeMonoid.times(x, y)
+          } yield M.monoMultiplicativeBinoid.times(x, y)
       }
     }
   }

@@ -140,7 +140,7 @@ object Mono {
   implicit def multiplicativeBinoid[
     M <: FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](implicit wM: Witness.Aux[M]): MultiplicativeBinoid[Mono[M, F]] = (wM.value: M).monoMultiplicativeMonoid
+  ](implicit wM: Witness.Aux[M]): MultiplicativeBinoid[Mono[M, F]] = (wM.value: M).monoMultiplicativeBinoid
 
   implicit def order[
     M <: FreeBasedMonoidDef.Aux[F] with Singleton,

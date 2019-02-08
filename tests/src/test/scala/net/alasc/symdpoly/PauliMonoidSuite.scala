@@ -40,7 +40,7 @@ class PauliMonoidSuite extends CommonSuite {
   checkAll("quotient binoid", ExtraMultiplicativeMonoidLaws[Mono[QM.type, FM.type]].multiplicativeBinoid)
 
   test("Pauli algebra") {
-    QM.quotient(σ(1)*σ(2)*σ(3)) shouldBe QM.quotient(symdpoly.Mono.one[FM.type, FM.type]*Phase.minusI)
+    QM.restrictedGroup(σ(1)*σ(2)*σ(3)) shouldBe QM.quotient(symdpoly.Mono.one[FM.type, FM.type]*Phase.minusI)
   }
 
 }

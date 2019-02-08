@@ -50,11 +50,11 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
 
   // TODO: handle permutations that go beyond the nRootsOfUnity used during partition construction
 
-  def quotient(grp: Grp[FreePermutation[Free]]): Grp[QuotientPermutation[monoidDef.type]] = {
+  def restrictedGroup(grp: Grp[FreePermutation[Free]]): Grp[QuotientPermutation[monoidDef.type]] = {
     import net.alasc.perms.default._
     grp.generators.toVector.map(quotient).sequence match {
       case Some(mappedGenerators) => Grp.fromGeneratorsAndOrder(mappedGenerators, grp.order)
-      case None => quotient(grp.unorderedPartitionStabilizer(action, partition))
+      case None => restrictedGroup(grp.unorderedPartitionStabilizer(action, partition))
     }
   }
 

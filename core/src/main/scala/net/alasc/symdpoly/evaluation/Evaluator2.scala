@@ -2,27 +2,33 @@ package net.alasc.symdpoly
 package evaluation
 
 import scala.annotation.tailrec
+
 import cats.{Contravariant, Invariant}
 import shapeless.Witness
 import spire.algebra.{Action, Eq, Order, VectorSpace}
 import spire.syntax.action._
+
 import cyclo.Cyclo
+
 import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.generic
 import cats.instances.order.catsContravariantMonoidalForOrder
 import cats.instances.eq.catsContravariantMonoidalForEq
+
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.algebra.Instances._
 import spire.util.Opt
 import spire.syntax.std.seq._
-import net.alasc.symdpoly.algebra.Phased.syntax._
 
-class Evaluator2[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivalences: Seq[Equivalence2[M]]) { self =>
+import net.alasc.symdpoly.algebra.Phased.syntax._
+import net.alasc.symdpoly.evaluation.Equivalence.{CyclicEquivalence, FullAdjointEquivalence, TransposeEquivalence}
+
+final class Evaluator2[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivalences: Seq[Equivalence2[M]]) { self =>
   def M: M = valueOf[M]
   val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
 
   // optimization: set to true if apply(a) == apply(a.adjoint)
-  def isSelfAdjoint: Boolean
+  def isSelfAdjoint: Boolean = equivalences.exists(_.isInstanceOf[AdjointEquivalence2[_]])
 
   def apply(mono: M#Monomial): EvaluatedMono2[self.type, M] = {
     val candidates = equivalences.foldLeft(Set(mono)) { case (set, equivalence) => set.flatMap(m => equivalence(m)) }
@@ -44,9 +50,30 @@ class Evaluator2[M <: generic.MonoidDef with Singleton: Witness.Aux](val equival
 
   // typeclasses
 
+  val evaluatedMonoZero: EvaluatedMono2[self.type, M] = new EvaluatedMono2[self.type, M](M.monoMultiplicativeBinoid.zero)
   val evaluatedMonoOrder: Order[EvaluatedMono2[self.type, M]] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
   val evaluatedMonoPhased: Phased[EvaluatedMono2[self.type, M]] = Invariant[Phased].imap(M.monoPhased)(apply)(_.normalForm)
   val evaluatedPolyEq: Eq[EvaluatedPoly2[self.type, M]] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
   val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPoly2[self.type, M], Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply)(_.normalForm)
+
+  def :+(e: Equivalence2[M]): Evaluator2[M] = new Evaluator2[M](equivalences :+ e)
+
+  def adjoint: Evaluator2[M] = self :+ new AdjointEquivalence2[M]
+
+  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): Evaluator2[M] = self :+ new SymmetryEquivalence2(grp)
+
+}
+
+object Evaluator2 {
+
+  def natural[M <: generic.MonoidDef with Singleton: Witness.Aux]: Evaluator2[M] = new Evaluator2[M](Vector.empty)
+
+  implicit class FreeEvaluator2Syntax[
+    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
+    F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux
+  ](val evaluator: Evaluator2[M]) {
+    def cyclic(predicate: OpPredicate[F]): Evaluator2[M] = evaluator :+ new FreeBasedEquivalence2[M, F](new CyclicEquivalence[F](predicate))
+    def transpose(predicate: OpPredicate[F]): Evaluator2[M] = evaluator :+ new FreeBasedEquivalence2[M, F](new TransposeEquivalence[F](predicate))
+  }
 
 }

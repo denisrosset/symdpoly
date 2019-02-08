@@ -51,7 +51,7 @@ object I3322Matlab extends App {
   val ambientGroup = QM.ambientGroup(swapParties, inputSwapA, inputCyclicA, outputA0)
   val L = evaluation.pureStateSelfAdjoint(QM)
 
-  val bellOperator = QM.quotient(
+  val bellOperator = QM.restrictedGroup(
     A(2) * B(1) + A(1) * B(2) - A(1) * B(1) - A(0) * B(2) - A(2) * B(0) - A(1) * B(0) - A(0) * B(1) - A(0) * B(0)
       - A(0) - A(1) - B(0) - B(1)
   ) / 4

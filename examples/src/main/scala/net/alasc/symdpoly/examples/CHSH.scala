@@ -42,7 +42,7 @@ object CHSH {
     val generators = Seq(swapParties, inputSwapA, outputSwapA0)
   }
 
-  val bellOperator = Quotient.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
+  val bellOperator = Quotient.restrictedGroup(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
 
   val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
@@ -123,7 +123,7 @@ object Distributed {
   }).reduce(_ + _)
 
 
-  val bellOperator = Quotient.quotient(objective)
+  val bellOperator = Quotient.restrictedGroup(objective)
   println(bellOperator)
   val generatingSet = Quotient.quotient(GSet.onePlus(A, B).pow(4))
 

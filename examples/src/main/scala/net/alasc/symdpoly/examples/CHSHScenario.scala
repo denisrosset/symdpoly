@@ -41,7 +41,7 @@ object CHSHScenario extends App {
     val generators = Seq(swapParties, inputSwapA, outputSwapA0)
   }
 
-  val bellOperator = Quotient.quotient(A(0) + A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
+  val bellOperator = Quotient.restrictedGroup(A(0) + A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
 
   val generatingSet = Quotient.quotient(GSet.onePlus(A) * GSet.onePlus(B))
 

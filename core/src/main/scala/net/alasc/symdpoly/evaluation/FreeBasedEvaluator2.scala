@@ -10,7 +10,7 @@ import net.alasc.finite.Grp
 import net.alasc.symdpoly.free.FreePermutation
 import net.alasc.symdpoly.math.GrpDecomposition
 import net.alasc.symdpoly.{Mono, Phase, Poly, generic, valueOf}
-
+/*
 class FreeBasedEvaluator2[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton](val equivalences: Vector[Equivalence[F]], val optGrp: Option[Grp[FreePermutation[F]]] = None) extends Evaluator2[M] {
@@ -112,3 +112,4 @@ class FreeBasedEvaluator2[
     else applyGrpAndCheckForZero(fsp)
 
 }
+*/
