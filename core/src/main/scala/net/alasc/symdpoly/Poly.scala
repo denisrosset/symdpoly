@@ -69,6 +69,7 @@ abstract class GenPoly[M <: MonoidDef with Singleton] {
   def nTerms: Int
   def monomial(i: Int): M#Monomial
   def coeff(i: Int): Cyclo
+  def coeff(mono: M#Monomial): Cyclo
   def string(leftBracket: String = "", rightBracket: String = ""): String
 }
 
