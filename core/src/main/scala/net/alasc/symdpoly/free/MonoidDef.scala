@@ -7,7 +7,7 @@ import spire.syntax.cfor._
 
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
-import net.alasc.symdpoly.generic.FreeBasedMonoidDef
+import net.alasc.symdpoly.generic.{FreeBasedMonoidDef, FreeBasedPermutation}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
@@ -44,10 +44,10 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   def Free: Free = this
 
   // TODO: remove old symmetryGroup and replace by this one
-  def symmetryGroup2: Grp[FreePermutation[monoidDef.type]] = {
+  def symmetryGroup2: Grp[FreeBasedPermutation[monoidDef.type, monoidDef.type]] = {
     import net.alasc.perms.default._
     val grp = GenPerm.generalizedSymmetricGroup(cyclotomicOrder, nOperators)
-    val generators = grp.generators.map(new FreePermutation(_))
+    val generators = grp.generators.map(new FreeBasedPermutation[monoidDef.type, monoidDef.type](_))
     Grp.fromGeneratorsAndOrder(generators, grp.order)
   }
 
@@ -217,7 +217,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     new Generator[Free](name.value, GenPerm(perm, phases))
   }
 
-  def permutation(f: Op => PhasedOp): FreePermutation[this.type] = {
+  def permutation(f: Op => PhasedOp): FreeBasedPermutation[this.type, this.type] = {
     import scala.collection.mutable.{HashMap => MMap}
     val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
     val permImages = new Array[Int](nOperators)
@@ -230,7 +230,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     }
     val perm = Perm.fromImages(permImages)
     val phases = Phases(phaseMap.toVector: _*)
-    new FreePermutation[this.type](GenPerm(perm, phases))
+    new FreeBasedPermutation[this.type, this.type](GenPerm(perm, phases))
   }
 
 }

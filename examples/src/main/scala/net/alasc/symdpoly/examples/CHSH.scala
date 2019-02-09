@@ -4,6 +4,7 @@ package examples
 import cyclo.Cyclo
 import net.alasc.symdpoly.joptimizer._
 import net.alasc.symdpoly.matlab._
+
 object CHSH {
 
   object Free extends free.MonoidDef(2) {

@@ -7,7 +7,6 @@ import shapeless.Witness
 import spire.syntax.cfor.cforRange
 
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.free.FreePermutation
 import net.alasc.symdpoly.math.GrpDecomposition
 import net.alasc.symdpoly.{Mono, Phase, Poly, generic, valueOf}
 /*

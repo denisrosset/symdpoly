@@ -30,7 +30,6 @@ import net.alasc.symdpoly.algebra.Instances._
 import spire.std.unit._
 
 import net.alasc.perms.default._
-import net.alasc.symdpoly.quotient.{QuotientMonoPermutationAction, QuotientPermutation}
 
 trait MatrixSymmetries {
   type G

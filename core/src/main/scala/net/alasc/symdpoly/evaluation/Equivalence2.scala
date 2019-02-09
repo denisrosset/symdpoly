@@ -56,7 +56,7 @@ trait FreeBasedEquivalence2[
 
 }
 
-
+/*
 final class FreeBasedSymmetryEquivalence2[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
@@ -64,3 +64,4 @@ final class FreeBasedSymmetryEquivalence2[
 
 
 }
+*/

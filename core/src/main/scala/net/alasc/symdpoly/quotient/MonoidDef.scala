@@ -1,8 +1,8 @@
 package net.alasc.symdpoly
 package quotient
 import net.alasc.algebra.PermutationAction
-import net.alasc.symdpoly.free.{FreePermutation, MutablePoly, MutableWord}
-import net.alasc.symdpoly.generic.FreeBasedMonoidDef
+import net.alasc.symdpoly.free.{MutablePoly, MutableWord}
+import net.alasc.symdpoly.generic.{FreeBasedMonoidDef, FreeBasedPermutation}
 import spire.syntax.cfor._
 import scala.annotation.tailrec
 
@@ -35,24 +35,22 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     val monos2: Vector[Mono[Free, Free]] = Vector.tabulate(n, n)( (i, j) => Mono(op(i), op(j)) ).flatten
     val monos: Vector[Mono[Free, Free]] = Vector(Mono.one[Free, Free]) ++ (monos1 ++ monos2).flatMap(m => phases.map(p => m * p))
     val monoSet: OrderedSet[Mono[Free, Free]] = OrderedSet.fromUnique(monos)
-    val action = new PermutationAction[FreePermutation[Free]] {
+    val action = new PermutationAction[FreeBasedPermutation[Free, Free]] {
       def isFaithful: Boolean = true
-      def findMovedPoint(g: FreePermutation[Free]): NNOption = g.genPerm.largestMovedPoint match {
+      def findMovedPoint(g: FreeBasedPermutation[Free, Free]): NNOption = g.genPerm.largestMovedPoint match {
         case NNOption(i) => NNSome(monoSet.indexOf(monoFromOpIndex(i)))
         case _ => NNNone
       }
-      def movedPointsUpperBound(g: FreePermutation[Free]): NNOption = NNSome(monoSet.length - 1)
-      def actl(g: FreePermutation[Free], i: Int): Int = actr(i, g.inverse)
-      def actr(i: Int, g: FreePermutation[Free]): Int = monoSet.indexOf(Free.monoGenPermAction.actr(monoSet(i), g.genPerm)) // TODO: replace
+      def movedPointsUpperBound(g: FreeBasedPermutation[Free, Free]): NNOption = NNSome(monoSet.length - 1)
+      def actl(g: FreeBasedPermutation[Free, Free], i: Int): Int = actr(i, g.inverse)
+      def actr(i: Int, g: FreeBasedPermutation[Free, Free]): Int = monoSet.indexOf(Free.monoGenPermAction.actr(monoSet(i), g.genPerm)) // TODO: replace
     }
     val normalForms = monoSet.iterator.map(monoidDef.quotient(_)).toVector
     val partition = Partition.fromSeq(normalForms)
     (action, partition)
   }
 
-  // TODO: handle permutations that go beyond the nRootsOfUnity used during partition construction
-
-  def restrictedGroup(grp: Grp[FreePermutation[Free]]): Grp[QuotientPermutation[monoidDef.type]] = {
+  def restrictedGroup(grp: Grp[FreeBasedPermutation[Free, Free]]): Grp[FreeBasedPermutation[monoidDef.type, Free]] = {
     import net.alasc.perms.default._
     grp.generators.toVector.map(quotient).sequence match {
       case Some(mappedGenerators) => Grp.fromGeneratorsAndOrder(mappedGenerators, grp.order)
@@ -60,8 +58,8 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     }
   }
 
-  def quotient(permutation: FreePermutation[Free]): Option[QuotientPermutation[monoidDef.type]] =
-    if (UnorderedPartitionStabilizer.partitionInvariantUnder(partition, action, permutation)) Some(new QuotientPermutation[monoidDef.type](permutation.genPerm)) else None
+  def quotient(permutation: FreeBasedPermutation[Free, Free]): Option[FreeBasedPermutation[monoidDef.type, Free]] =
+    if (UnorderedPartitionStabilizer.partitionInvariantUnder(partition, action, permutation)) Some(new FreeBasedPermutation[monoidDef.type, Free](permutation.genPerm)) else None
 
   def quotient(word: Mono[Free, Free]): Monomial = {
     val res = word.data.mutableCopy()

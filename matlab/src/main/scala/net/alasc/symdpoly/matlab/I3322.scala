@@ -56,7 +56,7 @@ object I3322Matlab extends App {
       - A(0) - A(1) - B(0) - B(1)
   ) / 4
 
-  val problem = L(bellOperator).maximize()
+  val problem = L(bellOperator).maximize
 
   (1 to 5).foreach { localLevel =>
     val generatingSet = QM.quotient(GSet.onePlus(A, B)).pow(localLevel)

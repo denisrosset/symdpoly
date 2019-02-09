@@ -97,7 +97,7 @@ object GuessYourNeighborInput {
   import SliwaScenario._
 
   val objective = QM.quotient( p(0,0,0)(0,0,0) + p(1,1,0)(0,1,1) + p(0,1,1)(1,0,1) + p(1,0,1)(1,1,0) )/4
-  val problem = L(objective).maximize()
+  val problem = L(objective).maximize
   val relaxation = problem.symmetricRelaxation(localLevel(1), ambientGroup)
 
 }
@@ -108,7 +108,7 @@ object Mermin3 {
   import SliwaScenario._
 
   val objective = QM.quotient( ABC(1,0,0) + ABC(0,1,0) + ABC(0,0,1) - ABC(1,1,1) )
-  val problem = L(objective).maximize()
+  val problem = L(objective).maximize
   val relaxation = problem.symmetricRelaxation(localLevel(1), ambientGroup)
 
 }
