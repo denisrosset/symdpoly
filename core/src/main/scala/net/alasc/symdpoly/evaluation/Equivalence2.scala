@@ -9,7 +9,7 @@ import spire.algebra.Action
 import spire.syntax.action._
 import spire.syntax.involution._
 
-import net.alasc.symdpoly.generic.GenericPermutation
+import net.alasc.symdpoly.generic.FreeBasedPermutation
 
 /** A transformation that generates equivalent monomials under evaluation by the linear functional. */
 trait Equivalence2[M <: generic.MonoidDef with Singleton] {
@@ -25,7 +25,7 @@ final class AdjointEquivalence2[M <: generic.MonoidDef with Singleton:Witness.Au
   def apply(mono: M#Monomial): Set[M#Monomial] = Set(mono, M.monoInvolution.adjoint(mono))
 }
 
-final class FreeBasedEquivalence2[
+final class LiftOldEquivalence[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
 ](val equivalence: Equivalence[F]) extends Equivalence2[M] {
@@ -45,4 +45,22 @@ final class FreeBasedEquivalence2[
         acc(Set(mono), 1)
     }
   }
+}
+
+trait FreeBasedEquivalence2[
+  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
+  F <: free.MonoidDef.Aux[F] with Singleton
+] extends Equivalence2[M] {
+
+  def expand(pad: FreeScratchPad2[F]): Unit
+
+}
+
+
+final class FreeBasedSymmetryEquivalence2[
+  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
+  F <: free.MonoidDef.Aux[F] with Singleton
+](val grp: Grp[FreeBasedPermutation]) extends FreeBasedEquivalence2[M, F] {
+
+
 }

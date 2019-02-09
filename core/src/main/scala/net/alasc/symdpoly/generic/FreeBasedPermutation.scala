@@ -38,29 +38,6 @@ trait GenericPermutation[M <: generic.MonoidDef with Singleton]
 
 object GenericPermutation {
 
-  implicit def evaluatedMonoAction[
-  E <: Evaluator2[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton
-  ](implicit action: Action[M#Monomial, GenericPermutation[M]]): Action[EvaluatedMono2[E, M], GenericPermutation[M]] =
-    Invariant[Lambda[P => Action[P, GenericPermutation[M]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
-
-  implicit def grpGenericPermutationOps[M <: generic.MonoidDef with Singleton: Witness.Aux](grp: Grp[GenericPermutation[M]])
-                                                                                           (implicit classTag: ClassTag[GenericPermutation[M]], equ: Eq[GenericPermutation[M]], fpab: FaithfulPermutationActionBuilder[GenericPermutation[M]], group: Group[GenericPermutation[M]]): GrpGenericPermutationOps[M, GenericPermutation[M]] =
-    new GrpGenericPermutationOps[M, GenericPermutation[M]](grp)
-
-  def phasedIntAction[M <: generic.MonoidDef with Singleton:Witness.Aux](set: OrderedSet[M#Monomial])(implicit group: Group[GenericPermutation[M]], action: Action[M#Monomial, GenericPermutation[M]]): Action[PhasedInt, GenericPermutation[M]] =
-    new Action[PhasedInt, GenericPermutation[M]] {
-      def actr(p: PhasedInt, g: GenericPermutation[M]): PhasedInt = {
-        implicit def phased: Phased[M#Monomial] = valueOf[M].monoPhased
-        implicit def order: Order[M#Monomial] = valueOf[M].monoOrder
-        val res = set(p.index) <|+| g
-        val newIndex = set.indexOf(res.phaseCanonical)
-        val newPhase = p.phase * res.phaseOffset
-        PhasedInt(newPhase, newIndex)
-      }
-      def actl(g: GenericPermutation[M], p: PhasedInt): PhasedInt = actr(p, group.inverse(g))
-    }
-
   class GrpGenericPermutationOps[
   M <: generic.MonoidDef with Singleton: Witness.Aux,
   G <: GenericPermutation[M]:ClassTag:Eq:FaithfulPermutationActionBuilder:Group
@@ -116,5 +93,51 @@ object GenericPermutation {
     }
 
   }
+
+  implicit def grpGenericPermutationOps[
+    M <: generic.MonoidDef with Singleton: Witness.Aux
+  ](grp: Grp[GenericPermutation[M]])(implicit classTag: ClassTag[GenericPermutation[M]],
+                                       equ: Eq[GenericPermutation[M]],
+                                       fpab: FaithfulPermutationActionBuilder[GenericPermutation[M]],
+                                       group: Group[GenericPermutation[M]]): GrpGenericPermutationOps[M, GenericPermutation[M]] =
+    new GrpGenericPermutationOps[M, GenericPermutation[M]](grp)
+
+  def phasedIntAction[
+    M <: generic.MonoidDef with Singleton:Witness.Aux
+  ](set: OrderedSet[M#Monomial])(implicit group: Group[GenericPermutation[M]],
+                                 action: Action[M#Monomial, GenericPermutation[M]]): Action[PhasedInt, GenericPermutation[M]] =
+    new Action[PhasedInt, GenericPermutation[M]] {
+      def actr(p: PhasedInt, g: GenericPermutation[M]): PhasedInt = {
+        implicit def phased: Phased[M#Monomial] = valueOf[M].monoPhased
+        implicit def order: Order[M#Monomial] = valueOf[M].monoOrder
+        val res = set(p.index) <|+| g
+        val newIndex = set.indexOf(res.phaseCanonical)
+        val newPhase = p.phase * res.phaseOffset
+        PhasedInt(newPhase, newIndex)
+      }
+      def actl(g: GenericPermutation[M], p: PhasedInt): PhasedInt = actr(p, group.inverse(g))
+    }
+
+  implicit def evaluatedMonoAction[
+    E <: Evaluator2[M] with Singleton: Witness.Aux,
+    M <: generic.MonoidDef with Singleton
+  ](implicit action: Action[M#Monomial, GenericPermutation[M]]): Action[EvaluatedMono2[E, M], GenericPermutation[M]] =
+    Invariant[Lambda[P => Action[P, GenericPermutation[M]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
+
+}
+
+trait FreeBasedPermutation[
+  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
+  F <: free.MonoidDef.Aux[F] with Singleton
+] extends GenericPermutation[M]
+
+object FreeBasedPermutation {
+
+  implicit def evaluatedMonoAction[
+    E <: Evaluator2[M] with Singleton: Witness.Aux,
+    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
+    F <: free.MonoidDef.Aux[F] with Singleton
+  ](implicit action: Action[M#Monomial, FreeBasedPermutation[M, F]]): Action[EvaluatedMono2[E, M], FreeBasedPermutation[M, F]] =
+    Invariant[Lambda[P => Action[P, FreeBasedPermutation[M, F]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
 
 }

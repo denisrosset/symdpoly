@@ -28,7 +28,9 @@ import net.alasc.symdpoly.algebra.{Morphism, MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.math.{GenPerm, Phases}
 import net.alasc.symdpoly.algebra.Instances._
 import spire.std.unit._
+
 import net.alasc.perms.default._
+import net.alasc.symdpoly.quotient.{QuotientMonoPermutationAction, QuotientPermutation}
 
 trait MatrixSymmetries {
   type G
@@ -165,7 +167,7 @@ class GramMatrix2[
 
 object GramMatrix2 {
 
-  def apply[
+  def genericConstruction[
     E <: Evaluator2[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
   ](E: E, gSet: GSet[M]): GramMatrix2[E, M] = {
@@ -215,4 +217,32 @@ object GramMatrix2 {
     }
     new GramMatrix2[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
   }
+
+  def freeBasedConstruction[
+    E <: Evaluator2[M] with Singleton,
+    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
+    F <: free.MonoidDef.Aux[F] with Singleton](E: E, gSet: GSet[M]): GramMatrix2[E, M] = {
+   /* val evaluators = E.equivalences.map {
+      case e: SymmetryEquivalence2 =>
+        e.action match {
+          case qmpa: QuotientMonoPermutationAction[M, F] =>
+            ???
+        }
+    }*/
+    ???
+  }
+
+  def apply[
+    E <: Evaluator2[M] with Singleton,
+    M <: generic.MonoidDef with Singleton: Witness.Aux
+  ](E: E, gSet: GSet[M]): GramMatrix2[E, M] = valueOf[M] match {
+    case m: generic.FreeBasedMonoidDef =>
+      val res = freeBasedConstruction[
+        Evaluator2[m.type] with Singleton,
+        m.type with generic.FreeBasedMonoidDef.Aux[m.Free] with Singleton, m.Free
+        ](E.asInstanceOf[Evaluator2[m.type] with Singleton], gSet.asInstanceOf[GSet[m.type]])(m.witness.asInstanceOf[Witness.Aux[m.type with generic.FreeBasedMonoidDef.Aux[m.Free] with Singleton]])
+      res.asInstanceOf[GramMatrix2[E, M]]
+    case _ => genericConstruction[E, M](E, gSet)
+  }
+
 }

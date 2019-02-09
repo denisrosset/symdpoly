@@ -22,11 +22,11 @@ import cats.instances.invariant._
 import net.alasc.symdpoly.algebra.Instances._
 import cats.instances.eq._
 
-import net.alasc.symdpoly.generic.GenericPermutation
+import net.alasc.symdpoly.generic.FreeBasedPermutation
 
 class QuotientPermutation[
   M <: quotient.MonoidDef with Singleton: Witness.Aux
-](val genPerm: GenPerm) extends GenericPermutation[M] {
+](val genPerm: GenPerm) extends FreeBasedPermutation[M] {
   def M: M = valueOf[M]
   def F: free.MonoidDef = valueOf[M].Free
   override def toString: String = FreePermutation.prettyPrintGenPerm(genPerm, F)
@@ -60,14 +60,14 @@ object QuotientPermutation {
   ](implicit action: Action[M#Monomial, QuotientPermutation[M]]): Action[EvaluatedMono2[E, M], QuotientPermutation[M]] =
     Invariant[Lambda[P => Action[P, QuotientPermutation[M]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
 
-  implicit def grpQuotientPermutationOps[M <: quotient.MonoidDef with Singleton: Witness.Aux](grp: Grp[QuotientPermutation[M]]): GenericPermutation.GrpGenericPermutationOps[M, QuotientPermutation[M]] =
-    new GenericPermutation.GrpGenericPermutationOps[M, QuotientPermutation[M]](grp)
+  implicit def grpQuotientPermutationOps[M <: quotient.MonoidDef with Singleton: Witness.Aux](grp: Grp[QuotientPermutation[M]]): FreeBasedPermutation.GrpGenericPermutationOps[M, QuotientPermutation[M]] =
+    new FreeBasedPermutation.GrpGenericPermutationOps[M, QuotientPermutation[M]](grp)
 
 }
 
 class QuotientMonoPermutationAction[
-M <: quotient.MonoidDef.Aux[F] with Singleton:Witness.Aux,
-F <: free.MonoidDef.Aux[F] with Singleton
+  M <: quotient.MonoidDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoidDef.Aux[F] with Singleton
 ] extends Action[Mono[M, F], QuotientPermutation[M]] {
   def actl(g: QuotientPermutation[M], mono: Mono[M, F]): Mono[M, F] = actr(mono, g.inverse)
   def actr(mono: Mono[M, F], g: QuotientPermutation[M]): Mono[M, F] = {

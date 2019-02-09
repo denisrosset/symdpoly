@@ -24,10 +24,10 @@ import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.algebra.Phased.syntax._
 import net.alasc.symdpoly.evaluation._
 import net.alasc.symdpoly.evaluation.Symmetries.{allEvaluatedMonomials, momentSetAction}
-import net.alasc.symdpoly.generic.GenericPermutation
+import net.alasc.symdpoly.generic.FreeBasedPermutation
 import net.alasc.symdpoly.quotient.QuotientPermutation
 
-class FreePermutation[F <: free.MonoidDef with Singleton:Witness.Aux](val genPerm: GenPerm) extends GenericPermutation[F] {
+class FreePermutation[F <: free.MonoidDef with Singleton:Witness.Aux](val genPerm: GenPerm) extends FreeBasedPermutation[F] {
   def F: F = valueOf[F]
   override def toString: String = FreePermutation.prettyPrintGenPerm(genPerm, valueOf[F])
   override def hashCode: Int = genPerm.hashCode

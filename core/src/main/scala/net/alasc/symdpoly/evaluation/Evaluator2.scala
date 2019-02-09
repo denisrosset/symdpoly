@@ -72,8 +72,8 @@ object Evaluator2 {
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux
   ](val evaluator: Evaluator2[M]) {
-    def cyclic(predicate: OpPredicate[F]): Evaluator2[M] = evaluator :+ new FreeBasedEquivalence2[M, F](new CyclicEquivalence[F](predicate))
-    def transpose(predicate: OpPredicate[F]): Evaluator2[M] = evaluator :+ new FreeBasedEquivalence2[M, F](new TransposeEquivalence[F](predicate))
+    def cyclic(predicate: OpPredicate[F]): Evaluator2[M] = evaluator :+ new LiftOldEquivalence[M, F](new CyclicEquivalence[F](predicate))
+    def transpose(predicate: OpPredicate[F]): Evaluator2[M] = evaluator :+ new LiftOldEquivalence[M, F](new TransposeEquivalence[F](predicate))
   }
 
 }
