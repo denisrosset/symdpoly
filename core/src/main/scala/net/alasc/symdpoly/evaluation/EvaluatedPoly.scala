@@ -52,9 +52,7 @@ object EvaluatedPoly {
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux
   ](val evaluatedPoly: EvaluatedPoly[E, M with generic.FreeBasedMonoidDef.Aux[F], M#TrivialGroup]) {
-
-    def maximize(): Maximization[E, M, F] = Maximization(evaluatedPoly)
-
+    def maximize: Maximization[E, M, F] = Maximization(evaluatedPoly)
   }
 
   implicit def equ[

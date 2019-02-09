@@ -53,14 +53,23 @@ object I3322 {
   val generatingSet = QM.quotient(GSet.onePlus(A, B)).pow(2)
 
   val L = evaluation.pureStateSelfAdjoint(QM)
+  val L1 = evaluation.Evaluator2.natural(QM).adjoint
 
   val bellOperator = QM.quotient(
     A(2) * B(1) + A(1) * B(2) - A(1) * B(1) - A(0) * B(2) - A(2) * B(0) - A(1) * B(0) - A(0) * B(1) - A(0) * B(0)
      - A(0) - A(1) - B(0) - B(1)
   )/4
 
-  val problem = L(bellOperator).maximize()
+  val feasGrp = QM.restrictedGroup(FM.symmetryGroup2)
+  val symGrp = feasGrp.leavesInvariant(L1(bellOperator))
+
+  val problem = L(bellOperator).maximize
   val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
+
+  val L1sym = L1.symmetric(symGrp)
+  val problem1 = L1sym(bellOperator).maximize
+  val relaxation1 = problem1.relaxation(generatingSet)
+
 /*
   relaxation.writeMomentMatrix("i3322_moment_matrix.txt")
   relaxation.writePhaseMatrix("i3322_phase_matrix.txt")
@@ -109,7 +118,7 @@ object I3322A extends App {
       - A(0) - A(1) - B(0) - B(1)
   )/4
 
-  val problem = L(bellOperator).maximize()
+  val problem = L(bellOperator).maximize
   val relaxation: Relaxation[L.type, QM.type, FM.type] = problem.symmetricRelaxation(generatingSet)
   def matlabImage(g: GenPerm): Array[Int] = {
     Array.tabulate[Int](relaxation.gramMatrix.matrixSize) { pIndex =>

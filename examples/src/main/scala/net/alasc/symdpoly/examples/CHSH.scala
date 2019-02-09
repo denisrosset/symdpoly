@@ -54,7 +54,7 @@ object CHSH {
   val relaxation = problem.symmetricRelaxation(generatingSet, G.grp)
   val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
   val L1 = evaluation.Evaluator2.natural(Quotient)
-  val symGrp = feasGrp.stabilizes(L1(bellOperator))
+  val symGrp = feasGrp.leavesInvariant(L1(bellOperator))
   val L2 = evaluation.Evaluator2.natural(Quotient).adjoint.symmetric(symGrp)
   val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
 
@@ -143,7 +143,7 @@ object Distributed {
 
   val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
   val L1 = evaluation.Evaluator2.natural(Quotient)
-  val symGrp = feasGrp.stabilizes(L1(bellOperator))
+  val symGrp = feasGrp.leavesInvariant(L1(bellOperator))
   val L2 = evaluation.Evaluator2.natural(Quotient).adjoint.symmetric(symGrp)
   val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
   relaxation1.jOptimizerInstance.solve()

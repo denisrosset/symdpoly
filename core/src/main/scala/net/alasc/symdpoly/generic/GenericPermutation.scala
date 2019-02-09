@@ -15,7 +15,7 @@ import net.alasc.symdpoly.algebra.Instances._
 import cats.instances.eq._
 import spire.syntax.group._
 import cats.instances.invariant._
-import spire.algebra.{Action, Eq, Group}
+import spire.algebra.{Action, Eq, Group, Order}
 import spire.syntax.cfor._
 import spire.syntax.action._
 import spire.syntax.group._
@@ -48,6 +48,19 @@ object GenericPermutation {
                                                                                            (implicit classTag: ClassTag[GenericPermutation[M]], equ: Eq[GenericPermutation[M]], fpab: FaithfulPermutationActionBuilder[GenericPermutation[M]], group: Group[GenericPermutation[M]]): GrpGenericPermutationOps[M, GenericPermutation[M]] =
     new GrpGenericPermutationOps[M, GenericPermutation[M]](grp)
 
+  def phasedIntAction[M <: generic.MonoidDef with Singleton:Witness.Aux](set: OrderedSet[M#Monomial])(implicit group: Group[GenericPermutation[M]], action: Action[M#Monomial, GenericPermutation[M]]): Action[PhasedInt, GenericPermutation[M]] =
+    new Action[PhasedInt, GenericPermutation[M]] {
+      def actr(p: PhasedInt, g: GenericPermutation[M]): PhasedInt = {
+        implicit def phased: Phased[M#Monomial] = valueOf[M].monoPhased
+        implicit def order: Order[M#Monomial] = valueOf[M].monoOrder
+        val res = set(p.index) <|+| g
+        val newIndex = set.indexOf(res.phaseCanonical)
+        val newPhase = p.phase * res.phaseOffset
+        PhasedInt(newPhase, newIndex)
+      }
+      def actl(g: GenericPermutation[M], p: PhasedInt): PhasedInt = actr(p, group.inverse(g))
+    }
+
   class GrpGenericPermutationOps[
   M <: generic.MonoidDef with Singleton: Witness.Aux,
   G <: GenericPermutation[M]:ClassTag:Eq:FaithfulPermutationActionBuilder:Group
@@ -66,7 +79,7 @@ object GenericPermutation {
       new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
     }
 
-    def stabilizes[E <: Evaluator2[M] with Singleton: Witness.Aux](poly: EvaluatedPoly2[E, M])(implicit action: Action[EvaluatedMono2[E, M], G]): Grp[G] = {
+    def leavesInvariant[E <: Evaluator2[M] with Singleton: Witness.Aux](poly: EvaluatedPoly2[E, M])(implicit action: Action[EvaluatedMono2[E, M], G]): Grp[G] = {
       val monomials = allElementsOf[E](poly)(implicitly, action)
       val order = M.cyclotomicOrder
       val monomialsAction = new PermutationAction[G] {
