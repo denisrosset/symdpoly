@@ -53,7 +53,7 @@ object I3322 {
   val generatingSet = QM.quotient(GSet.onePlus(A, B)).pow(2)
 
   val L = evaluation.pureStateSelfAdjoint(QM)
-  val L1 = evaluation.Evaluator2.natural(QM).adjoint
+  val L1 = QM.evaluator.adjoint
 
   val bellOperator = QM.quotient(
     A(2) * B(1) + A(1) * B(2) - A(1) * B(1) - A(0) * B(2) - A(2) * B(0) - A(1) * B(0) - A(0) * B(1) - A(0) * B(0)

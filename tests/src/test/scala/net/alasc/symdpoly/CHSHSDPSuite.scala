@@ -51,7 +51,7 @@ class CHSHSDPSuite extends CommonSuite {
     val generatingSet = QM.quotient(GSet.onePlus(A, B))
 
     val L = evaluation.pureStateSelfAdjoint(QM)
-    val L1 = evaluation.Evaluator2.natural(QM).adjoint
+    val L1 = QM.evaluator.adjoint
 
     val problem = L(bellOperator).maximize
 

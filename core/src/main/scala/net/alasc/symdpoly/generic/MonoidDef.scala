@@ -2,10 +2,13 @@ package net.alasc.symdpoly
 package generic
 
 import cyclo.Cyclo
+
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import shapeless.Witness
 import spire.algebra._
+
 import net.alasc.finite.Grp
+import net.alasc.symdpoly.evaluation.{Evaluator2, GenericEvaluator2}
 import net.alasc.symdpoly.math.GenPerm
 
 abstract class MonoidDef { self =>
@@ -45,5 +48,9 @@ abstract class MonoidDef { self =>
   def polyEq: Eq[Polynomial]
 
   def monomialToPolynomial(m: Monomial): Polynomial
+
+  // Construct evaluator
+
+  def evaluator: Evaluator2[self.type] = new GenericEvaluator2[self.type](Vector.empty)(witness)
 
 }

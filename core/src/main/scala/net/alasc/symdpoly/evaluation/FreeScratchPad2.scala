@@ -33,7 +33,15 @@ import net.alasc.symdpoly.evaluation.FreeBasedEvaluator.FreeScratchPad
 import net.alasc.symdpoly.free.{MutableWord}
 
 class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
-  
+
+  def check1(): Unit = {
+    cforRange(0 until array.length) {i =>
+      cforRange(i + 1 until array.length) { j =>
+        assert(array(i) ne array(j))
+      }
+    }
+  }
+
   def F: F = valueOf[F]
 
   override def toString: String = {
@@ -81,6 +89,7 @@ class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array
     * Returns None if the monomial is zero, i.e. we found x and x * phase with phase != 1 in the array.
     */
   def insertionSort(start: Int, end: Int): Option[(Int, Int)] = {
+    val prev = this.toString
     require(start <= end && start >= 0 && end <= array.length)
     cforRange(start + 1 until end) { i =>
       var item = array(i)
@@ -90,7 +99,7 @@ class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array
         else {
           val c = item.compareToIgnoringPhase(array(h - 1))
           if (c > 0) h // we found the place, bail out
-          else if (c == 0 && item.phase != array(h - 1).phase) -1 // the reduced monomial is zero, bail out
+          else if (c == 0 && item.phase != array(h - 1).phase) ~h // the reduced monomial is zero, bail out
           else { // c <= 0
             if (c == 0) item.setToZero() // this is a duplicate, we use zero as a marker of element to remove
             array(h) = array(h - 1)
@@ -98,11 +107,16 @@ class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array
           }
         }
       val hole = findPlace(i)
-      if (hole == -1) return None
+      if (hole < 0) {
+        array(~hole) = item
+        return None
+      }
       array(hole) = item
     }
     @tailrec def findNewStart(i: Int): Int =
-      if (i == end) sys.error("Should never happen")
+      if (i == end) {
+        sys.error("Should never happen")
+      }
       else if (array(i).isZero) findNewStart(i + 1)
       else i
     Some((findNewStart(start), end))
@@ -114,7 +128,8 @@ class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array
     // See Bitton, Dina, and David J. DeWitt. “Duplicate Record Elimination in Large Data Files.”
     // ACM Trans. Database Syst. 8, no. 2 (June 1983): 255–265. https://doi.org/10.1145/319983.319987.
     insertionSort(0, n) match {
-      case None => true // the monomial is zero
+      case None =>
+        true // the monomial is zero
       case Some((newStart, newEnd)) =>
         val newN = newEnd - newStart
         if (newStart != 0) {

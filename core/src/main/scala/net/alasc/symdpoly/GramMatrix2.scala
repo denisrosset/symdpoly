@@ -7,7 +7,7 @@ import spire.syntax.cfor.cforRange
 
 import scalin.immutable.Mat
 
-import net.alasc.symdpoly.evaluation.{EvaluatedMono2, Evaluator2, SymmetryEquivalence2}
+import net.alasc.symdpoly.evaluation.{EvaluatedMono2, Evaluator2, FreeBasedEvaluator2, SymmetryEquivalence2}
 import net.alasc.symdpoly.internal.{MomentSet2, MomentSetBuilder2}
 import scalin.immutable.dense._
 import spire.syntax.action._
@@ -30,6 +30,7 @@ import net.alasc.symdpoly.algebra.Instances._
 import spire.std.unit._
 
 import net.alasc.perms.default._
+import net.alasc.util.Tuple2Int
 
 trait MatrixSymmetries {
   type G
@@ -169,8 +170,8 @@ object GramMatrix2 {
   def genericConstruction[
     E <: Evaluator2[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](E: E, gSet: GSet[M]): GramMatrix2[E, M] = {
-    implicit def witnessE: Witness.Aux[E] = (E: E).witness
+  ](evaluator: E, gSet: GSet[M]): GramMatrix2[E, M] = {
+    implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
     def M: M = valueOf[M]
     val generatingMoments = OrderedSet.fromOrdered(gSet.monomials.toVector)
     val n = generatingMoments.length
@@ -183,21 +184,21 @@ object GramMatrix2 {
         if (unsortedMomentMatrix(inMat(r, c)) == Int.MinValue) {
           implicit def involution: Involution[M#Monomial] = M.monoInvolution
           implicit def monoMultiplicativeBinoid: MultiplicativeBinoid[M#Monomial] = M.monoMultiplicativeBinoid
-          val phased: EvaluatedMono2[E, M] = (E: E)(generatingMoments(r).adjoint * generatingMoments(c))
+          val phased: EvaluatedMono2[E, M] = (evaluator: E)(generatingMoments(r).adjoint * generatingMoments(c))
           val phase = phased.phaseOffset
           val canonical = phased.phaseCanonical
           // TODO: check phase support when complex is supported
           if (phased.isZero) {
             unsortedMomentMatrix(inMat(r, c)) = -1
             unsortedMomentMatrix(inMat(c, r)) = -1
-          } else if (r == c || E.isSelfAdjoint) {
+          } else if (r == c || evaluator.isSelfAdjoint) {
             val index = sb.getElement(canonical)
             unsortedMomentMatrix(inMat(r, c)) = index
             unsortedMomentMatrix(inMat(c, r)) = index
             phaseMatrix(inMat(r, c)) = phase.encoding
             phaseMatrix(inMat(c, r)) = phase.encoding
           } else {
-            val phasedAdj = (E: E)(generatingMoments(c).adjoint * generatingMoments(r))
+            val phasedAdj = (evaluator: E)(generatingMoments(c).adjoint * generatingMoments(r))
             val phaseAdj = phasedAdj.phaseOffset
             val canonicalAdj = phasedAdj.phaseCanonical
             val tuple = sb.getElement(canonical, canonicalAdj)
@@ -218,30 +219,88 @@ object GramMatrix2 {
   }
 
   def freeBasedConstruction[
-    E <: Evaluator2[M] with Singleton,
+    E <: FreeBasedEvaluator2[M, F] with Singleton,
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
-    F <: free.MonoidDef.Aux[F] with Singleton](E: E, gSet: GSet[M]): GramMatrix2[E, M] = {
-   /* val evaluators = E.equivalences.map {
-      case e: SymmetryEquivalence2 =>
-        e.action match {
-          case qmpa: QuotientMonoPermutationAction[M, F] =>
-            ???
+    F <: free.MonoidDef.Aux[F] with Singleton](evaluator: E, gSet: GSet[M]): GramMatrix2[E, M] = {
+    implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
+    def M: M = valueOf[M]
+    def F: F = M.Free
+    implicit def witnessF: Witness.Aux[F] = F.witness
+    val generatingMoments = OrderedSet.fromOrdered(gSet.monomials.toVector)
+    val n = generatingMoments.length
+    val generatingMomentsAdjoint = Array.tabulate(n)(i => generatingMoments(i).adjoint)
+    val maxDegree = Iterator.range(0, generatingMoments.length).map(i => generatingMoments(i).data.length).max
+    def inMat(r: Int, c: Int): Int = r + c * n
+    val phaseMatrix = Array.fill[Int](n * n)(Phase.one.encoding)
+    val unsortedMomentMatrix = Array.fill[Int](n * n)(Int.MinValue)
+    val sb = MomentSetBuilder2.make[E, M]
+
+    val pad = evaluator.makeScratchPad
+    val scratchMono = free.MutableWord.empty[F](maxDegree * 2)
+    val scratchAdjoint = free.MutableWord.empty[F](maxDegree * 2)
+
+    cforRange(0 until n) { r =>
+      cforRange(r until n) { c =>
+        if (unsortedMomentMatrix(inMat(r, c)) == Int.MinValue) {
+          scratchMono.setToContentOf(generatingMomentsAdjoint(r).data)
+          scratchMono *= generatingMoments(c).data
+
+          evaluator.reduce(scratchMono, pad)
+
+          if (evaluator.isSelfAdjoint) {
+            scratchAdjoint.setToContentOf(scratchMono)
+          } else {
+            scratchAdjoint.setToContentOf(generatingMomentsAdjoint(c).data)
+            scratchAdjoint *= generatingMoments(r).data
+            evaluator.reduce(scratchAdjoint, pad)
+          }
+
+          val phase = if (scratchMono.isZero) {
+            assert(scratchAdjoint.isZero)
+            Phase.one
+          } else {
+            assert(scratchMono.phase.encoding == scratchAdjoint.phase.adjoint.encoding) // TODO: adapt for complex case
+            scratchMono.phase
+          }
+
+          val tuple = if (scratchMono.isZero) Tuple2Int(-1, -1)
+          else if (scratchMono.compareTo(scratchAdjoint) == 0) { // self-adjoint
+            scratchMono.setPhase(Phase.one)
+            val i = sb.getElement(new EvaluatedMono2[E, M](new Mono[M, F](scratchMono.immutableCopy)))
+            Tuple2Int(i, i)
+          }
+          else { // not self-adjoint
+            scratchMono.setPhase(Phase.one)
+            scratchAdjoint.setPhase(Phase.one)
+            sb.getElement(
+              new EvaluatedMono2[E, M](new Mono[M, F](scratchMono.immutableCopy)),
+              new EvaluatedMono2[E, M](new Mono[M, F](scratchAdjoint.immutableCopy))
+            )
+          }
+          val indexMono = tuple._1
+          val indexAdjoint = tuple._2
+          phaseMatrix(inMat(r, c)) = phase.encoding
+          phaseMatrix(inMat(c, r)) = phase.encoding
+          unsortedMomentMatrix(inMat(r, c)) = indexMono
+          unsortedMomentMatrix(inMat(c, r)) = indexAdjoint
         }
-    }*/
-    ???
+      }
+    }
+    val (sortedMoments, unsortedToSorted) = sb.result()
+    val sortedMomentMatrix = unsortedMomentMatrix.map {
+      case -1 => -1
+      case i => unsortedToSorted.image(i)
+    }
+    new GramMatrix2[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
   }
 
   def apply[
     E <: Evaluator2[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](E: E, gSet: GSet[M]): GramMatrix2[E, M] = valueOf[M] match {
-    case m: generic.FreeBasedMonoidDef =>
-      val res = freeBasedConstruction[
-        Evaluator2[m.type] with Singleton,
-        m.type with generic.FreeBasedMonoidDef.Aux[m.Free] with Singleton, m.Free
-        ](E.asInstanceOf[Evaluator2[m.type] with Singleton], gSet.asInstanceOf[GSet[m.type]])(m.witness.asInstanceOf[Witness.Aux[m.type with generic.FreeBasedMonoidDef.Aux[m.Free] with Singleton]])
-      res.asInstanceOf[GramMatrix2[E, M]]
-    case _ => genericConstruction[E, M](E, gSet)
+  ](evaluator: E, gSet: GSet[M]): GramMatrix2[E, M] = evaluator match {
+    case e: FreeBasedEvaluator2[mType, fType] with Singleton =>
+      freeBasedConstruction[e.type, mType, fType](e, gSet.asInstanceOf[GSet[mType]])((e.M.asInstanceOf[mType]).witness).asInstanceOf[GramMatrix2[E, M]]
+    case _ => genericConstruction[E, M](evaluator, gSet)
   }
 
 }

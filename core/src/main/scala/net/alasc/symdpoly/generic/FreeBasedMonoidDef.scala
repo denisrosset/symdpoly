@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 package generic
 
 import cyclo.Cyclo
+
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.Grp
 import net.alasc.partitions.Partition
@@ -12,6 +13,8 @@ import net.alasc.perms.default._
 import net.alasc.util._
 import shapeless.Witness
 import spire.algebra.{Action, Eq, Field, FieldAssociativeAlgebra, Involution, Order}
+
+import net.alasc.symdpoly.evaluation.FreeBasedEvaluator2
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
@@ -83,6 +86,8 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
 
   def ambientGroup(generators: Generator[Free]*): Grp[GenPerm] =
     Grp.fromGenerators(generators.map(_.opAction))
+
+  override def evaluator: FreeBasedEvaluator2[self.type, Free] = new FreeBasedEvaluator2[self.type, Free](Vector.empty)
 
 }
 

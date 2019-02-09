@@ -7,9 +7,11 @@ import net.alasc.finite.{Grp, GrpGroup}
 import shapeless.Witness
 import spire.algebra.Action
 import spire.syntax.action._
+import spire.syntax.cfor._
 import spire.syntax.involution._
 
 import net.alasc.symdpoly.generic.FreeBasedPermutation
+import net.alasc.symdpoly.math.GrpDecomposition
 
 /** A transformation that generates equivalent monomials under evaluation by the linear functional. */
 trait Equivalence2[M <: generic.MonoidDef with Singleton] {
@@ -25,43 +27,102 @@ final class AdjointEquivalence2[M <: generic.MonoidDef with Singleton:Witness.Au
   def apply(mono: M#Monomial): Set[M#Monomial] = Set(mono, M.monoInvolution.adjoint(mono))
 }
 
-final class LiftOldEquivalence[
+abstract class FreeBasedEquivalence2[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](val equivalence: Equivalence[F]) extends Equivalence2[M] {
+] extends Equivalence2[M] {
   def M: M = valueOf[M]
-  def apply(mono: M#Monomial): Set[M#Monomial] = {
-    val word = (mono: Mono[M, F]).normalForm.mutableCopy
-    equivalence.inPlace(word) match {
-      case 1 => Set(mono)
-      case n =>
-        @tailrec def acc(set: Set[Mono[M, F]], i: Int): Set[Mono[M, F]] = {
-          val newSet = set + new Mono[M, F](word.immutableCopy)
-          if (i + 1 < n) {
-            equivalence.inPlace(word)
-            acc(newSet, i + 1)
-          } else newSet
+  def F: F = M.Free
+  implicit def witnessF: Witness.Aux[F] = F.witness
+
+  def apply(mono: Mono[M, F]): Set[Mono[M, F]] = {
+    val pad = FreeScratchPad2[F]
+    pad.scratch(0).setToContentOf(mono.data)
+    pad.n = 1
+    if (expandAndCheckForZero(pad))
+      Set(Mono.zero[M, F])
+    else
+      Set(Seq.tabulate(pad.n)(i => new Mono[M, F](pad.scratch(i).setImmutable())): _*)
+  }
+
+  /** Expands the monomials in the given scratch pad using this equivalence, and returns true when the resulting monomial is zero. */
+  def expandAndCheckForZero(pad: FreeScratchPad2[F]): Boolean
+
+}
+
+final class LiftedFreeBasedEquivalence2[
+  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoidDef.Aux[F] with Singleton
+](val equivalence: Equivalence[F]) extends FreeBasedEquivalence2[M, F] {
+
+  def expandAndCheckForZero(pad: FreeScratchPad2[F]): Boolean = {
+    var ind = pad.n
+    cforRange(0 until pad.n) { i =>
+      pad.scratch(ind).setToContentOf(pad.scratch(i))
+      val order = equivalence.inPlace(pad.scratch(ind))
+      if (order > 1) {
+        ind += 1
+        cforRange(2 until order) { j => // we do not need the index
+          pad.scratch(ind).setToContentOf(pad.scratch(ind - 1))
+          equivalence.inPlace(pad.scratch(ind))
+          ind += 1
         }
-        acc(Set(mono), 1)
+      }
     }
+    cforRange(pad.n until ind) { i =>
+      (M: M).inPlaceNormalForm(pad.scratch(ind))
+    }
+    pad.n = ind
+    pad.removeDuplicatesAndCheckForZero()
+  }
+
+}
+
+final class AdjointFreeBasedEquivalence2[
+  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoidDef.Aux[F] with Singleton
+] extends FreeBasedEquivalence2[M, F] {
+  def expandAndCheckForZero(pad: FreeScratchPad2[F]): Boolean = {
+    var ind = pad.n
+    cforRange(0 until pad.n) { i =>
+      pad.scratch(ind).setToContentOf(pad.scratch(i))
+      pad.scratch(ind).inPlaceAdjoint()
+      (M: M).inPlaceNormalForm(pad.scratch(ind))
+      ind += 1
+    }
+    pad.removeDuplicatesAndCheckForZero()
   }
 }
 
-trait FreeBasedEquivalence2[
-  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
+final class SymmetryFreeBasedEquivalence2[
+  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-] extends Equivalence2[M] {
+](val grp: Grp[FreeBasedPermutation[M, F]]) extends FreeBasedEquivalence2[M, F] {
 
-  def expand(pad: FreeScratchPad2[F]): Unit
+  import net.alasc.perms.default._
+
+  val decomposition = GrpDecomposition(grp)
+
+  def expandAndCheckForZero(pad: FreeScratchPad2[F]): Boolean = {
+    @tailrec def rec(t: List[Vector[FreeBasedPermutation[M, F]]]): Boolean = t match {
+      case hd :: tl =>
+        var ind = pad.n
+        cforRange(1 until hd.length) { i =>
+          cforRange(0 until pad.n) { j =>
+            pad.scratch(ind).setToContentOf(pad.scratch(j))
+            pad.scratch(ind).applyGenPermAction(hd(i).genPerm)
+            (M: M).inPlaceNormalForm(pad.scratch(ind))
+            ind += 1
+          }
+        }
+        pad.n = ind
+        if (pad.removeDuplicatesAndCheckForZero())
+          {
+            true
+          } else rec(tl)
+      case Nil => false
+    }
+    rec(decomposition.transversals)
+  }
 
 }
-
-/*
-final class FreeBasedSymmetryEquivalence2[
-  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
-](val grp: Grp[FreeBasedPermutation]) extends FreeBasedEquivalence2[M, F] {
-
-
-}
-*/
