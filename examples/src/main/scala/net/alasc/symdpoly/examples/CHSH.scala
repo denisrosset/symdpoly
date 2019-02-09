@@ -3,7 +3,7 @@ package examples
 
 import cyclo.Cyclo
 import net.alasc.symdpoly.joptimizer._
-
+import net.alasc.symdpoly.matlab._
 object CHSH {
 
   object Free extends free.MonoidDef(2) {
@@ -57,7 +57,6 @@ object CHSH {
   val symGrp = feasGrp.leavesInvariant(L1(bellOperator))
   val L2 = evaluation.Evaluator2.natural(Quotient).adjoint.symmetric(symGrp)
   val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
-
 /*relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
   relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
   relaxation.writeMomentIndexMatrix("chsh_moment_index_matrix.txt")
@@ -79,7 +78,7 @@ object CHSHApp extends App {
   import CHSH._
   println(relaxation1.gramMatrix.momentMatrix)
   println(relaxation1.jOptimizerInstance.solve())
-
+  relaxation1.sedumiInstance.writeFile("chsh_sedumi.mat")
   relaxation.mosekInstance.writeCBF("chsh.cbf")
 }
 
