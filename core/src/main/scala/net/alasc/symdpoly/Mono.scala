@@ -32,7 +32,7 @@ trait MonoTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDe
 class Mono[
   M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](protected[symdpoly] val data: MutableWord[F]) extends PolyTerm[M, F] { lhs =>
+](protected[symdpoly] val data: MutableWord[F]) extends generic.GenMono[M, Mono[M, F]] with MonoTerm[M, F] with PolyTerm[M, F] { lhs =>
   require(!data.mutable)
   def M: M = valueOf[M]
   def F: F = (M: M).Free
@@ -45,13 +45,8 @@ class Mono[
   }
   override def hashCode: Int = data.hashCode
   def normalForm: Mono[F, F] = new Mono[F, F](data)
-  def isZero(implicit mb: MultiplicativeBinoid[Mono[M, F]], equ: Eq[Mono[M, F]]): Boolean = mb.isZero(lhs)
-  def isOne(implicit mm: MultiplicativeMonoid[Mono[M, F]], equ: Eq[Mono[M, F]]): Boolean = mm.isOne(lhs)
-  def unary_- (implicit phased: Phased[Mono[M, F]]): Mono[M, F] = phased.gtimesl(Phase.minusOne, lhs)
-  def *(rhs: Phase)(implicit phased: Phased[Mono[M, F]]): Mono[M, F] = phased.gtimesr(lhs, rhs)
-  def *(rhs: Mono[M, F])(implicit mm: MultiplicativeMonoid[Mono[M, F]]): Mono[M, F] = mm.times(lhs, rhs)
-  def adjoint(implicit inv: Involution[Mono[M, F]]): Mono[M, F] = inv.adjoint(lhs)
-  def pow(rhs: Int)(implicit mm: MultiplicativeMonoid[Mono[M, F]]): Mono[M, F] = mm.pow(lhs, rhs)
+
+  override def pow(rhs: Int)(implicit mm: MultiplicativeMonoid[Mono[M, F]]): Mono[M, F] = mm.pow(lhs, rhs)
 
   // methods that are valid when F =:= M
   def length(implicit ev: F =:= M): Int = data.length
@@ -60,9 +55,10 @@ class Mono[
   def mutableCopy(implicit ev: F =:= M): MutableWord[F] = data.mutableCopy
 
   // to polynomials
+  def *(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly * rhs
   def toPoly: Poly[M, F] = Poly(lhs)
   def +(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly + rhs
-  def *(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly * rhs
+  def toMono: Mono[M, F] = lhs
 }
 
 object Mono {
