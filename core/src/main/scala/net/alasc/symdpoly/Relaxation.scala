@@ -12,6 +12,10 @@ import scalin.immutable.dense._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.math.GenPerm
 
+/** Moment/SOS-based relaxation of a polynomial maximization problem.
+  * @param problem       Problem to construct the relaxation for
+  * @param generatingSet Set of monomials used to generate the moment matrix
+  */
 case class Relaxation[
   E <: Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux,

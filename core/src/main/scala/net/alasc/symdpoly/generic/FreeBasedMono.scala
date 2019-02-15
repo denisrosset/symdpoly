@@ -53,7 +53,7 @@ class FreeBasedMono[
 
 object FreeBasedMono {
 
-  implicit def monoTermToMono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](monoTerm: MonoTerm[M, F]): FreeBasedMono[M, F] =
+  implicit def monoTermToMono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](monoTerm: FreeBasedMonoTerm[M, F]): FreeBasedMono[M, F] =
     monoTerm.toMono
 
 

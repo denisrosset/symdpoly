@@ -7,7 +7,7 @@ import spire.syntax.cfor._
 
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
-import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef, FreeBasedPermutation}
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoTerm, FreeBasedMonoidDef, FreeBasedPermutation}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
@@ -84,7 +84,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     *
     * Instances must be declared using "declare" before using them in monomials/polynomials.
     */
-  abstract class Op extends Product with MonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
+  abstract class Op extends Product with FreeBasedMonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
     def wM: Witness.Aux[Free] = witnessFree
     def index: Int = indexFromOp(this)
 
@@ -180,7 +180,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     def slice(si: Slice, sj: Slice, sk: Slice): OpEnum = OpEnum.fromSeq(s"$name($si, $sj, $sk)", instances(si, sj, sk))
   }
 
-  case class PhasedOp(phase: Phase, op: Op) extends MonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
+  case class PhasedOp(phase: Phase, op: Op) extends FreeBasedMonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
     override def toString: String = FreeBasedMono[Free](phase, op).toString
     def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
     def toMono: FreeBasedMono[Free, Free] = FreeBasedMono(lhs)

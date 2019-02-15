@@ -1,17 +1,11 @@
-package net.alasc.symdpoly
+package net.alasc.symdpoly.generic
 
 import cats.evidence.Is
-import cats.kernel.Eq
-import shapeless.Witness
-import spire.algebra.{Action, Involution, MultiplicativeMonoid, Order}
+import spire.algebra.MultiplicativeMonoid
 
-import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
-import net.alasc.symdpoly.free._
-import net.alasc.symdpoly.generic.{MonoidDef => _, _}
-import net.alasc.symdpoly.math.GenPerm
-import org.typelevel.discipline.Predicate
+import net.alasc.symdpoly.free
 
-trait MonoTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] {
+trait FreeBasedMonoTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] {
   lhs =>
 
   // Abstract methods to overload

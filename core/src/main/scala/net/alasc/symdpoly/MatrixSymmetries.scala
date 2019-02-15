@@ -30,11 +30,15 @@ import net.alasc.perms.default._
 import net.alasc.symdpoly.generic.FreeBasedMono
 import net.alasc.util.Tuple2Int
 
-
+/** Describes the symmetries of a matrix. */
 trait MatrixSymmetries {
+  /** Generic group element type. */
   type G
+  /** Symmetry group. */
   def grp: Grp[G]
+  /** Group action on the matrix. */
   def representation: Morphism[G, GenPerm, Group]
+  /** Nice morphism from G to permutations, used to study the group. */
   lazy val niceMorphism: Morphism[G, Perm, Group] = {
     val action: PermutationAction[G] = grp match {
       case grpChain: GrpChain[G, a] if grpChain.action.isFaithful => grpChain.action
