@@ -20,9 +20,9 @@ An evaluation of the Tsirelson's bound for the CHSH inequality can be done in a 
 
 First, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We import the operator types `A` and `B` in global scope.
 ```tut:silent
-import net.alasc.symdpoly._; import net.alasc.symdpoly.joptimizer._
+import net.alasc.symdpoly._; import defaults._; import net.alasc.symdpoly.joptimizer._
 
-object Free extends free.MonoidDef {
+object Free extends free.MonoidDef(cyclotomicOrder = 2) { // allows signed monomials
   case class A(x: Int) extends HermitianOp
   object A extends HermitianType1(0 to 1)
   case class B(y: Int) extends HermitianOp
@@ -33,26 +33,26 @@ object Free extends free.MonoidDef {
 import Free.{A, B}
 
 val Quotient = quotient.MonoidDef(Free) {
-  case (A(x1), A(x2)) if x1 == x2 => Mono.one
-  case (B(y1), B(y2)) if y1 == y2 => Mono.one
+  case (A(x1), A(x2)) if x1 == x2 => Free.one
+  case (B(y1), B(y2)) if y1 == y2 => Free.one
   case (B(y), A(x))               => A(x) * B(y)
   case (op1, op2)                 => op1 * op2
 }
 
-val swapParties = Free.generator {
+val swapParties = Free.permutation {
   case A(i) => B(i)
   case B(i) => A(i)
 }
 
-val ambientGroup = Free.ambientGroup(swapParties)
+val group = Grp(swapParties)
 
 val chsh = Quotient.quotient(A(0) * B(0) + A(0) * B(1) + A(1) * B(0) - A(1) * B(1))
 
 val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
-val L = evaluation.pureStateSelfAdjoint(Quotient)
+val L = Quotient.evaluator.real.symmetric(Quotient.groupInQuotient(group))
 
-val relaxation = L(chsh).maximize.symmetricRelaxation(generatingSet, ambientGroup)
+val relaxation = L(chsh).maximize.relaxation(generatingSet)
 ```
 We then solve:
 ```tut

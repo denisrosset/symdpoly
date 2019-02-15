@@ -59,20 +59,6 @@ object CHSH {
   val problem = Lsym(bellOperator).maximize
 
   val relaxation = problem.relaxation(generatingSet)
-/*relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
-  relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
-  relaxation.writeMomentIndexMatrix("chsh_moment_index_matrix.txt")
-  relaxation.writeCanonicalMonomials("chsh_canonical_monomials.txt")
-  relaxation.writeSymmetryGroupDescription("chsh_symmetry_group.txt")
-  relaxation.mosekInstance.writeCBF("chsh.cbf")*/
-  /*
-  relaxation.mosekInstance.writeFile("chsh.task")
-  relaxation.mosekInstance.writeFile("chsh.jtask")
-  relaxation.sdpaInstance.writeFile("chsh.dat-s")
-  relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
-  relaxation.scsInstance.writeFile("chsh_scs.mat")
-  relaxation.sdpt3Instance.writeFile("chsh_sdpt3.mat")
-   */
 
 }
 
@@ -83,6 +69,3 @@ object CHSHApp extends App {
   relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
   relaxation.mosekInstance.writeCBF("chsh.cbf")
 }
-
-
-

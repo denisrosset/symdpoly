@@ -22,6 +22,7 @@ import spire.math.SafeLong
 
 import net.alasc.perms.Perm
 
+/** Describes a map S => T that preserves the algebraic structure F[_] */
 trait Morphism[S, T, F[_]] extends Function1[S, T] {
   def S: F[S]
   def T: F[T]

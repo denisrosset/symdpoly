@@ -13,7 +13,8 @@ import CHSH.{Free, Quotient}
 import Free.{A, B}
 ```
 ```tut
-val problem = CHSH.L(CHSH.bellOperator).maximize
+val L = Quotient.evaluator.real // real moment evaluation
+val problem = L(CHSH.bellOperator).maximize
 ```
 We now compute an upper bound using a moment-based semidefinite relaxation. For that purpose, we need a set of unique monomials. The level 1 of the NPA hierarchy is readily obtained:
 
@@ -44,14 +45,19 @@ which can then be exported:
 
 ```tut
 sdp1.sdpaInstance.writeFile("output.dat-s")
-sdp1.gramMatrix.momentSet.nMonomials
+sdp1.gramMatrix.momentSet.nElements
 ```
 
-We can also pass an ambient group to the `symmetricRelaxation` method, in which case the symmetry subgroup that leaves the objective invariant is automatically computed.
-
+We can also symmetrize the problem by first discovering the symmetries of the problem.
 ```tut
-val sdp2 = problem.symmetricRelaxation(level2, CHSH.ambientGroup)
-sdp2.gramMatrix.momentSet.nMonomials
+val symmetryGroup = Quotient.symmetryGroup.leavesInvariant(L(CHSH.bellOperator))
+symmetryGroup.order
+```
+Then, we define a new evaluator that forces equivalence between monomials in orbits of the symmetry group.
+```tut
+val Lsym = L.symmetric(symmetryGroup)
+val sdp2 = Lsym(CHSH.bellOperator).maximize.relaxation(level2)
+sdp2.gramMatrix.momentSet.nElements
 ```
 
 ## Custom sets of monomials

@@ -11,42 +11,46 @@ We show below the syntax used to define those generators, which uses Scala [patt
 ```tut:silent
 import net.alasc.symdpoly._
 import defaults._
-import net.alasc.symdpoly.examples.CHSH.Free
+import net.alasc.symdpoly.examples.CHSH.{Free, Quotient}
 import Free.{A, B}
 ```
 
 ```tut
-val swapParties = Free.generator {
+val swapParties = Free.permutation {
   case A(i) => B(i)
   case B(i) => A(i)
 }
 
-val inputSwapA = Free.generator {
+val inputSwapA = Free.permutation {
   case A(0) => A(1)
   case A(1) => A(0)
   case op => op
 }
 
-val outputSwapA0 = Free.generator {
+val outputSwapA0 = Free.permutation {
   case A(0) => -A(0)
   case op => op
 }
 ```
 
-Note the minus sign in `outputSwapA0`, which multiplies the phase of `A(0)` by `-1`.
+Note the minus sign in `outputSwapA0`, which multiplies the phase of `A(0)` by `-1`: and beware that the allowed phases are the roots of unity with a denominator dividing the `cyclotomicOrder` parameter of the free monoid.
 
 ## Ambient group
 
 The *ambient group* of a quotient monoid/algebra is a symmetry group whose action is compatible with the equivalence classes: it contains permutations `g` of the operators such that `g(quotient(monomial)) = quotient(g(monomial))`, and then the action of equivalency classes of the quotient is well defined.
 
-The ambient group is defined simply by:
+The ambient group can be defined from a permutation group on the free monoid. When using `groupInQuotient`, we check compatibility of the generators with the quotient structure: if some generators are incompatible, we look for the subgroup that preserves the quotient structure. The `groupInQuotientNC` method is unsafe and disables this check: you can use it when performance becomes critical and you have already proved that the given group preserves the quotient structure.
 ```tut
-val ambientGroup = Free.ambientGroup(swapParties, inputSwapA, outputSwapA0)
+val freeGroup = Grp(swapParties, inputSwapA, outputSwapA0)
+val ambientGroup = Quotient.groupInQuotient(freeGroup)
+val ambientGroup1 = Quotient.groupInQuotientNC(freeGroup)
 ```
 
-Currently, **SymDPoly** does not preserve metadata about the group (such as the free monoid it acts on), but simply represents it as a finite group of signed/generalized permutations (using the [alasc](https://github.com/denisrosset/alasc) computational group theory library). Using the algorithms of Alasc, the group order is readily computed, as well as a small set of generators:
+Using the algorithms of Alasc, the group order is readily computed, as well as a small set of generators:
 
 ```tut
+freeGroup.order
 ambientGroup.order
+ambientGroup1.order
 ambientGroup.smallGeneratingSet
 ```

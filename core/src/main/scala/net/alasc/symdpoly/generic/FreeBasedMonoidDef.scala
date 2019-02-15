@@ -20,7 +20,7 @@ import net.alasc.util._
 import shapeless.Witness
 import spire.algebra.{free => _, _}
 
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator}
+import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, GenericFreeBasedEvaluator}
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
@@ -75,8 +75,7 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
     FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
   val permutationMonoAction: Action[Monomial, Permutation] = new FreeBasedPermutationMonoAction[self.type, Free]
 
-  // TODO: use Free based evaluator
-  // override def evaluator: FreeBasedEvaluator2[self.type, Free] = new FreeBasedEvaluator2[self.type, Free](Vector.empty)
+  override def evaluator: GenericFreeBasedEvaluator[self.type, Free] = new GenericFreeBasedEvaluator[self.type, Free](Vector.empty)
 
 }
 

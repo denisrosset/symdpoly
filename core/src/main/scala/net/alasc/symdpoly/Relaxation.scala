@@ -8,7 +8,7 @@ import scalin.immutable.Vec
 import net.alasc.symdpoly.evaluation.{EvaluatedPoly, Evaluator}
 import net.alasc.symdpoly.solvers.{MosekInstance, SDPAInstance}
 import scalin.immutable.dense._
-
+import net.alasc.perms.default._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.math.GenPerm
 
@@ -20,11 +20,10 @@ case class Relaxation[
   E <: Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux,
 ](problem: Maximization[E, M], generatingSet: GSet[M]) {
+  def E: E = valueOf[E]
+  val objective: EvaluatedPoly[E, M] = E(problem.evaluatedPoly.normalForm)
 
-  val objective: EvaluatedPoly[E, M] =
-    valueOf[E].apply(problem.evaluatedPoly.normalForm)
-
-  val gramMatrix: GramMatrix[E, M] = GramMatrix(valueOf[E], generatingSet)
+  val gramMatrix: GramMatrix[E, M] = GramMatrix(E, generatingSet)
 
   val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(gramMatrix.momentSet.elements)
 
@@ -71,14 +70,12 @@ case class Relaxation[
 
   def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
 
-  /*
-  def canonicalMonomialsDescription: String = {
-    import gramMatrix._
-    val monomials = Vector.tabulate(momentSet.nElements) { i =>
+  def canonicalMonomialsDescription(symmetryGroup: Grp[M#Permutation]): String = {
+    val monomials = Vector.tabulate(gramMatrix.momentSet.nElements) { i =>
       import spire.compat._
-      val orbit = symmetryGroup.iterator.map((g: GenPerm) => valueOf[E].apply(momentSet.monomials(i) <|+| g).normalForm)
-        .toSet.toVector.sorted.map(_.normalForm).mkString(", ")
-      s"${i} ${momentSet.monomials(i).normalForm.normalForm}: ${orbit}"
+      val element = gramMatrix.momentSet(i)
+      val orbit = symmetryGroup.iterator.map(g => E.evaluatedMonoPermutationAction.actr(element, g)).toSet.toVector.sorted.map(_.normalForm).mkString(", ")
+      s"${i} ${element.normalForm}: ${orbit}"
     }
     monomials.mkString("\n")
   }
@@ -89,8 +86,10 @@ case class Relaxation[
     s"Number of generators: ${generators.length}\n" ++ s"Group order: ${grp.order}\n" ++ generators.mkString("\n")
   }
 
-  def symmetryGroupDescription: String = describeGroup(symmetryGroup, g => generic.FreeBasedPermutation.prettyPrintGenPerm(g, valueOf[F]))
-
-  def matrixSymmetryGroupDescription: String = describeGroup(gramMatrix.matrixSymmetries, _.toString)*/
+  def matrixSymmetryGroupDescription: String = {
+    import gramMatrix.matrixSymmetries._
+    val genPermGrp = Grp(grp.generators.map(representation): _*)
+    describeGroup(genPermGrp, _.toString)
+  }
 
 }

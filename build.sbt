@@ -38,7 +38,7 @@ lazy val docs = (project in file("docs"))
   .settings(symdpolySettings)
   .settings(noPublishSettings)
   .settings(docSettings)
-  .dependsOn(core, mosek, jOptimizer, matlab)
+  .dependsOn(core, mosek, jOptimizer, matlab, examples)
 
 lazy val core = (project in file("core"))
   .settings(moduleName := "symdpoly-core")

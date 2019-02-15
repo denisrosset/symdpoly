@@ -36,7 +36,7 @@ This description works only for smaller moment matrices. We now see how to get m
 
 First, the method `canonicalMonomials` returns a list of the monomials present. The first element of each row is the monomial index, followed by the canonical representative of that monomial under the symmetry group and the quotient algebra rewriting rules. Then, after the colon `:`, the orbit of (quotient) monomials under the symmetry group. The symmetry group can flip the sign of monomials, thus some elements on the right of `:` can be preceded by a phase.
 ```tut
-relaxation.canonicalMonomialsDescription
+relaxation.canonicalMonomialsDescription(CHSH.symGroup)
 ```
 The moment matrix is then described using that list. The first line provides the size of the moment matrix, following by the number of unique monomials.
 Then, the matrix of monomials indices.
@@ -47,10 +47,6 @@ Note that monomial indexing is `0`-based, and that `-1` represents a cell of the
 Those monomials can acquire a phase, either during rewriting or due to the action of the symmetry group. Phases are provided by another matrix:
 ```tut
 relaxation.phaseMatrixDescription
-```
-Finally, a description of the symmetry group (subgroup of the ambient group) used to formulate the problem can be obtained.
-```tut
-relaxation.symmetryGroupDescription
 ```
 
 ## Writing to files

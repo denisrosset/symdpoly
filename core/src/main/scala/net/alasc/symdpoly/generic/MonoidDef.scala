@@ -8,7 +8,7 @@ import shapeless.Witness
 import spire.algebra._
 
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.{Evaluator, GenericEvaluator}
+import net.alasc.symdpoly.evaluation.{Evaluator, GenericEvaluator, GenericGenericEvaluator}
 import net.alasc.symdpoly.math.GenPerm
 
 abstract class MonoidDef { self =>
@@ -56,6 +56,6 @@ abstract class MonoidDef { self =>
 
   // Construct evaluator
 
-  def evaluator: Evaluator[self.type] = new GenericEvaluator[self.type](Vector.empty)(witness)
+  def evaluator: Evaluator[self.type] = new GenericGenericEvaluator[self.type](Vector.empty)(witness)
 
 }

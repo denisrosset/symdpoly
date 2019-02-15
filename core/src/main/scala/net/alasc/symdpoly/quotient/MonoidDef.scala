@@ -50,18 +50,20 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     (action, partition)
   }
 
-  def groupInQuotientNC(grp: Grp[FreeBasedPermutation[Free, Free]]): Grp[FreeBasedPermutation[monoidDef.type, Free]] = {
+  def groupInQuotientNC(grp: Grp[FreeBasedPermutation[Free, Free]]): Grp[Permutation] = {
     import net.alasc.perms.default._
     Grp.fromGeneratorsAndOrder(grp.generators.map(quotientNC), grp.order)
   }
 
-  def groupInQuotient(grp: Grp[FreeBasedPermutation[Free, Free]]): Grp[FreeBasedPermutation[monoidDef.type, Free]] = {
+  def groupInQuotient(grp: Grp[FreeBasedPermutation[Free, Free]]): Grp[Permutation] = {
     import net.alasc.perms.default._
     grp.generators.toVector.map(quotient).sequence match {
       case Some(mappedGenerators) => Grp.fromGeneratorsAndOrder(mappedGenerators, grp.order)
       case None => groupInQuotient(grp.unorderedPartitionStabilizer(action, partition))
     }
   }
+
+  lazy val symmetryGroup: Grp[Permutation] = groupInQuotient(Free.symmetryGroup)
 
   def quotientNC(permutation: FreeBasedPermutation[Free, Free]): FreeBasedPermutation[monoidDef.type, Free] =
     new FreeBasedPermutation[monoidDef.type, Free](permutation.genPerm)

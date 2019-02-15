@@ -93,6 +93,8 @@ final class FreeBasedEvaluator[
     self :+ e
   }
 
+  def cyclic: Evaluator[M] = self :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](x => true))
+
   def cyclic(predicate: OpPredicate[F]): Evaluator[M] = self :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](predicate))
 
   def transpose(predicate: OpPredicate[F]): Evaluator[M] = self :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))

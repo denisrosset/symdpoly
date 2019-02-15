@@ -17,8 +17,8 @@ import net.alasc.symdpoly._
 import defaults._
 import net.alasc.symdpoly.examples.CHSH.Free
 val Quotient = quotient.MonoidDef(Free) {
-  case (Free.A(x1), Free.A(x2)) if x1 == x2 => Mono.one
-  case (Free.B(y1), Free.B(y2)) if y1 == y2 => Mono.one
+  case (Free.A(x1), Free.A(x2)) if x1 == x2 => Free.one
+  case (Free.B(y1), Free.B(y2)) if y1 == y2 => Free.one
   case (Free.B(y),  Free.A(x))              => Free.A(x) * Free.B(y)
   case (op1, op2)                           => op1 * op2
 }
@@ -30,7 +30,7 @@ Now, if we have more than two outcomes, we write using the Collins-Gisin basis:
 ```tut:silent
 val nOutputs = 3
 val nInputs = 2
-object FreeCG extends free.MonoidDef {
+object FreeCG extends free.MonoidDef(cyclotomicOrder = 1) {
   case class A(a: Int, x: Int) extends HermitianOp
   object A extends HermitianType2(0 to nOutputs - 1, 0 to nInputs - 1)
   case class B(a: Int, x: Int) extends HermitianOp
@@ -39,9 +39,9 @@ object FreeCG extends free.MonoidDef {
 }
 val QuotientCG = quotient.MonoidDef(FreeCG) {
   case (FreeCG.A(a1, x1), FreeCG.A(a2, x2)) if x1 == x2 && a1 == a2 => FreeCG.A(a1, x1)
-  case (FreeCG.A(a1, x1), FreeCG.A(a2, x2)) if x1 == x2 && a1 != a2 => Mono.zero
+  case (FreeCG.A(a1, x1), FreeCG.A(a2, x2)) if x1 == x2 && a1 != a2 => FreeCG.zero
   case (FreeCG.B(b1, y1), FreeCG.B(b2, y2)) if y1 == y2 && b1 == b2 => FreeCG.B(b1, y1)
-  case (FreeCG.B(b1, y1), FreeCG.B(b2, y2)) if y1 == y2 && b1 != b2 => Mono.zero
+  case (FreeCG.B(b1, y1), FreeCG.B(b2, y2)) if y1 == y2 && b1 != b2 => FreeCG.zero
   case (FreeCG.B(b, y), FreeCG.A(a, x))                             => FreeCG.A(a, x) * FreeCG.B(b, y)
   case (op1, op2)                                                   => op1 * op2
 }
@@ -69,8 +69,9 @@ A(2, 1) * B(2, 1)
 ## Pauli matrices
 
 Finally, we show an example where the rewrite rule includes a phase.
+Note that we use `cyclotomicOrder = 4` in order to use the roots of unity `1`, `i`, `-1`, `-i` as phases.
 ```tut:silent
-object PauliFree extends free.MonoidDef {
+object PauliFree extends free.MonoidDef(cyclotomicOrder = 4) {
   case class σ(i: Int) extends HermitianOp
   object σ extends HermitianType1(1 to 3)
   val operators = Seq(σ)
@@ -81,9 +82,9 @@ import PauliFree.σ
 def mod1(i: Int, n: Int): Int = ((i - 1) % n) + 1
 
 val PauliQuotient = quotient.MonoidDef(PauliFree)(pairSubstitutions = {
-  case (σ(i), σ(j)) if i == j => Mono.one
-  case (σ(i), σ(j)) if mod1(i + 1, 3) == j => -Mono(σ(6 - i - j))*Phase.i
-  case (σ(i), σ(j)) if mod1(i + 2, 3) == j => Mono(σ(6 - i - j))*Phase.i
+  case (σ(i), σ(j)) if i == j => PauliFree.one
+  case (σ(i), σ(j)) if mod1(i + 1, 3) == j => -σ(6 - i - j)*Phase.i
+  case (σ(i), σ(j)) if mod1(i + 2, 3) == j => σ(6 - i - j)*Phase.i
 })
 ```
 Here is the result:

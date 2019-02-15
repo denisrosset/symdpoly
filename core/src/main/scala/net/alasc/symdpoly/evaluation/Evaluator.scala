@@ -63,14 +63,13 @@ abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val
 
 }
 
-final class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M](equivalences) { self =>
-  type E = GenericEvaluator[M]
+abstract class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M](equivalences) { self =>
+  type E <: GenericEvaluator[M]
 
   val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = {
     val action: Action[M#Monomial, Permutation] = (M: M).permutationMonoAction
     Invariant[Lambda[P => Action[P, Permutation]]].imap[M#Monomial, EvaluatedMono[self.type, M]](action)(m => apply(m))(_.normalForm)
   }
-
 
   type ScratchPad = Unit
   def makeScratchPad: Unit = ()
@@ -93,10 +92,25 @@ final class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux]
     new EvaluatedPoly[self.type, M](iter(0, M.polyAssociativeAlgebra.zero))
   }
 
-  def :+(e: Equivalence[M]): GenericEvaluator[M] = new GenericEvaluator[M](equivalences :+ e)
+}
 
-  def real: GenericEvaluator[M] = self :+ new AdjointEquivalence[M]
+class GenericGenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends GenericEvaluator[M](equivalences) {
+  self =>
+  type E = GenericGenericEvaluator[M]
+  def :+(e: Equivalence[M]): GenericGenericEvaluator[M] = new GenericGenericEvaluator[M](equivalences :+ e)
+  def real: GenericGenericEvaluator[M] = self :+ new AdjointEquivalence[M]
+  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericGenericEvaluator[M] = self :+ new SymmetryEquivalence(grp)
 
-  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericEvaluator[M] = self :+ new SymmetryEquivalence(grp)
+}
+
+
+class GenericFreeBasedEvaluator[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends GenericEvaluator[M](equivalences) { self =>
+  type E = GenericFreeBasedEvaluator[M, F]
+  def cyclic: Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](x => true))
+  def cyclic(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](predicate))
+  def transpose(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))
+  def :+(e: Equivalence[M]): GenericFreeBasedEvaluator[M, F] = new GenericFreeBasedEvaluator[M, F](equivalences :+ e)
+  def real: GenericFreeBasedEvaluator[M, F] = self :+ new AdjointEquivalence[M]
+  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericFreeBasedEvaluator[M, F] = self :+ new SymmetryEquivalence(grp)
 
 }

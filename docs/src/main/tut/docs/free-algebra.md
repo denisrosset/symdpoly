@@ -17,7 +17,7 @@ We return to our CHSH example, but removing the syntactic sugar present in the [
 import net.alasc.symdpoly._
 import defaults._
 
-object Free extends free.MonoidDef {
+object Free extends free.MonoidDef(cyclotomicOrder = 2) {
   case class A(x: Int) extends Op {
 	def adjoint: Op = this
   }
@@ -41,7 +41,7 @@ import Free.{A, B}
 We can also represent non-Hermitian variables:
 
 ```tut:silent
-object Free1 extends free.MonoidDef {
+object Free1 extends free.MonoidDef(cyclotomicOrder = 4) {
   case class X(i: Int, isAdjoint: Boolean = false) extends Op {
     override def toString = if (isAdjoint) s"X($i)*" else s"X($i)"
     def adjoint: Op = X(i, !isAdjoint)
@@ -69,7 +69,7 @@ X(0)*A(0)
 To ease the boilerplate of defining `allInstances` and the `adjoint` method for Hermitian operators, we can use the following shortcuts.
 
 ```tut:silent
-object FreeSimplified extends free.MonoidDef {
+object FreeSimplified extends free.MonoidDef(2) {
   case class A(x: Int) extends HermitianOp // defines an `adjoint` method that is the identity
   object A extends HermitianType1(0 to 1)  // enumerates the instances from a given Range, if the operator has a single index
   case class B(y: Int) extends HermitianOp
@@ -81,7 +81,7 @@ object FreeSimplified extends free.MonoidDef {
 The same holds for non-Hermitian variables.
 
 ```tut:silent
-object Free1Simplified extends free.MonoidDef {
+object Free1Simplified extends free.MonoidDef(4) {
   case class X(i: Int, isAdjoint: Boolean = false) extends Op {
     override def toString = if (isAdjoint) s"X($i)*" else s"X($i)"
     def adjoint: Op = X(i, !isAdjoint)
