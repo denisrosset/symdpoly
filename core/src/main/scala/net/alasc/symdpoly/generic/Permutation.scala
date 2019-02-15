@@ -23,13 +23,14 @@ import net.alasc.symdpoly.math.PhasedInt
 import net.alasc.perms.default._
 import net.alasc.symdpoly.algebra.Instances._
 
-trait GenericPermutation[M <: generic.MonoidDef with Singleton]
+/** A Permutation relabels the operator variables of monomials, possibly with a phase. */
+trait Permutation[M <: generic.MonoidDef with Singleton]
 
-object GenericPermutation {
+object Permutation {
 
-  class GrpGenericPermutationOps[
+  class GrpPermutationsOps[
   M <: generic.MonoidDef with Singleton: Witness.Aux,
-  G <: GenericPermutation[M]:ClassTag:Eq:FaithfulPermutationActionBuilder:Group
+  G <: Permutation[M]:ClassTag:Eq:FaithfulPermutationActionBuilder:Group
   ](grp: Grp[G]) {
 
     def M: M = valueOf[M]
@@ -85,18 +86,18 @@ object GenericPermutation {
 
   implicit def grpGenericPermutationOps[
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](grp: Grp[GenericPermutation[M]])(implicit classTag: ClassTag[GenericPermutation[M]],
-                                       equ: Eq[GenericPermutation[M]],
-                                       fpab: FaithfulPermutationActionBuilder[GenericPermutation[M]],
-                                       group: Group[GenericPermutation[M]]): GrpGenericPermutationOps[M, GenericPermutation[M]] =
-    new GrpGenericPermutationOps[M, GenericPermutation[M]](grp)
+  ](grp: Grp[Permutation[M]])(implicit classTag: ClassTag[Permutation[M]],
+                              equ: Eq[Permutation[M]],
+                              fpab: FaithfulPermutationActionBuilder[Permutation[M]],
+                              group: Group[Permutation[M]]): GrpPermutationsOps[M, Permutation[M]] =
+    new GrpPermutationsOps[M, Permutation[M]](grp)
 
   def phasedIntAction[
     M <: generic.MonoidDef with Singleton:Witness.Aux
-  ](set: OrderedSet[M#Monomial])(implicit group: Group[GenericPermutation[M]],
-                                 action: Action[M#Monomial, GenericPermutation[M]]): Action[PhasedInt, GenericPermutation[M]] =
-    new Action[PhasedInt, GenericPermutation[M]] {
-      def actr(p: PhasedInt, g: GenericPermutation[M]): PhasedInt = {
+  ](set: OrderedSet[M#Monomial])(implicit group: Group[Permutation[M]],
+                                 action: Action[M#Monomial, Permutation[M]]): Action[PhasedInt, Permutation[M]] =
+    new Action[PhasedInt, Permutation[M]] {
+      def actr(p: PhasedInt, g: Permutation[M]): PhasedInt = {
         implicit def phased: Phased[M#Monomial] = valueOf[M].monoPhased
         implicit def order: Order[M#Monomial] = valueOf[M].monoOrder
         val res = set(p.index) <|+| g
@@ -104,13 +105,13 @@ object GenericPermutation {
         val newPhase = p.phase * res.phaseOffset
         PhasedInt(newPhase, newIndex)
       }
-      def actl(g: GenericPermutation[M], p: PhasedInt): PhasedInt = actr(p, group.inverse(g))
+      def actl(g: Permutation[M], p: PhasedInt): PhasedInt = actr(p, group.inverse(g))
     }
 
   implicit def evaluatedMonoAction[
     E <: Evaluator2[M] with Singleton: Witness.Aux,
     M <: generic.MonoidDef with Singleton
-  ](implicit action: Action[M#Monomial, GenericPermutation[M]]): Action[EvaluatedMono2[E, M], GenericPermutation[M]] =
-    Invariant[Lambda[P => Action[P, GenericPermutation[M]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
+  ](implicit action: Action[M#Monomial, Permutation[M]]): Action[EvaluatedMono2[E, M], Permutation[M]] =
+    Invariant[Lambda[P => Action[P, Permutation[M]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
 
 }

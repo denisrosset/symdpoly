@@ -8,7 +8,6 @@ import spire.algebra.{Eq, Group}
 
 import net.alasc.perms.default._
 import net.alasc.std.product._
-import net.alasc.symdpoly.free.{FreeGroup, Word}
 import spire.std.tuples._
 
 import net.alasc.syntax.all._
@@ -69,7 +68,7 @@ trait MorphismFromGeneratorImages[S, T] {
 }
 
 abstract class MorphismFromGeneratorImages0 {
-
+/*
   implicit def forFreeGroupPermutationAction[Source <: FreeGroup with Singleton, T:Eq:Group](implicit sourceW: Witness.Aux[Source]): MorphismFromGeneratorImages[Word[Source], T] =
     new MorphismFromGeneratorImages[Word[Source], T] {
       def apply(source: FinitelyGeneratedGrp.Aux[Word[Source]], images: Seq[T]): Morphism[Word[Source], T, Group] =
@@ -84,7 +83,7 @@ abstract class MorphismFromGeneratorImages0 {
             iter(Group[T].empty, 0)
           }
         }
-    }
+    }*/
 }
 
 

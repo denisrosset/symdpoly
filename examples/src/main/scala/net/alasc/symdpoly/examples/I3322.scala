@@ -50,7 +50,7 @@ object I3322 {
 
   val ambientGroup = QM.ambientGroup(swapParties, inputSwapA, inputCyclicA, outputA0)
 
-  val generatingSet = QM.quotient(GSet.onePlus(A, B)).pow(2)
+  val generatingSet = QM.quotient(GSet.onePlus(A, B)).pow(5)
 
   val L = evaluation.pureStateSelfAdjoint(QM)
   val L1 = QM.evaluator.adjoint

@@ -31,13 +31,13 @@ import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.algebra.Phased.syntax._
 import net.alasc.symdpoly.evaluation._
 import net.alasc.symdpoly.evaluation.Symmetries.{allEvaluatedMonomials, momentSetAction}
-import net.alasc.symdpoly.generic.GenericPermutation.GrpGenericPermutationOps
+import net.alasc.symdpoly.generic.Permutation.GrpPermutationsOps
 import net.alasc.util.{NNNone, NNOption, NNSome}
 
 class FreeBasedPermutation[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](val genPerm: GenPerm) extends GenericPermutation[M] {
+](val genPerm: GenPerm) extends Permutation[M] {
   def M: M = valueOf[M]
   def F: F = (M: M).Free
   override def toString: String = FreeBasedPermutation.prettyPrintGenPerm(genPerm, F)
@@ -94,8 +94,8 @@ object FreeBasedPermutation {
   ](grp: Grp[FreeBasedPermutation[M, F]])(implicit classTag: ClassTag[FreeBasedPermutation[M, F]],
                                      equ: Eq[FreeBasedPermutation[M, F]],
                                      fpab: FaithfulPermutationActionBuilder[FreeBasedPermutation[M, F]],
-                                     group: Group[FreeBasedPermutation[M, F]]): GrpGenericPermutationOps[M, FreeBasedPermutation[M, F]] =
-    new GrpGenericPermutationOps[M, FreeBasedPermutation[M, F]](grp)
+                                     group: Group[FreeBasedPermutation[M, F]]): GrpPermutationsOps[M, FreeBasedPermutation[M, F]] =
+    new GrpPermutationsOps[M, FreeBasedPermutation[M, F]](grp)
 
 }
 

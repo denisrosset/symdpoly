@@ -1,5 +1,5 @@
 package net.alasc.symdpoly.free
-
+/*
 import java.util.Arrays
 
 import cats.Show
@@ -153,3 +153,4 @@ final class WordTypeclasses[G <: FreeGroup with Singleton](implicit wG: Witness.
   }
 
 }
+*/
