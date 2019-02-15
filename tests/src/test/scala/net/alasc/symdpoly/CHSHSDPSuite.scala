@@ -35,8 +35,8 @@ class CHSHSDPSuite extends CommonSuite {
     }
 
     val QM = quotient.MonoidDef(FM) {
-      case (A(x1), A(x2)) if x1 == x2 => Mono.one
-      case (B(y1), B(y2)) if y1 == y2 => Mono.one
+      case (A(x1), A(x2)) if x1 == x2 => FM.one
+      case (B(y1), B(y2)) if y1 == y2 => FM.one
       case (B(y), A(x)) => A(x) * B(y)
       case (op1, op2) => op1 * op2
     }
@@ -44,14 +44,14 @@ class CHSHSDPSuite extends CommonSuite {
     val bellOperator = QM.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
 
     val freeGroup = FM.symmetryGroup2
-    val quotientGroup = QM.restrictedGroup(freeGroup)
+    val quotientGroup = QM.groupInQuotient(freeGroup)
 
     val ambientGroup = FM.ambientGroup(swapParties, inputSwapA, outputSwapA0)
 
     val generatingSet = QM.quotient(GSet.onePlus(A, B))
 
     val L = evaluation.pureStateSelfAdjoint(QM)
-    val L1 = QM.evaluator.adjoint
+    val L1 = QM.evaluator.real
 
     val problem = L(bellOperator).maximize
 

@@ -16,8 +16,9 @@ import net.alasc.partitions.Partition
 import net.alasc.perms.Perm
 import net.alasc.perms.default._
 import net.alasc.symdpoly.math.{GenPerm, GenPermFaithfulPermutationAction, Phases}
-import net.alasc.symdpoly.{Mono, OrderedSet, free, generic}
+import net.alasc.symdpoly.{OrderedSet, free, generic}
 import algebra.Phased.syntax._
+import net.alasc.symdpoly.generic.FreeBasedMono
 
 object Symmetries {
 
@@ -92,7 +93,7 @@ object Symmetries {
     }
     addToArray(orbit.ptr, 0)
     spire.math.Sorting.quickSort(array)
-    new OrderedSet(array.map(word => (new EvaluatedMono[E, M, M#TrivialGroup](new Mono[M, F](word))).asInstanceOf[AnyRef]))
+    new OrderedSet(array.map(word => (new EvaluatedMono[E, M, M#TrivialGroup](new FreeBasedMono[M, F](word))).asInstanceOf[AnyRef]))
   }
 
   /** Computes the symmetry group of the given polynomial under the given ambient group. */
@@ -117,7 +118,7 @@ object Symmetries {
     }
     val coeffSeq = (for {
       mono <- monomials.iterator.toVector
-      coeff = poly.normalForm.coeff(mono.normalForm: Mono[M, F])
+      coeff = poly.normalForm.coeff(mono.normalForm: FreeBasedMono[M, F])
       k <- 0 until rootOrder
       phase = Phase(k, rootOrder)
     } yield coeff * phase.toCyclo) ++ Seq.fill(nOperators * rootOrder)(Cyclo.zero)

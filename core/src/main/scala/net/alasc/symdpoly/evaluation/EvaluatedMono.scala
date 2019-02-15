@@ -2,7 +2,7 @@ package net.alasc.symdpoly
 package evaluation
 
 import net.alasc.symdpoly.algebra.Phased
-import net.alasc.symdpoly.generic.FreeBasedMonoidDef
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef}
 import net.alasc.symdpoly.math.GenPerm
 import shapeless.Witness
 import spire.algebra.{Action, Order}
@@ -74,7 +74,7 @@ final class EvaluatedMonoGenPermAction[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton,
   G <: Grp[GenPerm] with Singleton:Witness.Aux
-](implicit actionM: Action[Mono[M, F], GenPerm]) extends Action[EvaluatedMono[E, M, G], GenPerm]  {
+](implicit actionM: Action[FreeBasedMono[M, F], GenPerm]) extends Action[EvaluatedMono[E, M, G], GenPerm]  {
   def actl(g: GenPerm, m: EvaluatedMono[E, M, G]): EvaluatedMono[E, M, G] = actr(m, g.inverse)
   def actr(m: EvaluatedMono[E, M, G], g: GenPerm): EvaluatedMono[E, M, G] = valueOf[E].apply(actionM.actr(m.normalForm, g), valueOf[G])
 }

@@ -1,6 +1,6 @@
 package net.alasc.symdpoly.examples
 
-import net.alasc.symdpoly.{AmbientGroup, GSet, Mono, evaluation, free, quotient}
+import net.alasc.symdpoly.{AmbientGroup, GSet, evaluation, free, quotient}
 
 object CHSHScenario extends App {
 
@@ -18,8 +18,8 @@ object CHSHScenario extends App {
   import Free.{A, B}
 
   val Quotient = quotient.MonoidDef(Free) {
-    case (A(x1), A(x2)) if x1 == x2 => Mono.one
-    case (B(y1), B(y2)) if y1 == y2 => Mono.one
+    case (A(x1), A(x2)) if x1 == x2 => Free.one
+    case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (B(y), A(x)) => A(x) * B(y)
     case (op1, op2) => op1 * op2
   }

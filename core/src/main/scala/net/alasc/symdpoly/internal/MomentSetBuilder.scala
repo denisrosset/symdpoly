@@ -8,18 +8,19 @@ import metal.mutable.{Buffer, HashMap}
 import metal.syntax._
 
 import net.alasc.perms.Perm
-import net.alasc.symdpoly.{Mono, OrderedSet, free, generic}
+import net.alasc.symdpoly.generic.FreeBasedMono
+import net.alasc.symdpoly.{OrderedSet, free, generic}
 import net.alasc.util._
 
 /** Describes an ordered set of equivalence classes of monomials under evaluation. */
-class MomentSet[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](val monomials: OrderedSet[Mono[M, F]],
+class MomentSet[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](val monomials: OrderedSet[FreeBasedMono[M, F]],
                                                                                                                               private[this] val _conjugateIndices: Array[Int]) {
   require(_conjugateIndices.length == monomials.length)
   def nMonomials: Int = monomials.length
   def conjugateIndex(i: Int): Int = _conjugateIndices(i)
   def isSelfAdjoint(i: Int): Boolean = conjugateIndex(i) == i
-  def apply(i: Int): Mono[M, F] = monomials(i)
-  def indexOf(mono: Mono[M, F]): Int = monomials.indexOf(mono)
+  def apply(i: Int): FreeBasedMono[M, F] = monomials(i)
+  def indexOf(mono: FreeBasedMono[M, F]): Int = monomials.indexOf(mono)
 
   /** Returns whether all monomials in that set are self-adjoint. */
   def allSelfAdjoint: Boolean = {
@@ -44,9 +45,9 @@ class MomentSetBuilder[F <: free.MonoidDef.Aux[F] with Singleton](val sequence: 
     val n = sequence.length
     val sortedToUnsorted = Perm.sorting(sequence.toScala) // such that sequence(perm(i)) is sorted for i = 0,1,...
     val unsortedToSorted = sortedToUnsorted.inverse
-    val sortedMoments = Array.tabulate(n)( i => (new Mono[M, F](sequence(sortedToUnsorted.image(i)))).asInstanceOf[AnyRef] )
+    val sortedMoments = Array.tabulate(n)( i => (new FreeBasedMono[M, F](sequence(sortedToUnsorted.image(i)))).asInstanceOf[AnyRef] )
     val conjugateSorted = Array.tabulate(n)( i => unsortedToSorted.image(conjugate(sortedToUnsorted.image(i))) )
-    val momentSet = new MomentSet(new OrderedSet[Mono[M, F]](sortedMoments), conjugateSorted)
+    val momentSet = new MomentSet(new OrderedSet[FreeBasedMono[M, F]](sortedMoments), conjugateSorted)
     (momentSet, unsortedToSorted)
   }
 

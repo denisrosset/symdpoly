@@ -30,6 +30,7 @@ import net.alasc.symdpoly.algebra.Instances._
 import spire.std.unit._
 
 import net.alasc.perms.default._
+import net.alasc.symdpoly.generic.FreeBasedMono
 import net.alasc.util.Tuple2Int
 
 trait MatrixSymmetries {
@@ -266,15 +267,15 @@ object GramMatrix2 {
           val tuple = if (scratchMono.isZero) Tuple2Int(-1, -1)
           else if (scratchMono.compareTo(scratchAdjoint) == 0) { // self-adjoint
             scratchMono.setPhase(Phase.one)
-            val i = sb.getElement(new EvaluatedMono2[E, M](new Mono[M, F](scratchMono.immutableCopy)))
+            val i = sb.getElement(new EvaluatedMono2[E, M](new FreeBasedMono[M, F](scratchMono.immutableCopy)))
             Tuple2Int(i, i)
           }
           else { // not self-adjoint
             scratchMono.setPhase(Phase.one)
             scratchAdjoint.setPhase(Phase.one)
             sb.getElement(
-              new EvaluatedMono2[E, M](new Mono[M, F](scratchMono.immutableCopy)),
-              new EvaluatedMono2[E, M](new Mono[M, F](scratchAdjoint.immutableCopy))
+              new EvaluatedMono2[E, M](new FreeBasedMono[M, F](scratchMono.immutableCopy)),
+              new EvaluatedMono2[E, M](new FreeBasedMono[M, F](scratchAdjoint.immutableCopy))
             )
           }
           val indexMono = tuple._1

@@ -4,23 +4,26 @@ import shapeless.Witness
 import spire.algebra.{Action, Group}
 import spire.syntax.action._
 import spire.syntax.cfor._
+
 import scalin.immutable.Mat
 import scalin.immutable.dense._
+
 import net.alasc.finite.{AbstractGrp, Grp}
 import net.alasc.perms.Perm
 import net.alasc.perms.default._
 import net.alasc.symdpoly
-import net.alasc.symdpoly.algebra.{Morphism}
+import net.alasc.symdpoly.algebra.Morphism
 import net.alasc.symdpoly.evaluation.FreeBasedEvaluator
 import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import net.alasc.util._
 import algebra.Phased.syntax._
+import net.alasc.symdpoly.generic.FreeBasedMono
 
 class GramMatrix[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-](val generatingMoments: OrderedSet[Mono[M, F]],
+](val generatingMoments: OrderedSet[FreeBasedMono[M, F]],
   val momentSet: MomentSet[M, F],
   val operatorSymmetries: Grp[GenPerm],
   val matrixSymmetries: Grp[GenPerm],
@@ -48,15 +51,15 @@ class GramMatrix[
   def phaseMatrix: Mat[Phase] = Mat.tabulate(matrixSize, matrixSize) { (r, c) => phase(r, c) }
 
   def momentIndex(r: Int, c: Int): Int = momentArray(inMat(r, c))
-  def absMoment(r: Int, c: Int): Mono[M, F] = momentIndex(r, c) match {
-    case -1 => symdpoly.Mono.zero[M, F]
+  def absMoment(r: Int, c: Int): FreeBasedMono[M, F] = momentIndex(r, c) match {
+    case -1 => M.zero
     case i => momentSet(i)
   }
-  def moment(r: Int, c: Int): Mono[M, F] = absMoment(r, c) * phase(r, c)
+  def moment(r: Int, c: Int): FreeBasedMono[M, F] = absMoment(r, c) * phase(r, c)
   def phase(r: Int, c: Int): Phase = Phase.fromEncoding(phaseArray(inMat(r, c)))
   def nUniqueMonomials: Int = momentSet.nMonomials
 
-  def momentMatrix: Mat[Mono[M, F]] = Mat.tabulate(matrixSize, matrixSize) { (r, c) => moment(r, c) }
+  def momentMatrix: Mat[FreeBasedMono[M, F]] = Mat.tabulate(matrixSize, matrixSize) { (r, c) => moment(r, c) }
 
 }
 
@@ -65,8 +68,8 @@ object GramMatrix {
   def momentSetAction[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](monomials: OrderedSet[Mono[M, F]], g: GenPerm)
-   (implicit w: Witness.Aux[M], a: Action[Mono[M, F], GenPerm]): GenPerm = {
+  ](monomials: OrderedSet[FreeBasedMono[M, F]], g: GenPerm)
+   (implicit w: Witness.Aux[M], a: Action[FreeBasedMono[M, F], GenPerm]): GenPerm = {
     import scala.collection.mutable.{HashMap => MMap}
     val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
     val n = monomials.length

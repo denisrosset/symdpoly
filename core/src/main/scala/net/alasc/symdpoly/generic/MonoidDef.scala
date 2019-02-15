@@ -49,6 +49,11 @@ abstract class MonoidDef { self =>
 
   def monomialToPolynomial(m: Monomial): Polynomial
 
+  // Permutations
+
+  type Permutation <: generic.Permutation[self.type]
+  def permutationMonoAction: Action[Monomial, Permutation]
+
   // Construct evaluator
 
   def evaluator: Evaluator2[self.type] = new GenericEvaluator2[self.type](Vector.empty)(witness)

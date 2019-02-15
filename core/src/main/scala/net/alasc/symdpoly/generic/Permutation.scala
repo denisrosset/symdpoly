@@ -57,7 +57,7 @@ object Permutation {
           }
           NNNone
         }
-        def movedPointsUpperBound(g: G): NNOption = NNSome(monomials.length * order)
+        def movedPointsUpperBound(g: G): NNOption = NNSome(monomials.length * order - 1)
         def actr(p: Int, g: G): Int = {
           val phase = Phase(p % order, order)
           val index = p / order

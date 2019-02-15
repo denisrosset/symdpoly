@@ -1,7 +1,10 @@
 package net.alasc.symdpoly
 package examples
 
-object SliwaScenario {
+import net.alasc.finite.Grp
+import net.alasc.perms.default._
+
+object Sliwa {
 
   object FM extends free.MonoidDef(2) {
     case class A(x: Int) extends HermitianOp
@@ -24,39 +27,35 @@ object SliwaScenario {
     case (C(z), A(x)) => A(x)*C(z)
     case (C(z), B(y)) => B(y)*C(z)
     // operators are projective measurements with +/- 1 eigenvalues, thus square to identity
-    case (A(x1), A(x2)) if x1 == x2 => Mono.one
-    case (B(y1), B(y2)) if y1 == y2 => Mono.one
-    case (C(z1), C(z2)) if z1 == z2 => Mono.one
+    case (A(x1), A(x2)) if x1 == x2 => FM.one
+    case (B(y1), B(y2)) if y1 == y2 => FM.one
+    case (C(z1), C(z2)) if z1 == z2 => FM.one
     case (op1, op2) => op1*op2
   }
 
-  // transpose Alice and Bob
-  val pT = FM.generator {
+  val pT = FM.permutation { // transpose Alice and Bob
     case A(x) => B(x)
     case B(y) => A(y)
     case op => op
   }
 
-  // cyclic permutation Alice -> Bob -> Charlie -> Alice
-  val pC = FM.generator {
+  val pC = FM.permutation { // cyclic permutation Alice -> Bob -> Charlie -> Alice
     case A(x) => B(x)
     case B(y) => C(y)
     case C(z) => A(z)
   }
 
-  // flip Alice input
-  val iA = FM.generator {
+  val iA = FM.permutation { // flip Alice input
     case A(x) => A(1-x)
     case op => op
   }
 
-  // flip Alice output for x = 0
-  val oA0 = FM.generator {
+  val oA0 = FM.permutation { // flip Alice output for x = 0
     case A(x) if x == 0 => -A(x)
     case op => op
   }
 
-  val ambientGroup = QM.ambientGroup(pT, pC, iA, oA0)
+  val ambientGroup = QM.groupInQuotient(Grp(pT, pC, iA, oA0))
 
   def AB(x: Int, y: Int): FM.Monomial = A(x)*B(y)
   def BC(y: Int, z: Int): FM.Monomial = B(y)*C(z)
@@ -88,27 +87,9 @@ object SliwaScenario {
   def npaLevel(l: Int): GSet[QM.type] = QM.quotient(GSet.onePlus(A, B, C).pow(l))
   def localLevel(l: Int): GSet[QM.type] = QM.quotient(GSet.onePlus(A).pow(l) * GSet.onePlus(B).pow(l) * GSet.onePlus(C).pow(l))
 
-  val L = evaluation.pureStateSelfAdjoint(QM)
+  val L = QM.evaluator.real
 
-}
-
-object GuessYourNeighborInput {
-
-  import SliwaScenario._
-
-  val objective = QM.quotient( p(0,0,0)(0,0,0) + p(1,1,0)(0,1,1) + p(0,1,1)(1,0,1) + p(1,0,1)(1,1,0) )/4
-  val problem = L(objective).maximize
-  val relaxation = problem.symmetricRelaxation(localLevel(1), ambientGroup)
-
-}
-
-
-object Mermin3 {
-
-  import SliwaScenario._
-
-  val objective = QM.quotient( ABC(1,0,0) + ABC(0,1,0) + ABC(0,0,1) - ABC(1,1,1) )
-  val problem = L(objective).maximize
-  val relaxation = problem.symmetricRelaxation(localLevel(1), ambientGroup)
+  val GYNI = QM.quotient( p(0,0,0)(0,0,0) + p(1,1,0)(0,1,1) + p(0,1,1)(1,0,1) + p(1,0,1)(1,1,0) )/4
+  val Mermin = QM.quotient( ABC(1,0,0) + ABC(0,1,0) + ABC(0,0,1) - ABC(1,1,1) )
 
 }

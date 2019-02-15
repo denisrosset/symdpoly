@@ -10,7 +10,7 @@ import metal.syntax._
 
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.evaluation.{EvaluatedMono2, Evaluator2}
-import net.alasc.symdpoly.{Mono, OrderedSet, free, generic}
+import net.alasc.symdpoly.{OrderedSet, free, generic}
 import net.alasc.util._
 import metal.syntax._
 

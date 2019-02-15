@@ -1,20 +1,22 @@
 package net.alasc.symdpoly
 
 import cats.evidence.Is
-
 import scala.annotation.tailrec
 import scala.util.hashing.MurmurHash3
+
 import shapeless.Witness
 import spire.algebra.{Action, Eq, FieldAssociativeAlgebra, Involution}
 import spire.math.{Rational, Searching}
 import spire.syntax.cfor._
 import spire.syntax.involution._
 import spire.syntax.order._
+
 import cyclo.Cyclo
 import metal.mutable.{HashMap => MMap}
 import metal.syntax._
+
 import net.alasc.symdpoly.free.{MutablePoly, MutableWord}
-import net.alasc.symdpoly.generic.{FreeBasedMonoidDef, MonoidDef}
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef, MonoidDef}
 import net.alasc.symdpoly.math.GenPerm
 import org.scalacheck.{Arbitrary, Gen}
 import org.typelevel.discipline.Predicate
@@ -42,17 +44,17 @@ trait PolyTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDe
 
   // +/- op
 
-  def +(rhs: F#Op)(implicit wM: Witness.Aux[M], ev: Mono[F, F] Is Mono[M, F]): Poly[M, F] = lhs + ev.coerce(rhs.toMono)
-  def -(rhs: F#Op)(implicit wM: Witness.Aux[M], ev: Mono[F, F] Is Mono[M, F]): Poly[M, F] = lhs - ev.coerce(rhs.toMono)
+  def +(rhs: F#Op)(implicit wM: Witness.Aux[M], ev: FreeBasedMono[F, F] Is FreeBasedMono[M, F]): Poly[M, F] = lhs + ev.coerce(rhs.toMono)
+  def -(rhs: F#Op)(implicit wM: Witness.Aux[M], ev: FreeBasedMono[F, F] Is FreeBasedMono[M, F]): Poly[M, F] = lhs - ev.coerce(rhs.toMono)
 
   // +/- phasedOp
-  def +(rhs: F#PhasedOp)(implicit wM: Witness.Aux[M], ev: Mono[F, F] Is Mono[M, F]): Poly[M, F] = lhs + ev.coerce(rhs.toMono)
-  def -(rhs: F#PhasedOp)(implicit wM: Witness.Aux[M], ev: Mono[F, F] Is Mono[M, F]): Poly[M, F] = lhs - ev.coerce(rhs.toMono)
+  def +(rhs: F#PhasedOp)(implicit wM: Witness.Aux[M], ev: FreeBasedMono[F, F] Is FreeBasedMono[M, F]): Poly[M, F] = lhs + ev.coerce(rhs.toMono)
+  def -(rhs: F#PhasedOp)(implicit wM: Witness.Aux[M], ev: FreeBasedMono[F, F] Is FreeBasedMono[M, F]): Poly[M, F] = lhs - ev.coerce(rhs.toMono)
 
   // +/- mono
 
-  def +(rhs: Mono[M, F])(implicit wM: Witness.Aux[M]): Poly[M, F] = lhs + rhs.toPoly
-  def -(rhs: Mono[M, F])(implicit wM: Witness.Aux[M]): Poly[M, F] = lhs + (-rhs).toPoly
+  def +(rhs: FreeBasedMono[M, F])(implicit wM: Witness.Aux[M]): Poly[M, F] = lhs + rhs.toPoly
+  def -(rhs: FreeBasedMono[M, F])(implicit wM: Witness.Aux[M]): Poly[M, F] = lhs + (-rhs).toPoly
 
   // * / scalar
 
@@ -99,9 +101,9 @@ class Poly[
 
   def nTerms: Int = keys.length
   def monomialNormalForm(i: Int): MutableWord[F] = keys(i)
-  def monomial(i: Int): Mono[M, F] = new Mono[M ,F](keys(i))
+  def monomial(i: Int): FreeBasedMono[M, F] = new FreeBasedMono[M ,F](keys(i))
   def coeff(i: Int): Cyclo = values(i)
-  def coeff(mono: Mono[M, F]): Cyclo = {
+  def coeff(mono: FreeBasedMono[M, F]): Cyclo = {
     require(!mono.isZero)
     require(mono.phaseOffset == Phase.one)
     val i = Searching.search(keys, mono.data)
@@ -190,7 +192,7 @@ class Poly[
     res.immutableCopy[M]
   }
 
-  def *(rhs: Mono[M, F]): Poly[M, F] = {
+  def *(rhs: FreeBasedMono[M, F]): Poly[M, F] = {
     val res = MutablePoly.empty[F](lhs.nTerms)
     val rm = rhs.data
     cforRange(0 until lhs.nTerms) { i =>
@@ -268,7 +270,7 @@ object Poly {
     if (cyclo.isZero) zero[M, F] else new Poly[M, F](Array(MutableWord.one[F]), Array(cyclo))
   }
 
-  def single[M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: Mono[M, F], coeff: Cyclo): Poly[M, F] =
+  def single[M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: FreeBasedMono[M, F], coeff: Cyclo): Poly[M, F] =
     if (coeff.isZero || mono.isZero) zero[M, F]
     else if (mono.data.phase.isOne) new Poly[M, F](Array(mono.data), Array(coeff))
     else {
@@ -277,7 +279,7 @@ object Poly {
       new Poly[M, F](Array(res.setPhase(Phase.one).setImmutable()), Array(newCoeff))
     }
 
-  def apply[M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: Mono[M, F]): Poly[M, F] =
+  def apply[M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: FreeBasedMono[M, F]): Poly[M, F] =
     if (mono.isZero) zero[M, F]
     else if (mono.data.phase.isOne) new Poly[M, F](Array(mono.data), Array(Cyclo.one))
     else {
@@ -287,7 +289,7 @@ object Poly {
       new Poly[M, F](Array(newMono.setImmutable()), Array(phase.toCyclo))
     }
 
-  def apply[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](terms: (Mono[M, F], Cyclo)*)(implicit wM: Witness.Aux[M]): Poly[M, F] = {
+  def apply[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](terms: (FreeBasedMono[M, F], Cyclo)*)(implicit wM: Witness.Aux[M]): Poly[M, F] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
     if (terms.size == 0) zero[M, F]
     else if (terms.size == 1) single[M, F](terms(0)._1, terms(0)._2)

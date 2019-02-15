@@ -3,14 +3,16 @@ package evaluation
 
 import scala.annotation.tailrec
 
+import cats.Invariant
 import shapeless.Witness
 import spire.algebra.Action
 import spire.syntax.cfor._
 import spire.syntax.std.seq._
-
+import net.alasc.symdpoly.algebra.Instances._
+import cats.syntax.invariant._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.evaluation.Equivalence.{CyclicEquivalence, TransposeEquivalence}
-import net.alasc.symdpoly.generic.{FreeBasedPermutation, FreeBasedPermutationMonoAction}
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPermutation, FreeBasedPermutationMonoAction}
 import net.alasc.symdpoly.math.GrpDecomposition
 
 final class FreeBasedEvaluator2[
@@ -26,10 +28,15 @@ final class FreeBasedEvaluator2[
   type ScratchPad = FreeScratchPad2[F]
   def makeScratchPad: FreeScratchPad2[F] = FreeScratchPad2.apply[F]
 
-  def apply(mono: Mono[M, F], pad: FreeScratchPad2[F]): EvaluatedMono2[this.type, M] = {
+  val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = {
+    val action: Action[FreeBasedMono[M, F], Permutation] = (M: M).permutationMonoAction
+    Invariant[Lambda[P => Action[P, FreeBasedPermutation[M, F]]]].imap[M#Monomial, EvaluatedMono2[self.type, M]](action)(m => apply(m))(_.normalForm)
+  }
+
+  def apply(mono: FreeBasedMono[M, F], pad: FreeScratchPad2[F]): EvaluatedMono2[this.type, M] = {
     val word = mono.data.mutableCopy()
     reduce(word, pad)
-    new EvaluatedMono2[this.type, M](new Mono[M, F](word.setImmutable()))
+    new EvaluatedMono2[this.type, M](new FreeBasedMono[M, F](word.setImmutable()))
   }
 
   override def apply(poly: Poly[M, F], pad: FreeScratchPad2[F])(implicit d: DummyImplicit): EvaluatedPoly2[this.type, M] = {
@@ -52,7 +59,7 @@ final class FreeBasedEvaluator2[
         val monos = Array.tabulate(n)(i => pad.scratch(i).immutableCopy)
         var ind = 0
         cforRange(0 until n) { i =>
-          val mono = new Mono[M, F](monos(i))
+          val mono = new FreeBasedMono[M, F](monos(i))
           e(mono).foreach { newMono =>
             pad.scratch(ind).setToContentOf(newMono.data)
             ind += 1
@@ -74,9 +81,9 @@ final class FreeBasedEvaluator2[
 
   def :+(e: Equivalence2[M]): FreeBasedEvaluator2[M, F] = new FreeBasedEvaluator2[M, F](equivalences :+ e)
 
-  def adjoint: FreeBasedEvaluator2[M, F]  = self :+ new AdjointFreeBasedEquivalence2[M, F]
+  def real: FreeBasedEvaluator2[M, F]  = self :+ new AdjointFreeBasedEquivalence2[M, F]
 
-  def symmetric[G](grp: Grp[G])(implicit action: Action[Mono[M, F], G]): FreeBasedEvaluator2[M, F]  = {
+  def symmetric[G](grp: Grp[G])(implicit action: Action[FreeBasedMono[M, F], G]): FreeBasedEvaluator2[M, F]  = {
     val e = action match {
       case fbpma: FreeBasedPermutationMonoAction[M, F] =>
         val grp1 = grp.asInstanceOf[Grp[FreeBasedPermutation[M, F]]]

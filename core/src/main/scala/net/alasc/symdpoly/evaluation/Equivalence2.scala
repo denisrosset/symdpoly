@@ -10,7 +10,7 @@ import spire.syntax.action._
 import spire.syntax.cfor._
 import spire.syntax.involution._
 
-import net.alasc.symdpoly.generic.FreeBasedPermutation
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPermutation}
 import net.alasc.symdpoly.math.GrpDecomposition
 
 /** A transformation that generates equivalent monomials under evaluation by the linear functional. */
@@ -35,14 +35,14 @@ abstract class FreeBasedEquivalence2[
   def F: F = M.Free
   implicit def witnessF: Witness.Aux[F] = F.witness
 
-  def apply(mono: Mono[M, F]): Set[Mono[M, F]] = {
+  def apply(mono: FreeBasedMono[M, F]): Set[FreeBasedMono[M, F]] = {
     val pad = FreeScratchPad2[F]
     pad.scratch(0).setToContentOf(mono.data)
     pad.n = 1
     if (expandAndCheckForZero(pad))
-      Set(Mono.zero[M, F])
+      Set(FreeBasedMono.zero[M, F])
     else
-      Set(Seq.tabulate(pad.n)(i => new Mono[M, F](pad.scratch(i).setImmutable())): _*)
+      Set(Seq.tabulate(pad.n)(i => new FreeBasedMono[M, F](pad.scratch(i).setImmutable())): _*)
   }
 
   /** Expands the monomials in the given scratch pad using this equivalence, and returns true when the resulting monomial is zero. */

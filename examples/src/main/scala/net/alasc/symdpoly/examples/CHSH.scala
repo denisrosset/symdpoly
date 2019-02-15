@@ -21,8 +21,8 @@ object CHSH {
   import Free.{A, B}
 
   val Quotient = quotient.MonoidDef(Free) {
-    case (A(x1), A(x2)) if x1 == x2 => Mono.one
-    case (B(y1), B(y2)) if y1 == y2 => Mono.one
+    case (A(x1), A(x2)) if x1 == x2 => Free.one
+    case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (B(y), A(x)) => A(x) * B(y)
     case (op1, op2) => op1 * op2
   }
@@ -53,11 +53,11 @@ object CHSH {
   val problem = L(bellOperator).maximize
 
   val relaxation = problem.symmetricRelaxation(generatingSet, G.grp)
-  val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
-  val L1 = Quotient.evaluator.adjoint
+  val feasGrp = Quotient.groupInQuotient(Free.symmetryGroup2)
+  val L1 = Quotient.evaluator.real
   val symGrp = feasGrp.leavesInvariant(L1(bellOperator))
   println(symGrp)
-  val L2 = Quotient.evaluator.adjoint.symmetric(symGrp)
+  val L2 = Quotient.evaluator.real.symmetric(symGrp)
   val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
 /*relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
   relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
@@ -100,8 +100,8 @@ object Distributed {
   import Free.{A, B}
 
   val Quotient = quotient.MonoidDef(Free) {
-    case (A(x1), A(x2)) if x1 == x2 => Mono.one
-    case (B(y1), B(y2)) if y1 == y2 => Mono.one
+    case (A(x1), A(x2)) if x1 == x2 => Free.one
+    case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (B(y), A(x)) => A(x) * B(y)
 /*    case (A(x1), A(x2)) if x1 > x2 => A(x2) * A(x1)
     case (B(y1), B(y2)) if y1 > y2 => B(y2) * B(y1)*/
@@ -142,10 +142,10 @@ object Distributed {
 
   val relaxation = problem.relaxation(generatingSet)
 
-  val feasGrp = Quotient.restrictedGroup(Free.symmetryGroup2)
-  val L1 = Quotient.evaluator.adjoint
+  val feasGrp = Quotient.groupInQuotient(Free.symmetryGroup2)
+  val L1 = Quotient.evaluator.real
   val symGrp = feasGrp.leavesInvariant(L1(bellOperator))
-  val L2 = Quotient.evaluator.adjoint.symmetric(symGrp)
+  val L2 = Quotient.evaluator.real.symmetric(symGrp)
   val relaxation1 = L2(bellOperator).maximize.relaxation(generatingSet)
   relaxation1.jOptimizerInstance.solve()
 

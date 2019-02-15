@@ -1,10 +1,14 @@
 package net.alasc.symdpoly
 
 import cyclo.Cyclo
+
 import org.typelevel.discipline.Predicate
 import spire.laws.{InvolutionLaws, RingLaws}
+
 import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
 import spire.math.Rational
+
+import net.alasc.symdpoly.generic.FreeBasedMono
 
 class CHSHAlgebraSuite extends CommonSuite {
 
@@ -41,15 +45,15 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   val CHSH = A(0)*B(0) + B(1)*A(0) + A(1)*B(0) - A(1)*B(1)
 
-  checkAll("free monoid", RingLaws[Mono.Free[FM.type]].multiplicativeMonoid)
-  checkAll("free monoid involution", InvolutionLaws[Mono.Free[FM.type]].involutionMultiplicativeMonoid)
-  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[Mono.Free[FM.type]].multiplicativeBinoid)
+  checkAll("free monoid", RingLaws[FreeBasedMono.Free[FM.type]].multiplicativeMonoid)
+  checkAll("free monoid involution", InvolutionLaws[FreeBasedMono.Free[FM.type]].involutionMultiplicativeMonoid)
+  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono.Free[FM.type]].multiplicativeBinoid)
 
   val QM = quotient.MonoidDef(FM) {
-    case (A(x1), A(x2)) if x1 == x2 => Mono.one
-    case (B(y1), B(y2)) if y1 == y2 => Mono.one
-    case (B(y), A(x)) => Mono(A(x), B(y))
-    case (op1, op2) => Mono(op1, op2)
+    case (A(x1), A(x2)) if x1 == x2 => FreeBasedMono.one
+    case (B(y1), B(y2)) if y1 == y2 => FreeBasedMono.one
+    case (B(y), A(x)) => A(x) * B(y)
+    case (op1, op2) => op1 * op2
   }
 
   val ambientGroup = QM.ambientGroup(swapParties, swapInputA, swapOutputA0)
@@ -58,9 +62,9 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   val gramMatrix = GramMatrix(gset, evaluation.pureStateSelfAdjoint(QM))
 
-  checkAll("quotient monoid", RingLaws[Mono[QM.type, FM.type]].multiplicativeMonoid)
-  checkAll("quotient monoid involution", InvolutionLaws[Mono[QM.type, FM.type]].involutionMultiplicativeMonoid)
-  checkAll("quotient binoid", ExtraMultiplicativeMonoidLaws[Mono[QM.type, FM.type]].multiplicativeBinoid)
+  checkAll("quotient monoid", RingLaws[FreeBasedMono[QM.type, FM.type]].multiplicativeMonoid)
+  checkAll("quotient monoid involution", InvolutionLaws[FreeBasedMono[QM.type, FM.type]].involutionMultiplicativeMonoid)
+  checkAll("quotient binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono[QM.type, FM.type]].multiplicativeBinoid)
 
   import cyclo.Cyclos.arbCyclo
   implicit val cycloPred: Predicate[Cyclo] = { (c: Cyclo) => !c.isZero}

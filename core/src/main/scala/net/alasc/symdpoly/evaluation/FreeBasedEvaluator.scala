@@ -9,7 +9,7 @@ import spire.syntax.cfor.cforRange
 import net.alasc.symdpoly.algebra.Phased
 import spire.algebra.Order
 
-import net.alasc.symdpoly.Mono
+import net.alasc.symdpoly.generic.FreeBasedMono
 
 class FreeBasedEvaluator[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](val equivalences: Seq[Equivalence[F]],
                                                                                                                            val isSelfAdjoint: Boolean)
@@ -66,10 +66,10 @@ class FreeBasedEvaluator[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton, 
     mono.setToContentOf(minimal)
   }
 
-  def apply(mono: Mono[M, F], group: Grp[GenPerm], pad: FreeScratchPad[F]): EvaluatedMono[self.type, M, group.type] = {
+  def apply(mono: FreeBasedMono[M, F], group: Grp[GenPerm], pad: FreeScratchPad[F]): EvaluatedMono[self.type, M, group.type] = {
     val word = mono.data.mutableCopy()
     reduceInScratchPad(word, group.iterator.toArray, pad)
-    new EvaluatedMono[self.type, M, group.type](new Mono[M, F](word.setImmutable()))
+    new EvaluatedMono[self.type, M, group.type](new FreeBasedMono[M, F](word.setImmutable()))
   }
 
   def apply(poly: Poly[M, F], group: Grp[GenPerm], pad: FreeScratchPad[F])(implicit d: DummyImplicit): EvaluatedPoly[self.type, M, group.type] = {

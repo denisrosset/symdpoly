@@ -7,7 +7,7 @@ import spire.syntax.cfor._
 
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
-import net.alasc.symdpoly.generic.{FreeBasedMonoidDef, FreeBasedPermutation}
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef, FreeBasedPermutation}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
@@ -52,7 +52,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   }
 
   // quotient morphism are trivial
-  def quotient(word: Mono[Free, Free]): Monomial = word
+  def quotient(word: FreeBasedMono[Free, Free]): Monomial = word
   def quotient(poly: Poly[Free, Free]): Poly[Free, Free] = poly
 
   val immutableMutableWordOne = new MutableWord[Free](Phase.one, 0, new Array[Int](0), false)
@@ -89,11 +89,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     def wM: Witness.Aux[Free] = witnessFree
     def index: Int = indexFromOp(this)
 
-    def toMono: Mono[Free, Free] = Mono.fromOp(lhs)
+    def toMono: FreeBasedMono[Free, Free] = FreeBasedMono.fromOp(lhs)
     def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
     def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
     def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
-    def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
+    def *(rhs: FreeBasedMono[Free, Free])(implicit mm: MultiplicativeMonoid[FreeBasedMono[Free, Free]]): FreeBasedMono[Free, Free] = lhs.toMono * rhs
 
     // Returns PhasedOp
     def unary_- : PhasedOp = lhs * Phase.minusOne
@@ -182,12 +182,14 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   }
 
   case class PhasedOp(phase: Phase, op: Op) extends MonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
-    override def toString: String = Mono[Free](phase, op).toString
+    override def toString: String = FreeBasedMono[Free](phase, op).toString
     def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
-    def toMono: Mono[Free, Free] = Mono(lhs)
+    def toMono: FreeBasedMono[Free, Free] = FreeBasedMono(lhs)
+    def unary_- : PhasedOp = PhasedOp(-phase, op)
+    def *(newPhase: Phase): PhasedOp = PhasedOp(phase * newPhase, op)
     def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
     def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
-    def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
+    def *(rhs: FreeBasedMono[Free, Free])(implicit mm: MultiplicativeMonoid[FreeBasedMono[Free, Free]]): FreeBasedMono[Free, Free] = lhs.toMono * rhs
   }
 
   object PhasedOp {

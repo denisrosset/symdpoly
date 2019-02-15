@@ -42,25 +42,36 @@ abstract class Evaluator2[M <: generic.MonoidDef with Singleton: Witness.Aux](va
   def apply(poly: M#Polynomial)(implicit d: DummyImplicit): EvaluatedPoly2[self.type, M] = apply(poly, makeScratchPad)
   def apply(poly: M#Polynomial, pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly2[self.type, M]
 
+  type EvaluatedMonomial = EvaluatedMono2[self.type, M]
+  type EvaluatedPolynomial = EvaluatedPoly2[self.type, M]
+  type Permutation = M#Permutation
+
   // typeclasses
 
-  val evaluatedMonoZero: EvaluatedMono2[self.type, M] = new EvaluatedMono2[self.type, M](M.monoMultiplicativeBinoid.zero)
-  val evaluatedMonoOrder: Order[EvaluatedMono2[self.type, M]] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
-  val evaluatedMonoPhased: Phased[EvaluatedMono2[self.type, M]] = Invariant[Phased].imap(M.monoPhased)(apply(_, makeScratchPad))(_.normalForm)
-  val evaluatedPolyEq: Eq[EvaluatedPoly2[self.type, M]] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
-  val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPoly2[self.type, M], Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply(_, makeScratchPad))(_.normalForm)
+  val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono2[self.type, M](M.monoMultiplicativeBinoid.zero)
+  val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
+  val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(apply(_, makeScratchPad))(_.normalForm)
+  val evaluatedPolyEq: Eq[EvaluatedPolynomial] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
+  val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPolynomial, Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply(_, makeScratchPad))(_.normalForm)
+
+  def evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation]
 
   def :+(e: Equivalence2[M]): E
 
-  def adjoint: E
+  def real: E
 
   def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): E
 
 }
 
 final class GenericEvaluator2[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence2[M]]) extends Evaluator2[M](equivalences) { self =>
-
   type E = GenericEvaluator2[M]
+
+  val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = {
+    val action: Action[M#Monomial, Permutation] = (M: M).permutationMonoAction
+    Invariant[Lambda[P => Action[P, Permutation]]].imap[M#Monomial, EvaluatedMono2[self.type, M]](action)(m => apply(m))(_.normalForm)
+  }
+
 
   type ScratchPad = Unit
   def makeScratchPad: Unit = ()
@@ -85,7 +96,7 @@ final class GenericEvaluator2[M <: generic.MonoidDef with Singleton: Witness.Aux
 
   def :+(e: Equivalence2[M]): GenericEvaluator2[M] = new GenericEvaluator2[M](equivalences :+ e)
 
-  def adjoint: GenericEvaluator2[M] = self :+ new AdjointEquivalence2[M]
+  def real: GenericEvaluator2[M] = self :+ new AdjointEquivalence2[M]
 
   def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericEvaluator2[M] = self :+ new SymmetryEquivalence2(grp)
 

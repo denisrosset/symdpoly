@@ -6,7 +6,7 @@ import scala.annotation.tailrec
 
 import cats.{Contravariant, Invariant}
 
-import net.alasc.symdpoly.{Maximization, Mono, OrderedSet, Phase, Poly, free, generic, valueOf}
+import net.alasc.symdpoly.{Maximization, OrderedSet, Phase, Poly, free, generic, valueOf}
 import net.alasc.symdpoly.math.{GenPerm, GrpDecomposition}
 import shapeless.Witness
 import spire.algebra._

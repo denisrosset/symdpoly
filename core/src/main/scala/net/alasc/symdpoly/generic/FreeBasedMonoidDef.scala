@@ -1,20 +1,27 @@
 package net.alasc.symdpoly
 package generic
 
+import cats.Invariant
+
 import cyclo.Cyclo
+import cats.instances.invariant._
+import cats.syntax.invariant._
+import cats.syntax.contravariant._
+import cats.instances.eq._
 
 import net.alasc.algebra.PermutationAction
-import net.alasc.finite.Grp
+import net.alasc.finite.{FaithfulActionBuilder, FaithfulPermutationActionBuilder, Grp}
 import net.alasc.partitions.Partition
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.free._
 import net.alasc.symdpoly.math.GenPerm
 import net.alasc.perms.default._
 import net.alasc.util._
+import net.alasc.symdpoly.algebra.Instances._
 import shapeless.Witness
-import spire.algebra.{Action, Eq, Field, FieldAssociativeAlgebra, Involution, Order}
+import spire.algebra.{free => _, _}
 
-import net.alasc.symdpoly.evaluation.FreeBasedEvaluator2
+import net.alasc.symdpoly.evaluation.{EvaluatedMono2, Evaluator2, FreeBasedEvaluator2}
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
@@ -29,24 +36,25 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
 
   // Monomials
 
-  type Monomial = Mono[self.type, Free]
+  /** Element of this monoid, i.e. a monomial. */
+  type Monomial = FreeBasedMono[self.type, Free]
   def quotient(poly: Poly[Free, Free]): Poly[self.type, Free]
-  def quotient(word: Mono[Free, Free]): Monomial
+  def quotient(word: FreeBasedMono[Free, Free]): Monomial
   def quotient(gset: GSet[Free]): GSet[self.type] = GSet.Quotient[self.type, Free](gset)
 
-  def monomialToPolynomial(m: Mono[self.type, Free]): Poly[self.type, Free] = Poly[self.type, Free](m)
+  def monomialToPolynomial(m: FreeBasedMono[self.type, Free]): Poly[self.type, Free] = Poly[self.type, Free](m)
 
-  private[this] val monoInstances: MonoInstances[self.type, Free] = new MonoInstances[self.type, Free]
+  private[this] val monoInstances: FreeBasedMono.MonoInstances[self.type, Free] = new FreeBasedMono.MonoInstances[self.type, Free]
   def monoMultiplicativeBinoid: MultiplicativeBinoid[Monomial] = monoInstances
   def monoInvolution: Involution[Monomial] = monoInstances
   def monoOrder: Order[Monomial] = monoInstances
-  val monoPhased: Phased[Monomial] = new MonoPhased
-  val monoGenPermAction: Action[Monomial, GenPerm] = new MonoGenPermAction
+  val monoPhased: Phased[Monomial] = new FreeBasedMono.MonoPhased
+  val monoGenPermAction: Action[Monomial, GenPerm] = new FreeBasedMono.MonoGenPermAction
 
   def inPlaceNormalForm(word: MutableWord[Free], start: Int = 0): Boolean
 
-  val zero: Monomial = Mono.zero[self.type, Free]
-  val one: Monomial = Mono.one[self.type, Free]
+  val zero: Monomial = FreeBasedMono.zero[self.type, Free]
+  val one: Monomial = FreeBasedMono.one[self.type, Free]
 
   // Polynomials
 
@@ -58,16 +66,26 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def polyEq: Eq[Polynomial] = polyInstances
   val polyGenPermAction: Action[Poly[self.type, Free], GenPerm] = new PolyGenPermAction
 
+  // Permutations
+
+  type Permutation = generic.FreeBasedPermutation[self.type, Free]
+
+  val permutationEq: Eq[Permutation] = Eq[GenPerm].contramap(_.genPerm)
+  val permutationGroup: Group[Permutation] = Group[GenPerm].imap(new FreeBasedPermutation[self.type, Free](_))(_.genPerm)
+  val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[Permutation] =
+    FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
+  val permutationMonoAction: Action[Monomial, Permutation] = new FreeBasedPermutationMonoAction[self.type, Free]
+
   def symmetryGroup(nRootsOfUnity: Int): Grp[GenPerm] = {
     val m = nRootsOfUnity
     val n = Free.nOperators
     def op(i: Int): Free#Op = Free.opFromIndex(i)
-    def monoFromOpIndex(i: Int): Mono[Free, Free] = Mono(op(i))
+    def monoFromOpIndex(i: Int): FreeBasedMono[Free, Free] = FreeBasedMono(op(i))
     val phases: Vector[Phase] = Vector.tabulate(m)(k => Phase(k, m))
-    val monos1: Vector[Mono[Free, Free]] = Vector.tabulate(n)(i => monoFromOpIndex(i))
-    val monos2: Vector[Mono[Free, Free]] = Vector.tabulate(n, n)( (i, j) => Mono(op(i), op(j)) ).flatten
-    val monos: Vector[Mono[Free, Free]] = Vector(Mono.one[Free, Free]) ++ (monos1 ++ monos2).flatMap(m => phases.map(p => m * p))
-    val monoSet: OrderedSet[Mono[Free, Free]] = OrderedSet.fromUnique(monos)
+    val monos1: Vector[FreeBasedMono[Free, Free]] = Vector.tabulate(n)(i => monoFromOpIndex(i))
+    val monos2: Vector[FreeBasedMono[Free, Free]] = Vector.tabulate(n, n)((i, j) => FreeBasedMono(op(i), op(j)) ).flatten
+    val monos: Vector[FreeBasedMono[Free, Free]] = Vector(FreeBasedMono.one[Free, Free]) ++ (monos1 ++ monos2).flatMap(m => phases.map(p => m * p))
+    val monoSet: OrderedSet[FreeBasedMono[Free, Free]] = OrderedSet.fromUnique(monos)
     val action = new PermutationAction[GenPerm] {
       def isFaithful: Boolean = true
       def findMovedPoint(g: GenPerm): NNOption = g.largestMovedPoint match {
@@ -87,7 +105,8 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def ambientGroup(generators: Generator[Free]*): Grp[GenPerm] =
     Grp.fromGenerators(generators.map(_.opAction))
 
-  override def evaluator: FreeBasedEvaluator2[self.type, Free] = new FreeBasedEvaluator2[self.type, Free](Vector.empty)
+  // TODO: use Free based evaluator
+  // override def evaluator: FreeBasedEvaluator2[self.type, Free] = new FreeBasedEvaluator2[self.type, Free](Vector.empty)
 
 }
 

@@ -60,33 +60,25 @@ object FreeBasedPermutation {
     elements.mkString("{", ", ", "}")
   }
 
-  implicit def evaluatedMonoAction[
-    E <: Evaluator2[M] with Singleton: Witness.Aux,
-    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
-  ](implicit action: Action[M#Monomial, FreeBasedPermutation[M, F]]): Action[EvaluatedMono2[E, M], FreeBasedPermutation[M, F]] =
-    Invariant[Lambda[P => Action[P, FreeBasedPermutation[M, F]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
-
   implicit def equ[
-    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
+    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ]: Eq[FreeBasedPermutation[M, F]] = Eq[GenPerm].contramap(_.genPerm)
+  ]: Eq[FreeBasedPermutation[M, F]] = (valueOf[M]: M).permutationEq
 
   implicit def group[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ]: Group[FreeBasedPermutation[M, F]] = Group[GenPerm].imap(new FreeBasedPermutation[M, F](_))(_.genPerm)
+  ]: Group[FreeBasedPermutation[M, F]] = (valueOf[M]: M).permutationGroup
 
   implicit def faithfulPermutationActionBuilder[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ]: FaithfulPermutationActionBuilder[FreeBasedPermutation[M, F]] =
-    FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
+  ]: FaithfulPermutationActionBuilder[FreeBasedPermutation[M, F]] = (valueOf[M]: M).permutationFaithfulPermutationActionBuilder
 
   implicit def monoAction[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ]: Action[Mono[M, F], FreeBasedPermutation[M, F]] = new FreeBasedPermutationMonoAction[M, F]
+  ]: Action[FreeBasedMono[M, F], FreeBasedPermutation[M, F]] = (valueOf[M]: M).permutationMonoAction
 
   implicit def grpGenericPermutationOps[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
@@ -102,11 +94,11 @@ object FreeBasedPermutation {
 class FreeBasedPermutationMonoAction[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-] extends Action[Mono[M, F], FreeBasedPermutation[M, F]] {
-  def actl(g: FreeBasedPermutation[M, F], mono: Mono[M, F]): Mono[M, F] = actr(mono, g.inverse)
-  def actr(mono: Mono[M, F], g: FreeBasedPermutation[M, F]): Mono[M, F] = {
+] extends Action[FreeBasedMono[M, F], FreeBasedPermutation[M, F]] {
+  def actl(g: FreeBasedPermutation[M, F], mono: FreeBasedMono[M, F]): FreeBasedMono[M, F] = actr(mono, g.inverse)
+  def actr(mono: FreeBasedMono[M, F], g: FreeBasedPermutation[M, F]): FreeBasedMono[M, F] = {
     val word = mono.normalForm.mutableCopy.applyGenPermAction(g.genPerm)
     valueOf[M].inPlaceNormalForm(word)
-    new Mono[M, F](word.setImmutable())
+    new FreeBasedMono[M, F](word.setImmutable())
   }
 }
