@@ -70,6 +70,7 @@ case class Relaxation[
 
   def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
 
+  // TODO: use the symmetry equivalence of the evaluator
   def canonicalMonomialsDescription(symmetryGroup: Grp[M#Permutation]): String = {
     val monomials = Vector.tabulate(gramMatrix.momentSet.nElements) { i =>
       import spire.compat._

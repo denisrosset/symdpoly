@@ -18,7 +18,7 @@ object Key {
     def name: String = name0.value
     def defaultValue: V = defaultValue0
   }
-  /** Relation between a key and its value, used to construct a [[shapeless.HMap]] */
+  /** Relation between a key and its value, used to construct a `shapeless.HMap` */
   class Relation[K, V]
   object Relation {
     implicit def derivation[K <: Key with Singleton]: Relation[K, K#V] = new Relation[K, K#V]
