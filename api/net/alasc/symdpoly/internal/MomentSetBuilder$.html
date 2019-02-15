@@ -139,8 +139,8 @@
                         <a href="MomentSet.html" title="Describes an ordered set of equivalence classes of monomials under evaluation.">MomentSet</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="" title=""></a>
-                        <a class="class" href="MomentSetBuilder.html" title=""></a>
-                        <a href="MomentSetBuilder.html" title="">MomentSetBuilder</a>
+                        <a class="class" href="MomentSetBuilder.html" title="Builds a MomentSet incrementally."></a>
+                        <a href="MomentSetBuilder.html" title="Builds a MomentSet incrementally.">MomentSetBuilder</a>
                       </li>
               </ul>
             </div>
@@ -171,7 +171,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/internal/MomentSetBuilder.scala" target="_blank">MomentSetBuilder.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/internal/MomentSet.scala" target="_blank">MomentSet.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -310,8 +310,6 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -350,6 +348,28 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder$.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -367,8 +387,6 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
-              
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -389,8 +407,6 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
         </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -409,9 +425,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#make" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="make[F&lt;:net.alasc.symdpoly.free.MonoidDef.Aux[F]withSingleton](implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.internal.MomentSetBuilder[F]"></a><a id="make[F&lt;:Aux[F]withSingleton](Aux[F]):MomentSetBuilder[F]"></a>
+      <a id="make[E&lt;:net.alasc.symdpoly.evaluation.Evaluator[M]withSingleton,M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$5:shapeless.Witness.Aux[E],implicitevidence$6:shapeless.Witness.Aux[M]):net.alasc.symdpoly.internal.MomentSetBuilder[E,M]"></a><a id="make[E&lt;:Evaluator[M]withSingleton,M&lt;:MonoidDefwithSingleton](Aux[E],Aux[M]):MomentSetBuilder[E,M]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder$.html#make[F&lt;:net.alasc.symdpoly.free.MonoidDef.Aux[F]withSingleton](implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.internal.MomentSetBuilder[F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder$.html#make[E&lt;:net.alasc.symdpoly.evaluation.Evaluator[M]withSingleton,M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$5:shapeless.Witness.Aux[E],implicitevidence$6:shapeless.Witness.Aux[M]):net.alasc.symdpoly.internal.MomentSetBuilder[E,M]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -420,7 +436,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">make</span><span class="tparams">[<span name="F">F &lt;: <a href="../free/MonoidDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton]=net.alasc.symdpoly.free.MonoidDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="wF">wF: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.F">F</span>]</span>)</span><span class="result">: <a href="MomentSetBuilder.html" class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder">MomentSetBuilder</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.F">F</span>]</span>
+        <span class="name">make</span><span class="tparams">[<span name="E">E &lt;: <a href="../evaluation/Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.M">M</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="M">M &lt;: <a href="../generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.E">E</span>]</span>, <span name="arg1">arg1: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.M">M</span>]</span>)</span><span class="result">: <a href="MomentSetBuilder.html" class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder">MomentSetBuilder</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.make.M">M</span>]</span>
       </span>
       
       
@@ -458,8 +474,6 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
         </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
@@ -478,8 +492,6 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
-              
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -514,6 +526,28 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder$.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
@@ -560,64 +594,13 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder$.html#wait():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li>
               </ol>
             </div>
 
         
 
-        <div class="values members">
-              <h3>Deprecated Value Members</h3>
-              <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder$.html#finalize():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.lang.Throwable]</span>
-    </span>)</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
         </div>
 
         <div id="inheritedMembers">

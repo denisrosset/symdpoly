@@ -139,8 +139,8 @@
                         <a href="MomentSet.html" title="Describes an ordered set of equivalence classes of monomials under evaluation.">MomentSet</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="MomentSetBuilder$.html" title=""></a>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">MomentSetBuilder</a>
+                        <a class="class" href="" title="Builds a MomentSet incrementally."></a>
+                        <a href="" title="Builds a MomentSet incrementally.">MomentSetBuilder</a>
                       </li>
               </ul>
             </div>
@@ -166,12 +166,12 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">MomentSetBuilder</span><span class="tparams">[<span name="F">F &lt;: <a href="../free/MonoidDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton]=net.alasc.symdpoly.free.MonoidDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">MomentSetBuilder</span><span class="tparams">[<span name="E">E &lt;: <a href="../evaluation/Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="M">M &lt;: <a href="../generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/internal/MomentSetBuilder.scala" target="_blank">MomentSetBuilder.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Builds a <a href="MomentSet.html" class="extype" name="net.alasc.symdpoly.internal.MomentSet">MomentSet</a> incrementally.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/internal/MomentSet.scala" target="_blank">MomentSet.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -180,7 +180,7 @@
                 <span class="toggle diagram-link">
                   Type Hierarchy
                 </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 188.00 118.00" height="118pt" width="188pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 184,-114 184,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.internal.MomentSetBuilder (this class)" xlink:href="#inheritance-diagram"><path d="M147.6667,-49C147.6667,-49 32.3333,-49 32.3333,-49 28.1667,-49 24,-44.8333 24,-40.6667 24,-40.6667 24,-32.3333 24,-32.3333 24,-28.1667 28.1667,-24 32.3333,-24 32.3333,-24 147.6667,-24 147.6667,-24 151.8333,-24 156,-28.1667 156,-32.3333 156,-32.3333 156,-40.6667 156,-40.6667 156,-44.8333 151.8333,-49 147.6667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-43.5" x="34" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="55" text-anchor="start">MomentSetBuilder[F]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="scala.AnyRef"><path d="M119.1667,-110C119.1667,-110 60.8333,-110 60.8333,-110 56.6667,-110 52.5,-105.8333 52.5,-101.6667 52.5,-101.6667 52.5,-93.3333 52.5,-93.3333 52.5,-89.1667 56.6667,-85 60.8333,-85 60.8333,-85 119.1667,-85 119.1667,-85 123.3333,-85 127.5,-89.1667 127.5,-93.3333 127.5,-93.3333 127.5,-101.6667 127.5,-101.6667 127.5,-105.8333 123.3333,-110 119.1667,-110" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-104.5" x="63" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="84" text-anchor="start">AnyRef</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="MomentSetBuilder[F] is a subtype of AnyRef"><path d="M90,-77.7386C90,-68.3393 90,-57.3803 90,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="87.5501,-77.8607 90,-84.8608 92.4501,-77.8608 87.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 202.00 118.00" height="118pt" width="202pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 198,-114 198,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.internal.MomentSetBuilder (this class)" xlink:href="#inheritance-diagram"><path d="M161.6667,-49C161.6667,-49 32.3333,-49 32.3333,-49 28.1667,-49 24,-44.8333 24,-40.6667 24,-40.6667 24,-32.3333 24,-32.3333 24,-28.1667 28.1667,-24 32.3333,-24 32.3333,-24 161.6667,-24 161.6667,-24 165.8333,-24 170,-28.1667 170,-32.3333 170,-32.3333 170,-40.6667 170,-40.6667 170,-44.8333 165.8333,-49 161.6667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-43.5" x="34" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="55" text-anchor="start">MomentSetBuilder[E, M]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="scala.AnyRef"><path d="M126.1667,-110C126.1667,-110 67.8333,-110 67.8333,-110 63.6667,-110 59.5,-105.8333 59.5,-101.6667 59.5,-101.6667 59.5,-93.3333 59.5,-93.3333 59.5,-89.1667 63.6667,-85 67.8333,-85 67.8333,-85 126.1667,-85 126.1667,-85 130.3333,-85 134.5,-89.1667 134.5,-93.3333 134.5,-93.3333 134.5,-101.6667 134.5,-101.6667 134.5,-105.8333 130.3333,-110 126.1667,-110" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-104.5" x="70" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="91" text-anchor="start">AnyRef</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="MomentSetBuilder[E, M] is a subtype of AnyRef"><path d="M97,-77.7386C97,-68.3393 97,-57.3803 97,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="94.5501,-77.8607 97,-84.8608 99.4501,-77.8608 94.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
                 <div id="diagram-controls" class="hiddenContent">
                   <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
                   <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
@@ -232,9 +232,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="net.alasc.symdpoly.internal.MomentSetBuilder#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(sequence:metal.mutable.Buffer[net.alasc.symdpoly.free.MutableWord[F]],conjugate:metal.mutable.Buffer[Int],momentMap:metal.mutable.HashMap[net.alasc.symdpoly.free.MutableWord[F],Int],n:Int)(implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.internal.MomentSetBuilder[F]"></a><a id="&lt;init&gt;:MomentSetBuilder[F]"></a>
+      <a id="&lt;init&gt;(sequence:metal.mutable.Buffer[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]],conjugate:metal.mutable.Buffer[Int],momentMap:metal.mutable.HashMap[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M],Int],n:Int)(implicitevidence$3:shapeless.Witness.Aux[E],implicitevidence$4:shapeless.Witness.Aux[M]):net.alasc.symdpoly.internal.MomentSetBuilder[E,M]"></a><a id="&lt;init&gt;:MomentSetBuilder[E,M]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#&lt;init&gt;(sequence:metal.mutable.Buffer[net.alasc.symdpoly.free.MutableWord[F]],conjugate:metal.mutable.Buffer[Int],momentMap:metal.mutable.HashMap[net.alasc.symdpoly.free.MutableWord[F],Int],n:Int)(implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.internal.MomentSetBuilder[F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#&lt;init&gt;(sequence:metal.mutable.Buffer[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]],conjugate:metal.mutable.Buffer[Int],momentMap:metal.mutable.HashMap[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M],Int],n:Int)(implicitevidence$3:shapeless.Witness.Aux[E],implicitevidence$4:shapeless.Witness.Aux[M]):net.alasc.symdpoly.internal.MomentSetBuilder[E,M]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -243,7 +243,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">MomentSetBuilder</span><span class="params">(<span name="sequence">sequence: <span class="extype" name="metal.mutable.Buffer">Buffer</span>[<a href="../free/MutableWord.html" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>]]</span>, <span name="conjugate">conjugate: <span class="extype" name="metal.mutable.Buffer">Buffer</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="momentMap">momentMap: <span class="extype" name="metal.mutable.HashMap">HashMap</span>[<a href="../free/MutableWord.html" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>], <span class="extype" name="scala.Int">Int</span>]</span>, <span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wF">wF: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>]</span>)</span>
+        <span class="name">MomentSetBuilder</span><span class="params">(<span name="sequence">sequence: <span class="extype" name="metal.mutable.Buffer">Buffer</span>[<a href="../evaluation/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.evaluation.EvaluatedMono">EvaluatedMono</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>]]</span>, <span name="conjugate">conjugate: <span class="extype" name="metal.mutable.Buffer">Buffer</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="momentMap">momentMap: <span class="extype" name="metal.mutable.HashMap">HashMap</span>[<a href="../evaluation/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.evaluation.EvaluatedMono">EvaluatedMono</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>], <span class="extype" name="scala.Int">Int</span>]</span>, <span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>]</span>, <span name="arg1">arg1: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>]</span>)</span>
       </span>
       
       
@@ -305,10 +305,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#F" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="F:F"></a>
+    </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#E" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="E:E"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#F:F" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#E:E" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -317,7 +317,23 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">F</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span></span>
+        <span class="name">E</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span></span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#M" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="M:M"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#M:M" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">M</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span></span>
       </span>
       
       
@@ -354,8 +370,6 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
-              
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
                 <span class="name">@throws</span><span class="args">(<span>
       
@@ -411,6 +425,28 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -429,13 +465,11 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#getElement" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="getElement(monoSelfAdjoint:net.alasc.symdpoly.free.MutableWord[F]):Int"></a><a id="getElement(MutableWord[F]):Int"></a>
+      <a id="getElement(monoSelfAdjoint:net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]):Int"></a><a id="getElement(EvaluatedMono[E,M]):Int"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#getElement(monoSelfAdjoint:net.alasc.symdpoly.free.MutableWord[F]):Int" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#getElement(monoSelfAdjoint:net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]):Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -444,14 +478,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getElement</span><span class="params">(<span name="monoSelfAdjoint">monoSelfAdjoint: <a href="../free/MutableWord.html" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">getElement</span><span class="params">(<span name="monoSelfAdjoint">monoSelfAdjoint: <a href="../evaluation/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.evaluation.EvaluatedMono">EvaluatedMono</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#getElement" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="getElement(mono:net.alasc.symdpoly.free.MutableWord[F],monoAdjoint:net.alasc.symdpoly.free.MutableWord[F]):net.alasc.util.Tuple2Int"></a><a id="getElement(MutableWord[F],MutableWord[F]):Tuple2Int"></a>
+      <a id="getElement(mono:net.alasc.symdpoly.evaluation.EvaluatedMono[E,M],monoAdjoint:net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]):net.alasc.util.Tuple2Int"></a><a id="getElement(EvaluatedMono[E,M],EvaluatedMono[E,M]):Tuple2Int"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#getElement(mono:net.alasc.symdpoly.free.MutableWord[F],monoAdjoint:net.alasc.symdpoly.free.MutableWord[F]):net.alasc.util.Tuple2Int" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#getElement(mono:net.alasc.symdpoly.evaluation.EvaluatedMono[E,M],monoAdjoint:net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]):net.alasc.util.Tuple2Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -460,7 +494,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getElement</span><span class="params">(<span name="mono">mono: <a href="../free/MutableWord.html" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>]</span>, <span name="monoAdjoint">monoAdjoint: <a href="../free/MutableWord.html" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.util.Tuple2Int">Tuple2Int</span></span>
+        <span class="name">getElement</span><span class="params">(<span name="mono">mono: <a href="../evaluation/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.evaluation.EvaluatedMono">EvaluatedMono</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>]</span>, <span name="monoAdjoint">monoAdjoint: <a href="../evaluation/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.evaluation.EvaluatedMono">EvaluatedMono</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.util.Tuple2Int">Tuple2Int</span></span>
       </span>
       
       
@@ -482,8 +516,6 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
         </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -502,9 +534,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#momentMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="momentMap:metal.mutable.HashMap[net.alasc.symdpoly.free.MutableWord[F],Int]"></a><a id="momentMap:HashMap[MutableWord[F],Int]"></a>
+      <a id="momentMap:metal.mutable.HashMap[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M],Int]"></a><a id="momentMap:HashMap[EvaluatedMono[E,M],Int]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#momentMap:metal.mutable.HashMap[net.alasc.symdpoly.free.MutableWord[F],Int]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#momentMap:metal.mutable.HashMap[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M],Int]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -513,7 +545,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">momentMap</span><span class="result">: <span class="extype" name="metal.mutable.HashMap">HashMap</span>[<a href="../free/MutableWord.html" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>], <span class="extype" name="scala.Int">Int</span>]</span>
+        <span class="name">momentMap</span><span class="result">: <span class="extype" name="metal.mutable.HashMap">HashMap</span>[<a href="../evaluation/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.evaluation.EvaluatedMono">EvaluatedMono</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>], <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
       
@@ -567,8 +599,6 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
         </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
@@ -588,13 +618,11 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#result" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="result[M&lt;:net.alasc.symdpoly.generic.FreeBasedMonoidDef.Aux[F]withSingleton]()(implicitevidence$2:shapeless.Witness.Aux[M]):(net.alasc.symdpoly.internal.MomentSet[M,F],net.alasc.perms.Perm)"></a><a id="result[M&lt;:Aux[F]withSingleton]()(Aux[M]):(MomentSet[M,F],Perm)"></a>
+      <a id="result():(net.alasc.symdpoly.internal.MomentSet[E,M],net.alasc.perms.Perm)"></a><a id="result():(MomentSet[E,M],Perm)"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#result[M&lt;:net.alasc.symdpoly.generic.FreeBasedMonoidDef.Aux[F]withSingleton]()(implicitevidence$2:shapeless.Witness.Aux[M]):(net.alasc.symdpoly.internal.MomentSet[M,F],net.alasc.perms.Perm)" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#result():(net.alasc.symdpoly.internal.MomentSet[E,M],net.alasc.perms.Perm)" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -603,15 +631,15 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">result</span><span class="tparams">[<span name="M">M &lt;: <a href="../generic/FreeBasedMonoidDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoidDefwithSingleton]=net.alasc.symdpoly.generic.FreeBasedMonoidDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">()</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.result.M">M</span>]</span>)</span><span class="result">: (<a href="MomentSet.html" class="extype" name="net.alasc.symdpoly.internal.MomentSet">MomentSet</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.result.M">M</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>], <span class="extype" name="net.alasc.perms.Perm">Perm</span>)</span>
+        <span class="name">result</span><span class="params">()</span><span class="result">: (<a href="MomentSet.html" class="extype" name="net.alasc.symdpoly.internal.MomentSet">MomentSet</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>], <span class="extype" name="net.alasc.perms.Perm">Perm</span>)</span>
       </span>
       
       <p class="shortcomment cmt">Constructs the sorted array of moments and returns it along
 with the permutation from unsorted to sorted indices.</p>
     </li><li name="net.alasc.symdpoly.internal.MomentSetBuilder#sequence" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="sequence:metal.mutable.Buffer[net.alasc.symdpoly.free.MutableWord[F]]"></a><a id="sequence:Buffer[MutableWord[F]]"></a>
+      <a id="sequence:metal.mutable.Buffer[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]]"></a><a id="sequence:Buffer[EvaluatedMono[E,M]]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#sequence:metal.mutable.Buffer[net.alasc.symdpoly.free.MutableWord[F]]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#sequence:metal.mutable.Buffer[net.alasc.symdpoly.evaluation.EvaluatedMono[E,M]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -620,7 +648,7 @@ with the permutation from unsorted to sorted indices.</p>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">sequence</span><span class="result">: <span class="extype" name="metal.mutable.Buffer">Buffer</span>[<a href="../free/MutableWord.html" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.F">F</span>]]</span>
+        <span class="name">sequence</span><span class="result">: <span class="extype" name="metal.mutable.Buffer">Buffer</span>[<a href="../evaluation/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.evaluation.EvaluatedMono">EvaluatedMono</a>[<span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.E">E</span>, <span class="extype" name="net.alasc.symdpoly.internal.MomentSetBuilder.M">M</span>]]</span>
       </span>
       
       
@@ -656,6 +684,28 @@ with the permutation from unsorted to sorted indices.</p>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
@@ -702,64 +752,13 @@ with the permutation from unsorted to sorted indices.</p>
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#wait():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li>
               </ol>
             </div>
 
         
 
-        <div class="values members">
-              <h3>Deprecated Value Members</h3>
-              <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/internal/MomentSetBuilder.html#finalize():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@Deprecated</span>
-              
-                <span class="name">@deprecated</span>
-              
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.lang.Throwable]</span>
-    </span>)</span>
-              
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
         </div>
 
         <div id="inheritedMembers">
