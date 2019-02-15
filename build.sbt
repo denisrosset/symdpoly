@@ -3,7 +3,7 @@ import ReleaseTransformations._
 
 val scala212Version = "2.12.8"
 
-val alascVersion = "0.16.0.4-SNAPSHOT"
+val alascVersion = "0.16.0.3"
 val attributesVersion = "0.30"
 val betterFilesVersion = "3.4.0"
 val catsVersion = "1.1.0"

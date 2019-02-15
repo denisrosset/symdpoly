@@ -37,7 +37,7 @@ object Morphism {
     def apply(s: S): T = f(s)
   }
 
-  def fromGeneratorImages[S, T, F[_]](source: FinitelyGeneratedGrp.Aux[S], images: Seq[T])(implicit ev: MorphismFromGeneratorImages[S, T]): Morphism[S, T, Group] =
+  def fromGeneratorImages[S, T, F[_]](source: Grp[S], images: Seq[T])(implicit ev: MorphismFromGeneratorImages[S, T]): Morphism[S, T, Group] =
     ev(source, images)
 
   implicit class morphismGrpImage[S, T](val morphism: Morphism[S, T, Group]) extends AnyVal {
@@ -65,14 +65,15 @@ object SurjectiveMorphism {
 
 trait MorphismFromGeneratorImages[S, T] {
 
-  def apply(source: FinitelyGeneratedGrp.Aux[S], images: Seq[T]): Morphism[S, T, Group]
+  def apply(source: Grp[S], images: Seq[T]): Morphism[S, T, Group]
+  
 }
 
 object MorphismFromGeneratorImages {
 
   implicit def forFaithfulPermutationAction[S:Eq:FaithfulPermutationActionBuilder:Group, T:Eq:FaithfulPermutationActionBuilder:Group]: MorphismFromGeneratorImages[S, T] =
     new MorphismFromGeneratorImages[S, T] {
-    def apply(source: FinitelyGeneratedGrp.Aux[S], images: Seq[T]): Morphism[S, T, Group] = {
+    def apply(source: Grp[S], images: Seq[T]): Morphism[S, T, Group] = {
       import net.alasc.perms.default._ // TODO: parameterize
       val sourceGenerators = source.generators
       val targetGenerators = images.filterNot(_.isEmpty)
