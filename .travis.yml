@@ -11,4 +11,4 @@ cache:
     - $HOME/.ivy2/cache
     - $HOME/.sbt
 
-script: sbt ++$TRAVIS_SCALA_VERSION core/test
+script: sbt ++$TRAVIS_SCALA_VERSION tests/test
