@@ -153,4 +153,22 @@ final class WordTypeclasses[G <: FreeGroup with Singleton](implicit wG: Witness.
   }
 
 }
+
+/*
+  implicit def forFreeGroupPermutationAction[Source <: FreeGroup with Singleton, T:Eq:Group](implicit sourceW: Witness.Aux[Source]): MorphismFromGeneratorImages[Word[Source], T] =
+    new MorphismFromGeneratorImages[Word[Source], T] {
+      def apply(source: FinitelyGeneratedGrp.Aux[Word[Source]], images: Seq[T]): Morphism[Word[Source], T, Group] =
+        new Morphism[Word[Source], T, Group] {
+          def S: Group[Word[Source]] = (sourceW.value: Source).group
+          def T: Group[T] = implicitly
+          def apply(word: Word[Source]): T = {
+            @tailrec def iter(a: T, i: Int): T =
+              if (i == word.length) a
+              else if (word.sign(i) == 1) iter(a |+| images(word.index(i)), i + 1)
+              else iter(a |-| images(word.index(i)), i + 1)
+            iter(Group[T].empty, 0)
+          }
+        }
+    }*/
+
 */

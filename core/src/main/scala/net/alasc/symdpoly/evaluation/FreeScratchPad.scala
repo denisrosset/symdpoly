@@ -13,8 +13,6 @@ import spire.algebra._
 import spire.syntax.cfor.cforRange
 import spire.syntax.order._
 import spire.syntax.group._
-
-import algebra.Instances._
 import cyclo.Cyclo
 import scalin.immutable.{Vec, VecEngine}
 
@@ -29,10 +27,9 @@ import scalin.syntax.all._
 
 import net.alasc.syntax.group._
 import net.alasc.bsgs.{Chain, GrpChain, GrpChainPermutationAction, Node, Term}
-import net.alasc.symdpoly.evaluation.FreeBasedEvaluator.FreeScratchPad
 import net.alasc.symdpoly.free.{MutableWord}
 
-class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
+class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
 
   def check1(): Unit = {
     cforRange(0 until array.length) {i =>
@@ -49,11 +46,11 @@ class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array
     val second = (n until array.length).map(i => i.toString.padTo(4, ' ') + "  " + array(i).toString + " " + System.identityHashCode(array(i)).toString)
     (first ++ second).mkString("\n")
   }
-  
+
   // Scratchpad manipulation (resize, clear)
 
   /** Clears the scratch pad and sets its first element to the given word. */
-  def resetWithCopyOf(mono: MutableWord[F]): FreeScratchPad2[F] = {
+  def resetWithCopyOf(mono: MutableWord[F]): FreeScratchPad[F] = {
     scratch(0).setToContentOf(mono)
     n = 1
     self
@@ -146,6 +143,6 @@ class FreeScratchPad2[F <: free.MonoidDef with Singleton: Witness.Aux](var array
 
 }
 
-object FreeScratchPad2 {
-  def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad2[F] = new FreeScratchPad2[F](Array.empty[free.MutableWord[F]], 0)
+object FreeScratchPad {
+  def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0)
 }

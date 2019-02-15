@@ -17,11 +17,10 @@ import net.alasc.symdpoly.free._
 import net.alasc.symdpoly.math.GenPerm
 import net.alasc.perms.default._
 import net.alasc.util._
-import net.alasc.symdpoly.algebra.Instances._
 import shapeless.Witness
 import spire.algebra.{free => _, _}
 
-import net.alasc.symdpoly.evaluation.{EvaluatedMono2, Evaluator2, FreeBasedEvaluator2}
+import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator}
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
@@ -75,35 +74,6 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[Permutation] =
     FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
   val permutationMonoAction: Action[Monomial, Permutation] = new FreeBasedPermutationMonoAction[self.type, Free]
-
-  def symmetryGroup(nRootsOfUnity: Int): Grp[GenPerm] = {
-    val m = nRootsOfUnity
-    val n = Free.nOperators
-    def op(i: Int): Free#Op = Free.opFromIndex(i)
-    def monoFromOpIndex(i: Int): FreeBasedMono[Free, Free] = FreeBasedMono(op(i))
-    val phases: Vector[Phase] = Vector.tabulate(m)(k => Phase(k, m))
-    val monos1: Vector[FreeBasedMono[Free, Free]] = Vector.tabulate(n)(i => monoFromOpIndex(i))
-    val monos2: Vector[FreeBasedMono[Free, Free]] = Vector.tabulate(n, n)((i, j) => FreeBasedMono(op(i), op(j)) ).flatten
-    val monos: Vector[FreeBasedMono[Free, Free]] = Vector(FreeBasedMono.one[Free, Free]) ++ (monos1 ++ monos2).flatMap(m => phases.map(p => m * p))
-    val monoSet: OrderedSet[FreeBasedMono[Free, Free]] = OrderedSet.fromUnique(monos)
-    val action = new PermutationAction[GenPerm] {
-      def isFaithful: Boolean = true
-      def findMovedPoint(g: GenPerm): NNOption = g.largestMovedPoint match {
-        case NNOption(i) => NNSome(monoSet.indexOf(monoFromOpIndex(i)))
-        case _ => NNNone
-      }
-      def movedPointsUpperBound(g: GenPerm): NNOption = NNSome(monoSet.length - 1)
-      def actl(g: GenPerm, i: Int): Int = actr(i, g.inverse)
-      def actr(i: Int, g: GenPerm): Int = monoSet.indexOf(Free.monoGenPermAction.actr(monoSet(i), g))
-    }
-    val grp = GenPerm.generalizedSymmetricGroup(m, n)
-    val normalForms = monoSet.iterator.map(self.quotient(_)).toVector
-    val partition = Partition.fromSeq(normalForms)
-    grp.unorderedPartitionStabilizer(action, partition)
-  }
-
-  def ambientGroup(generators: Generator[Free]*): Grp[GenPerm] =
-    Grp.fromGenerators(generators.map(_.opAction))
 
   // TODO: use Free based evaluator
   // override def evaluator: FreeBasedEvaluator2[self.type, Free] = new FreeBasedEvaluator2[self.type, Free](Vector.empty)

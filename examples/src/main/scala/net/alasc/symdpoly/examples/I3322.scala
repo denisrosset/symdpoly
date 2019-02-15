@@ -66,7 +66,7 @@ object I3322 {
      - A(0) - A(1) - B(0) - B(1)
   )/4
 
-  val feasGrp = QM.groupInQuotient(FM.symmetryGroup2)
+  val feasGrp = QM.groupInQuotient(FM.symmetryGroup)
   val symGrp = feasGrp.leavesInvariant(L(bellOperator))
   val Lsym = L.symmetric(symGrp)
   val problem = Lsym(bellOperator).maximize
@@ -77,7 +77,7 @@ object I3322App extends App {
 
   import I3322._
   for (level <- 2 to 5) {
-    val relaxation: Relaxation2[_, _] = problem.relaxation(generatingSet(level))
+    val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
     relaxation.mosekInstance.writeCBF(s"i3322_$level.cbf")
     relaxation.sdpaInstance.writeFile(s"i3322_$level.dat-s")
   }

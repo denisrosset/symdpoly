@@ -43,8 +43,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   type Free = monoidDef.type
   def Free: Free = this
 
-  // TODO: remove old symmetryGroup and replace by this one
-  def symmetryGroup2: Grp[FreeBasedPermutation[monoidDef.type, monoidDef.type]] = {
+  def symmetryGroup: Grp[FreeBasedPermutation[monoidDef.type, monoidDef.type]] = {
     import net.alasc.perms.default._
     val grp = GenPerm.generalizedSymmetricGroup(cyclotomicOrder, nOperators)
     val generators = grp.generators.map(new FreeBasedPermutation[monoidDef.type, monoidDef.type](_))
@@ -202,21 +201,6 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
         PhasedOp(newPhase, opFromIndex(newIndex))
       }
     }
-  }
-
-  def generator(f: Op => PhasedOp)(implicit name: sourcecode.Name): Generator[this.type] = {
-    import scala.collection.mutable.{HashMap => MMap}
-    val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
-    val permImages = new Array[Int](nOperators)
-    cforRange(0 until nOperators) { i =>
-      val PhasedOp(newPhase, newOp) = f(opFromIndex(i))
-      val newI = indexFromOp(newOp)
-      phaseMap(newI) = newPhase
-      permImages(i) = newI
-    }
-    val perm = Perm.fromImages(permImages)
-    val phases = Phases(phaseMap.toVector: _*)
-    new Generator[Free](name.value, GenPerm(perm, phases))
   }
 
   def permutation(f: Op => PhasedOp): FreeBasedPermutation[this.type, this.type] = {

@@ -1,4 +1,5 @@
-package net.alasc.symdpoly.algebra
+package net.alasc.symdpoly
+package algebra
 
 import net.alasc.algebra.PermutationAction
 import net.alasc.attributes.Attributable
@@ -20,7 +21,6 @@ import cats.{Contravariant, Invariant, InvariantMonoidal}
 import spire.math.SafeLong
 
 import net.alasc.perms.Perm
-import Instances._
 
 trait Morphism[S, T, F[_]] extends Function1[S, T] {
   def S: F[S]
@@ -67,27 +67,7 @@ trait MorphismFromGeneratorImages[S, T] {
   def apply(source: FinitelyGeneratedGrp.Aux[S], images: Seq[T]): Morphism[S, T, Group]
 }
 
-abstract class MorphismFromGeneratorImages0 {
-/*
-  implicit def forFreeGroupPermutationAction[Source <: FreeGroup with Singleton, T:Eq:Group](implicit sourceW: Witness.Aux[Source]): MorphismFromGeneratorImages[Word[Source], T] =
-    new MorphismFromGeneratorImages[Word[Source], T] {
-      def apply(source: FinitelyGeneratedGrp.Aux[Word[Source]], images: Seq[T]): Morphism[Word[Source], T, Group] =
-        new Morphism[Word[Source], T, Group] {
-          def S: Group[Word[Source]] = (sourceW.value: Source).group
-          def T: Group[T] = implicitly
-          def apply(word: Word[Source]): T = {
-            @tailrec def iter(a: T, i: Int): T =
-              if (i == word.length) a
-              else if (word.sign(i) == 1) iter(a |+| images(word.index(i)), i + 1)
-              else iter(a |-| images(word.index(i)), i + 1)
-            iter(Group[T].empty, 0)
-          }
-        }
-    }*/
-}
-
-
-object MorphismFromGeneratorImages extends MorphismFromGeneratorImages0 {
+object MorphismFromGeneratorImages {
 
   implicit def forFaithfulPermutationAction[S:Eq:FaithfulPermutationActionBuilder:Group, T:Eq:FaithfulPermutationActionBuilder:Group]: MorphismFromGeneratorImages[S, T] =
     new MorphismFromGeneratorImages[S, T] {

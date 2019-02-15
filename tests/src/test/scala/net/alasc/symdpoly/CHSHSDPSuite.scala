@@ -1,6 +1,7 @@
 package net.alasc.symdpoly
 
 import joptimizer._
+import defaults._
 
 class CHSHSDPSuite extends CommonSuite {
 
@@ -18,18 +19,18 @@ class CHSHSDPSuite extends CommonSuite {
 
     import FM.{A, B}
 
-    val swapParties = FM.generator {
+    val swapParties = FM.permutation {
       case A(i) => B(i)
       case B(i) => A(i)
     }
 
-    val inputSwapA = FM.generator {
+    val inputSwapA = FM.permutation {
       case A(0) => A(1)
       case A(1) => A(0)
       case op => op
     }
 
-    val outputSwapA0 = FM.generator {
+    val outputSwapA0 = FM.permutation {
       case A(0) => -A(0)
       case op => op
     }
@@ -43,19 +44,23 @@ class CHSHSDPSuite extends CommonSuite {
 
     val bellOperator = QM.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
 
-    val freeGroup = FM.symmetryGroup2
+    val freeGroup = FM.symmetryGroup
+    val feasibilityGroup = QM.groupInQuotientNC(Grp(swapParties, inputSwapA, outputSwapA0))
     val quotientGroup = QM.groupInQuotient(freeGroup)
 
-    val ambientGroup = FM.ambientGroup(swapParties, inputSwapA, outputSwapA0)
+    assert(feasibilityGroup === quotientGroup)
 
     val generatingSet = QM.quotient(GSet.onePlus(A, B))
 
-    val L = evaluation.pureStateSelfAdjoint(QM)
-    val L1 = QM.evaluator.real
+    val L = QM.evaluator.real
 
-    val problem = L(bellOperator).maximize
+    val symmetryGroup = feasibilityGroup.leavesInvariant(L(bellOperator))
 
-    val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
+    val Lsym = L.symmetric(symmetryGroup)
+
+    val problem = Lsym(bellOperator).maximize
+
+    val relaxation = problem.relaxation(generatingSet)
     import net.alasc.symdpoly.matlab._
 
     val OptimumFound(_, ub, _, _) = relaxation.jOptimizerInstance.solve()

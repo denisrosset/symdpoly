@@ -1,29 +1,28 @@
 package net.alasc.symdpoly
 
 import shapeless.Witness
-import spire.syntax.action._
 
 import cyclo.Cyclo
 import scalin.immutable.Vec
+
+import net.alasc.symdpoly.evaluation.{EvaluatedPoly, Evaluator}
+import net.alasc.symdpoly.solvers.{MosekInstance, SDPAInstance}
 import scalin.immutable.dense._
 
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.EvaluatedPoly
 import net.alasc.symdpoly.math.GenPerm
-import net.alasc.symdpoly.solvers._
 
 case class Relaxation[
-  E <: evaluation.FreeBasedEvaluator[M, F] with Singleton:Witness.Aux,
-  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux
-](problem: Maximization[E, M, F], generatingSet: GSet[M], symmetryGroup: Grp[GenPerm]) {
+  E <: Evaluator[M] with Singleton:Witness.Aux,
+  M <: generic.MonoidDef with Singleton:Witness.Aux,
+](problem: Maximization[E, M], generatingSet: GSet[M]) {
 
-  val objective: EvaluatedPoly[E, M, symmetryGroup.type] =
-    valueOf[E].apply(problem.evaluatedPoly.normalForm, symmetryGroup)
+  val objective: EvaluatedPoly[E, M] =
+    valueOf[E].apply(problem.evaluatedPoly.normalForm)
 
-  val gramMatrix: GramMatrix[M, F] = GramMatrix(generatingSet, valueOf[E], symmetryGroup)
+  val gramMatrix: GramMatrix[E, M] = GramMatrix(valueOf[E], generatingSet)
 
-  val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(gramMatrix.momentSet.monomials)
+  val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(gramMatrix.momentSet.elements)
 
   def isObjectiveReal: Boolean = objectiveVector.toIndexedSeq.forall(c => c.isReal)
 
@@ -63,14 +62,15 @@ case class Relaxation[
     import scalin.immutable.dense._
     import gramMatrix._
     val mat = phaseMatrix
-      s"${matrixSize}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
+    s"${matrixSize}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
   }
 
   def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
 
+  /*
   def canonicalMonomialsDescription: String = {
     import gramMatrix._
-    val monomials = Vector.tabulate(momentSet.nMonomials) { i =>
+    val monomials = Vector.tabulate(momentSet.nElements) { i =>
       import spire.compat._
       val orbit = symmetryGroup.iterator.map((g: GenPerm) => valueOf[E].apply(momentSet.monomials(i) <|+| g).normalForm)
         .toSet.toVector.sorted.map(_.normalForm).mkString(", ")
@@ -87,6 +87,6 @@ case class Relaxation[
 
   def symmetryGroupDescription: String = describeGroup(symmetryGroup, g => generic.FreeBasedPermutation.prettyPrintGenPerm(g, valueOf[F]))
 
-  def matrixSymmetryGroupDescription: String = describeGroup(gramMatrix.matrixSymmetries, _.toString)
+  def matrixSymmetryGroupDescription: String = describeGroup(gramMatrix.matrixSymmetries, _.toString)*/
 
 }

@@ -13,14 +13,12 @@ object Monos {
 
   // Generators
 
-  def genNonZeroFree[F <: free.MonoidDef.Aux[F] with Singleton](implicit wF: Witness.Aux[F]): Gen[FreeBasedMono[F, F]] = {
-    import wF.{value => F}
+  def genNonZeroFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Gen[FreeBasedMono[F, F]] =
     for {
-      phase <- Phase.gen
+      phase <- Phase.genForDenominator(valueOf[F].cyclotomicOrder)
       length <- Gen.choose(0, 8)
-      indices <- Gen.containerOfN[Array, Int](length, Gen.choose(0, F.nOperators - 1))
+      indices <- Gen.containerOfN[Array, Int](length, Gen.choose(0, valueOf[F].nOperators - 1))
     } yield new FreeBasedMono[F, F](new MutableWord[F](phase, length, indices, false))
-  }
 
   // Generator for a random free monomial
   def genFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Gen[FreeBasedMono[F, F]] =

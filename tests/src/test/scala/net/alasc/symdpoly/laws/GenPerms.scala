@@ -6,6 +6,7 @@ import org.scalacheck.{Arbitrary, Gen}
 import org.typelevel.discipline.Predicate
 
 object GenPerms {
+
   def genPhases: Gen[Phases] = for {
     n <- Gen.choose(0, 20)
     phases <- Gen.containerOfN[Vector, Phase](n, Phase.gen)
@@ -21,4 +22,5 @@ object GenPerms {
 
   implicit val arbGenPerm: Arbitrary[GenPerm] = Arbitrary(genGenPerm)
   implicit val predGenPerm: Predicate[GenPerm] = Predicate(x => true)
+
 }

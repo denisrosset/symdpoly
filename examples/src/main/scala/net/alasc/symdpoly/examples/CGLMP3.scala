@@ -1,11 +1,11 @@
-package net.alasc.symdpoly.examples
+package net.alasc.symdpoly
+package examples
 
 import cyclo.Cyclo
-import net.alasc.symdpoly.evaluation.Symmetries
+
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt}
-import net.alasc.symdpoly.{AmbientGroup, GSet, Phase, evaluation, free, quotient}
 import scalin.immutable.Mat
-import scalin.immutable.dense._
+import net.alasc.symdpoly.defaults._
 
 object CGLMP3 extends App {
   object Free extends free.MonoidDef(2) {
@@ -30,31 +30,31 @@ object CGLMP3 extends App {
     case (op1, op2) => op1 * op2
   }
 
-  object G extends AmbientGroup[Quotient.type, Free.type] {
-    val swapParties = generator {
-      case A(c,z) => B(c,z)
-      case B(c,z) => A(c,z)
-    }
-    val inputSwapA = generator {
-      case A(a,0) => A(a,1)
-      case A(a,1) => A(a,0)
-      case op => op
-    }
-    val outputA0T = generator {
-      case A(0,0) => A(1,0)
-      case A(1,0) => A(0,0)
-      case op => op
-    }
-    val outputA0C = generator {
-      case A(0,0) => A(1,0)
-      case A(1,0) => A(2,0)
-      case A(2,0) => A(0,0)
-      case op => op
-    }
-    val generators = Seq(outputA0T, outputA0C, swapParties, inputSwapA)
+  val swapParties = Free.permutation {
+    case A(c,z) => B(c,z)
+    case B(c,z) => A(c,z)
   }
 
-  implicit def intToCyclo(i: Int): Cyclo = Cyclo(i)
+  val inputSwapA = Free.permutation {
+    case A(a,0) => A(a,1)
+    case A(a,1) => A(a,0)
+    case op => op
+  }
+
+  val outputA0T = Free.permutation {
+    case A(0,0) => A(1,0)
+    case A(1,0) => A(0,0)
+    case op => op
+  }
+
+  val outputA0C = Free.permutation {
+    case A(0,0) => A(1,0)
+    case A(1,0) => A(2,0)
+    case A(2,0) => A(0,0)
+    case op => op
+  }
+
+  val feasibilityGroup = Quotient.groupInQuotient(Grp(swapParties, inputSwapA, outputA0C, outputA0T))
 
   val coeffs = Mat.rowMajor[Cyclo](6,6)(
     -1,0,1,-1,0,1,
@@ -71,18 +71,16 @@ object CGLMP3 extends App {
     b <- 0 to 2
     y <- 0 to 1 if !coeffs(a+x*3, b+y*3).isZero
   } yield A(a,x)*B(b,y)*coeffs(a+x*3, b+y*3)).reduce(_+_))
+
   println(cglmp3)
-  val L = evaluation.pureStateSelfAdjoint(Quotient)
+  val L = Quotient.evaluator.real
   val evCglmp3 = L(cglmp3)
-  println(evCglmp3)
-  val S = Symmetries.symmetrySubgroup(evCglmp3, G.grp)
-  println(S)
-  println(S.order)
+  val S = feasibilityGroup.leavesInvariant(evCglmp3)
+  val Lsym = L.symmetric(S)
   val generatingSet = Quotient.quotient(GSet.onePlus(A)*GSet.onePlus(B))
   val problem = (evCglmp3).maximize
-
-  val relaxation = problem.symmetricRelaxation(generatingSet, G.grp)
-  println(relaxation.objectiveVector)
+  val relaxation = problem.relaxation(generatingSet)
+/*  println(relaxation.objectiveVector)
   println(relaxation.phaseMatrixDescription)
   println(relaxation.momentIndexMatrixDescription)
   println(relaxation.gramMatrix.nUniqueMonomials)
@@ -95,6 +93,6 @@ object CGLMP3 extends App {
       }
     }
   }
-  println(relaxation.gramMatrix.matrixSymmetries.generators.map(g => matlabImage(g).mkString("["," ","]")))
+  println(relaxation.gramMatrix.matrixSymmetries.generators.map(g => matlabImage(g).mkString("["," ","]")))*/
 
 }

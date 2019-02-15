@@ -5,9 +5,11 @@ import cyclo.Cyclo
 import org.typelevel.discipline.Predicate
 import spire.laws.{InvolutionLaws, RingLaws}
 
+import defaults._
 import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
 import spire.math.Rational
 
+import net.alasc.symdpoly.evaluation.Evaluator
 import net.alasc.symdpoly.generic.FreeBasedMono
 
 class CHSHAlgebraSuite extends CommonSuite {
@@ -28,17 +30,17 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   import FM.{A, B}
 
-  val swapParties = FM.generator {
+  val swapParties = FM.permutation {
     case A(i) => B(i)
     case B(i) => A(i)
   }
 
-  val swapInputA = FM.generator {
+  val swapInputA = FM.permutation {
     case A(x) => A(1-x)
     case B(y) => B(y)
   }
 
-  val swapOutputA0 = FM.generator {
+  val swapOutputA0 = FM.permutation {
     case A(0) => A(0)*Phase.minusOne
     case op => op
   }
@@ -56,11 +58,12 @@ class CHSHAlgebraSuite extends CommonSuite {
     case (op1, op2) => op1 * op2
   }
 
-  val ambientGroup = QM.ambientGroup(swapParties, swapInputA, swapOutputA0)
+  val ambientGroup = QM.groupInQuotient(Grp(swapParties, swapInputA, swapOutputA0))
 
-  val gset = QM.quotient(GSet.onePlus(A, B))
+  val gset: GSet[QM.type] = QM.quotient(GSet.onePlus(A, B))
 
-  val gramMatrix = GramMatrix(gset, evaluation.pureStateSelfAdjoint(QM))
+  val L: Evaluator[QM.type] = QM.evaluator.real
+  val gramMatrix = GramMatrix[L.type, QM.type](L, gset)
 
   checkAll("quotient monoid", RingLaws[FreeBasedMono[QM.type, FM.type]].multiplicativeMonoid)
   checkAll("quotient monoid involution", InvolutionLaws[FreeBasedMono[QM.type, FM.type]].involutionMultiplicativeMonoid)

@@ -112,10 +112,9 @@ object Phase {
   implicit def involution: Involution[Phase] = instance
 
   // Generator for a random free monomial
-  def gen: Gen[Phase] = for {
-    n <- Gen.choose(1, 6)
-    k <- Gen.choose(0, n - 1)
-  } yield Phase(k, n)
+  def gen: Gen[Phase] = Gen.choose(1, 20).flatMap(genForDenominator)
+
+  def genForDenominator(denominator: Int): Gen[Phase] = Gen.choose(0, denominator - 1).map(num => Phase(num, denominator))
 
   // for tests
   implicit def nonZero: Predicate[Phase] = Predicate(x => true)

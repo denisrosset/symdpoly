@@ -1,6 +1,8 @@
-package net.alasc.symdpoly.examples
+package net.alasc.symdpoly
+package examples
 
-import net.alasc.symdpoly.evaluation.Symmetries
+import defaults._
+
 import net.alasc.symdpoly.{GSet, evaluation, free, quotient}
 
 object Choi extends App {
@@ -30,12 +32,12 @@ object Choi extends App {
 
   val S = (X(1).pow(2) + X(2).pow(2) + X(3).pow(2) + Y(1).pow(2) + Y(2).pow(2) + Y(3).pow(2))
 
-  val flipX1 = Free.generator {
+  val flipX1 = Free.permutation {
     case X(1) => -X(1)
     case op => op
   }
 
-  val cyclic = Free.generator {
+  val cyclic = Free.permutation {
     case X(1) => X(2)
     case X(2) => X(3)
     case X(3) => Y(1)
@@ -44,7 +46,7 @@ object Choi extends App {
     case Y(3) => X(1)
   }
 
-  val swapX1X2 = Free.generator {
+  val swapX1X2 = Free.permutation {
     case X(1) => X(2)
     case X(2) => X(1)
     case op => op
@@ -52,33 +54,21 @@ object Choi extends App {
 
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
 
-  val L = evaluation.pureStateSelfAdjoint(Quotient)
+  val L = Quotient.evaluator.real
 
-  val ambientGroup = Free.ambientGroup(flipX1, cyclic, swapX1X2)
+  val feasibilityGroup = Quotient.groupInQuotient(Grp(flipX1, cyclic, swapX1X2))
 
   val obj = Quotient.quotient(-B*S)
-  val problem = L(obj).maximize
 
-  val relaxation = problem.symmetricRelaxation(generatingSet, ambientGroup)
-  println(Symmetries.symmetrySubgroup(L(obj), ambientGroup).order)
-  relaxation.mosekInstance.writeCBF("choisym.cbf")
-  val relaxation1 = problem.symmetricRelaxation(generatingSet)
-  println(Symmetries.symmetrySubgroup(L(obj), ambientGroup).order)
-  relaxation.mosekInstance.writeCBF("choisym1.cbf")
+  val symmetryGroup = feasibilityGroup.leavesInvariant(L(obj))
 
-  /*  relaxation.writeMomentMatrix("chsh_moment_matrix.txt")
-    relaxation.writePhaseMatrix("chsh_phase_matrix.txt")
-    relaxation.writeMomentIndexMatrix("chsh_moment_index_matrix.txt")
-    relaxation.writeCanonicalMonomials("chsh_canonical_monomials.txt")
-    relaxation.writeSymmetryGroupDescription("chsh_symmetry_group.txt")
-    relaxation.mosekInstance.writeCBF("chsh.cbf")*/
-    /*
-    relaxation.mosekInstance.writeFile("chsh.task")
-    relaxation.mosekInstance.writeFile("chsh.jtask")
-    relaxation.sdpaInstance.writeFile("chsh.dat-s")
-    relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
-    relaxation.scsInstance.writeFile("chsh_scs.mat")
-    relaxation.sdpt3Instance.writeFile("chsh_sdpt3.mat")
-     */
+  val Lsym = L.symmetric(symmetryGroup)
+
+  val problem = Lsym(obj).maximize
+
+  val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
+  val relaxationSym = Lsym(obj).maximize.relaxation(generatingSet)
+  relaxationNoSym.mosekInstance.writeCBF("choinosym.cbf")
+  relaxationSym.mosekInstance.writeCBF("choisym.cbf")
 
 }

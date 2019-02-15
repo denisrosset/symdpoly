@@ -10,7 +10,7 @@ import spire.algebra.{Action, Eq, Group, Order}
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.algebra.Phased
-import net.alasc.symdpoly.evaluation.{EvaluatedMono2, EvaluatedPoly2, Evaluator2}
+import net.alasc.symdpoly.evaluation.{EvaluatedMono, EvaluatedPoly, Evaluator}
 import net.alasc.util._
 import Phased.syntax._
 import spire.syntax.cfor._
@@ -21,7 +21,6 @@ import cats.syntax.contravariant._
 import net.alasc.partitions.Partition
 import net.alasc.symdpoly.math.PhasedInt
 import net.alasc.perms.default._
-import net.alasc.symdpoly.algebra.Instances._
 
 /** A Permutation relabels the operator variables of monomials, possibly with a phase. */
 trait Permutation[M <: generic.MonoidDef with Singleton]
@@ -35,9 +34,9 @@ object Permutation {
 
     def M: M = valueOf[M]
 
-    def allElementsOf[E <: Evaluator2[M] with Singleton: Witness.Aux](poly: EvaluatedPoly2[E, M])(implicit action: Action[EvaluatedMono2[E, M], G]): OrderedSet[EvaluatedMono2[E, M]] = {
-      implicit def phasedEvaluatedMono: Phased[EvaluatedMono2[E, M]] = valueOf[E].evaluatedMonoPhased
-      val monomials: Set[EvaluatedMono2[E, M]] = for {
+    def allElementsOf[E <: Evaluator[M] with Singleton: Witness.Aux](poly: EvaluatedPoly[E, M])(implicit action: Action[EvaluatedMono[E, M], G]): OrderedSet[EvaluatedMono[E, M]] = {
+      implicit def phasedEvaluatedMono: Phased[EvaluatedMono[E, M]] = valueOf[E].evaluatedMonoPhased
+      val monomials: Set[EvaluatedMono[E, M]] = for {
         (g: G) <- grp.iterator.toSet
         i <- 0 until poly.nTerms
       } yield action.actr(poly.monomial(i), g).phaseCanonical
@@ -46,7 +45,7 @@ object Permutation {
       new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
     }
 
-    def leavesInvariant[E <: Evaluator2[M] with Singleton: Witness.Aux](poly: EvaluatedPoly2[E, M])(implicit action: Action[EvaluatedMono2[E, M], G]): Grp[G] = {
+    def leavesInvariant[E <: Evaluator[M] with Singleton: Witness.Aux](poly: EvaluatedPoly[E, M])(implicit action: Action[EvaluatedMono[E, M], G]): Grp[G] = {
       val monomials = allElementsOf[E](poly)(implicitly, action)
       val order = M.cyclotomicOrder
       val monomialsAction = new PermutationAction[G] {
@@ -109,9 +108,9 @@ object Permutation {
     }
 
   implicit def evaluatedMonoAction[
-    E <: Evaluator2[M] with Singleton: Witness.Aux,
+    E <: Evaluator[M] with Singleton: Witness.Aux,
     M <: generic.MonoidDef with Singleton
-  ](implicit action: Action[M#Monomial, Permutation[M]]): Action[EvaluatedMono2[E, M], Permutation[M]] =
-    Invariant[Lambda[P => Action[P, Permutation[M]]]].imap[M#Monomial, EvaluatedMono2[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
+  ](implicit action: Action[M#Monomial, Permutation[M]]): Action[EvaluatedMono[E, M], Permutation[M]] =
+    Invariant[Lambda[P => Action[P, Permutation[M]]]].imap[M#Monomial, EvaluatedMono[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
 
 }

@@ -5,7 +5,7 @@ import shapeless.Witness
 import spire.algebra.AdditiveGroup
 import scalin.SparseAdditiveGroup
 
-package object symdpoly {
+package object symdpoly extends Instances {
 
   implicit def cycloFromInt(i: Int): Cyclo = Cyclo(i)
   implicit val sparseDouble: SparseAdditiveGroup[Double] = new SparseAdditiveGroup[Double] {

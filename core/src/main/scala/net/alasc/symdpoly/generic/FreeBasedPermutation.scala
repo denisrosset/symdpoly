@@ -11,7 +11,6 @@ import cats.syntax.contravariant._
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.math.{GenPerm, GenPermFaithfulPermutationAction, PhasedInt, Phases}
 import net.alasc.symdpoly.{Phase, free, valueOf}
-import net.alasc.symdpoly.algebra.Instances._
 import cats.instances.eq._
 import spire.syntax.group._
 import cats.instances.invariant._
@@ -30,7 +29,6 @@ import net.alasc.symdpoly
 import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.algebra.Phased.syntax._
 import net.alasc.symdpoly.evaluation._
-import net.alasc.symdpoly.evaluation.Symmetries.{allEvaluatedMonomials, momentSetAction}
 import net.alasc.symdpoly.generic.Permutation.GrpPermutationsOps
 import net.alasc.util.{NNNone, NNOption, NNSome}
 

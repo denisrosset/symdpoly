@@ -1,10 +1,10 @@
-package net.alasc.symdpoly.algebra
+package net.alasc.symdpoly
 
 import cats.{Contravariant, Invariant}
 import spire.algebra.{Action, Field, VectorSpace}
 import spire.math.SafeLong
 
-import algebra.{CommutativeGroup, Eq}
+import spire.algebra.{AbGroup, Eq}
 import net.alasc.algebra.PermutationAction
 import net.alasc.perms.Perm
 import net.alasc.util.NNOption
@@ -12,7 +12,7 @@ import cats.instances.eq.catsContravariantMonoidalForEq
 
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 
-object Instances {
+trait Instances {
 
   def trivialAction[A]: Action[A, Unit] = new Action[A, Unit] {
     def actl(g: Unit, a: A): A = a

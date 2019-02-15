@@ -1,34 +1,102 @@
-package net.alasc.symdpoly.evaluation
+package net.alasc.symdpoly
+package evaluation
 
+import scala.annotation.tailrec
 
-import net.alasc.symdpoly.generic
-import net.alasc.symdpoly.math.GenPerm
+import cats.{Contravariant, Invariant}
 import shapeless.Witness
-import spire.algebra.Order
+import spire.algebra.{Action, Eq, Order, VectorSpace}
+import spire.syntax.action._
+
+import cyclo.Cyclo
+
+import net.alasc.symdpoly.algebra.Phased
+import net.alasc.symdpoly.generic
+import cats.instances.order.catsContravariantMonoidalForOrder
+import cats.instances.eq.catsContravariantMonoidalForEq
 
 import net.alasc.finite.Grp
+import spire.util.Opt
+import spire.syntax.std.seq._
 
-trait Evaluator[M <: generic.MonoidDef with Singleton] { self =>
-  val wE: Witness.Aux[self.type] = Witness.mkWitness(self)
-  implicit def wM: Witness.Aux[M]
-  def M: M = wM.value
+import net.alasc.symdpoly.algebra.Phased.syntax._
+import net.alasc.symdpoly.evaluation.TodoEquivalence.{CyclicEquivalence, FullAdjointEquivalence, TransposeEquivalence}
 
-  // optimization: set to true if reduceMono(a) == reduceMono(a.adjoint)
-  def isSelfAdjoint: Boolean
+abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivalences: Seq[Equivalence[M]]) { self =>
 
-  // we cache some instances that may not depend on G
-  def evaluatedMonoOrder[G <: Grp[GenPerm] with Singleton]: Order[EvaluatedMono[self.type, M, G]]
+  type E <: Evaluator[M]
+
+  def M: M = valueOf[M]
+  val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
 
   type ScratchPad
   def makeScratchPad: ScratchPad
 
-  def apply(mono: M#Monomial): EvaluatedMono[self.type, M, M#TrivialGroup] = apply(mono, makeScratchPad)
-  def apply(mono: M#Monomial, pad: ScratchPad): EvaluatedMono[self.type, M, M#TrivialGroup] = apply(mono, M.trivialGroup: M#TrivialGroup, pad)
-  def apply(mono: M#Monomial, group: Grp[GenPerm]): EvaluatedMono[self.type, M, group.type] = apply(mono, group, makeScratchPad)
-  def apply(mono: M#Monomial, group: Grp[GenPerm], pad: ScratchPad): EvaluatedMono[self.type, M, group.type]
+  // optimization: set to true if apply(a) == apply(a.adjoint)
+  def isSelfAdjoint: Boolean = equivalences.exists(e => e.isInstanceOf[AdjointEquivalence[_]] || e.isInstanceOf[AdjointFreeBasedEquivalence[_, _]])
 
-  def apply(poly: M#Polynomial)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M, M#TrivialGroup] = apply(poly, makeScratchPad)
-  def apply(poly: M#Polynomial, pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M, M#TrivialGroup] = apply(poly, M.trivialGroup, pad)
-  def apply(poly: M#Polynomial, group: Grp[GenPerm])(implicit d: DummyImplicit): EvaluatedPoly[self.type, M, group.type] = apply(poly, group, makeScratchPad)
-  def apply(poly: M#Polynomial, group: Grp[GenPerm], pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M, group.type]
+  def apply(mono: M#Monomial): EvaluatedMono[self.type, M] = apply(mono, makeScratchPad)
+  def apply(mono: M#Monomial, pad: ScratchPad): EvaluatedMono[self.type, M]
+
+  def apply(poly: M#Polynomial)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M] = apply(poly, makeScratchPad)
+  def apply(poly: M#Polynomial, pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M]
+
+  type EvaluatedMonomial = EvaluatedMono[self.type, M]
+  type EvaluatedPolynomial = EvaluatedPoly[self.type, M]
+  type Permutation = M#Permutation
+
+  // typeclasses
+
+  val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, M](M.monoMultiplicativeBinoid.zero)
+  val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
+  val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(apply(_, makeScratchPad))(_.normalForm)
+  val evaluatedPolyEq: Eq[EvaluatedPolynomial] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
+  val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPolynomial, Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply(_, makeScratchPad))(_.normalForm)
+
+  def evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation]
+
+  def :+(e: Equivalence[M]): E
+
+  def real: E
+
+  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): E
+
+}
+
+final class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M](equivalences) { self =>
+  type E = GenericEvaluator[M]
+
+  val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = {
+    val action: Action[M#Monomial, Permutation] = (M: M).permutationMonoAction
+    Invariant[Lambda[P => Action[P, Permutation]]].imap[M#Monomial, EvaluatedMono[self.type, M]](action)(m => apply(m))(_.normalForm)
+  }
+
+
+  type ScratchPad = Unit
+  def makeScratchPad: Unit = ()
+
+  def apply(mono: M#Monomial, pad: ScratchPad): EvaluatedMono[self.type, M] = {
+    val candidates = equivalences.foldLeft(Set(mono)) { case (set, equivalence) => set.flatMap(m => equivalence(m)) }
+    val grouped = candidates.groupBy(M.monoPhased.phaseCanonical)
+    if (grouped.values.exists(_.size > 1))
+      new EvaluatedMono[self.type, M](M.monoMultiplicativeBinoid.zero)
+    else
+      new EvaluatedMono[self.type, M](candidates.qmin(M.monoOrder))
+  }
+
+  def apply(poly: M#Polynomial, pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M] = {
+    @tailrec def iter(i: Int, acc: M#Polynomial): M#Polynomial =
+      if (i == poly.nTerms) acc else {
+        val newTerm = M.polyAssociativeAlgebra.timesl(poly.coeff(i), M.monomialToPolynomial(apply(poly.monomial(i), pad).normalForm))
+        iter(i + 1, M.polyAssociativeAlgebra.plus(acc, newTerm))
+      }
+    new EvaluatedPoly[self.type, M](iter(0, M.polyAssociativeAlgebra.zero))
+  }
+
+  def :+(e: Equivalence[M]): GenericEvaluator[M] = new GenericEvaluator[M](equivalences :+ e)
+
+  def real: GenericEvaluator[M] = self :+ new AdjointEquivalence[M]
+
+  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericEvaluator[M] = self :+ new SymmetryEquivalence(grp)
+
 }
