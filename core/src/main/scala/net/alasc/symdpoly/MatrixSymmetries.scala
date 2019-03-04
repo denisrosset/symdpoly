@@ -7,7 +7,8 @@ import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import scalin.immutable.dense._
 import spire.syntax.action._
 
-import net.alasc.symdpoly.algebra.Phased.syntax._
+import syntax.all._
+import instances.all._
 import spire.syntax.group._
 import spire.syntax.multiplicativeMonoid._
 import spire.syntax.involution._
@@ -32,12 +33,16 @@ import net.alasc.util.Tuple2Int
 
 /** Describes the symmetries of a matrix. */
 trait MatrixSymmetries {
+
   /** Generic group element type. */
   type G
+
   /** Symmetry group. */
   def grp: Grp[G]
+
   /** Group action on the matrix. */
   def representation: Morphism[G, GenPerm, Group]
+
   /** Nice morphism from G to permutations, used to study the group. */
   lazy val niceMorphism: Morphism[G, Perm, Group] = {
     val action: PermutationAction[G] = grp match {
@@ -52,6 +57,7 @@ trait MatrixSymmetries {
       def apply(g: G): Perm = action.toPerm(g)
     }
   }
+
 }
 
 object MatrixSymmetries {

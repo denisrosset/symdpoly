@@ -13,6 +13,8 @@ import net.alasc.finite.Grp
 import net.alasc.symdpoly.evaluation.TodoEquivalence.{CyclicEquivalence, TransposeEquivalence}
 import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPermutation, FreeBasedPermutationMonoAction}
 import net.alasc.symdpoly.math.GrpDecomposition
+import syntax.all._
+import instances.all._
 
 final class FreeBasedEvaluator[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,

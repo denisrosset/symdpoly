@@ -27,7 +27,8 @@ import net.alasc.partitions.Partition
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
 import net.alasc.symdpoly.algebra.Phased
-import net.alasc.symdpoly.algebra.Phased.syntax._
+import syntax.all._
+import instances.all._
 import net.alasc.symdpoly.evaluation._
 import net.alasc.symdpoly.generic.Permutation.GrpPermutationsOps
 import net.alasc.util.{NNNone, NNOption, NNSome}

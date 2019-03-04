@@ -8,7 +8,7 @@ import scala.util.hashing.MurmurHash3
 
 import net.alasc.symdpoly.Phase
 
-/** Phase vector, representing a diagonal matrix with "root of unity" entries
+/** Phase vector, representing a diagonal matrix of size N x N with "root of unity" entries.
   *
   * Encoding is as follows:
   *
@@ -19,6 +19,7 @@ import net.alasc.symdpoly.Phase
   */
 class Phases(val elements: Array[Int]) extends AnyVal { lhs =>
 
+  /** Returns the least common multiple of the phase denominators. */
   def commonRootOrder: Int =
     if (isEmpty) 1 else {
       @tailrec def iter(i: Int, n: Int): Int = // TODO: remove Long after spire.math addition of int-valued lcm/gcd
@@ -30,6 +31,7 @@ class Phases(val elements: Array[Int]) extends AnyVal { lhs =>
 
   override def toString: String = string
 
+  /** Returns a string representation of this phase vector. */
   def string: String =
     if (isEmpty) "()" else {
       val sb = StringBuilder.newBuilder
@@ -47,6 +49,7 @@ class Phases(val elements: Array[Int]) extends AnyVal { lhs =>
       sb.result()
     }
 
+  /** Returns a hash of this phase vector. */
   def hash: Int = {
     var h = MurmurHash3.arraySeed
     cforRange(0 until size) { i =>
@@ -245,12 +248,12 @@ object Phases {
 
 }
 
-final class PhasesPermAction extends Action[Phases, Perm] {
+protected[math] final class PhasesPermAction extends Action[Phases, Perm] {
   def actl(g: Perm, p: Phases): Phases = actr(p, g.inverse)
   def actr(p: Phases, g: Perm): Phases = p.mapKeys(g)
 }
 
-final class PhasesInstances extends Eq[Phases] with AbGroup[Phases] with Involution[Phases] {
+protected[math] final class PhasesInstances extends Eq[Phases] with AbGroup[Phases] with Involution[Phases] {
   override def remove(x: Phases, y: Phases): Phases = x |-| y
   def inverse(x: Phases): Phases = x.inverse
   def eqv(x: Phases, y: Phases): Boolean = x.internal_===(y)
@@ -259,7 +262,7 @@ final class PhasesInstances extends Eq[Phases] with AbGroup[Phases] with Involut
   def combine(x: Phases, y: Phases): Phases = x |+| y
 }
 
-final class PhasesPhasedIntAction extends Action[PhasedInt, Phases] {
+protected[math] final class PhasesPhasedIntAction extends Action[PhasedInt, Phases] {
   def actl(g: Phases, pi: PhasedInt): PhasedInt = g.invImage(pi)
   def actr(pi: PhasedInt, g: Phases): PhasedInt = g.image(pi)
 }

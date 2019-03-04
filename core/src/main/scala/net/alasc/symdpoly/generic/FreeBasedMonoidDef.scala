@@ -19,6 +19,7 @@ import net.alasc.perms.default._
 import net.alasc.util._
 import shapeless.Witness
 import spire.algebra.{free => _, _}
+import instances.all._
 
 import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, GenericFreeBasedEvaluator}
 

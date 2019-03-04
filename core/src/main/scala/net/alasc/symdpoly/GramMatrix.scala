@@ -12,7 +12,8 @@ import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import scalin.immutable.dense._
 import spire.syntax.action._
 
-import net.alasc.symdpoly.algebra.Phased.syntax._
+import syntax.all._
+import instances.all._
 import spire.syntax.group._
 import spire.syntax.multiplicativeMonoid._
 import spire.syntax.involution._

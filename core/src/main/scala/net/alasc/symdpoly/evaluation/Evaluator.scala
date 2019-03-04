@@ -19,7 +19,8 @@ import net.alasc.finite.Grp
 import spire.util.Opt
 import spire.syntax.std.seq._
 
-import net.alasc.symdpoly.algebra.Phased.syntax._
+import syntax.all._
+import instances.all._
 import net.alasc.symdpoly.evaluation.TodoEquivalence.{CyclicEquivalence, FullAdjointEquivalence, TransposeEquivalence}
 
 abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivalences: Seq[Equivalence[M]]) { self =>

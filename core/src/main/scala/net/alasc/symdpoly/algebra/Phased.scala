@@ -17,23 +17,17 @@ import spire.macros.Ops
   *
   */
 trait Phased[A] extends MultiplicativeAction[A, Phase] {
-  def phaseOffset(a: A): Phase
+  /** Canonical element in the equivalence class of elements under phase action. */
   def phaseCanonical(a: A): A
+  /** Phase offset of an element with respect to its canonical representative. */
+  def phaseOffset(a: A): Phase
 }
 
 object Phased {
 
   def apply[A](implicit ev: Phased[A]): Phased[A] = ev
 
-  final class PhasedOps[A](lhs: A)(implicit ev: Phased[A]) {
-    def phaseOffset(): Phase = macro Ops.unop[Phase]
-    def phaseCanonical(): A = macro Ops.unop[A]
-  }
-
-  object syntax {
-    implicit def phasedOps[A:Phased](a: A): PhasedOps[A] = new PhasedOps(a)
-  }
-
+  /** Describes how [[Phased]] transforms under isomorphism. */
   implicit val invariant: Invariant[Phased] = new Invariant[Phased] {
     def imap[A, B](fa: Phased[A])(f: A => B)(g: B => A): Phased[B] = new Phased[B] {
       def phaseOffset(b: B): Phase = fa.phaseOffset(g(b))

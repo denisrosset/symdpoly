@@ -147,8 +147,8 @@ object FreeBasedMono {
   ](implicit wM: Witness.Aux[M]): Phased[FreeBasedMono[M, F]] = (wM.value: M).monoPhased
 
   final class MonoGenPermAction[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+    M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+    F <: free.MonoidDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends Action[FreeBasedMono[M, F], GenPerm] {
     def M: M = wM.value
     def actr(m: FreeBasedMono[M, F], g: GenPerm): FreeBasedMono[M, F] = {
@@ -161,8 +161,8 @@ object FreeBasedMono {
   }
 
   final class MonoInstances[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+    M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+    F <: free.MonoidDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends MultiplicativeBinoid[FreeBasedMono[M, F]]
     with Involution[FreeBasedMono[M, F]]
     with Order[FreeBasedMono[M, F]] {
@@ -197,8 +197,8 @@ object FreeBasedMono {
   }
 
   final class MonoPhased[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+    M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+    F <: free.MonoidDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends Phased[FreeBasedMono[M, F]] {
     def phaseOffset(mono: FreeBasedMono[M, F]): Phase = mono.data.phase
     def phaseCanonical(mono: FreeBasedMono[M, F]): FreeBasedMono[M, F] = new FreeBasedMono[M, F](mono.data.mutableCopy().setPhase(Phase.one).setImmutable())

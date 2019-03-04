@@ -1,23 +1,15 @@
 package net.alasc.symdpoly
+package instances
 
 import cats.{Contravariant, Invariant}
-import spire.algebra.{Action, Field, VectorSpace}
-import spire.math.SafeLong
-
-import spire.algebra.{AbGroup, Eq}
 import net.alasc.algebra.PermutationAction
+import net.alasc.finite.FaithfulPermutationActionBuilder
 import net.alasc.perms.Perm
 import net.alasc.util.NNOption
-import cats.instances.eq.catsContravariantMonoidalForEq
+import spire.algebra.{Action, Eq, Field, VectorSpace}
+import spire.math.SafeLong
 
-import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
-
-trait Instances {
-
-  def trivialAction[A]: Action[A, Unit] = new Action[A, Unit] {
-    def actl(g: Unit, a: A): A = a
-    def actr(a: A, g: Unit): A = a
-  }
+trait InvariantInstances {
 
   implicit val symdpolyContravariantForPermutationAction: Contravariant[PermutationAction] = new Contravariant[PermutationAction] {
     def contramap[A, B](fa: PermutationAction[A])(f: B => A): PermutationAction[B] = new PermutationAction[B] {

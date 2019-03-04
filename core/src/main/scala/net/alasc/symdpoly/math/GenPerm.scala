@@ -15,6 +15,8 @@ import net.alasc.symdpoly.Phase
 /** A generalized permutation is an element of the generalized symmetric group, and combines
   * a permutation and a multiplication by a diagonal matrix whose entries are rational roots
   * of unity.
+  *
+  * It naturally acts on integers associated with a phase: [[PhasedInt]].
   */
 case class GenPerm(val perm: Perm, val phases: Phases) { lhs =>
 
@@ -69,19 +71,19 @@ case class GenPerm(val perm: Perm, val phases: Phases) { lhs =>
 
 }
 
-final class GenPermInstances extends Eq[GenPerm] with Group[GenPerm] {
+protected[math] final class GenPermInstances extends Eq[GenPerm] with Group[GenPerm] {
   def eqv(x: GenPerm, y: GenPerm): Boolean = x == y
   def inverse(a: GenPerm): GenPerm = a.inverse
   def empty: GenPerm = GenPerm.id
   def combine(x: GenPerm, y: GenPerm): GenPerm = x |+| y
 }
 
-final class PhasedIntGenPermAction extends Action[PhasedInt, GenPerm] {
+protected[math] final class PhasedIntGenPermAction extends Action[PhasedInt, GenPerm] {
   def actr(p: PhasedInt, g: GenPerm): PhasedInt = g.image(p)
   def actl(g: GenPerm, p: PhasedInt): PhasedInt = g.invImage(p)
 }
 
-final case class GenPermFaithfulPermutationAction(domainSize: Int, rootOrder: Int) extends PermutationAction[GenPerm] {
+protected[math] final case class GenPermFaithfulPermutationAction(domainSize: Int, rootOrder: Int) extends PermutationAction[GenPerm] {
   def isFaithful: Boolean = true
   def findMovedPoint(g: GenPerm): NNOption = g.perm.smallestMovedPoint match {
     case NNOption(i) => NNSome(i * rootOrder)
@@ -104,7 +106,7 @@ final case class GenPermFaithfulPermutationAction(domainSize: Int, rootOrder: In
 }
 
 
-final class GenPermFaithfulPermutationActionBuilder extends FaithfulPermutationActionBuilder[GenPerm] {
+protected[math] final class GenPermFaithfulPermutationActionBuilder extends FaithfulPermutationActionBuilder[GenPerm] {
   def apply(generators: Iterable[GenPerm]): PermutationAction[GenPerm] = {
     // computes the max of the largest moved points and the lcm of the root order
     @tailrec def iter(it: Iterator[GenPerm], domainSize: Int, rootOrder: Int): (Int, Int) =
@@ -121,13 +123,22 @@ final class GenPermFaithfulPermutationActionBuilder extends FaithfulPermutationA
 
 object GenPerm {
 
+  /** Identity element. */
   val id: GenPerm = GenPerm(Perm.id, Phases.empty)
 
+  /** Private instance for [[Group]] and [[Eq]] of [[GenPerm]]. */
+  private[this] val instances: GenPermInstances = new GenPermInstances
+
+  /** Builder for faithful permutation representations. */
   implicit val fpab: FaithfulPermutationActionBuilder[GenPerm] = new GenPermFaithfulPermutationActionBuilder
 
-  private[this] val instances: GenPermInstances = new GenPermInstances
+  /** Group instance for generalized permutations. */
   implicit def group: Group[GenPerm] = instances
+
+  /** Eq instance for generalized permutations. */
   implicit def equ: Eq[GenPerm] = instances
+
+  /** Action of generalized permutations on integers with a phase. */
   implicit val phasedIntAction: Action[PhasedInt, GenPerm] = new PhasedIntGenPermAction
 
   /** Returns the generalized symmetric group, i.e. the wreath product of the cyclic group
@@ -143,6 +154,7 @@ object GenPerm {
     }
   }
 
+  /** Finds the least common multiple of the phase denominators present in a sequence of generalized permutations. */
   def commonRootOrder(perms: Iterable[GenPerm]): Int = {
     // computes the max of the largest moved points and the lcm of the root order
     @tailrec def iter(it: Iterator[GenPerm], rootOrder: Int): Int =

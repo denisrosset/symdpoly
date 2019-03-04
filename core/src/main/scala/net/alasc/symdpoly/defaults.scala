@@ -8,7 +8,10 @@ object defaults
     with spire.std.AnyInstances
     with net.alasc.syntax.AllSyntax
     with net.alasc.std.AnyInstances
-    with scalin.syntax.AllSyntax {
+    with scalin.syntax.AllSyntax
+    with instances.AllInstances
+    with syntax.AllSyntax
+{
 
   implicit def vecEngine[A]: scalin.VecEngine[A, scalin.immutable.DenseVec[A]] = scalin.immutable.DenseVec.defaultEngine[A]
 

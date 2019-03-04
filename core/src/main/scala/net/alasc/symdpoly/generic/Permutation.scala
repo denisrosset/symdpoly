@@ -12,7 +12,8 @@ import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.evaluation.{EvaluatedMono, EvaluatedPoly, Evaluator}
 import net.alasc.util._
-import Phased.syntax._
+import syntax.all._
+import instances.all._
 import spire.syntax.cfor._
 import spire.syntax.action._
 import spire.syntax.group._

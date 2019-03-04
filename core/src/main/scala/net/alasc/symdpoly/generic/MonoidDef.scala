@@ -11,6 +11,7 @@ import net.alasc.finite.Grp
 import net.alasc.symdpoly.evaluation.{Evaluator, GenericEvaluator, GenericGenericEvaluator}
 import net.alasc.symdpoly.math.GenPerm
 
+/** Describes a generic monomial monoid. */
 abstract class MonoidDef { self =>
 
   /** Maximal order of cyclotomic appearing in all constructions based on this monoid. */
@@ -18,44 +19,58 @@ abstract class MonoidDef { self =>
 
   // Dependent type machinery
 
+  /** Witness that transports an instance of this monoid where it is needed through the implicit mechanism. */
   val witness: Witness.Aux[self.type] = Witness.mkWitness[self.type](self)
   protected implicit def impWitness: Witness.Aux[self.type] = witness
 
-  // Trivial symmetry group
-
-  type TrivialGroup = trivialGroupInstance.type
-  val trivialGroupInstance: Grp[GenPerm] = Grp.trivial[GenPerm]
-  def trivialGroup: TrivialGroup = trivialGroupInstance
-  implicit val trivialGroupWitness: Witness.Aux[TrivialGroup] = Witness.mkWitness[TrivialGroup](trivialGroup)
-
   // Monomials
 
+  /** Element of this monoid. */
   type Monomial // monoid element
 
+  /** Zero monomial, which is an absorbing element of this monoid. */
   def zero: Monomial
+  /** Identity element of this monoid. */
   def one: Monomial
+
+  /** Multiplicative binoid typeclass. */
   def monoMultiplicativeBinoid: MultiplicativeBinoid[Monomial]
+
+  /** Involution typeclass describing the Hermitian adjoint operation. */
   def monoInvolution: Involution[Monomial]
+
+  /** Typeclass describing the total order for monomials. */
   def monoOrder: Order[Monomial]
+
+  /** Typeclass describing the action of a phase on monomials. */
   def monoPhased: Phased[Monomial]
 
   // Polynomials
 
+  /** Element of the polynomial ring constructed as a linear space on this monoid. */
   type Polynomial <: GenPoly[self.type]
 
+  /** Associative algebra structure on the polynomials. */
   def polyAssociativeAlgebra: FieldAssociativeAlgebra[Polynomial, Cyclo]
+
+  /** Involution typeclass describing the Hermitian adjoint operation on polynomials. */
   def polyInvolution: Involution[Polynomial]
+
+  /** Polynomial equality. */
   def polyEq: Eq[Polynomial]
 
+  /** Converts a monomial to single term polynomial. */
   def monomialToPolynomial(m: Monomial): Polynomial
 
   // Permutations
 
+  /** Permutation acting on the monomials/monoid elements. */
   type Permutation <: generic.Permutation[self.type]
+
+  /** Action of permutations on the monomials. */
   def permutationMonoAction: Action[Monomial, Permutation]
 
-  // Construct evaluator
-
+  /** Default evaluator without additional equivalence relations. */
   def evaluator: Evaluator[self.type] = new GenericGenericEvaluator[self.type](Vector.empty)(witness)
 
 }

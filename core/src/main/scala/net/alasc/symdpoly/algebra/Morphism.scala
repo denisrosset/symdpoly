@@ -10,7 +10,7 @@ import spire.algebra.{Eq, Group}
 import net.alasc.perms.default._
 import net.alasc.std.product._
 import spire.std.tuples._
-
+import instances.invariant._
 import net.alasc.syntax.all._
 import net.alasc.util.NNOption
 import shapeless.Witness
@@ -31,29 +31,39 @@ trait Morphism[S, T, F[_]] extends Function1[S, T] {
 
 object Morphism {
 
+  /** Constructs a morphism from a S => T function. */
   def apply[S, T, F[_]](f: S => T)(implicit S0: F[S], T0: F[T]): Morphism[S, T, F] = new Morphism[S, T, F] {
     def S: F[S] = S0
     def T: F[T] = T0
     def apply(s: S): T = f(s)
   }
 
+  /** Constructs a morphism for a [[net.alasc.finite.Grp]] using images of the generators. */
   def fromGeneratorImages[S, T, F[_]](source: Grp[S], images: Seq[T])(implicit ev: MorphismFromGeneratorImages[S, T]): Morphism[S, T, Group] =
     ev(source, images)
 
+  /** Enrichment methods for group morphisms. */
   implicit class morphismGrpImage[S, T](val morphism: Morphism[S, T, Group]) extends AnyVal {
+
+    /** Returns the image of a [[net.alasc.finite.Grp]] under a group morphism. */
     def grpImage(source: Grp[S])(implicit equ: Eq[T], group: Group[T], grpGroup: GrpGroup[T]): Grp[T] = {
       val imageGenerators = source.generators.map(morphism).filterNot(_.isEmpty)
       grpGroup.fromGenerators(imageGenerators)
     }
+
   }
+
 }
 
+/** Describes a morphism S => T that is also surjective, i.e. every element of T has a preimage, not necessarily unique.*/
 trait SurjectiveMorphism[S, T, F[_]] extends Morphism[S, T, F] {
   def preimageRepresentative(t: T): S
 }
 
 object SurjectiveMorphism {
 
+  /** Constructs a surjective morphism from a pair of functions S => T and T => S,
+    * such that their composition T => S => T is the identity. */
   def apply[S, T, F[_]](image: S => T)(preimage: T => S)(implicit S0: F[S], T0: F[T]): SurjectiveMorphism[S, T, F] = new SurjectiveMorphism[S, T, F] {
     def S: F[S] = S0
     def T: F[T] = T0
@@ -63,6 +73,7 @@ object SurjectiveMorphism {
 
 }
 
+/** Describes the ability to construct a morphism from images of the generators. */
 trait MorphismFromGeneratorImages[S, T] {
 
   def apply(source: Grp[S], images: Seq[T]): Morphism[S, T, Group]
@@ -71,6 +82,7 @@ trait MorphismFromGeneratorImages[S, T] {
 
 object MorphismFromGeneratorImages {
 
+  /** Ability to construct morphisms from generator images, if the source group has a faithful permutation action. */
   implicit def forFaithfulPermutationAction[S:Eq:FaithfulPermutationActionBuilder:Group, T:Eq:FaithfulPermutationActionBuilder:Group]: MorphismFromGeneratorImages[S, T] =
     new MorphismFromGeneratorImages[S, T] {
     def apply(source: Grp[S], images: Seq[T]): Morphism[S, T, Group] = {

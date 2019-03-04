@@ -20,10 +20,10 @@ class CHSHAlgebraSuite extends CommonSuite {
   object FM extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
-    object A extends HermitianType1(0 to 1)
+    object A extends HermitianOpType1(0 to 1)
 
     case class B(y: Int) extends HermitianOp
-    object B extends HermitianType1(0 to 1)
+    object B extends HermitianOpType1(0 to 1)
 
     val operators = Seq(A, B)
   }
