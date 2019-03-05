@@ -207,7 +207,7 @@ class Phases(val elements: Array[Int]) extends AnyVal { lhs =>
         }
       val newSize = findNewSize(0, n - 1)
       val newElements = new Array[Int](2*newSize + 1)
-      Array.copy(elements, 0, newElements, 0, 2*newSize + 1)
+      System.arraycopy(elements, 0, newElements, 0, 2*newSize + 1)
       newElements(0) = newSize
       new Phases(newElements)
     }

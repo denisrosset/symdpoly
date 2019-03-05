@@ -11,25 +11,33 @@ import net.alasc.symdpoly.math.GenPerm
 import net.alasc.symdpoly.{Phase, Poly, PolyTerm, free, valueOf}
 import org.typelevel.discipline.Predicate
 
-/** An element of a MonoidDef, which represents a monomial in a polynomial ring.
+/** An element of a [[FreeBasedMonoidDef]], which represents a monomial in a polynomial ring.
   *
-  * @param data Normal form of the monoid element, with a possible phase
+  * @param data Normal form of the monoid element, along with a possible phase
   */
 class FreeBasedMono[
   M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
 ](protected[symdpoly] val data: MutableWord[F]) extends PolyTerm[M, F] { lhs =>
+
   require(!data.mutable)
+  require(F.cyclotomicOrder % data.phase.n == 0)
+
   def M: M = valueOf[M]
   def F: F = (M: M).Free
-  require(F.cyclotomicOrder % data.phase.n == 0)
   implicit def witnessF: Witness.Aux[F] = (F: F).witness
+
+  // Java based methods
+
   override def toString: String = if (M eq F) data.toString else s"[$data]"
   override def equals(any: Any): Boolean = any match {
     case rhs: FreeBasedMono[M, F] if (lhs.M eq rhs.M) && (lhs.F eq rhs.F) => lhs.data == rhs.data
     case _ => false
   }
   override def hashCode: Int = data.hashCode
+
+  //
+
   def normalForm: FreeBasedMono[F, F] = new FreeBasedMono[F, F](data)
   def isZero(implicit mb: MultiplicativeBinoid[FreeBasedMono[M, F]], equ: Eq[FreeBasedMono[M, F]]): Boolean = mb.isZero(lhs)
   def isOne(implicit mm: MultiplicativeMonoid[FreeBasedMono[M, F]], equ: Eq[FreeBasedMono[M, F]]): Boolean = mm.isOne(lhs)
@@ -45,10 +53,11 @@ class FreeBasedMono[
   def phase(implicit ev: F =:= M): Phase = data.phase
   def mutableCopy(implicit ev: F =:= M): MutableWord[F] = data.mutableCopy
 
-  // to polynomials
+  // conversion to polynomials
   def toPoly: Poly[M, F] = Poly(lhs)
   def +(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly + rhs
   def *(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly * rhs
+
 }
 
 object FreeBasedMono {
@@ -153,7 +162,7 @@ object FreeBasedMono {
     def M: M = wM.value
     def actr(m: FreeBasedMono[M, F], g: GenPerm): FreeBasedMono[M, F] = {
       val res = m.data.mutableCopy()
-      res.applyGenPermAction(g)
+      res.inPlaceGenPermAction(g)
       M.inPlaceNormalForm(res)
       new FreeBasedMono[M, F](res.setImmutable())
     }

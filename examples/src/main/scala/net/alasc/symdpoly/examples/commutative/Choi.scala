@@ -10,10 +10,10 @@ object Choi extends App {
   object Free extends free.MonoidDef(2) {
 
     case class X(i: Int) extends HermitianOp
-    object X extends HermitianOpType1(1 to 3)
+    object X extends HermitianOpFamily1(1 to 3)
 
     case class Y(i: Int) extends HermitianOp
-    object Y extends HermitianOpType1(1 to 3)
+    object Y extends HermitianOpFamily1(1 to 3)
     val operators = Seq(X, Y)
 
   }

@@ -11,10 +11,10 @@ object CGLMP3 extends App {
   object Free extends free.MonoidDef(2) {
 
     case class A(a: Int, x: Int) extends HermitianOp
-    object A extends HermitianOpType2(0 to 2, 0 to 1)
+    object A extends HermitianOpFamily2(0 to 2, 0 to 1)
 
     case class B(b: Int, y: Int) extends HermitianOp
-    object B extends HermitianOpType2(0 to 2,0 to 1)
+    object B extends HermitianOpFamily2(0 to 2,0 to 1)
 
     val operators = Seq(A, B)
   }

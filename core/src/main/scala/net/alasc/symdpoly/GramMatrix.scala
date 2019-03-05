@@ -152,8 +152,8 @@ object GramMatrix {
     val sb = MomentSetBuilder.make[E, M]
 
     val pad = evaluator.makeScratchPad
-    val scratchMono = free.MutableWord.empty[F](maxDegree * 2)
-    val scratchAdjoint = free.MutableWord.empty[F](maxDegree * 2)
+    val scratchMono = free.MutableWord.one[F](maxDegree * 2)
+    val scratchAdjoint = free.MutableWord.one[F](maxDegree * 2)
 
     cforRange(0 until n) { r =>
       cforRange(r until n) { c =>

@@ -18,7 +18,36 @@ import spire.syntax.group._
 import cats.instances.option._
 import cats.syntax.traverse._
 import shapeless.Witness
+/*
+case class RewritingRules[F <: free.MonoidDef with Singleton](root: RewritingRules.Node[F])
 
+object RewritingRules {
+  sealed trait Node[F <: free.MonoidDef with Singleton]
+  case class Branch[F <: free.MonoidDef with Singleton](branches: Map[F#Op, Node[F]]) extends Node[F]
+  case class Leaf[F <: free.MonoidDef with Singleton](rhs: F#Monomial) extends Node[F]
+
+  def apply[F <: free.MonoidDef with Singleton:Witness.Aux](rules: (F#Monomial, F#Monomial)*): RewritingRules[F] = {
+    assert(rules.forall(_._1.phase.isOne), "Phase must be one for rewriting rules left hand side")
+    assert(!rules.exists(_._1.isZero), "The zero monomial cannot be rewritten")
+    assert(!rules.exists(_._1.isOne), "The monomial 1 cannot be rewritten")
+    def branch(nodeRules: Seq[(F#Monomial, F#Monomial)]): Branch[F] = {
+      val branches = nodeRules.groupBy( pair => pair._1.apply(0) ).mapValues { forBranch =>
+        forBranch.find(_._1.length == 1) {
+          case Some((lhs, rhs)) => Leaf(rhs)
+          case None =>
+            val discardingOp = forBranch.map {
+              case (lhs, rhs) => lhs.data.
+            }
+        }
+        if (forBranch.exists(_._1.length == 1))
+        forBranch.map { case () }
+      }
+    }
+    RewritingRules[F](branch(rules))
+  }
+
+}
+*/
 /** Base class for quotient monoids. */
 abstract class MonoidDef extends FreeBasedMonoidDef {
   monoidDef =>
@@ -30,7 +59,7 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
 
   /** Helper to describe the symmetries that are compatible with the quotient monoid. */
   object Symmetries {
-    
+
     private[this] val m = Free.cyclotomicOrder
     private[this] val n = Free.nOperators
     private[this] val phases: Vector[Phase] = Vector.tabulate(m)(k => Phase(k, m))
@@ -138,10 +167,10 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
           val oi2 = word.indices(i + 1)
           pairRules.rule(oi1, oi2) match {
             case PairRules.RemoveBoth => // discard x_i and x_i+1
-              Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places the tail elements
+              System.arraycopy(word.indices, i + 2, word.indices, i, tailSize) // move back two places the tail elements
               rec(i - 1, n - 2, true) // go back one element to check for possible new substitutions
             case PairRules.KeepFirst =>
-              Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize) // move back one place the tail elements
+              System.arraycopy(word.indices, i + 2, word.indices, i + 1, tailSize) // move back one place the tail elements
               rec(i, n - 1, true)
             case PairRules.Swap =>
               word.swap(i, i + 1) // swap x_i and x_i+1
@@ -160,10 +189,10 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
                 word *= result.phase // multiply phase
                 result.length match {
                   case 0 => // as in PairRules.RemoveBoth
-                    Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places
+                    System.arraycopy(word.indices, i + 2, word.indices, i, tailSize) // move back two places
                     rec(i - 1, n - 2, true)
                   case 1 =>
-                    Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize)
+                    System.arraycopy(word.indices, i + 2, word.indices, i + 1, tailSize)
                     word.indices(i) = result.data.indices(0)
                     rec(i - 1, n - 1, true)
                   case 2 =>
@@ -194,7 +223,7 @@ object MonoidDef {
 
   /** Constructs the commutative quotient monoid on the given free monoid. */
   def commutative[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](f: F): quotient.MonoidDef.Aux[F] = apply(f: F) {
-    case (op1, op2) if (f: F).opIndexMap.index(op1) < (f: F).opIndexMap.index(op2) => op2 * op1
+    case (op1, op2) if (f: F).opIndexMap.indexMap(op1) < (f: F).opIndexMap.indexMap(op2) => op2 * op1
     case (op1, op2) => op1 * op2
   }
 

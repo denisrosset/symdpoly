@@ -96,7 +96,7 @@ class FreeBasedPermutationMonoAction[
 ] extends Action[FreeBasedMono[M, F], FreeBasedPermutation[M, F]] {
   def actl(g: FreeBasedPermutation[M, F], mono: FreeBasedMono[M, F]): FreeBasedMono[M, F] = actr(mono, g.inverse)
   def actr(mono: FreeBasedMono[M, F], g: FreeBasedPermutation[M, F]): FreeBasedMono[M, F] = {
-    val word = mono.normalForm.mutableCopy.applyGenPermAction(g.genPerm)
+    val word = mono.normalForm.mutableCopy.inPlaceGenPermAction(g.genPerm)
     valueOf[M].inPlaceNormalForm(word)
     new FreeBasedMono[M, F](word.setImmutable())
   }

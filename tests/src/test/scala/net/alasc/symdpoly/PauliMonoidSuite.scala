@@ -16,7 +16,7 @@ class PauliMonoidSuite extends CommonSuite {
     case class σ(i: Int) extends HermitianOp {
       require(i >= 1 && i <= 3)
     }
-    object σ extends HermitianOpType1(1 to 3)
+    object σ extends HermitianOpFamily1(1 to 3)
 
     val operators = Seq(σ)
   }

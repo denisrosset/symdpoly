@@ -70,7 +70,7 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
   def toCyclo: Cyclo = Cyclo.e(n).pow(k)
 }
 
-final class PhaseInstances extends Eq[Phase] with MultiplicativeAbGroup[Phase] with Involution[Phase] {
+protected[symdpoly] final class PhaseInstances extends Eq[Phase] with MultiplicativeAbGroup[Phase] with Involution[Phase] {
   def div(x: Phase, y: Phase): Phase = x / y
   override def reciprocal(x: Phase): Phase = x.reciprocal
   def one: Phase = Phase(0, 1)

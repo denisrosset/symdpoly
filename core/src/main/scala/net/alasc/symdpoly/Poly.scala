@@ -337,7 +337,7 @@ final class PolyGenPermAction[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <
     val res = free.MutablePoly.empty[F](p.nTerms)
     cforRange(0 until p.nTerms) { i =>
       val newMono = p.monomialNormalForm(i).mutableCopy()
-      newMono.applyGenPermAction(g)
+      newMono.inPlaceGenPermAction(g)
       M.inPlaceNormalForm(newMono)
       val newCoeff = p.coeff(i) * newMono.phase.toCyclo
       newMono.setPhase(Phase.one)

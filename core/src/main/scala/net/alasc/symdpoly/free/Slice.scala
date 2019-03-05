@@ -1,7 +1,16 @@
 package net.alasc.symdpoly
 package free
 
-/** Describes a slice of an index of an object with indices, such as a family of operator variables. */
+/** Describes a slice of an index of an object with indices, such as a family of operator variables.
+  *
+  * Whenever a [[Slice]] is required for some index, the user can provide either
+  *
+  * - a wildcard `::` to cover all values of that index,
+  * - a sequence of indices such as `Seq(1,2,3)`
+  * - a single index such as `1`
+  *
+  * Those are converted to a [[Slice]] by the means of an implicit conversion.
+  */
 sealed trait Slice {
   def contains(i: Int): Boolean
 }

@@ -29,8 +29,8 @@ trait Permutation[M <: generic.MonoidDef with Singleton]
 object Permutation {
 
   class GrpPermutationsOps[
-  M <: generic.MonoidDef with Singleton: Witness.Aux,
-  G <: Permutation[M]:ClassTag:Eq:FaithfulPermutationActionBuilder:Group
+    M <: generic.MonoidDef with Singleton: Witness.Aux,
+    G <: Permutation[M]:ClassTag:Eq:FaithfulPermutationActionBuilder:Group
   ](grp: Grp[G]) {
 
     def M: M = valueOf[M]

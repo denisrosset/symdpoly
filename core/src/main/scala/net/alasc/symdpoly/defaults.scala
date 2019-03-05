@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 
 import spire.util.Opt
 
+/** A set of default imports, syntax extensions and instances to work easily with SymDPoly. */
 object defaults
     extends net.alasc.perms.Algorithms(Opt(scala.util.Random), false, true)
     with spire.syntax.AllSyntax

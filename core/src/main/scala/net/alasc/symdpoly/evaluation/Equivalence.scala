@@ -110,7 +110,7 @@ final class SymmetryFreeBasedEquivalence[
         cforRange(1 until hd.length) { i =>
           cforRange(0 until pad.n) { j =>
             pad.scratch(ind).setToContentOf(pad.scratch(j))
-            pad.scratch(ind).applyGenPermAction(hd(i).genPerm)
+            pad.scratch(ind).inPlaceGenPermAction(hd(i).genPerm)
             (M: M).inPlaceNormalForm(pad.scratch(ind))
             ind += 1
           }

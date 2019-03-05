@@ -29,6 +29,7 @@ import net.alasc.syntax.group._
 import net.alasc.bsgs.{Chain, GrpChain, GrpChainPermutationAction, Node, Term}
 import net.alasc.symdpoly.free.{MutableWord}
 
+/** Scratch pad of mutable words where operations are applied in batch. */
 class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
 
   def check1(): Unit = {
@@ -66,10 +67,10 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array:
     require(newSize >= n)
     if (newSize != n) {
       val newScratch = new Array[free.MutableWord[F]](newSize)
-      Array.copy(array, 0, newScratch, 0, array.length)
+      System.arraycopy(array, 0, newScratch, 0, array.length)
       val reservedSize = if (n == 0) 8 else newScratch(0).reservedSize
       cforRange(array.length until newScratch.length) { i =>
-        newScratch(i) = free.MutableWord.empty[F](reservedSize)
+        newScratch(i) = free.MutableWord.one[F](reservedSize)
       }
       array = newScratch
     }
