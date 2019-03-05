@@ -1,6 +1,7 @@
-package net.alasc.symdpoly.matlab
+package net.alasc.symdpoly
+package matlab
 
-import spire.syntax.cfor.cforRange
+import spire.syntax.cfor._
 
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types._
@@ -10,12 +11,11 @@ import net.alasc.finite.FaithfulPermutationActionBuilder
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.math.GenPerm
 import net.alasc.symdpoly.solvers.{Instance}
-import net.alasc.symdpoly.{ GramMatrix, Relaxation}
 import net.alasc.syntax.all._
 import scalin.immutable.{Mat, Vec}
 
 import net.alasc.algebra.PermutationAction
-import net.alasc.symdpoly.algebra.Phased.syntax._
+import syntax.phased._
 
 class SeDuMiInstance(val relaxation: Relaxation[_, _]) extends Instance {
   import SeDuMiInstance.{SparseMatrix, SparseVector}

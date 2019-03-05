@@ -71,56 +71,6 @@ case class GenPerm(val perm: Perm, val phases: Phases) { lhs =>
 
 }
 
-protected[math] final class GenPermInstances extends Eq[GenPerm] with Group[GenPerm] {
-  def eqv(x: GenPerm, y: GenPerm): Boolean = x == y
-  def inverse(a: GenPerm): GenPerm = a.inverse
-  def empty: GenPerm = GenPerm.id
-  def combine(x: GenPerm, y: GenPerm): GenPerm = x |+| y
-}
-
-protected[math] final class PhasedIntGenPermAction extends Action[PhasedInt, GenPerm] {
-  def actr(p: PhasedInt, g: GenPerm): PhasedInt = g.image(p)
-  def actl(g: GenPerm, p: PhasedInt): PhasedInt = g.invImage(p)
-}
-
-protected[math] final case class GenPermFaithfulPermutationAction(domainSize: Int, rootOrder: Int) extends PermutationAction[GenPerm] {
-  def isFaithful: Boolean = true
-  def findMovedPoint(g: GenPerm): NNOption = g.perm.smallestMovedPoint match {
-    case NNOption(i) => NNSome(i * rootOrder)
-    case _ if g.phases.size > 0 => NNOption(g.phases.key(0) * rootOrder)
-    case _ => NNNone
-  }
-  def movedPointsUpperBound(g: GenPerm): NNOption = NNOption(domainSize*rootOrder - 1)
-  def actr(p: Int, g: GenPerm): Int = {
-    val phase = Phase(p % rootOrder, rootOrder)
-    val index = p / rootOrder
-    val PhasedInt(newPhase, newIndex) = g.image(PhasedInt(phase, index))
-    newIndex * rootOrder + newPhase.numeratorIn(rootOrder)
-  }
-  def actl(g: GenPerm, p: Int): Int = {
-    val phase = Phase(p % rootOrder, rootOrder)
-    val index = p / rootOrder
-    val PhasedInt(newPhase, newIndex) = g.invImage(PhasedInt(phase, index))
-    newIndex * rootOrder + newPhase.numeratorIn(rootOrder)
-  }
-}
-
-
-protected[math] final class GenPermFaithfulPermutationActionBuilder extends FaithfulPermutationActionBuilder[GenPerm] {
-  def apply(generators: Iterable[GenPerm]): PermutationAction[GenPerm] = {
-    // computes the max of the largest moved points and the lcm of the root order
-    @tailrec def iter(it: Iterator[GenPerm], domainSize: Int, rootOrder: Int): (Int, Int) =
-      if (!it.hasNext) (domainSize, rootOrder) else {
-        val gp = it.next()
-        val gpRootOrder = gp.phases.commonRootOrder
-        val gpDomainSize = gp.largestMovedPoint.getOrElseFast(-1)
-        iter(it, spire.math.max(domainSize, gpDomainSize), spire.math.lcm(rootOrder.toLong, gpRootOrder.toLong).toInt)
-      }
-    val (fpaDomainSize, fpaRootOrder) = iter(generators.iterator, -1, 1)
-    new GenPermFaithfulPermutationAction(fpaDomainSize + 1, fpaRootOrder)
-  }
-}
-
 object GenPerm {
 
   /** Identity element. */
@@ -165,4 +115,56 @@ object GenPerm {
     iter(perms.iterator, 1)
   }
 
+  private[this] final class GenPermInstances extends Eq[GenPerm] with Group[GenPerm] {
+    def eqv(x: GenPerm, y: GenPerm): Boolean = x == y
+    def inverse(a: GenPerm): GenPerm = a.inverse
+    def empty: GenPerm = GenPerm.id
+    def combine(x: GenPerm, y: GenPerm): GenPerm = x |+| y
+  }
+
+  private[this] final class PhasedIntGenPermAction extends Action[PhasedInt, GenPerm] {
+    def actr(p: PhasedInt, g: GenPerm): PhasedInt = g.image(p)
+    def actl(g: GenPerm, p: PhasedInt): PhasedInt = g.invImage(p)
+  }
+
+  private[this] final class GenPermFaithfulPermutationActionBuilder extends FaithfulPermutationActionBuilder[GenPerm] {
+    def apply(generators: Iterable[GenPerm]): PermutationAction[GenPerm] = {
+      // computes the max of the largest moved points and the lcm of the root order
+      @tailrec def iter(it: Iterator[GenPerm], domainSize: Int, rootOrder: Int): (Int, Int) =
+        if (!it.hasNext) (domainSize, rootOrder) else {
+          val gp = it.next()
+          val gpRootOrder = gp.phases.commonRootOrder
+          val gpDomainSize = gp.largestMovedPoint.getOrElseFast(-1)
+          iter(it, spire.math.max(domainSize, gpDomainSize), spire.math.lcm(rootOrder.toLong, gpRootOrder.toLong).toInt)
+        }
+      val (fpaDomainSize, fpaRootOrder) = iter(generators.iterator, -1, 1)
+      new GenPermFaithfulPermutationAction(fpaDomainSize + 1, fpaRootOrder)
+    }
+  }
+
+}
+
+/** Permutation action valid for generalized permutation acting on the given [[domainSize]], for the specified cyclotomic
+  * order [[rootOrder]].
+  */
+final case class GenPermFaithfulPermutationAction(domainSize: Int, rootOrder: Int) extends PermutationAction[GenPerm] {
+  def isFaithful: Boolean = true
+  def findMovedPoint(g: GenPerm): NNOption = g.perm.smallestMovedPoint match {
+    case NNOption(i) => NNSome(i * rootOrder)
+    case _ if g.phases.size > 0 => NNOption(g.phases.key(0) * rootOrder)
+    case _ => NNNone
+  }
+  def movedPointsUpperBound(g: GenPerm): NNOption = NNOption(domainSize*rootOrder - 1)
+  def actr(p: Int, g: GenPerm): Int = {
+    val phase = Phase(p % rootOrder, rootOrder)
+    val index = p / rootOrder
+    val PhasedInt(newPhase, newIndex) = g.image(PhasedInt(phase, index))
+    newIndex * rootOrder + newPhase.numeratorIn(rootOrder)
+  }
+  def actl(g: GenPerm, p: Int): Int = {
+    val phase = Phase(p % rootOrder, rootOrder)
+    val index = p / rootOrder
+    val PhasedInt(newPhase, newIndex) = g.invImage(PhasedInt(phase, index))
+    newIndex * rootOrder + newPhase.numeratorIn(rootOrder)
+  }
 }

@@ -13,41 +13,63 @@ import net.alasc.symdpoly
 import net.alasc.symdpoly.Phase
 import net.alasc.symdpoly.math.GenPerm
 import net.alasc.util._
+import spire.syntax.eq._
 import cats.instances.vector._
 import spire.syntax.group._
 import cats.instances.option._
 import cats.syntax.traverse._
 import shapeless.Witness
-/*
-case class RewritingRules[F <: free.MonoidDef with Singleton](root: RewritingRules.Node[F])
+
+case class RewritingRules[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](root: RewritingRules.Branch[F]) {
+  lazy val maximalLhsLength = root.maximalLhsLength
+  def rules: Seq[(F#Monomial, F#Monomial)] = root.pairs
+}
 
 object RewritingRules {
-  sealed trait Node[F <: free.MonoidDef with Singleton]
-  case class Branch[F <: free.MonoidDef with Singleton](branches: Map[F#Op, Node[F]]) extends Node[F]
-  case class Leaf[F <: free.MonoidDef with Singleton](rhs: F#Monomial) extends Node[F]
 
-  def apply[F <: free.MonoidDef with Singleton:Witness.Aux](rules: (F#Monomial, F#Monomial)*): RewritingRules[F] = {
+  sealed trait Node[F <: free.MonoidDef.Aux[F] with Singleton] {
+    def maximalLhsLength: Int
+    def pairs: Seq[(F#Monomial, F#Monomial)]
+  }
+
+  case class Branch[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](branches: Map[F#Op, Node[F]]) extends Node[F] {
+    def maximalLhsLength: Int = branches.values.map(_.maximalLhsLength).max + 1
+    def pairs: Seq[(F#Monomial, F#Monomial)] = branches.toSeq.flatMap {
+      case (head, node) => node.pairs.map {
+        case (lhs, rhs) => valueOf[F].monoMultiplicativeBinoid.times(head.toMono, lhs) -> rhs
+      }
+    }
+  }
+
+  case class Leaf[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](rhs: F#Monomial) extends Node[F] {
+    def maximalLhsLength: Int = 0
+    def pairs: Seq[(F#Monomial, F#Monomial)] = Seq(valueOf[F].monoMultiplicativeBinoid.one -> rhs)
+  }
+
+  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](rules: (F#Monomial, F#Monomial)*): RewritingRules[F] = {
     assert(rules.forall(_._1.phase.isOne), "Phase must be one for rewriting rules left hand side")
     assert(!rules.exists(_._1.isZero), "The zero monomial cannot be rewritten")
     assert(!rules.exists(_._1.isOne), "The monomial 1 cannot be rewritten")
     def branch(nodeRules: Seq[(F#Monomial, F#Monomial)]): Branch[F] = {
       val branches = nodeRules.groupBy( pair => pair._1.apply(0) ).mapValues { forBranch =>
-        forBranch.find(_._1.length == 1) {
+        forBranch.find(_._1.length == 1) match {
           case Some((lhs, rhs)) => Leaf(rhs)
           case None =>
-            val discardingOp = forBranch.map {
-              case (lhs, rhs) => lhs.data.
+            val tails = forBranch.map {
+              case (lhs, rhs) =>
+                val newLhs = new FreeBasedMono[F, F](lhs.data.mutableCopy().remove(0).setImmutable())
+                (newLhs, rhs)
             }
+            branch(tails)
         }
-        if (forBranch.exists(_._1.length == 1))
-        forBranch.map { case () }
       }
+      Branch(branches)
     }
     RewritingRules[F](branch(rules))
   }
 
 }
-*/
+
 /** Base class for quotient monoids. */
 abstract class MonoidDef extends FreeBasedMonoidDef {
   monoidDef =>
@@ -56,6 +78,16 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
 
   /** List of substitution rules that provide the normal form. */
   def pairRules: PairRules[Free]
+
+  def rewritingRules: RewritingRules[Free] = {
+    val rules: Seq[(Free#Monomial, Free#Monomial)] = for {
+      op1 <- Free.opIndexMap.elements
+      op2 <- Free.opIndexMap.elements
+      lhs = op1.toMono * op2
+      rhs = pairRules.applyRules(op1, op2) if lhs =!= rhs
+    } yield (lhs -> rhs)
+    RewritingRules.apply[Free](rules: _*)
+  }
 
   /** Helper to describe the symmetries that are compatible with the quotient monoid. */
   object Symmetries {
@@ -155,6 +187,32 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
     */
   def inPlaceNormalForm(word: MutableWord[Free], start: Int = 0): Boolean =
     if (word.isZero) false else {
+      @tailrec def rec(i: Int, modified: Boolean): Boolean =
+        if (i < 0)
+          rec(0, modified)
+        else if (i >= word.length)
+          modified
+        else {
+          /** Tries to find a match from indices i to j and returns whether a rewriting occurred. */
+          @tailrec def findMatch(j: Int, branch: RewritingRules.Branch[Free]): Boolean =
+            if (j == word.length) false else branch.branches.get(word(j)) match {
+              case Some(RewritingRules.Leaf(rhs)) =>
+                word.replaceRange(i, j + 1, rhs.data)
+                true
+              case Some(newBranch: RewritingRules.Branch[Free]) => findMatch(j + 1, newBranch)
+              case None => false
+            }
+          if (findMatch(i, rewritingRules.root))
+            rec(i - rewritingRules.maximalLhsLength + 1, true)
+          else
+            rec(i + 1, modified)
+        }
+      rec(0, false)
+    }
+
+  /*
+    def inPlaceNormalForm(word: MutableWord[Free], start: Int = 0): Boolean =
+    if (word.isZero) false else {
       @tailrec def rec(i: Int, n: Int, modified: Boolean): Boolean =
         if (i < 0)
           rec(0, n, modified)
@@ -167,10 +225,10 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
           val oi2 = word.indices(i + 1)
           pairRules.rule(oi1, oi2) match {
             case PairRules.RemoveBoth => // discard x_i and x_i+1
-              System.arraycopy(word.indices, i + 2, word.indices, i, tailSize) // move back two places the tail elements
+              Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places the tail elements
               rec(i - 1, n - 2, true) // go back one element to check for possible new substitutions
             case PairRules.KeepFirst =>
-              System.arraycopy(word.indices, i + 2, word.indices, i + 1, tailSize) // move back one place the tail elements
+              Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize) // move back one place the tail elements
               rec(i, n - 1, true)
             case PairRules.Swap =>
               word.swap(i, i + 1) // swap x_i and x_i+1
@@ -189,10 +247,10 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
                 word *= result.phase // multiply phase
                 result.length match {
                   case 0 => // as in PairRules.RemoveBoth
-                    System.arraycopy(word.indices, i + 2, word.indices, i, tailSize) // move back two places
+                    Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places
                     rec(i - 1, n - 2, true)
                   case 1 =>
-                    System.arraycopy(word.indices, i + 2, word.indices, i + 1, tailSize)
+                    Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize)
                     word.indices(i) = result.data.indices(0)
                     rec(i - 1, n - 1, true)
                   case 2 =>
@@ -202,11 +260,14 @@ abstract class MonoidDef extends FreeBasedMonoidDef {
                   case _ =>
                     throw new IllegalArgumentException(s"Rules cannot grow the word size")
                 }
+
               }
           }
         }
       rec(start, word.length, false)
     }
+
+   */
 }
 
 object MonoidDef {
@@ -223,7 +284,7 @@ object MonoidDef {
 
   /** Constructs the commutative quotient monoid on the given free monoid. */
   def commutative[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](f: F): quotient.MonoidDef.Aux[F] = apply(f: F) {
-    case (op1, op2) if (f: F).opIndexMap.indexMap(op1) < (f: F).opIndexMap.indexMap(op2) => op2 * op1
+    case (op1, op2) if (f: F).opIndexMap.indexMap(op1) > (f: F).opIndexMap.indexMap(op2) => op2 * op1
     case (op1, op2) => op1 * op2
   }
 

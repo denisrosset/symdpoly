@@ -4,7 +4,6 @@ package solvers
 import scala.collection.mutable
 
 import cyclo.{Cyclo, RealCyclo}
-import algebra.Phased.syntax._
 
 abstract class Instance {
 

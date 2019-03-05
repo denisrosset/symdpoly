@@ -27,36 +27,61 @@ class FreeBasedMono[
   def F: F = (M: M).Free
   implicit def witnessF: Witness.Aux[F] = (F: F).witness
 
-  // Java based methods
+  def normalForm: FreeBasedMono[F, F] = new FreeBasedMono[F, F](data)
+
+  //region Java based methods
 
   override def toString: String = if (M eq F) data.toString else s"[$data]"
+
   override def equals(any: Any): Boolean = any match {
     case rhs: FreeBasedMono[M, F] if (lhs.M eq rhs.M) && (lhs.F eq rhs.F) => lhs.data == rhs.data
     case _ => false
   }
+
   override def hashCode: Int = data.hashCode
 
-  //
+  //endregion
 
-  def normalForm: FreeBasedMono[F, F] = new FreeBasedMono[F, F](data)
+  //region Syntax methods that use typeclasses (somewhat redundant, but enables us to overload *, and to provide Scaladoc).
+
+  /** Returns the normal form of this monomial in the free monoid from which its quotient monoid derives. */
   def isZero(implicit mb: MultiplicativeBinoid[FreeBasedMono[M, F]], equ: Eq[FreeBasedMono[M, F]]): Boolean = mb.isZero(lhs)
+
   def isOne(implicit mm: MultiplicativeMonoid[FreeBasedMono[M, F]], equ: Eq[FreeBasedMono[M, F]]): Boolean = mm.isOne(lhs)
+
   def unary_- (implicit phased: Phased[FreeBasedMono[M, F]]): FreeBasedMono[M, F] = phased.gtimesl(Phase.minusOne, lhs)
+
   def *(rhs: Phase)(implicit phased: Phased[FreeBasedMono[M, F]]): FreeBasedMono[M, F] = phased.gtimesr(lhs, rhs)
+
   def *(rhs: FreeBasedMono[M, F])(implicit mm: MultiplicativeMonoid[FreeBasedMono[M, F]]): FreeBasedMono[M, F] = mm.times(lhs, rhs)
+
   def adjoint(implicit inv: Involution[FreeBasedMono[M, F]]): FreeBasedMono[M, F] = inv.adjoint(lhs)
+
   def pow(rhs: Int)(implicit mm: MultiplicativeMonoid[FreeBasedMono[M, F]]): FreeBasedMono[M, F] = mm.pow(lhs, rhs)
 
-  // methods that are valid when F =:= M
+  //endregion
+
+  //region Methods that are valid when F =:= M, i.e. the monoid M is free
+
   def length(implicit ev: F =:= M): Int = data.length
+
   def apply(i: Int)(implicit ev: F =:= M): F#Op = data(i)
+
   def phase(implicit ev: F =:= M): Phase = data.phase
+
   def mutableCopy(implicit ev: F =:= M): MutableWord[F] = data.mutableCopy
 
-  // conversion to polynomials
+  //endregion
+
+  //region Conversion to polynomials
+
   def toPoly: Poly[M, F] = Poly(lhs)
+
   def +(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly + rhs
+
   def *(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly * rhs
+
+  //endregion
 
 }
 
@@ -64,7 +89,6 @@ object FreeBasedMono {
 
   implicit def monoTermToMono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](monoTerm: FreeBasedMonoTerm[M, F]): FreeBasedMono[M, F] =
     monoTerm.toMono
-
 
   type Free[F <: free.MonoidDef.Aux[F] with Singleton] = FreeBasedMono[F, F]
 
@@ -125,7 +149,7 @@ object FreeBasedMono {
 
   implicit def fromOp[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](op: F#Op): FreeBasedMono[F, F] = apply(op)
 
-  // Typeclasses
+  //region Typeclasses
 
   implicit def predicate[M <: FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton]: Predicate[FreeBasedMono[M, F]] = Predicate(gw => !gw.data.isZero)
@@ -155,7 +179,7 @@ object FreeBasedMono {
     F <: free.MonoidDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]): Phased[FreeBasedMono[M, F]] = (wM.value: M).monoPhased
 
-  final class MonoGenPermAction[
+  final class FreeBasedMonoGenPermAction[
     M <: FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends Action[FreeBasedMono[M, F], GenPerm] {
@@ -169,7 +193,7 @@ object FreeBasedMono {
     def actl(g: GenPerm, m: FreeBasedMono[M, F]): FreeBasedMono[M, F] = actr(m, g.inverse)
   }
 
-  final class MonoInstances[
+  final class FreeBasedMonoInstances[
     M <: FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends MultiplicativeBinoid[FreeBasedMono[M, F]]
@@ -205,7 +229,7 @@ object FreeBasedMono {
 
   }
 
-  final class MonoPhased[
+  final class FreeBasedMonoPhased[
     M <: FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends Phased[FreeBasedMono[M, F]] {
@@ -214,5 +238,7 @@ object FreeBasedMono {
     def gtimesl(phase: Phase, mono: FreeBasedMono[M, F]): FreeBasedMono[M, F] = gtimesr(mono, phase.reciprocal)
     def gtimesr(mono: FreeBasedMono[M, F], phase: Phase): FreeBasedMono[M, F] = new FreeBasedMono[M, F]((mono.data.mutableCopy() *= phase).setImmutable())
   }
+
+  //endregion
 
 }

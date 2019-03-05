@@ -9,7 +9,7 @@ import cats.syntax.invariant._
 import cats.syntax.contravariant._
 
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
-import net.alasc.symdpoly.math.{GenPerm, GenPermFaithfulPermutationAction, PhasedInt, Phases}
+import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import net.alasc.symdpoly.{Phase, free, valueOf}
 import cats.instances.eq._
 import spire.syntax.group._

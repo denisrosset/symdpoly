@@ -2,13 +2,11 @@ package net.alasc.symdpoly
 package generic
 
 import cats.Invariant
-
 import cyclo.Cyclo
 import cats.instances.invariant._
 import cats.syntax.invariant._
 import cats.syntax.contravariant._
 import cats.instances.eq._
-
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.{FaithfulActionBuilder, FaithfulPermutationActionBuilder, Grp}
 import net.alasc.partitions.Partition
@@ -20,8 +18,8 @@ import net.alasc.util._
 import shapeless.Witness
 import spire.algebra.{free => _, _}
 import instances.all._
-
 import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, GenericFreeBasedEvaluator}
+import net.alasc.symdpoly.generic.FreeBasedMonoidDef.PolyInstances
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
@@ -62,13 +60,13 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
 
   // Monomial typeclass instances
 
-  private[this] val monoInstances: FreeBasedMono.MonoInstances[self.type, Free] = new FreeBasedMono.MonoInstances[self.type, Free]
+  private[this] val monoInstances: FreeBasedMono.FreeBasedMonoInstances[self.type, Free] = new FreeBasedMono.FreeBasedMonoInstances[self.type, Free]
 
   def monoMultiplicativeBinoid: MultiplicativeBinoid[Monomial] = monoInstances
   def monoInvolution: Involution[Monomial] = monoInstances
   def monoOrder: Order[Monomial] = monoInstances
-  val monoPhased: Phased[Monomial] = new FreeBasedMono.MonoPhased
-  val monoGenPermAction: Action[Monomial, GenPerm] = new FreeBasedMono.MonoGenPermAction
+  val monoPhased: Phased[Monomial] = new FreeBasedMono.FreeBasedMonoPhased
+  val monoGenPermAction: Action[Monomial, GenPerm] = new FreeBasedMono.FreeBasedMonoGenPermAction
 
   val zero: Monomial = FreeBasedMono.zero[self.type, Free]
   val one: Monomial = FreeBasedMono.one[self.type, Free]
@@ -112,17 +110,18 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
 
 object FreeBasedMonoidDef {
   type Aux[F <: free.MonoidDef with Singleton] = FreeBasedMonoidDef { type Free = F }
-}
 
-protected[generic] final class PolyInstances[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit val wM: Witness.Aux[M])
-  extends FieldAssociativeAlgebra[Poly[M, F], Cyclo] with Involution[Poly[M, F]] with Eq[Poly[M, F]] {
-  def adjoint(a: Poly[M, F]): Poly[M, F] = a.adjoint
-  def negate(x: Poly[M, F]): Poly[M, F] = -x
-  def zero: Poly[M, F] = Poly.zero[M, F]
-  def plus(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x + y
-  def one: Poly[M, F] = Poly.one[M, F]
-  def times(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x * y
-  def eqv(x: Poly[M, F], y: Poly[M, F]): Boolean = x == y
-  implicit def scalar: Field[Cyclo] = Cyclo.typeclasses
-  def timesl(c: Cyclo, v: Poly[M, F]): Poly[M, F] = c *: v
+  private[FreeBasedMonoidDef] final class PolyInstances[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit val wM: Witness.Aux[M])
+    extends FieldAssociativeAlgebra[Poly[M, F], Cyclo] with Involution[Poly[M, F]] with Eq[Poly[M, F]] {
+    def adjoint(a: Poly[M, F]): Poly[M, F] = a.adjoint
+    def negate(x: Poly[M, F]): Poly[M, F] = -x
+    def zero: Poly[M, F] = Poly.zero[M, F]
+    def plus(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x + y
+    def one: Poly[M, F] = Poly.one[M, F]
+    def times(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x * y
+    def eqv(x: Poly[M, F], y: Poly[M, F]): Boolean = x == y
+    implicit def scalar: Field[Cyclo] = Cyclo.typeclasses
+    def timesl(c: Cyclo, v: Poly[M, F]): Poly[M, F] = c *: v
+  }
+
 }

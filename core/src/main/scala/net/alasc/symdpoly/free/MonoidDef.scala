@@ -4,35 +4,14 @@ package free
 import cyclo.Cyclo
 import spire.algebra._
 import spire.syntax.cfor._
-
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
 import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoTerm, FreeBasedMonoidDef, FreeBasedPermutation}
 import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
-
 import net.alasc.finite.Grp
-
-/** A bidirectional map of elements to indices and vice versa.
-  *
-  * The parameters given at construction time must respect that indexMap(elements(i)) == i.
-  *
-  * The elements of type [[A]] must implement the [[java.lang.Object]] hashCode and equals methods.
-  */
-class IndexMap[A](val indexMap: Map[A, Int], val elements: Seq[A]) {
-  def size: Int = elements.size
-}
-
-object IndexMap {
-
-  /** Constructs an [[IndexMap]] from the given sequence of elements. */
-  def apply[A](elements: Seq[A]): IndexMap[A] = {
-    val indices = elements.zipWithIndex.toMap
-    new IndexMap(indices, elements)
-  }
-
-}
+import net.alasc.symdpoly.util.IndexMap
 
 /** Base class for a generalized free monoid.
   *
@@ -49,7 +28,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
 
   //region Abstract members to implement
 
-  /** Sequence of all operator types appearing in this free monoid. */
+  /** Sequence of all operator families appearing in this free monoid. */
   def operators: Seq[OpFamily]
 
   //endregion
@@ -68,10 +47,10 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
 
   //region Cached instances
 
-  val mutableWordOrder: MutableWordOrder[Free] = new MutableWordOrder
-  val immutableMutableWordOne = new MutableWord[Free](Phase.one, 0, new Array[Int](0), false)
-  val immutableMutableWordMinusOne = new MutableWord[Free](Phase.minusOne, 0, new Array[Int](0), false)
-  val immutableMutableWordZero = new MutableWord[Free](Phase.one, -1, new Array[Int](0), false)
+  val mutableWordOrder: Order[MutableWord[Free]] = Order.from(_.compareTo(_))
+  val immutableMutableWordOne: MutableWord[Free] = new MutableWord[Free](Phase.one, 0, new Array[Int](0), false)
+  val immutableMutableWordMinusOne: MutableWord[Free] = new MutableWord[Free](Phase.minusOne, 0, new Array[Int](0), false)
+  val immutableMutableWordZero: MutableWord[Free] = new MutableWord[Free](Phase.one, -1, new Array[Int](0), false)
 
   //endregion
 

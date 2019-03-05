@@ -1,12 +1,12 @@
-package net.alasc.symdpoly.matlab
+package net.alasc.symdpoly
+package matlab
 
 import spire.syntax.cfor._
 
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types.{MLArray, MLDouble, MLSparse, MLStructure}
 import net.alasc.symdpoly.solvers.{Instance}
-import net.alasc.symdpoly.{GramMatrix, Relaxation, algebra}
-import net.alasc.symdpoly.algebra.Phased.syntax._
+import syntax.phased._
 
 /** Data provided in the format of https://github.com/bodono/scs-matlab */
 class SCSInstance(val relaxation: Relaxation[_, _]) extends Instance {

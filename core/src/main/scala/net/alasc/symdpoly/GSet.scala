@@ -9,7 +9,8 @@ import spire.syntax.action._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly
 import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef}
-import algebra.Phased.syntax._
+import syntax.phased._
+
 /** Generating set of monomials. */
 sealed trait GSet[M <: generic.MonoidDef with Singleton] { lhs =>
   def monomials(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial]

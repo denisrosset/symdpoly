@@ -76,7 +76,8 @@ object I3322 {
 object I3322App extends App {
 
   import I3322._
-  for (level <- 2 to 5) {
+  for (level <- 2 to 4) {
+    println(level)
     val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
     relaxation.mosekInstance.writeCBF(s"i3322_$level.cbf")
     relaxation.sdpaInstance.writeFile(s"i3322_$level.dat-s")

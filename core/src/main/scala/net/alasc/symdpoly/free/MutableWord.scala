@@ -394,6 +394,3 @@ object MutableWord {
 
 }
 
-protected[free] final class MutableWordOrder[F <: MonoidDef with Singleton] extends Order[MutableWord[F]] {
-  def compare(x: MutableWord[F], y: MutableWord[F]): Int = x.compareTo(y)
-}

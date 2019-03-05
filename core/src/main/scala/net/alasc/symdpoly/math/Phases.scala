@@ -246,23 +246,23 @@ object Phases {
   implicit def abGroup: AbGroup[Phases] = instances
   implicit def involution: Involution[Phases] = instances
 
-}
+  private[this] final class PhasesPermAction extends Action[Phases, Perm] {
+    def actl(g: Perm, p: Phases): Phases = actr(p, g.inverse)
+    def actr(p: Phases, g: Perm): Phases = p.mapKeys(g)
+  }
 
-protected[math] final class PhasesPermAction extends Action[Phases, Perm] {
-  def actl(g: Perm, p: Phases): Phases = actr(p, g.inverse)
-  def actr(p: Phases, g: Perm): Phases = p.mapKeys(g)
-}
+  private[this] final class PhasesInstances extends Eq[Phases] with AbGroup[Phases] with Involution[Phases] {
+    override def remove(x: Phases, y: Phases): Phases = x |-| y
+    def inverse(x: Phases): Phases = x.inverse
+    def eqv(x: Phases, y: Phases): Boolean = x.internal_===(y)
+    def empty: Phases = Phases.empty
+    def adjoint(a: Phases): Phases = a.adjoint
+    def combine(x: Phases, y: Phases): Phases = x |+| y
+  }
 
-protected[math] final class PhasesInstances extends Eq[Phases] with AbGroup[Phases] with Involution[Phases] {
-  override def remove(x: Phases, y: Phases): Phases = x |-| y
-  def inverse(x: Phases): Phases = x.inverse
-  def eqv(x: Phases, y: Phases): Boolean = x.internal_===(y)
-  def empty: Phases = Phases.empty
-  def adjoint(a: Phases): Phases = a.adjoint
-  def combine(x: Phases, y: Phases): Phases = x |+| y
-}
+  private[this] final class PhasesPhasedIntAction extends Action[PhasedInt, Phases] {
+    def actl(g: Phases, pi: PhasedInt): PhasedInt = g.invImage(pi)
+    def actr(pi: PhasedInt, g: Phases): PhasedInt = g.image(pi)
+  }
 
-protected[math] final class PhasesPhasedIntAction extends Action[PhasedInt, Phases] {
-  def actl(g: Phases, pi: PhasedInt): PhasedInt = g.invImage(pi)
-  def actr(pi: PhasedInt, g: Phases): PhasedInt = g.image(pi)
 }

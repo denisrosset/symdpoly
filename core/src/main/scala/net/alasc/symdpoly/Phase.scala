@@ -70,15 +70,6 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
   def toCyclo: Cyclo = Cyclo.e(n).pow(k)
 }
 
-protected[symdpoly] final class PhaseInstances extends Eq[Phase] with MultiplicativeAbGroup[Phase] with Involution[Phase] {
-  def div(x: Phase, y: Phase): Phase = x / y
-  override def reciprocal(x: Phase): Phase = x.reciprocal
-  def one: Phase = Phase(0, 1)
-  def times(x: Phase, y: Phase): Phase = x * y
-  def adjoint(x: Phase): Phase = x.adjoint
-  def eqv(x: Phase, y: Phase): Boolean = x.encoding == y.encoding
-}
-
 object Phase {
   // implicit conversion
   implicit def toCyclo(p: Phase): Cyclo = p.toCyclo
@@ -119,5 +110,14 @@ object Phase {
   // for tests
   implicit def nonZero: Predicate[Phase] = Predicate(x => true)
   implicit val arb: Arbitrary[Phase] = Arbitrary(gen)
+
+  private[this] final class PhaseInstances extends Eq[Phase] with MultiplicativeAbGroup[Phase] with Involution[Phase] {
+    def div(x: Phase, y: Phase): Phase = x / y
+    override def reciprocal(x: Phase): Phase = x.reciprocal
+    def one: Phase = Phase(0, 1)
+    def times(x: Phase, y: Phase): Phase = x * y
+    def adjoint(x: Phase): Phase = x.adjoint
+    def eqv(x: Phase, y: Phase): Boolean = x.encoding == y.encoding
+  }
 
 }

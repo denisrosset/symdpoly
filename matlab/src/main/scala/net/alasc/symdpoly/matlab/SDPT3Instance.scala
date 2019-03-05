@@ -1,4 +1,5 @@
-package net.alasc.symdpoly.matlab
+package net.alasc.symdpoly
+package matlab
 
 import spire.syntax.cfor._
 
@@ -6,7 +7,7 @@ import com.jmatio.io.MatFileWriter
 import com.jmatio.types._
 import net.alasc.symdpoly.solvers.{Instance}
 import net.alasc.symdpoly.{GramMatrix, Relaxation}
-import net.alasc.symdpoly.algebra.Phased.syntax._
+import syntax.phased._
 
 class SDPT3Instance(val relaxation: Relaxation[_, _]) extends Instance {
 
