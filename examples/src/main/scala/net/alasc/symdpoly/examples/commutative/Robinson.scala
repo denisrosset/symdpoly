@@ -34,7 +34,7 @@ object Robinson extends App {
   /** Monomials are equivalent under commutation of variables, so we define the corresponding
     * quotient monoid by the commutation rules.
     */
-  val Quotient = quotient.MonoidDef.commutative(Free)
+  val Quotient = Free.quotientMonoid(quotient.commutative)
 
   /** Polynomial form given in equation (16) page 109, expressed in the quotient polynomial ring. */
   val f = Quotient.quotient(

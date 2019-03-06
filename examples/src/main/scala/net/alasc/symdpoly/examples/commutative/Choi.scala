@@ -20,7 +20,7 @@ object Choi extends App {
 
   import Free.{X, Y}
 
-  val Quotient = quotient.MonoidDef.commutative(Free)
+  val Quotient = Free.quotientMonoid(quotient.commutative)
 
   val B = X(1).pow(2)*Y(1).pow(2) + X(2).pow(2)*Y(2).pow(2) + X(3).pow(2)*Y(3).pow(2) -
     (X(1)*X(2)*Y(1)*Y(2) + X(2)*X(3)*Y(2)*Y(3) + X(3)*X(1)*Y(3)*Y(1)) * 2 +

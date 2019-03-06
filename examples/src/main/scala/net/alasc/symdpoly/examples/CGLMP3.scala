@@ -21,14 +21,14 @@ object CGLMP3 extends App {
 
   import Free.{A, B}
 
-  val Quotient = quotient.MonoidDef(Free) {
+  val Quotient = Free.quotientMonoid(quotient.pairs {
     case (A(a1, x1), A(a2, x2)) if x1 == x2 && a1 == a2 => A(a1, x1)
     case (A(a1, x1), A(a2, x2)) if x1 == x2 && a1 != a2 => Free.zero
     case (B(b1, y1), B(b2, y2)) if y1 == y2 && b1 == b2 => B(b1, y1)
     case (B(b1, y1), B(b2, y2)) if y1 == y2 && b1 != b2 => Free.zero
     case (b: B, a: A) => a * b
     case (op1, op2) => op1 * op2
-  }
+  })
 
   val swapParties = Free.permutation {
     case A(c,z) => B(c,z)

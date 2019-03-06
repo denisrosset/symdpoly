@@ -22,12 +22,12 @@ object CHSH {
 
   import Free.{A, B}
 
-  val Quotient = quotient.MonoidDef(Free) {
+  val Quotient = Free.quotientMonoid(quotient.pairs {
     case (A(x1), A(x2)) if x1 == x2 => Free.one
     case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (B(y), A(x)) => A(x) * B(y)
     case (op1, op2) => op1 * op2
-  }
+  })
 
   val swapParties = Free.permutation {
     case A(i) => B(i)

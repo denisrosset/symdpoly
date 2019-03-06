@@ -17,14 +17,14 @@ object Distributed {
 
   import Free.{A, B}
 
-  val Quotient = quotient.MonoidDef(Free) {
+  val Quotient = Free.quotientMonoid(quotient.pairs {
     case (A(x1), A(x2)) if x1 == x2 => Free.one
     case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (B(y), A(x)) => A(x) * B(y)
 /*    case (A(x1), A(x2)) if x1 > x2 => A(x2) * A(x1)
     case (B(y1), B(y2)) if y1 > y2 => B(y2) * B(y1)*/
     case (op1, op2) => op1 * op2
-  }
+  })
 
   def PA(a: Int, x: Int) = a match {
     case 0 => (Poly.one[Free.type, Free.type] + A(x).toMono)/2

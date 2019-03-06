@@ -17,7 +17,7 @@ class CHSHAlgebraSuite extends CommonSuite {
   import laws.Monos._
   import laws.Polys._
 
-  object FM extends free.MonoidDef(2) {
+  object Free extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianOpFamily1(0 to 1)
@@ -28,52 +28,52 @@ class CHSHAlgebraSuite extends CommonSuite {
     val operators = Seq(A, B)
   }
 
-  import FM.{A, B}
+  import Free.{A, B}
 
-  val swapParties = FM.permutation {
+  val swapParties = Free.permutation {
     case A(i) => B(i)
     case B(i) => A(i)
   }
 
-  val swapInputA = FM.permutation {
+  val swapInputA = Free.permutation {
     case A(x) => A(1-x)
     case B(y) => B(y)
   }
 
-  val swapOutputA0 = FM.permutation {
+  val swapOutputA0 = Free.permutation {
     case A(0) => A(0)*Phase.minusOne
     case op => op
   }
 
   val CHSH = A(0)*B(0) + B(1)*A(0) + A(1)*B(0) - A(1)*B(1)
 
-  checkAll("free monoid", RingLaws[FreeBasedMono.Free[FM.type]].multiplicativeMonoid)
-  checkAll("free monoid involution", InvolutionLaws[FreeBasedMono.Free[FM.type]].involutionMultiplicativeMonoid)
-  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono.Free[FM.type]].multiplicativeBinoid)
+  checkAll("free monoid", RingLaws[FreeBasedMono.Free[Free.type]].multiplicativeMonoid)
+  checkAll("free monoid involution", InvolutionLaws[FreeBasedMono.Free[Free.type]].involutionMultiplicativeMonoid)
+  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono.Free[Free.type]].multiplicativeBinoid)
 
-  val QM = quotient.MonoidDef(FM) {
+  val Quotient = Free.quotientMonoid(quotient.pairs {
     case (A(x1), A(x2)) if x1 == x2 => FreeBasedMono.one
     case (B(y1), B(y2)) if y1 == y2 => FreeBasedMono.one
     case (B(y), A(x)) => A(x) * B(y)
     case (op1, op2) => op1 * op2
-  }
+  })
 
-  val ambientGroup = QM.groupInQuotient(Grp(swapParties, swapInputA, swapOutputA0))
+  val ambientGroup = Quotient.groupInQuotient(Grp(swapParties, swapInputA, swapOutputA0))
 
-  val gset: GSet[QM.type] = QM.quotient(GSet.onePlus(A, B))
+  val gset: GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B))
 
-  val L: Evaluator[QM.type] = QM.evaluator.real
-  val gramMatrix = GramMatrix[L.type, QM.type](L, gset)
+  val L: Evaluator[Quotient.type] = Quotient.evaluator.real
+  val gramMatrix = GramMatrix[L.type, Quotient.type](L, gset)
 
-  checkAll("quotient monoid", RingLaws[FreeBasedMono[QM.type, FM.type]].multiplicativeMonoid)
-  checkAll("quotient monoid involution", InvolutionLaws[FreeBasedMono[QM.type, FM.type]].involutionMultiplicativeMonoid)
-  checkAll("quotient binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono[QM.type, FM.type]].multiplicativeBinoid)
+  checkAll("quotient monoid", RingLaws[FreeBasedMono[Quotient.type, Free.type]].multiplicativeMonoid)
+  checkAll("quotient monoid involution", InvolutionLaws[FreeBasedMono[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
+  checkAll("quotient binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono[Quotient.type, Free.type]].multiplicativeBinoid)
 
   import cyclo.Cyclos.arbCyclo
   implicit val cycloPred: Predicate[Cyclo] = { (c: Cyclo) => !c.isZero}
-  checkAll("nc poly ring", spire.laws.RingLaws[Poly[QM.type, FM.type]].ring)
-  checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[Poly[QM.type, FM.type], Cyclo].vectorSpace)
-  checkAll("nc ring involution", spire.laws.InvolutionLaws[Poly[QM.type, FM.type]].involutionMultiplicativeMonoid)
+  checkAll("nc poly ring", spire.laws.RingLaws[Poly[Quotient.type, Free.type]].ring)
+  checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[Poly[Quotient.type, Free.type], Cyclo].vectorSpace)
+  checkAll("nc ring involution", spire.laws.InvolutionLaws[Poly[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
 
   test("Sign interpretation") {
     val e1 = A(1) - A(0) - A(0)

@@ -8,7 +8,7 @@ import joptimizer._
 object I3322 {
 
   /** The operator variables are A(x=0,1,2) B(y=0,1,2). */
-  object FM extends free.MonoidDef(2) {
+  object Free extends free.MonoidDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianOpFamily1(0 to 2)
@@ -19,54 +19,54 @@ object I3322 {
     val operators = Seq(A, B)
   }
 
-  import FM.{A, B}
+  import Free.{A, B}
 
   /** Quotient monoid expressing that A and B commute, and that A(x) and B(y) are projectors
     * with +1/-1 eigenvalues.
     */
-  val QM = quotient.MonoidDef(FM) {
-    case (A(x1), A(x2)) if x1 == x2 => FM.one
-    case (B(y1), B(y2)) if y1 == y2 => FM.one
+  val Quotient = Free.quotientMonoid(quotient.pairs {
+    case (A(x1), A(x2)) if x1 == x2 => Free.one
+    case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (B(y), A(x)) => A(x) * B(y)
     case (op1, op2) => op1 * op2
-  }
+  })
 
   /** Permutations that preserve the quotient structure. */
-  val swapParties = FM.permutation {
+  val swapParties = Free.permutation {
     case A(i) => B(i)
     case B(i) => A(i)
   }
 
-  val inputSwapA = FM.permutation {
+  val inputSwapA = Free.permutation {
     case A(0) => A(1)
     case A(1) => A(0)
     case op => op
   }
 
-  val inputCyclicA = FM.permutation {
+  val inputCyclicA = Free.permutation {
     case A(0) => A(1)
     case A(1) => A(2)
     case A(2) => A(0)
     case op => op
   }
 
-  val outputA0 = FM.permutation {
+  val outputA0 = Free.permutation {
     case A(0) => -A(0)
     case op => op
   }
 
-  val feasibilityGroup = QM.groupInQuotient(Grp(swapParties, inputSwapA, inputCyclicA, outputA0))
+  val feasibilityGroup = Quotient.groupInQuotient(Grp(swapParties, inputSwapA, inputCyclicA, outputA0))
 
-  def generatingSet(npaLevel: Int): GSet[QM.type] = QM.quotient(GSet.onePlus(A, B)).pow(npaLevel)
+  def generatingSet(npaLevel: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B)).pow(npaLevel)
 
-  val L = QM.evaluator.real
+  val L = Quotient.evaluator.real
 
-  val bellOperator = QM.quotient(
+  val bellOperator = Quotient.quotient(
     A(2) * B(1) + A(1) * B(2) - A(1) * B(1) - A(0) * B(2) - A(2) * B(0) - A(1) * B(0) - A(0) * B(1) - A(0) * B(0)
      - A(0) - A(1) - B(0) - B(1)
   )/4
 
-  val feasGrp = QM.groupInQuotient(FM.symmetryGroup)
+  val feasGrp = Quotient.groupInQuotient(Free.symmetryGroup)
   val symGrp = feasGrp.leavesInvariant(L(bellOperator))
   val Lsym = L.symmetric(symGrp)
   val problem = Lsym(bellOperator).maximize
@@ -76,7 +76,7 @@ object I3322 {
 object I3322App extends App {
 
   import I3322._
-  for (level <- 2 to 4) {
+  for (level <- 2 to 5) {
     println(level)
     val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
     relaxation.mosekInstance.writeCBF(s"i3322_$level.cbf")
