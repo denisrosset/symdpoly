@@ -2,7 +2,6 @@ package net.alasc.symdpoly
 package evaluation
 
 import scala.annotation.tailrec
-
 import cats.Invariant
 import shapeless.Witness
 import spire.algebra.Action
@@ -11,8 +10,8 @@ import spire.syntax.std.seq._
 import cats.syntax.invariant._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.evaluation.TodoEquivalence.{CyclicEquivalence, TransposeEquivalence}
-import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPermutation, FreeBasedPermutationMonoAction}
-import net.alasc.symdpoly.math.GrpDecomposition
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPermutation, FreeBasedPoly}
+import net.alasc.symdpoly.math.{GrpDecomposition, Phase}
 import syntax.all._
 import instances.all._
 
@@ -40,7 +39,7 @@ final class FreeBasedEvaluator[
     new EvaluatedMono[this.type, M](new FreeBasedMono[M, F](word.setImmutable()))
   }
 
-  override def apply(poly: Poly[M, F], pad: FreeScratchPad[F])(implicit d: DummyImplicit): EvaluatedPoly[this.type, M] = {
+  override def apply(poly: FreeBasedPoly[M, F], pad: FreeScratchPad[F])(implicit d: DummyImplicit): EvaluatedPoly[this.type, M] = {
     val resPoly = free.MutablePoly.empty[F](poly.nTerms)
     cforRange(0 until poly.nTerms) { i =>
       val word = poly.monomialNormalForm(i).mutableCopy()
@@ -86,7 +85,7 @@ final class FreeBasedEvaluator[
 
   def symmetric[G](grp: Grp[G])(implicit action: Action[FreeBasedMono[M, F], G]): FreeBasedEvaluator[M, F]  = {
     val e = action match {
-      case fbpma: FreeBasedPermutationMonoAction[M, F] =>
+      case fbpma: FreeBasedPermutation.FreeBasedPermutationMonoAction[M, F] =>
         val grp1 = grp.asInstanceOf[Grp[FreeBasedPermutation[M, F]]]
         new SymmetryFreeBasedEquivalence[M, F](grp1)
       case _ =>

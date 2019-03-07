@@ -73,5 +73,5 @@ Thus the example above would be presented:
 import net.alasc.symdpoly._;
 import net.alasc.symdpoly.defaults._;
 
-examples.CHSH.relaxation.sdpaInstance.data
+examples.quantum.CHSH.relaxation.sdpaInstance.data
 ```

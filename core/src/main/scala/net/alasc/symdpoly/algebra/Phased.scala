@@ -3,6 +3,7 @@ package algebra
 
 
 import cats.Invariant
+import net.alasc.symdpoly.math.Phase
 import spire.algebra.MultiplicativeAction
 import spire.macros.Ops
 

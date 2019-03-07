@@ -15,19 +15,20 @@ We return to our CHSH example, but removing the syntactic sugar present in the [
 
 ```tut:silent
 import net.alasc.symdpoly._
+import math.Phase
 import defaults._
 
 object Free extends free.MonoidDef(cyclotomicOrder = 2) {
   case class A(x: Int) extends Op {
 	def adjoint: Op = this
   }
-  object A extends OpType {
+  object A extends OpFamily {
 	val allInstances = Seq(A(0), A(1))
   }
   case class B(y: Int) extends Op {
     def adjoint: Op = this
   }
-  object B extends OpType {
+  object B extends OpFamily {
     val allInstances = Seq(B(0), B(1))
   }
   val operators = Seq(A, B)
@@ -46,7 +47,7 @@ object Free1 extends free.MonoidDef(cyclotomicOrder = 4) {
     override def toString = if (isAdjoint) s"X($i)*" else s"X($i)"
     def adjoint: Op = X(i, !isAdjoint)
   }
-  object X extends OpType {
+  object X extends OpFamily {
     val allInstances = Seq(X(0), X(1), X(2), X(0).adjoint, X(1).adjoint, X(2).adjoint)
   }
   val operators = Seq(X)
@@ -71,9 +72,9 @@ To ease the boilerplate of defining `allInstances` and the `adjoint` method for 
 ```tut:silent
 object FreeSimplified extends free.MonoidDef(2) {
   case class A(x: Int) extends HermitianOp // defines an `adjoint` method that is the identity
-  object A extends HermitianType1(0 to 1)  // enumerates the instances from a given Range, if the operator has a single index
+  object A extends HermitianOpFamily1(0 to 1)  // enumerates the instances from a given Range, if the operator has a single index
   case class B(y: Int) extends HermitianOp
-  object B extends HermitianType1(0 to 1)
+  object B extends HermitianOpFamily1(0 to 1)
   val operators = Seq(A, B)
 }
 ```
@@ -86,7 +87,7 @@ object Free1Simplified extends free.MonoidDef(4) {
     override def toString = if (isAdjoint) s"X($i)*" else s"X($i)"
     def adjoint: Op = X(i, !isAdjoint)
   }
-  object X extends NonHermitianType1(0 to 2)
+  object X extends OpFamily1(0 to 2)
   val operators = Seq(X)
 }
 ```
@@ -154,9 +155,10 @@ Due to the same syntax issue, constant terms must be added from the right:
 p - sqrt(2)*2
 ```
 
-or use the cumbersome `Poly.constant`:
+or use a cumbersome syntax:
 ```tut
-Poly.constant[Free.type, Free.type](sqrt(2)*2) - p
+Free.one*(sqrt(2)*2)
+Free.one*(sqrt(2)*2) - p
 ```
 
 This will fail:

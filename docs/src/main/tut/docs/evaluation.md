@@ -9,7 +9,7 @@ Having defined the quotient algebra, there can be an additional equivalence rela
 
 ```tut:silent
 import net.alasc.symdpoly._
-import net.alasc.symdpoly.examples.CHSH.{Free, Quotient}
+import net.alasc.symdpoly.examples.quantum.CHSH.{Free, Quotient}
 def A(x: Int) = Quotient.quotient(Free.A(x))
 def B(y: Int) = Quotient.quotient(Free.B(y))
 ```

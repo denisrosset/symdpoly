@@ -1,6 +1,6 @@
 package net.alasc.symdpoly
 
-import net.alasc.symdpoly.math.{GenPerm, PhasedInt}
+import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
 
 package object matlab {
 

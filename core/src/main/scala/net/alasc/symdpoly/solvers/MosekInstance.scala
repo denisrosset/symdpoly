@@ -22,12 +22,12 @@ class MosekInstance(val relaxation: Relaxation[_, _]) extends Instance {
   val d = matrixSize
   val dimbarvar = Array(d) // dimension of semidefinite cone
   val lenbarvar = Array(d * (d + 1) / 2) // number of scalar semidefinite variables
-  val cfix = cycloToDouble(objectiveVector(0))
+  val cfix = realCycloToDouble(objectiveVector(0))
 
   // vector b
 
   //val bkc = Array.fill(m)(mosek.boundkey.fx)
-  val blc = Array.tabulate(m)(i => cycloToDouble(objectiveVector(i + 1)))
+  val blc = Array.tabulate(m)(i => realCycloToDouble(objectiveVector(i + 1)))
   val buc = blc
 
   // LMI constant

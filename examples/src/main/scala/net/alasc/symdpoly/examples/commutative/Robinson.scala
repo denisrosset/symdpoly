@@ -18,7 +18,7 @@ import net.alasc.symdpoly.matlab._
   *
   * symmetric under the dihedral group D4 of order 8.
   */
-object Robinson extends App {
+object Robinson {
 
   /** Free monomial monoid in two variables X and Y, that includes signed monomials
     * preceded by a sign (-1 or +1), so its cyclotomic order is 2. */
@@ -83,10 +83,14 @@ object Robinson extends App {
   /** Non symmetric relaxation for comparison. */
   val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
 
+}
+
+object RobinsonApp extends App {
+  import Robinson._
+
   // We write the symmetrized SDP
   relaxationSym.sedumiInstance.writeFile("robinson_sedumi.mat")
 
   // We write the non symmetrized SDP
   relaxationNoSym.sedumiInstance.writeFile("robinson_sedumi_nosym.mat")
-
 }

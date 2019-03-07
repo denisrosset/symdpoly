@@ -4,7 +4,7 @@ package free
 import cyclo.Cyclo
 import metal.mutable.{HashMap => MMap}
 import metal.syntax._
-import net.alasc.symdpoly.generic.FreeBasedMonoidDef
+import net.alasc.symdpoly.generic.{FreeBasedMonoidDef, FreeBasedPoly}
 import shapeless.Witness
 
 import scala.annotation.tailrec
@@ -48,7 +48,7 @@ class MutablePoly[F <: free.MonoidDef.Aux[F] with Singleton](private[this] val _
 
   override def hashCode: Int = sys.error("Not Implemented")
 
-  def immutableCopy[M <: FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux]: Poly[M, F] = {
+  def immutableCopy[M <: FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux]: FreeBasedPoly[M, F] = {
     val n = _terms.size
     val keyArray = new Array[MutableWord[F]](n)
     val valueArray = new Array[Cyclo](n)
@@ -79,7 +79,7 @@ class MutablePoly[F <: free.MonoidDef.Aux[F] with Singleton](private[this] val _
         combSortPass(gap)
     }
     if (n > 1) combSortPass(n)
-    new Poly[M, F](keyArray, valueArray)
+    new FreeBasedPoly[M, F](keyArray, valueArray)
   }
 
   override def toString: String = immutableCopy[F].toString

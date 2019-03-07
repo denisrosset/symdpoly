@@ -2,11 +2,9 @@ package net.alasc.symdpoly
 package generic
 
 import scala.reflect.ClassTag
-
 import cats.Invariant
 import shapeless.Witness
 import spire.algebra.{Action, Eq, Group, Order}
-
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.algebra.Phased
@@ -20,8 +18,9 @@ import spire.syntax.group._
 import cats.syntax.invariant._
 import cats.syntax.contravariant._
 import net.alasc.partitions.Partition
-import net.alasc.symdpoly.math.PhasedInt
+import net.alasc.symdpoly.math.{Phase, PhasedInt}
 import net.alasc.perms.default._
+import net.alasc.symdpoly.util.OrderedSet
 
 /** A Permutation relabels the operator variables of monomials, possibly with a phase. */
 trait Permutation[M <: generic.MonoidDef with Singleton]

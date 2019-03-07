@@ -1,11 +1,10 @@
 package net.alasc.symdpoly
-
-import spire.algebra.{Eq, Involution, MultiplicativeAbGroup}
+package math
 
 import cyclo.Cyclo
-
 import org.scalacheck.{Arbitrary, Gen}
 import org.typelevel.discipline.Predicate
+import spire.algebra.{Eq, Involution, MultiplicativeAbGroup}
 
 /** Represents a root of unity exp(2*pi*k/n), where k = 0, ..., n - 1.
   *

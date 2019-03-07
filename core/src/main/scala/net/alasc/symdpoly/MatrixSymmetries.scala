@@ -1,12 +1,10 @@
 package net.alasc.symdpoly
 
 import cats.Contravariant
-
 import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, SymmetryEquivalence}
 import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import scalin.immutable.dense._
 import spire.syntax.action._
-
 import syntax.all._
 import instances.all._
 import spire.syntax.group._
@@ -18,17 +16,16 @@ import shapeless.Witness
 import spire.algebra.{Group, Monoid, Order}
 import spire.syntax.action._
 import spire.syntax.cfor._
-
 import net.alasc.algebra.PermutationAction
 import net.alasc.bsgs.GrpChain
 import net.alasc.finite.Grp
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.algebra.{Morphism, MultiplicativeBinoid, Phased}
-import net.alasc.symdpoly.math.{GenPerm, Phases}
+import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import spire.std.unit._
-
 import net.alasc.perms.default._
 import net.alasc.symdpoly.generic.FreeBasedMono
+import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.util.Tuple2Int
 
 /** Describes the symmetries of a matrix. */

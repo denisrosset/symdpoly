@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 
 import net.alasc.perms.Perm
-import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
+import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt, Phases}
 import spire.laws.{ActionLaws, InvolutionLaws, RingLaws}
 
 class PhaseSuite extends CommonSuite {

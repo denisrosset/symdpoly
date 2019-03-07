@@ -42,7 +42,7 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def quotient(word: FreeBasedMono[Free, Free]): Monomial
 
   /** Quotient map from the polynomial ring on the free monoid to the polynomial ring on the quotient monoid. */
-  def quotient(poly: Poly[Free, Free]): Poly[self.type, Free]
+  def quotient(poly: FreeBasedPoly[Free, Free]): FreeBasedPoly[self.type, Free]
 
   //endregion
 
@@ -76,10 +76,10 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   //region Polynomials
 
   /** Polynomial are elements of the ring defined on this monoid. */
-  type Polynomial = Poly[self.type, Free]
+  type Polynomial = FreeBasedPoly[self.type, Free]
 
   /** Returns a polynomial containing a single monomial term. */
-  def monomialToPolynomial(m: FreeBasedMono[self.type, Free]): Poly[self.type, Free] = Poly[self.type, Free](m)
+  def monomialToPolynomial(m: FreeBasedMono[self.type, Free]): FreeBasedPoly[self.type, Free] = FreeBasedPoly[self.type, Free](m)
 
   // Polynomial typeclass instances
 
@@ -87,7 +87,7 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def polyAssociativeAlgebra: FieldAssociativeAlgebra[Polynomial, Cyclo] = polyInstances
   def polyInvolution: Involution[Polynomial] = polyInstances
   def polyEq: Eq[Polynomial] = polyInstances
-  val polyGenPermAction: Action[Poly[self.type, Free], GenPerm] = new PolyGenPermAction
+  val polyGenPermAction: Action[FreeBasedPoly[self.type, Free], GenPerm] = new FreeBasedPoly.PolyGenPermAction
 
   //endregion
 
@@ -99,7 +99,7 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   val permutationGroup: Group[Permutation] = Group[GenPerm].imap(new FreeBasedPermutation[self.type, Free](_))(_.genPerm)
   val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[Permutation] =
     FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
-  val permutationMonoAction: Action[Monomial, Permutation] = new FreeBasedPermutationMonoAction[self.type, Free]
+  val permutationMonoAction: Action[Monomial, Permutation] = new FreeBasedPermutation.FreeBasedPermutationMonoAction[self.type, Free]
 
   /** Returns the symmetry group that leaves the structure of this monoid invariant. */
   def symmetryGroup: Grp[FreeBasedPermutation[self.type, Free]]
@@ -112,16 +112,16 @@ object FreeBasedMonoidDef {
   type Aux[F <: free.MonoidDef with Singleton] = FreeBasedMonoidDef { type Free = F }
 
   private[FreeBasedMonoidDef] final class PolyInstances[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit val wM: Witness.Aux[M])
-    extends FieldAssociativeAlgebra[Poly[M, F], Cyclo] with Involution[Poly[M, F]] with Eq[Poly[M, F]] {
-    def adjoint(a: Poly[M, F]): Poly[M, F] = a.adjoint
-    def negate(x: Poly[M, F]): Poly[M, F] = -x
-    def zero: Poly[M, F] = Poly.zero[M, F]
-    def plus(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x + y
-    def one: Poly[M, F] = Poly.one[M, F]
-    def times(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x * y
-    def eqv(x: Poly[M, F], y: Poly[M, F]): Boolean = x == y
+    extends FieldAssociativeAlgebra[FreeBasedPoly[M, F], Cyclo] with Involution[FreeBasedPoly[M, F]] with Eq[FreeBasedPoly[M, F]] {
+    def adjoint(a: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = a.adjoint
+    def negate(x: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = -x
+    def zero: FreeBasedPoly[M, F] = FreeBasedPoly.zero[M, F]
+    def plus(x: FreeBasedPoly[M, F], y: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = x + y
+    def one: FreeBasedPoly[M, F] = FreeBasedPoly.one[M, F]
+    def times(x: FreeBasedPoly[M, F], y: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = x * y
+    def eqv(x: FreeBasedPoly[M, F], y: FreeBasedPoly[M, F]): Boolean = x == y
     implicit def scalar: Field[Cyclo] = Cyclo.typeclasses
-    def timesl(c: Cyclo, v: Poly[M, F]): Poly[M, F] = c *: v
+    def timesl(c: Cyclo, v: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = c *: v
   }
 
 }

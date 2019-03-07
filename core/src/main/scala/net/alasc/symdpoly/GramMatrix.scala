@@ -4,14 +4,11 @@ import cats.Contravariant
 import shapeless.Witness
 import spire.algebra.{Group, Involution, Monoid, Order}
 import spire.syntax.cfor.cforRange
-
 import scalin.immutable.Mat
-
 import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, SymmetryEquivalence}
 import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import scalin.immutable.dense._
 import spire.syntax.action._
-
 import syntax.all._
 import instances.all._
 import spire.syntax.group._
@@ -20,17 +17,16 @@ import spire.syntax.involution._
 import cats.syntax.invariant._
 import cats.syntax.contravariant._
 import spire.syntax.action._
-
 import net.alasc.algebra.PermutationAction
 import net.alasc.bsgs.GrpChain
 import net.alasc.finite.Grp
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.algebra.{Morphism, MultiplicativeBinoid, Phased}
-import net.alasc.symdpoly.math.{GenPerm, Phases}
+import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import spire.std.unit._
-
 import net.alasc.perms.default._
 import net.alasc.symdpoly.generic.FreeBasedMono
+import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.util.Tuple2Int
 
 class GramMatrix[

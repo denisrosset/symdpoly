@@ -6,9 +6,9 @@ import spire.algebra.{Eq, Order, VectorSpace}
 import spire.syntax.cfor._
 import scalin.syntax.all._
 import cyclo.Cyclo
+import net.alasc.symdpoly.util.OrderedSet
 import scalin.immutable.{Vec, VecEngine}
-
-import net.alasc.symdpoly.{OrderedSet, generic, valueOf}
+import net.alasc.symdpoly.{generic, valueOf}
 
 final class EvaluatedPoly[E <: Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton:Witness.Aux](val normalForm: M#Polynomial) { lhs =>
 

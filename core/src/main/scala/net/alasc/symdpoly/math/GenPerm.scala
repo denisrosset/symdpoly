@@ -8,9 +8,8 @@ import net.alasc.util._
 import spire.algebra._
 import spire.math.SafeLong
 import spire.syntax.eq._
-import scala.annotation.tailrec
 
-import net.alasc.symdpoly.Phase
+import scala.annotation.tailrec
 
 /** A generalized permutation is an element of the generalized symmetric group, and combines
   * a permutation and a multiplication by a diagonal matrix whose entries are rational roots

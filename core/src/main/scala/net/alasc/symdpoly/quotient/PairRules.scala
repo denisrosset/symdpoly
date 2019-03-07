@@ -7,6 +7,7 @@ import spire.syntax.cfor._
 import net.alasc.symdpoly
 import net.alasc.symdpoly.generic.FreeBasedMono
 
+/** Not used at the moment. Fast storage of rules applying to pairs of operators. */
 class PairRules[F <: free.MonoidDef.Aux[F] with Singleton](val width: Int, val lookup: Array[Int], val custom: Map[(F#Op, F#Op), FreeBasedMono[F, F]])(implicit wF: Witness.Aux[F]) {
   import PairRules.{cellIndex, getMaskIndex}
   // 4 bits per value, so each Int in the array stores 8 rules

@@ -4,11 +4,9 @@ package generic
 import cats.kernel.Eq
 import shapeless.Witness
 import spire.algebra.{Action, Involution, MultiplicativeMonoid, Order}
-
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.free.MutableWord
-import net.alasc.symdpoly.math.GenPerm
-import net.alasc.symdpoly.{Phase, Poly, PolyTerm, free, valueOf}
+import net.alasc.symdpoly.math.{GenPerm, Phase}
 import org.typelevel.discipline.Predicate
 
 /** An element of a [[FreeBasedMonoidDef]], which represents a monomial in a polynomial ring.
@@ -18,7 +16,7 @@ import org.typelevel.discipline.Predicate
 class FreeBasedMono[
   M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](protected[symdpoly] val data: MutableWord[F]) extends PolyTerm[M, F] { lhs =>
+](protected[symdpoly] val data: MutableWord[F]) extends FreeBasedPolyTerm[M, F] { lhs =>
 
   require(!data.mutable)
   require(F.cyclotomicOrder % data.phase.n == 0)
@@ -75,11 +73,11 @@ class FreeBasedMono[
 
   //region Conversion to polynomials
 
-  def toPoly: Poly[M, F] = Poly(lhs)
+  def toPoly: FreeBasedPoly[M, F] = FreeBasedPoly(lhs)
 
-  def +(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly + rhs
+  def +(rhs: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = lhs.toPoly + rhs
 
-  def *(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly * rhs
+  def *(rhs: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = lhs.toPoly * rhs
 
   //endregion
 

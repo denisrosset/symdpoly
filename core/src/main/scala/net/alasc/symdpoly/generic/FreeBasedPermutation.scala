@@ -2,15 +2,13 @@ package net.alasc.symdpoly
 package generic
 
 import scala.reflect.ClassTag
-
 import cats.{Contravariant, Invariant}
 import shapeless.Witness
 import cats.syntax.invariant._
 import cats.syntax.contravariant._
-
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
-import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
-import net.alasc.symdpoly.{Phase, free, valueOf}
+import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt, Phases}
+import net.alasc.symdpoly.{free, valueOf}
 import cats.instances.eq._
 import spire.syntax.group._
 import cats.instances.invariant._
@@ -18,9 +16,7 @@ import spire.algebra.{Action, Eq, Group, Order}
 import spire.syntax.cfor._
 import spire.syntax.action._
 import spire.syntax.group._
-
 import cyclo.Cyclo
-
 import net.alasc.perms.default._
 import net.alasc.algebra.PermutationAction
 import net.alasc.partitions.Partition
@@ -33,6 +29,7 @@ import net.alasc.symdpoly.evaluation._
 import net.alasc.symdpoly.generic.Permutation.GrpPermutationsOps
 import net.alasc.util.{NNNone, NNOption, NNSome}
 
+/** Permutation of the operator variables compatible with the structure of a monoid structure M. */
 class FreeBasedPermutation[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
@@ -58,6 +55,8 @@ object FreeBasedPermutation {
     } yield s"$op -> $opImage"
     elements.mkString("{", ", ", "}")
   }
+
+  //region Typeclasses
 
   implicit def equ[
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
@@ -88,16 +87,18 @@ object FreeBasedPermutation {
                                      group: Group[FreeBasedPermutation[M, F]]): GrpPermutationsOps[M, FreeBasedPermutation[M, F]] =
     new GrpPermutationsOps[M, FreeBasedPermutation[M, F]](grp)
 
-}
-
-class FreeBasedPermutationMonoAction[
-  M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton
-] extends Action[FreeBasedMono[M, F], FreeBasedPermutation[M, F]] {
-  def actl(g: FreeBasedPermutation[M, F], mono: FreeBasedMono[M, F]): FreeBasedMono[M, F] = actr(mono, g.inverse)
-  def actr(mono: FreeBasedMono[M, F], g: FreeBasedPermutation[M, F]): FreeBasedMono[M, F] = {
-    val word = mono.normalForm.mutableCopy.inPlaceGenPermAction(g.genPerm)
-    valueOf[M].inPlaceNormalForm(word)
-    new FreeBasedMono[M, F](word.setImmutable())
+  class FreeBasedPermutationMonoAction[
+    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
+    F <: free.MonoidDef.Aux[F] with Singleton
+  ] extends Action[FreeBasedMono[M, F], FreeBasedPermutation[M, F]] {
+    def actl(g: FreeBasedPermutation[M, F], mono: FreeBasedMono[M, F]): FreeBasedMono[M, F] = actr(mono, g.inverse)
+    def actr(mono: FreeBasedMono[M, F], g: FreeBasedPermutation[M, F]): FreeBasedMono[M, F] = {
+      val word = mono.normalForm.mutableCopy.inPlaceGenPermAction(g.genPerm)
+      valueOf[M].inPlaceNormalForm(word)
+      new FreeBasedMono[M, F](word.setImmutable())
+    }
   }
+
+  //endregion
+
 }

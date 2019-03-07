@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package laws
 
-import net.alasc.symdpoly.math.{GenPerm, Phases}
+import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import org.scalacheck.{Arbitrary, Gen}
 import org.typelevel.discipline.Predicate
 

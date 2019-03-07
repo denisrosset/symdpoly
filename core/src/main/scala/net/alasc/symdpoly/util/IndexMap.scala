@@ -4,7 +4,7 @@ package net.alasc.symdpoly.util
   *
   * The parameters given at construction time must respect that indexMap(elements(i)) == i.
   *
-  * The elements of type [[A]] must implement the [[java.lang.Object]] hashCode and equals methods.
+  * The elements of type A must implement the java.lang.Object hashCode and equals methods.
   */
 class IndexMap[A](val indexMap: Map[A, Int], val elements: Seq[A]) {
   def size: Int = elements.size

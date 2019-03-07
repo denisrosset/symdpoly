@@ -9,7 +9,7 @@ position: 3
 Again, we work with the CHSH relaxation.
 
 ```tut
-import net.alasc.symdpoly.examples.CHSH
+import net.alasc.symdpoly.examples.quantum.CHSH
 val relaxation = CHSH.relaxation
 ```
 
@@ -19,7 +19,7 @@ Note that this CHSH example includes all relabelings of parties/inputs/outputs.
 CHSH.swapParties
 CHSH.inputSwapA
 CHSH.outputSwapA0
-CHSH.ambientGroup.order
+CHSH.feasibilityGroup.order
 ```
 
 ## Exploring the monomial matrix structure
@@ -36,7 +36,7 @@ This description works only for smaller moment matrices. We now see how to get m
 
 First, the method `canonicalMonomials` returns a list of the monomials present. The first element of each row is the monomial index, followed by the canonical representative of that monomial under the symmetry group and the quotient algebra rewriting rules. Then, after the colon `:`, the orbit of (quotient) monomials under the symmetry group. The symmetry group can flip the sign of monomials, thus some elements on the right of `:` can be preceded by a phase.
 ```tut
-relaxation.canonicalMonomialsDescription(CHSH.symGroup)
+relaxation.canonicalMonomialsDescription(CHSH.symmetryGroup)
 ```
 The moment matrix is then described using that list. The first line provides the size of the moment matrix, following by the number of unique monomials.
 Then, the matrix of monomials indices.

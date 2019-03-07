@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 package syntax
 
 import net.alasc.symdpoly.algebra.Phased
+import net.alasc.symdpoly.math.Phase
 import spire.macros.Ops
 
 /** Syntax enrichment for phased. */

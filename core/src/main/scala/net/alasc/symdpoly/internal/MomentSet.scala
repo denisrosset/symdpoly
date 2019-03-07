@@ -3,16 +3,14 @@ package internal
 
 import shapeless.Witness
 import spire.syntax.cfor._
-
 import metal.IsVPtr
 import metal.mutable.{Buffer, HashMap}
 import metal.syntax._
-
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator}
-import net.alasc.symdpoly.{OrderedSet, free, generic}
 import net.alasc.util._
 import metal.syntax._
+import net.alasc.symdpoly.util.OrderedSet
 
 // TODO: optimize the things below for evaluated monomials with a normal form as a free monomial
 

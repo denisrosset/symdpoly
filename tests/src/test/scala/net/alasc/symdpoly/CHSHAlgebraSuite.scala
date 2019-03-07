@@ -1,16 +1,14 @@
 package net.alasc.symdpoly
 
 import cyclo.Cyclo
-
 import org.typelevel.discipline.Predicate
 import spire.laws.{InvolutionLaws, RingLaws}
-
 import defaults._
 import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
 import spire.math.Rational
-
 import net.alasc.symdpoly.evaluation.Evaluator
-import net.alasc.symdpoly.generic.FreeBasedMono
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPoly}
+import net.alasc.symdpoly.math.Phase
 
 class CHSHAlgebraSuite extends CommonSuite {
 
@@ -41,7 +39,7 @@ class CHSHAlgebraSuite extends CommonSuite {
   }
 
   val swapOutputA0 = Free.permutation {
-    case A(0) => A(0)*Phase.minusOne
+    case A(0) => -A(0)
     case op => op
   }
 
@@ -71,9 +69,9 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   import cyclo.Cyclos.arbCyclo
   implicit val cycloPred: Predicate[Cyclo] = { (c: Cyclo) => !c.isZero}
-  checkAll("nc poly ring", spire.laws.RingLaws[Poly[Quotient.type, Free.type]].ring)
-  checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[Poly[Quotient.type, Free.type], Cyclo].vectorSpace)
-  checkAll("nc ring involution", spire.laws.InvolutionLaws[Poly[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
+  checkAll("nc poly ring", spire.laws.RingLaws[FreeBasedPoly[Quotient.type, Free.type]].ring)
+  checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[FreeBasedPoly[Quotient.type, Free.type], Cyclo].vectorSpace)
+  checkAll("nc ring involution", spire.laws.InvolutionLaws[FreeBasedPoly[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
 
   test("Sign interpretation") {
     val e1 = A(1) - A(0) - A(0)

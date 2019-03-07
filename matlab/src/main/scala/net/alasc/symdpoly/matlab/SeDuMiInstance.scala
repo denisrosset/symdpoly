@@ -70,9 +70,9 @@ class SeDuMiInstance(val relaxation: Relaxation[_, _]) extends Instance {
 
   val a = aMatrix
 
-  val b = Array.tabulate(m)(i => cycloToDouble(objectiveVector(i + 1)))
+  val b = Array.tabulate(m)(i => realCycloToDouble(objectiveVector(i + 1)))
 
-  val objShift = cycloToDouble(objectiveVector(0)) // constant in objective not supported
+  val objShift = realCycloToDouble(objectiveVector(0)) // constant in objective not supported
 
   def writeFile(fileName: String): Unit = {
     val file = new java.io.File(fileName)

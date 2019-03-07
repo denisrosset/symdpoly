@@ -3,10 +3,9 @@ package net.alasc.symdpoly.math
 import net.alasc.perms.Perm
 import spire.algebra.{AbGroup, Action, Eq, Involution}
 import spire.syntax.cfor.cforRange
+
 import scala.annotation.tailrec
 import scala.util.hashing.MurmurHash3
-
-import net.alasc.symdpoly.Phase
 
 /** Phase vector, representing a diagonal matrix of size N x N with "root of unity" entries.
   *

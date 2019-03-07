@@ -3,10 +3,9 @@ package laws
 
 import shapeless.Witness
 import spire.NoImplicit
-
 import net.alasc.symdpoly.free.MutableWord
 import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef}
-import net.alasc.symdpoly.{Phase, free}
+import net.alasc.symdpoly.math.Phase
 import org.scalacheck.{Arbitrary, Gen}
 
 object Monos {

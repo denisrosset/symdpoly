@@ -17,9 +17,9 @@ import net.alasc.symdpoly._; import defaults._; import net.alasc.symdpoly.joptim
 
 object Free extends free.MonoidDef(cyclotomicOrder = 2) {
   case class A(x: Int) extends HermitianOp
-  object A extends HermitianType1(0 to 1)
+  object A extends HermitianOpFamily1(0 to 1)
   case class B(y: Int) extends HermitianOp
-  object B extends HermitianType1(0 to 1)
+  object B extends HermitianOpFamily1(0 to 1)
   val operators = Seq(A, B)
 }
 
@@ -28,12 +28,12 @@ import Free.{A, B}
 
 We define then the quotient algebra using simple substitution rules: those operators square to the identity, and the operators for Alice and Bob commute (`[A(x), B(y)] = 0`).
 ```tut:silent
-val Quotient = quotient.MonoidDef(Free) {
+val Quotient = Free.quotientMonoid(quotient.pairs {
   case (A(x1), A(x2)) if x1 == x2 => Free.one
   case (B(y1), B(y2)) if y1 == y2 => Free.one
   case (B(y), A(x))               => A(x) * B(y)
   case (op1, op2)                 => op1 * op2
-}
+})
 ```
 
 We define one generator of the ambient group (for simplicity), and the ambient group itself. The *ambient group* is a symmetry group that is compatible with the quotient algebra (i.e. it contains permutations `g` of the operators such that `g(quotient(monomial)) = quotient(g(monomial))` ).

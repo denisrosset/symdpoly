@@ -1,8 +1,7 @@
-package net.alasc.symdpoly.examples
-import net.alasc.symdpoly._
-import defaults._
+package net.alasc.symdpoly.examples.quantum
 
-import joptimizer._
+import net.alasc.symdpoly._
+import net.alasc.symdpoly.defaults._
 
 /** The I3322 inequality in the scenario with two parties, three measurement settings and binary outcomes. */
 object I3322 {

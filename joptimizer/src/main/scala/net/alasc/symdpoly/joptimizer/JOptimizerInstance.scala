@@ -1,4 +1,5 @@
-package net.alasc.symdpoly.joptimizer
+package net.alasc.symdpoly
+package joptimizer
 
 import scala.annotation.tailrec
 
@@ -40,9 +41,9 @@ class JOptimizerInstance(val relaxation: Relaxation[_, _]) extends Instance {
   }
 
   lazy val A = Vector.tabulate(nDualVariables)(Amatrix)
-  lazy val b = Array.tabulate(nDualVariables)(i => -cycloToDouble(objectiveVector(i + 1)))
+  lazy val b = Array.tabulate(nDualVariables)(i => -realCycloToDouble(objectiveVector(i + 1)))
   lazy val G = Gmatrix
-  lazy val cfix = cycloToDouble(objectiveVector(0))
+  lazy val cfix = realCycloToDouble(objectiveVector(0))
 
   def solve(tol: Double = 1e-9): Solution = {
     import scala.collection.JavaConverters._

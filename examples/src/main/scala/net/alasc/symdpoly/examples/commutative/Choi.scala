@@ -5,8 +5,22 @@ package commutative
 import net.alasc.symdpoly.defaults._
 import net.alasc.symdpoly.matlab._
 
-object Choi extends App {
+/** Example of a form published by Choi and Lam in
+  *
+  * M.D. Choi, T.Y. Lam, Extremal positive semidefinite forms, Math. Ann. 231 (1977) 1–18
+  *
+  * and studied in
+  *
+  * Gatermann & Parrilo, Journal of Pure and Applied Algebra 192 (2004) 95 - 128, page 109
+  *
+  * (equation 20)
+  *
+  * symmetric under a group of order 96.
+  */
+object Choi {
 
+  /** Free monomial monoid in variables X(1), X(2), X(3), Y(1), Y(2), Y(3)
+    * preceded by a sign (-1 or +1), so its cyclotomic order is 2. */
   object Free extends free.MonoidDef(2) {
 
     case class X(i: Int) extends HermitianOp
@@ -14,59 +28,61 @@ object Choi extends App {
 
     case class Y(i: Int) extends HermitianOp
     object Y extends HermitianOpFamily1(1 to 3)
+
     val operators = Seq(X, Y)
 
   }
 
   import Free.{X, Y}
 
+  /** Monomials are equivalent under commutation of variables. */
   val Quotient = Free.quotientMonoid(quotient.commutative)
 
+  /** Given form B(X, Y). */
   val B = X(1).pow(2)*Y(1).pow(2) + X(2).pow(2)*Y(2).pow(2) + X(3).pow(2)*Y(3).pow(2) -
     (X(1)*X(2)*Y(1)*Y(2) + X(2)*X(3)*Y(2)*Y(3) + X(3)*X(1)*Y(3)*Y(1)) * 2 +
     (X(1).pow(2)*Y(2).pow(2) + X(2).pow(2)*Y(3).pow(2) + X(3).pow(2)*Y(1).pow(2))
 
+  /** Additional factor to construct a SOS decomposition. */
   val S = (X(1).pow(2) + X(2).pow(2) + X(3).pow(2) + Y(1).pow(2) + Y(2).pow(2) + Y(3).pow(2))
 
-  val flipX1 = Free.permutation {
-    case X(1) => -X(1)
-    case op => op
-  }
-
-  val cyclic = Free.permutation {
-    case X(1) => X(2)
-    case X(2) => X(3)
-    case X(3) => Y(1)
-    case Y(1) => Y(2)
-    case Y(2) => Y(3)
-    case Y(3) => X(1)
-  }
-
-  val swapX1X2 = Free.permutation {
-    case X(1) => X(2)
-    case X(2) => X(1)
-    case op => op
-  }
-
-  val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
-
-  val L = Quotient.evaluator.real
-
-  val feasibilityGroup = Quotient.groupInQuotient(Grp(flipX1, cyclic, swapX1X2))
-
+  /** A minimization problem of f is expressed by maximizing -f. */
   val obj = Quotient.quotient(-B*S)
 
+  /** Default evaluator. */
+  val L = Quotient.evaluator.real
+
+  /** Group that preserves the quotient structure. */
+  val feasibilityGroup = Quotient.symmetryGroup
+
+  /** Group that preserves optimality. */
   val symmetryGroup = feasibilityGroup.leavesInvariant(L(obj))
 
+  /** Evaluator with equivalence under symmetries. */
   val Lsym = L.symmetric(symmetryGroup)
 
+  /** Symmetrized maximization problem. */
   val problem = Lsym(obj).maximize
 
-  val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
-  val relaxationSym = Lsym(obj).maximize.relaxation(generatingSet)
-  relaxationNoSym.mosekInstance.writeCBF("choinosym.cbf")
-  relaxationSym.mosekInstance.writeCBF("choisym.cbf")
+  /** Generating set of monomials. */
+  val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
 
-  relaxationSym.sedumiInstance.writeFile("choi_sedumi.mat")
+  /** Nonsymmetric relaxation. */
+  val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
+
+  /** Symmetric relaxation. */
+  val relaxationSym = Lsym(obj).maximize.relaxation(generatingSet)
+
+}
+
+object ChoiApp extends App {
+
+  import Choi._
+
+  relaxationNoSym.mosekInstance.writeCBF("choi_nosym.cbf")
+
+  relaxationSym.mosekInstance.writeCBF("choi_sym.cbf")
+
+  relaxationSym.sedumiInstance.writeFile("choi_sym_sedumi.mat")
 
 }

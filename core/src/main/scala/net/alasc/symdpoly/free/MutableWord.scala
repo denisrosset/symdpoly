@@ -1,14 +1,13 @@
 package net.alasc.symdpoly.free
 
-import net.alasc.symdpoly.math.{GenPerm, PhasedInt}
+import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
 import shapeless.Witness
 import spire.algebra.Order
 import spire.syntax.cfor.cforRange
+
 import scala.annotation.tailrec
 import scala.util.hashing.MurmurHash3
 import java.util.Arrays
-
-import net.alasc.symdpoly.Phase
 
 /** A mutable word in a free monoid. The word can be made immutable when all required transformations have been realized.
   *
@@ -25,13 +24,14 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
 
   //region Class invariants
 
+  /** Check class invariants */
   def check(): Unit = {
     require(length != -1 || phase == Phase.one)
     require(length >= -1)
     require(length <= indices.length)
   }
 
-  check()
+  check() // check invariants at construction time
 
   //endregion
 
@@ -149,6 +149,7 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
 
   def reservedSize: Int = indices.length
 
+  /** Reserves size in the mutable indices array. */
   def ensureLength(newMaxLength: Int): Unit =
     if (newMaxLength > indices.length) {
       val newIndices = new Array[Int](newMaxLength)
@@ -156,6 +157,7 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
       indices = newIndices
     }
 
+  /** Sets the contents of this [[MutableWord]] to the contents of the given word. */
   def setToContentOf(rhs: MutableWord[F]): MutableWord[F] = {
     lhs.ensureLength(rhs.length)
     lhs.phase = rhs.phase
@@ -165,11 +167,13 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
     lhs
   }
 
+  /** Makes a [[MutableWord]] immutable, so it can be stored as an immutable object. */
   def setImmutable(): MutableWord[F] = {
     mutable = false
     lhs
   }
 
+  /** Asserts that this [[MutableWord]] is mutable. Called before mutable operations are performed. */
   def checkMutable(): Unit = {
     assert(mutable)
   }
@@ -178,8 +182,10 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
 
   //region Operations on a mutable word
 
+  /** Updates the operator variable at the position i. */
   def update(i: Int, op: F#Op): Unit = update(i, F.indexFromOp(op))
 
+  /** Updates the operator variable at the position i by the operator variable with given index. */
   def update(i: Int, index: Int): Unit = {
     require(i >= 0)
     require(i <= length)
@@ -191,6 +197,8 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
     indices(i) = index
   }
 
+  /** Removes an operator variable at the specified position, shifting the position of the variables after it, and
+    * updating the mutable word length. */
   def remove(i: Int): MutableWord[F] = removeRange(i, i + 1)
 
   /** Removes the letters in the range [from, until[, until not included. */

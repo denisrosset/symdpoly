@@ -11,7 +11,7 @@ As Scala is a relatively niche programming language in the physics community, we
 In the following, we assume that the variable `relaxation` contains the SDP relaxation.
 
 ```tut:silent
-val relaxation = net.alasc.symdpoly.examples.CHSH.relaxation
+val relaxation = net.alasc.symdpoly.examples.quantum.CHSH.relaxation
 ```
 
 ## Solver input data: text-based formats

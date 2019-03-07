@@ -5,7 +5,7 @@ import spire.algebra.MultiplicativeMonoid
 
 /** Describes a multiplicative monoid that has a absorbing/zero element.
   *
-  * Its laws are described in [[net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws]].
+  * Its laws are described in net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws.
   *
   */
 trait MultiplicativeBinoid[A] extends MultiplicativeMonoid[A] {

@@ -1,10 +1,10 @@
 package net.alasc.symdpoly
 
 import spire.laws.{InvolutionLaws, RingLaws}
-
 import net.alasc.symdpoly
 import net.alasc.symdpoly.generic.FreeBasedMono
 import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
+import net.alasc.symdpoly.math.Phase
 
 class PauliMonoidSuite extends CommonSuite {
 

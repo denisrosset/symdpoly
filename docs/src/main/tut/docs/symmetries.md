@@ -11,7 +11,7 @@ We show below the syntax used to define those generators, which uses Scala [patt
 ```tut:silent
 import net.alasc.symdpoly._
 import defaults._
-import net.alasc.symdpoly.examples.CHSH.{Free, Quotient}
+import net.alasc.symdpoly.examples.quantum.CHSH.{Free, Quotient}
 import Free.{A, B}
 ```
 

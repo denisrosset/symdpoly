@@ -1,12 +1,12 @@
 package net.alasc.symdpoly
 package laws
 
-import spire.algebra.{Eq, MultiplicativeAction, MultiplicativeAbGroup}
+import spire.algebra.{Eq, MultiplicativeAbGroup, MultiplicativeAction}
 import spire.laws.ActionLaws
 import spire.syntax.eq._
 import spire.syntax.action._
-
 import net.alasc.symdpoly.algebra.Phased
+import net.alasc.symdpoly.math.Phase
 import org.scalacheck.Arbitrary
 import org.typelevel.discipline.Predicate
 import spire.laws.InvalidTestException.forAllSafe

@@ -15,8 +15,8 @@ class SDPAInstance(val relaxation: Relaxation[_, _]) extends Instance {
   val blocks: Array[Int] = Array(matrixSize)
 
   val a = Vector.tabulate(m)(i => SparseMatrix.forMoment(gramMatrix, i + 1, -1.0))
-  val b = Array.tabulate(m)(i => cycloToDouble(objectiveVector(i + 1)))
-  val objConstant = cycloToDouble(objectiveVector(0))
+  val b = Array.tabulate(m)(i => realCycloToDouble(objectiveVector(i + 1)))
+  val objConstant = realCycloToDouble(objectiveVector(0))
   val C = SparseMatrix.forMoment(gramMatrix, 0, -1.0)
 
   def writeData(writer: Writer): Unit = {
@@ -56,4 +56,3 @@ class SDPAInstance(val relaxation: Relaxation[_, _]) extends Instance {
   }
 
 }
-

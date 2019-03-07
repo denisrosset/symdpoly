@@ -17,9 +17,9 @@ class SCSInstance(val relaxation: Relaxation[_, _]) extends Instance {
   val m: Int = gramMatrix.nUniqueMonomials - 1 // number of dual variables
   val n: Int = d * (d + 1) / 2
 
-  val objShift = cycloToDouble(objectiveVector(0)) // constant in objective not supported
+  val objShift = realCycloToDouble(objectiveVector(0)) // constant in objective not supported
 
-  val c = Array.tabulate(m)(i => -cycloToDouble(objectiveVector(i + 1)))
+  val c = Array.tabulate(m)(i => -realCycloToDouble(objectiveVector(i + 1)))
 
   val b = SparseVector.forMoment(gramMatrix, 0, 1.0)
   def aMatrix: SparseMatrix = {

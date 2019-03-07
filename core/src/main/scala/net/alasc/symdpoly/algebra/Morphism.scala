@@ -38,14 +38,14 @@ object Morphism {
     def apply(s: S): T = f(s)
   }
 
-  /** Constructs a morphism for a [[net.alasc.finite.Grp]] using images of the generators. */
+  /** Constructs a morphism for a net.alasc.finite.Grp using images of the generators. */
   def fromGeneratorImages[S, T, F[_]](source: Grp[S], images: Seq[T])(implicit ev: MorphismFromGeneratorImages[S, T]): Morphism[S, T, Group] =
     ev(source, images)
 
   /** Enrichment methods for group morphisms. */
   implicit class morphismGrpImage[S, T](val morphism: Morphism[S, T, Group]) extends AnyVal {
 
-    /** Returns the image of a [[net.alasc.finite.Grp]] under a group morphism. */
+    /** Returns the image of a net.alasc.finite.Grp under a group morphism. */
     def grpImage(source: Grp[S])(implicit equ: Eq[T], group: Group[T], grpGroup: GrpGroup[T]): Grp[T] = {
       val imageGenerators = source.generators.map(morphism).filterNot(_.isEmpty)
       grpGroup.fromGenerators(imageGenerators)

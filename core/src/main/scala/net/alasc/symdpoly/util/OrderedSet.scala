@@ -1,8 +1,8 @@
-package net.alasc.symdpoly
-
-import scala.collection.immutable.SortedSet
+package net.alasc.symdpoly.util
 
 import spire.algebra.Order
+
+import scala.collection.immutable.SortedSet
 
 /** Like SortedSet, but using binary search on a sorted array to retrieve elements, the ordering given by Spire's Order typeclass. */
 class OrderedSet[A](private[this] val sortedArray: Array[AnyRef]) { lhs =>

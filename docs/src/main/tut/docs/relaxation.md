@@ -8,7 +8,7 @@ title: "Details: relaxation"
 We recall that we started with a polynomial defined over a quotient algebra, evaluated according to a set of rules, and finally maximized.
 ```tut:silent
 import net.alasc.symdpoly._
-import net.alasc.symdpoly.examples.CHSH
+import net.alasc.symdpoly.examples.quantum.CHSH
 import CHSH.{Free, Quotient}
 import Free.{A, B}
 ```

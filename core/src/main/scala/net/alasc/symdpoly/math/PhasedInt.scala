@@ -3,8 +3,6 @@ package net.alasc.symdpoly.math
 import org.scalacheck.{Arbitrary, Gen}
 import spire.algebra.Eq
 
-import net.alasc.symdpoly.Phase
-
 /** Described a domain element (integer >= 0) along with a phase. */
 class PhasedInt(val encoding: Long) extends AnyVal {
 

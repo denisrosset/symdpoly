@@ -6,13 +6,12 @@ import spire.algebra._
 import spire.syntax.cfor._
 import net.alasc.perms.Perm
 import net.alasc.symdpoly
-import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoTerm, FreeBasedMonoidDef, FreeBasedPermutation}
-import net.alasc.symdpoly.math.{GenPerm, PhasedInt, Phases}
+import net.alasc.symdpoly.generic._
+import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.quotient.SparseTrie
-import net.alasc.symdpoly.util.IndexMap
+import net.alasc.symdpoly.util.{IndexMap, SparseTrie}
 
 /** Base class for a generalized free monoid.
   *
@@ -40,7 +39,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   def Free: Free = this
 
   def quotient(word: FreeBasedMono[Free, Free]): Monomial = word
-  def quotient(poly: Poly[Free, Free]): Poly[Free, Free] = poly
+  def quotient(poly: FreeBasedPoly[Free, Free]): FreeBasedPoly[Free, Free] = poly
 
   def inPlaceNormalForm(word: MutableWord[Free], start: Int): Boolean = false // normal form reduction is a no op
 
@@ -94,14 +93,14 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     *
     * Instance types must be declared in this monoid [[operators]] sequence before using them in monomials/polynomials.
     */
-  abstract class Op extends Product with FreeBasedMonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
+  abstract class Op extends Product with FreeBasedMonoTerm[Free, Free] with FreeBasedPolyTerm[Free, Free] { lhs =>
     def wM: Witness.Aux[Free] = witnessFree
     def index: Int = indexFromOp(this)
 
     def toMono: FreeBasedMono[Free, Free] = FreeBasedMono.fromOp(lhs)
-    def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
-    def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
-    def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
+    def toPoly: FreeBasedPoly[Free, Free] = FreeBasedPoly(lhs.toMono)
+    def +(rhs: FreeBasedPoly[Free, Free]): FreeBasedPoly[Free, Free] = lhs.toPoly + rhs
+    def *(rhs: FreeBasedPoly[Free, Free]): FreeBasedPoly[Free, Free] = lhs.toPoly * rhs
     def *(rhs: FreeBasedMono[Free, Free])(implicit mm: MultiplicativeMonoid[FreeBasedMono[Free, Free]]): FreeBasedMono[Free, Free] = lhs.toMono * rhs
 
     // Returns PhasedOp
@@ -121,14 +120,14 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   }
 
   /** An operator variable in this free monoid along with a phase. */
-  case class PhasedOp(phase: Phase, op: Op) extends FreeBasedMonoTerm[Free, Free] with PolyTerm[Free, Free] { lhs =>
+  case class PhasedOp(phase: Phase, op: Op) extends FreeBasedMonoTerm[Free, Free] with FreeBasedPolyTerm[Free, Free] { lhs =>
     override def toString: String = FreeBasedMono[Free](phase, op).toString
-    def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
+    def toPoly: FreeBasedPoly[Free, Free] = FreeBasedPoly(lhs.toMono)
     def toMono: FreeBasedMono[Free, Free] = FreeBasedMono(lhs)
     def unary_- : PhasedOp = PhasedOp(-phase, op)
     def *(newPhase: Phase): PhasedOp = PhasedOp(phase * newPhase, op)
-    def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
-    def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
+    def +(rhs: FreeBasedPoly[Free, Free]): FreeBasedPoly[Free, Free] = lhs.toPoly + rhs
+    def *(rhs: FreeBasedPoly[Free, Free]): FreeBasedPoly[Free, Free] = lhs.toPoly * rhs
     def *(rhs: FreeBasedMono[Free, Free])(implicit mm: MultiplicativeMonoid[FreeBasedMono[Free, Free]]): FreeBasedMono[Free, Free] = lhs.toMono * rhs
   }
 
@@ -276,6 +275,10 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
 
   //region Construction of objects derived from this free monoid.
 
+  /** Constructs a generalized permutation of the operator variables of this free monoid.
+    *
+    * @param f Image function
+    */
   def permutation(f: Op => PhasedOp): FreeBasedPermutation[this.type, this.type] = {
     import scala.collection.mutable.{HashMap => MMap}
     val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
@@ -292,11 +295,15 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     new FreeBasedPermutation[this.type, this.type](GenPerm(perm, phases))
   }
 
+  /** Constructs the quotient monoid of this free monoid, where the quotient monoid equivalence classes are given by confluent rewriting rules.
+    *
+    * @param rules Rewriting rules given as sequences of pairs (lhs -> rhs) describing substitutions.
+    */
   def quotientMonoid(rules: net.alasc.symdpoly.quotient.Rules[monoidDef.type]*): net.alasc.symdpoly.quotient.MonoidDef.Aux[monoidDef.type] = new net.alasc.symdpoly.quotient.MonoidDef {
     val allRules: Seq[(MutableWord[monoidDef.type], MutableWord[monoidDef.type])] = rules.flatMap(_.map { case (k, v) => (k.data, v.data) })
     type Free = monoidDef.type
     def Free: Free = monoidDef
-    def rewritingRules: SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]] =
+    val rewritingRules: SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]] =
       SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]](allRules: _*)
     val maximalLhsLength: Int = allRules.foldLeft(0) { case (mx, (lhs, rhs)) => spire.math.max(mx, lhs.length) }
   }
