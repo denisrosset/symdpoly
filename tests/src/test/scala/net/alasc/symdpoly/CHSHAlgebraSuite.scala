@@ -60,7 +60,7 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   val gset: GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B))
 
-  val L: Evaluator[Quotient.type] = Quotient.evaluator.real
+  val L: Evaluator[Quotient.type] = Quotient.evaluator(evaluation.real)
   val gramMatrix = GramMatrix[L.type, Quotient.type](L, gset)
 
   checkAll("quotient monoid", RingLaws[FreeBasedMono[Quotient.type, Free.type]].multiplicativeMonoid)

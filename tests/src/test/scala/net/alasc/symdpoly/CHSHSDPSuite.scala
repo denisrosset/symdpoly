@@ -52,11 +52,11 @@ class CHSHSDPSuite extends CommonSuite {
 
     val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
-    val L = Quotient.evaluator.real
+    val L = Quotient.evaluator(evaluation.real)
 
     val symmetryGroup = feasibilityGroup.leavesInvariant(L(bellOperator))
 
-    val Lsym = L.symmetric(symmetryGroup)
+    val Lsym = Quotient.evaluator(evaluation.real, evaluation.symmetric(symmetryGroup))
 
     val problem = Lsym(bellOperator).maximize
 

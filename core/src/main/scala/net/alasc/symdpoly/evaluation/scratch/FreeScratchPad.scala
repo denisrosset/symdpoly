@@ -1,33 +1,14 @@
-package net.alasc.symdpoly
-package evaluation
+package net.alasc.symdpoly.evaluation.scratch
 
+import net.alasc.symdpoly.free.MutableWord
+import net.alasc.symdpoly.{free, valueOf}
+import shapeless.Witness
+import spire.algebra.free
+import spire.syntax.cfor.cforRange
 
 import scala.annotation.tailrec
 
-import cats.{Contravariant, Invariant}
-
-import net.alasc.symdpoly.{Maximization, free, generic, valueOf}
-import net.alasc.symdpoly.math.{GenPerm, GrpDecomposition}
-import shapeless.Witness
-import spire.algebra._
-import spire.syntax.cfor.cforRange
-import spire.syntax.order._
-import spire.syntax.group._
-import cyclo.Cyclo
-import scalin.immutable.{Vec, VecEngine}
-
-import net.alasc.syntax.group._
-import net.alasc.finite.Grp
-import net.alasc.symdpoly.algebra.Phased
-import net.alasc.symdpoly.generic.FreeBasedMonoidDef
-import cats.instances.order.catsContravariantMonoidalForOrder
-import cats.instances.eq.catsContravariantMonoidalForEq
-
-import scalin.syntax.all._
-
-import net.alasc.syntax.group._
-import net.alasc.bsgs.{Chain, GrpChain, GrpChainPermutationAction, Node, Term}
-import net.alasc.symdpoly.free.{MutableWord}
+/*
 
 /** Scratch pad of mutable words where operations are applied in batch. */
 class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
@@ -147,3 +128,5 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array:
 object FreeScratchPad {
   def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0)
 }
+
+*/

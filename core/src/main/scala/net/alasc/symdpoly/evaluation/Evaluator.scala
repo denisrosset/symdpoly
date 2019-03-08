@@ -21,11 +21,14 @@ import spire.syntax.std.seq._
 
 import syntax.all._
 import instances.all._
-import net.alasc.symdpoly.evaluation.TodoEquivalence.{CyclicEquivalence, FullAdjointEquivalence, TransposeEquivalence}
 
+/** Describes a quotient vector space defined on a polynomial ring.
+  *
+  * The quotient space is defined through equivalence relations that do not necessarily
+  * preserve the polynomial structure.
+  *
+  */
 abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivalences: Seq[Equivalence[M]]) { self =>
-
-  type E <: Evaluator[M]
 
   def M: M = valueOf[M]
   val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
@@ -34,7 +37,7 @@ abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val
   def makeScratchPad: ScratchPad
 
   // optimization: set to true if apply(a) == apply(a.adjoint)
-  def isSelfAdjoint: Boolean = equivalences.exists(e => e.isInstanceOf[AdjointEquivalence[_]] || e.isInstanceOf[AdjointFreeBasedEquivalence[_, _]])
+  def isSelfAdjoint: Boolean = ??? // TODO equivalences.exists(e => e.isInstanceOf[AdjointEquivalence[_]] || e.isInstanceOf[AdjointFreeBasedEquivalence[_, _]])
 
   def apply(mono: M#Monomial): EvaluatedMono[self.type, M] = apply(mono, makeScratchPad)
   def apply(mono: M#Monomial, pad: ScratchPad): EvaluatedMono[self.type, M]
@@ -56,16 +59,9 @@ abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val
 
   def evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation]
 
-  def :+(e: Equivalence[M]): E
-
-  def real: E
-
-  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): E
-
 }
 
-abstract class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M](equivalences) { self =>
-  type E <: GenericEvaluator[M]
+class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M](equivalences) { self =>
 
   val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = {
     val action: Action[M#Monomial, Permutation] = (M: M).permutationMonoAction
@@ -95,23 +91,3 @@ abstract class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.A
 
 }
 
-class GenericGenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends GenericEvaluator[M](equivalences) {
-  self =>
-  type E = GenericGenericEvaluator[M]
-  def :+(e: Equivalence[M]): GenericGenericEvaluator[M] = new GenericGenericEvaluator[M](equivalences :+ e)
-  def real: GenericGenericEvaluator[M] = self :+ new AdjointEquivalence[M]
-  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericGenericEvaluator[M] = self :+ new SymmetryEquivalence(grp)
-
-}
-
-
-class GenericFreeBasedEvaluator[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends GenericEvaluator[M](equivalences) { self =>
-  type E = GenericFreeBasedEvaluator[M, F]
-  def cyclic: Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](x => true))
-  def cyclic(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](predicate))
-  def transpose(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))
-  def :+(e: Equivalence[M]): GenericFreeBasedEvaluator[M, F] = new GenericFreeBasedEvaluator[M, F](equivalences :+ e)
-  def real: GenericFreeBasedEvaluator[M, F] = self :+ new AdjointEquivalence[M]
-  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericFreeBasedEvaluator[M, F] = self :+ new SymmetryEquivalence(grp)
-
-}

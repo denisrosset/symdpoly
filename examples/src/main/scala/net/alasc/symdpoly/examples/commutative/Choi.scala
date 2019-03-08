@@ -50,7 +50,7 @@ object Choi {
   val obj = Quotient.quotient(-B*S)
 
   /** Default evaluator. */
-  val L = Quotient.evaluator.real
+  val L = Quotient.evaluator(evaluation.real)
 
   /** Group that preserves the quotient structure. */
   val feasibilityGroup = Quotient.symmetryGroup

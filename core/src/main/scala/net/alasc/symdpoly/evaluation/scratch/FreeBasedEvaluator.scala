@@ -1,19 +1,17 @@
-package net.alasc.symdpoly
-package evaluation
+package net.alasc.symdpoly.evaluation.scratch
 
-import scala.annotation.tailrec
+/*
 import cats.Invariant
+import net.alasc.finite.Grp
+import net.alasc.symdpoly.evaluation.TodoEquivalence.{CyclicEquivalence, TransposeEquivalence}
+import net.alasc.symdpoly.evaluation._
+import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPermutation, FreeBasedPoly}
+import net.alasc.symdpoly.math.Phase
+import net.alasc.symdpoly.{free, generic}
 import shapeless.Witness
 import spire.algebra.Action
 import spire.syntax.cfor._
-import spire.syntax.std.seq._
-import cats.syntax.invariant._
-import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.TodoEquivalence.{CyclicEquivalence, TransposeEquivalence}
-import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPermutation, FreeBasedPoly}
-import net.alasc.symdpoly.math.{GrpDecomposition, Phase}
-import syntax.all._
-import instances.all._
+
 
 final class FreeBasedEvaluator[
   M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
@@ -101,3 +99,16 @@ final class FreeBasedEvaluator[
   def transpose(predicate: OpPredicate[F]): Evaluator[M] = self :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))
 
 }
+*/
+
+/*
+class GenericFreeBasedEvaluator[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends GenericEvaluator[M](equivalences) { self =>
+  type E = GenericFreeBasedEvaluator[M, F]
+  def cyclic: Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](x => true))
+  def cyclic(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](predicate))
+  def transpose(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))
+  def :+(e: Equivalence[M]): GenericFreeBasedEvaluator[M, F] = new GenericFreeBasedEvaluator[M, F](equivalences :+ e)
+  def real: GenericFreeBasedEvaluator[M, F] = self :+ new AdjointEquivalence[M]
+  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericFreeBasedEvaluator[M, F] = self :+ new SymmetryEquivalence(grp)
+}
+*/

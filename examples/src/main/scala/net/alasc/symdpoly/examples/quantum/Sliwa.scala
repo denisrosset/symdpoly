@@ -73,7 +73,7 @@ object Sliwa {
   val feasibilityGroup = Quotient.groupInQuotient(Grp(pT, pC, iA, oA0))
 
   /** Default evaluator. */
-  val L = Quotient.evaluator.real
+  val L = Quotient.evaluator(evaluation.real)
 
   def npaLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B, C).pow(l))
 

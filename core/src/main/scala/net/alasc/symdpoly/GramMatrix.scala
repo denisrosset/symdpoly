@@ -5,7 +5,7 @@ import shapeless.Witness
 import spire.algebra.{Group, Involution, Monoid, Order}
 import spire.syntax.cfor.cforRange
 import scalin.immutable.Mat
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, SymmetryEquivalence}
+import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, SymmetryEquivalence}
 import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import scalin.immutable.dense._
 import spire.syntax.action._
@@ -130,6 +130,7 @@ object GramMatrix {
     new GramMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
   }
 
+  /*
   def freeBasedConstruction[
     E <: FreeBasedEvaluator[M, F] with Singleton,
     M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
@@ -204,15 +205,16 @@ object GramMatrix {
       case i => unsortedToSorted.image(i)
     }
     new GramMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
-  }
+  }*/
 
   def apply[
     E <: Evaluator[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](evaluator: E with Evaluator[M] with Singleton, gSet: GSet[M]): GramMatrix[E, M] = evaluator match {
+  ](evaluator: E with Evaluator[M] with Singleton, gSet: GSet[M]): GramMatrix[E, M] = genericConstruction[E, M](evaluator, gSet)
+/*    evaluator match {
     case e: FreeBasedEvaluator[mType, fType] with Singleton =>
       freeBasedConstruction[e.type, mType, fType](e, gSet.asInstanceOf[GSet[mType]])((e.M.asInstanceOf[mType]).witness).asInstanceOf[GramMatrix[E, M]]
-    case _ => genericConstruction[E, M](evaluator, gSet)
-  }
+    case _ =>
+  }*/
 
 }

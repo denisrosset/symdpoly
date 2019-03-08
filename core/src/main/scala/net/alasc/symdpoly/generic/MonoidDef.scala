@@ -2,13 +2,11 @@ package net.alasc.symdpoly
 package generic
 
 import cyclo.Cyclo
-
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import shapeless.Witness
 import spire.algebra._
-
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.{Evaluator, GenericEvaluator, GenericGenericEvaluator}
+import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator, GenericEvaluator}
 import net.alasc.symdpoly.math.GenPerm
 
 /** Describes a generic monomial monoid. */
@@ -71,6 +69,6 @@ abstract class MonoidDef { self =>
   def permutationMonoAction: Action[Monomial, Permutation]
 
   /** Default evaluator without additional equivalence relations. */
-  def evaluator: Evaluator[self.type] = new GenericGenericEvaluator[self.type](Vector.empty)(witness)
+  def evaluator(equivalences: Equivalence[self.type]*): Evaluator[self.type] = ??? // TODO new GenericGenericEvaluator[self.type](Vector.empty)(witness)
 
 }

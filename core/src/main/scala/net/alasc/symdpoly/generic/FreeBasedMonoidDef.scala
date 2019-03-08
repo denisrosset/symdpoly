@@ -18,7 +18,6 @@ import net.alasc.util._
 import shapeless.Witness
 import spire.algebra.{free => _, _}
 import instances.all._
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, GenericFreeBasedEvaluator}
 import net.alasc.symdpoly.generic.FreeBasedMonoidDef.PolyInstances
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
@@ -45,9 +44,6 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def quotient(poly: FreeBasedPoly[Free, Free]): FreeBasedPoly[self.type, Free]
 
   //endregion
-
-  // TODO: use a [[ScratchPad]] based evaluator
-  override def evaluator: GenericFreeBasedEvaluator[self.type, Free] = new GenericFreeBasedEvaluator[self.type, Free](Vector.empty)
 
   //region Monomials
 
@@ -109,7 +105,7 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
 }
 
 object FreeBasedMonoidDef {
-  type Aux[F <: free.MonoidDef with Singleton] = FreeBasedMonoidDef { type Free = F }
+  type Aux[F <: free.MonoidDef.Aux[F] with Singleton] = FreeBasedMonoidDef { type Free = F }
 
   private[FreeBasedMonoidDef] final class PolyInstances[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit val wM: Witness.Aux[M])
     extends FieldAssociativeAlgebra[FreeBasedPoly[M, F], Cyclo] with Involution[FreeBasedPoly[M, F]] with Eq[FreeBasedPoly[M, F]] {

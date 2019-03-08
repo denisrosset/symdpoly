@@ -10,7 +10,11 @@ import net.alasc.symdpoly.util.OrderedSet
 import scalin.immutable.{Vec, VecEngine}
 import net.alasc.symdpoly.{generic, valueOf}
 
-final class EvaluatedPoly[E <: Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton:Witness.Aux](val normalForm: M#Polynomial) { lhs =>
+/** Evaluated noncommutative polynomial. */
+final class EvaluatedPoly[
+  E <: Evaluator[M] with Singleton:Witness.Aux,
+  M <: generic.MonoidDef with Singleton:Witness.Aux
+](val normalForm: M#Polynomial) { lhs =>
 
   def E: E = valueOf[E]
 
@@ -41,8 +45,18 @@ final class EvaluatedPoly[E <: Evaluator[M] with Singleton:Witness.Aux, M <: gen
 
 object EvaluatedPoly {
 
-  implicit def equ[E <: Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton]: Eq[EvaluatedPoly[E, M]] = valueOf[E].evaluatedPolyEq
+  //region Typeclasses
 
-  implicit def vectorSpace[E <: Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton]: VectorSpace[EvaluatedPoly[E, M], Cyclo] = valueOf[E].evaluatedPolyVectorSpace
+  implicit def equ[
+    E <: Evaluator[M] with Singleton:Witness.Aux,
+    M <: generic.MonoidDef with Singleton
+  ]: Eq[EvaluatedPoly[E, M]] = valueOf[E].evaluatedPolyEq
+
+  implicit def vectorSpace[
+    E <: Evaluator[M] with Singleton:Witness.Aux,
+    M <: generic.MonoidDef with Singleton
+  ]: VectorSpace[EvaluatedPoly[E, M], Cyclo] = valueOf[E].evaluatedPolyVectorSpace
+
+  //endregion
 
 }

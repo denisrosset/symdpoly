@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 
 import cats.Contravariant
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, FreeBasedEvaluator, SymmetryEquivalence}
+import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, SymmetryEquivalence}
 import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
 import scalin.immutable.dense._
 import spire.syntax.action._

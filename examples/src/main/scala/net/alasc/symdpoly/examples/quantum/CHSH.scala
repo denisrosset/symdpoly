@@ -62,7 +62,7 @@ object CHSH {
   val bellOperator = Quotient.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
 
   /** Default evaluator. */
-  val L = Quotient.evaluator.real
+  val L = Quotient.evaluator(evaluation.real)
 
   /** Problem symmetry group. */
   val symmetryGroup = feasibilityGroup.leavesInvariant(L(bellOperator))
