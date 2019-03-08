@@ -67,13 +67,12 @@ See the [**Installation guide**](docs/installation.html).
 
 **SymDPoly** is a work-in-progress. While the underlying framework handles unrestricted polynomial optimization problems, its interface is currently limited to a subset of problems.
 
-1. When defining the quotient algebra, only substitution rules involving pairs of variables can be defined.
-2. It does not handle linear equality constraints.
-3. It does not handle operator semidefinite constraints.
-4. It does not handle scalar inequality constraints.
-5. Only real semidefinite formulations can be outputted, per the formats of the solvers currently on the market.
+1. It does not handle linear equality constraints.
+2. It does not handle operator semidefinite constraints.
+3. It does not handle scalar inequality constraints.
+4. Only real semidefinite formulations can be outputted, as per the formats of the solvers currently on the market.
 
-In particular, the limitations 1., 4. and 5. are easy to remove. The limitations 2. and 3. require specific handling with respect to the symmetries and are currently under active investigation.
+In particular, the limitations 3. and 4. are easy to remove. The limitations 1. and 2. require specific handling with respect to the symmetries and are currently under active investigation.
 
 ## Why SymDPoly?
 
