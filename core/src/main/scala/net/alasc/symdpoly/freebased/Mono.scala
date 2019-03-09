@@ -1,4 +1,5 @@
-package net.alasc.symdpoly.freebased
+package net.alasc.symdpoly
+package freebased
 
 import cats.kernel.Eq
 import shapeless.Witness
@@ -7,7 +8,6 @@ import spire.algebra.{Action, Involution, MultiplicativeMonoid, Order}
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.free.MutableWord
 import net.alasc.symdpoly.math.{GenPerm, Phase}
-import net.alasc.symdpoly.{free, valueOf}
 import org.typelevel.discipline.Predicate
 
 /** An element of a [[MonoidDef]], which represents a monomial in a polynomial ring.
@@ -17,7 +17,7 @@ import org.typelevel.discipline.Predicate
 class Mono[
   M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](protected[symdpoly] val data: MutableWord[F]) extends PolyLike[M, F] { lhs =>
+](protected[symdpoly] val data: MutableWord[F]) extends generic.Mono[M] with PolyLike[M, F] { lhs =>
 
   require(!data.mutable)
   require(F.cyclotomicOrder % data.phase.n == 0)

@@ -8,7 +8,6 @@ class Evaluator[
   F <: free.MonoidDef.Aux[F] with Singleton
 ](override val equivalences: Seq[freebased.Equivalence[M, F]]) extends generic.Evaluator[M](equivalences) {
 
-
 }
 /*
 object Evaluator {

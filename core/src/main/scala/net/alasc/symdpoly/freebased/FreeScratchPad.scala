@@ -1,14 +1,11 @@
-package net.alasc.symdpoly.evaluation.freebased
+package net.alasc.symdpoly
+package freebased
 
 import net.alasc.symdpoly.free.MutableWord
-import net.alasc.symdpoly.{free, valueOf}
 import shapeless.Witness
-import spire.algebra.free
-import spire.syntax.cfor.cforRange
+import spire.syntax.cfor._
 
 import scala.annotation.tailrec
-
-/*
 
 /** Scratch pad of mutable words where operations are applied in batch. */
 class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
@@ -126,7 +123,7 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array:
 }
 
 object FreeScratchPad {
-  def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0)
-}
 
-*/
+  def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0)
+
+}

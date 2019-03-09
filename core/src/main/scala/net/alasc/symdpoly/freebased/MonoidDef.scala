@@ -1,6 +1,8 @@
 package net.alasc.symdpoly
 package freebased
 
+import scala.reflect.ClassTag
+
 import cats.instances.eq._
 import cats.syntax.contravariant._
 import cats.syntax.invariant._
@@ -63,6 +65,7 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
   def monoOrder: Order[Monomial] = monoInstances
   val monoPhased: Phased[Monomial] = new Mono.FreeBasedMonoPhased
   val monoGenPermAction: Action[Monomial, GenPerm] = new Mono.FreeBasedMonoGenPermAction
+  val monoClassTag: ClassTag[Monomial] = implicitly
 
   val zero: Monomial = Mono.zero[self.type, Free]
   val one: Monomial = Mono.one[self.type, Free]

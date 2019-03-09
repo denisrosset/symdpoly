@@ -22,55 +22,57 @@ import net.alasc.perms.default._
 import net.alasc.symdpoly.util.OrderedSet
 
 /** A Permutation relabels the operator variables of monomials, possibly with a phase. */
-trait Permutation[M <: generic.MonoidDef with Singleton]
+trait Permutation[M <: generic.MonoidDef with Singleton] { self: M#Permutation =>
+
+}
 
 object Permutation {
 
   class GrpPermutationsOps[
-    M <: generic.MonoidDef with Singleton: Witness.Aux,
-    G <: Permutation[M]:ClassTag:Eq:FaithfulPermutationActionBuilder:Group
-  ](grp: Grp[G]) {
+    M <: generic.MonoidDef with Singleton: Witness.Aux
+  ](grp: Grp[Permutation[M]]) {
 
     def M: M = valueOf[M]
 
-    def allElementsOf[E <: Evaluator[M] with Singleton: Witness.Aux](poly: EvaluatedPoly[E, M])(implicit action: Action[EvaluatedMono[E, M], G]): OrderedSet[EvaluatedMono[E, M]] = {
-      implicit def phasedEvaluatedMono: Phased[EvaluatedMono[E, M]] = valueOf[E].evaluatedMonoPhased
-      val monomials: Set[EvaluatedMono[E, M]] = for {
-        (g: G) <- grp.iterator.toSet
+    def allElementsOf(poly: generic.Poly[M])(implicit action: Action[M#Monomial, M#Permutation]): OrderedSet[Mono[M]] = {
+      implicit def phasedMono: Phased[M#Monomial] = valueOf[M].monoPhased
+      implicit def classTag: ClassTag[M#Monomial] = valueOf[M].monoClassTag
+      val monomials: Set[M#Monomial] = for {
+        (g: M#Permutation) <- grp.iterator.toSet
         i <- 0 until poly.nTerms
       } yield action.actr(poly.monomial(i), g).phaseCanonical
       val array = monomials.toArray
-      spire.math.Sorting.quickSort(array)
+      spire.math.Sorting.quickSort(array)(valueOf[M].monoOrder, implicitly)
       new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
     }
 
-    def leavesInvariant[E <: Evaluator[M] with Singleton: Witness.Aux](poly: EvaluatedPoly[E, M])(implicit action: Action[EvaluatedMono[E, M], G]): Grp[G] = {
-      val monomials = allElementsOf[E](poly)(implicitly, action)
+    def leavesInvariant(poly: generic.Poly[M])(implicit action: Action[M#Monomial, M#Permutation]): Grp[M#Permutation] = {
+      val monomials = allElementsOf(poly)(action)
       val order = M.cyclotomicOrder
-      val monomialsAction = new PermutationAction[G] {
+      val monomialsAction = new PermutationAction[Permutation[M]] {
         def isFaithful: Boolean = false
-        def findMovedPoint(g: G): NNOption = {
+        def findMovedPoint(g: Permutation[M]): NNOption = {
           cforRange(0 until monomials.length * order) { i =>
             if (actr(i, g) != i) return NNSome(i)
           }
           NNNone
         }
-        def movedPointsUpperBound(g: G): NNOption = NNSome(monomials.length * order - 1)
-        def actr(p: Int, g: G): Int = {
+        def movedPointsUpperBound(g: Permutation[M]): NNOption = NNSome(monomials.length * order - 1)
+        def actr(p: Int, g: Permutation[M]): Int = {
           val phase = Phase(p % order, order)
           val index = p / order
-          val res = monomials(index) <|+| g
+          val res = action.actr(monomials(index), g)
           val canonical = res.phaseCanonical
           val newPhase = res.phaseOffset * phase
           val newIndex = monomials.indexOf(canonical)
           newIndex * order + newPhase.numeratorIn(order)
         }
-        def actl(g: G, p: Int): Int = actr(p, g.inverse)
+        def actl(g: Permutation[M], p: Int): Int = actr(p, g.inverse)
       }
       val nMonomials = monomials.length
       val coeffSeq = for {
         mono <- monomials.iterator.toVector
-        coeff = poly.normalForm.coeff(mono.normalForm: M#Monomial)
+        coeff = poly.coeff(mono.normalForm: M#Monomial)
         k <- 0 until order
         phase = Phase(k, order)
       } yield coeff * phase.toCyclo
@@ -87,8 +89,8 @@ object Permutation {
   ](grp: Grp[Permutation[M]])(implicit classTag: ClassTag[Permutation[M]],
                               equ: Eq[Permutation[M]],
                               fpab: FaithfulPermutationActionBuilder[Permutation[M]],
-                              group: Group[Permutation[M]]): GrpPermutationsOps[M, Permutation[M]] =
-    new GrpPermutationsOps[M, Permutation[M]](grp)
+                              group: Group[Permutation[M]]): GrpPermutationsOps[M] =
+    new GrpPermutationsOps[M](grp)
 
   def phasedIntAction[
     M <: generic.MonoidDef with Singleton:Witness.Aux

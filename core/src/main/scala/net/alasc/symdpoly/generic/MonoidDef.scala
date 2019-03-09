@@ -1,15 +1,14 @@
 package net.alasc.symdpoly
 package generic
 
+import scala.reflect.ClassTag
+
 import cyclo.Cyclo
 
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import shapeless.Witness
 import spire.algebra._
 import spire.math.Rational
-
-import net.alasc.finite.Grp
-import net.alasc.symdpoly.math.GenPerm
 
 /** Describes a generic monomial monoid. */
 abstract class MonoidDef { self =>
@@ -26,7 +25,7 @@ abstract class MonoidDef { self =>
   // Monomials
 
   /** Element of this monoid. */
-  type Monomial // monoid element
+  type Monomial <: generic.Mono[self.type] // monoid element
 
   /** Zero monomial, which is an absorbing element of this monoid. */
   def zero: Monomial
@@ -44,6 +43,8 @@ abstract class MonoidDef { self =>
 
   /** Typeclass describing the action of a phase on monomials. */
   def monoPhased: Phased[Monomial]
+
+  def monoClassTag: ClassTag[Monomial]
 
   // Polynomials
 
