@@ -77,6 +77,9 @@ abstract class MonoidDef { self =>
   /** Permutation acting on the monomials/monoid elements. */
   type Permutation <: generic.Permutation[self.type]
 
+  /** Group of permutations. */
+  def permutationGroup: Group[Permutation]
+
   /** Action of permutations on the monomials. */
   def permutationMonoAction: Action[Monomial, Permutation]
 

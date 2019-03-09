@@ -30,26 +30,24 @@ object Permutation {
 
   class GrpPermutationsOps[
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](grp: Grp[Permutation[M]]) {
+  ](grp: Grp[Permutation[M] with M#Permutation]) {
 
     def M: M = valueOf[M]
 
     def allElementsOf(poly: generic.Poly[M])(implicit action: Action[M#Monomial, M#Permutation]): OrderedSet[Mono[M]] = {
       implicit def phasedMono: Phased[M#Monomial] = valueOf[M].monoPhased
       implicit def classTag: ClassTag[M#Monomial] = valueOf[M].monoClassTag
-      val monomials: Set[M#Monomial] = for {
-        (g: M#Permutation) <- grp.iterator.toSet
-        i <- 0 until poly.nTerms
-      } yield action.actr(poly.monomial(i), g).phaseCanonical
+      val monomials: Iterator[M#Monomial] = grp.iterator.flatMap(g => Iterator.tabulate(poly.nTerms)(i => phasedMono.phaseCanonical(action.actr(poly.monomial(i), g))))
       val array = monomials.toArray
       spire.math.Sorting.quickSort(array)(valueOf[M].monoOrder, implicitly)
       new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
     }
 
+    /*
     def leavesInvariant(poly: generic.Poly[M])(implicit action: Action[M#Monomial, M#Permutation]): Grp[M#Permutation] = {
       val monomials = allElementsOf(poly)(action)
       val order = M.cyclotomicOrder
-      val monomialsAction = new PermutationAction[Permutation[M]] {
+      val monomialsAction = new PermutationAction[M#Permutation] {
         def isFaithful: Boolean = false
         def findMovedPoint(g: Permutation[M]): NNOption = {
           cforRange(0 until monomials.length * order) { i =>
@@ -80,7 +78,7 @@ object Permutation {
       val stabilizer = grp.orderedPartitionStabilizer(monomialsAction, partition)
       val generators = stabilizer.smallGeneratingSet
       Grp.fromGeneratorsAndOrder(generators, stabilizer.order)
-    }
+    }*/
 
   }
 
