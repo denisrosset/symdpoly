@@ -207,6 +207,10 @@ lazy val docSettings = Seq(
   unidocProjectFilter in (ScalaUnidoc, unidoc) :=
     inProjects(docsSourcesAndProjects(scalaVersion.value)._2:_*),
   docsMappingsAPIDir := "api",
+  scalacOptions in (Compile, doc) ++= Seq(
+//    "-doc-source-url", s"https://github.com/slick/slick/blob/${Docs.versionTag(version.value)}/slick/src/main€{FILE_PATH}.scala",
+    "-doc-root-content", "scaladoc-root.txt"
+  ),
   addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir),
   ghpagesNoJekyll := false,
   fork := true,

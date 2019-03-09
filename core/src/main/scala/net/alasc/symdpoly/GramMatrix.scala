@@ -7,8 +7,7 @@ import spire.syntax.cfor.cforRange
 
 import scalin.immutable.Mat
 
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, SymmetryEquivalence}
-import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
+import net.alasc.symdpoly.generic.MomentSetBuilder
 import scalin.immutable.dense._
 import spire.syntax.action._
 
@@ -30,12 +29,13 @@ import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import spire.std.unit._
 
 import net.alasc.perms.default._
-import net.alasc.symdpoly.generic.FreeBasedMono
+import net.alasc.symdpoly.freebased.Mono
+import net.alasc.symdpoly.generic.{EvaluatedMono, MomentSet, MomentSetBuilder}
 import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.util.Tuple2Int
 
 class GramMatrix[
-  E <: Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val generatingMoments: OrderedSet[M#Monomial],
   val momentSet: MomentSet[E, M],
@@ -86,7 +86,7 @@ class GramMatrix[
 object GramMatrix {
 
   def genericConstruction[
-    E <: Evaluator[M] with Singleton,
+    E <: generic.Evaluator[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
   ](evaluator: E, gSet: GSet[M]): GramMatrix[E, M] = {
     implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
@@ -214,9 +214,9 @@ object GramMatrix {
   }*/
 
   def apply[
-    E <: Evaluator[M] with Singleton,
+    E <: generic.Evaluator[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](evaluator: E with Evaluator[M] with Singleton, gSet: GSet[M]): GramMatrix[E, M] = genericConstruction[E, M](evaluator, gSet)
+  ](evaluator: E with generic.Evaluator[M] with Singleton, gSet: GSet[M]): GramMatrix[E, M] = genericConstruction[E, M](evaluator, gSet)
 /*    evaluator match {
     case e: FreeBasedEvaluator[mType, fType] with Singleton =>
       freeBasedConstruction[e.type, mType, fType](e, gSet.asInstanceOf[GSet[mType]])((e.M.asInstanceOf[mType]).witness).asInstanceOf[GramMatrix[E, M]]

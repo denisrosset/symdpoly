@@ -48,7 +48,7 @@ object Robinson {
   val obj = -f
 
   /** Evaluation of polynomials over real variables. */
-  val L = Quotient.evaluator(evaluation.real)
+  val L = Quotient.evaluator(Evaluation.real)
 
   /** Symmetry group that leaves the objective invariant. */
   val group = Quotient.symmetryGroup.leavesInvariant(L(obj))

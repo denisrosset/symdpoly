@@ -9,7 +9,6 @@ import spire.algebra._
 import spire.math.Rational
 
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator, GenericEvaluator}
 import net.alasc.symdpoly.math.GenPerm
 
 /** Describes a generic monomial monoid. */
@@ -49,7 +48,7 @@ abstract class MonoidDef { self =>
   // Polynomials
 
   /** Element of the polynomial ring constructed as a linear space on this monoid. */
-  type Polynomial <: GenPoly[self.type]
+  type Polynomial <: Poly[self.type]
 
   /** Associative algebra structure on the polynomials. */
   def polyAssociativeAlgebra: FieldAssociativeAlgebra[Polynomial, Cyclo]
@@ -81,6 +80,6 @@ abstract class MonoidDef { self =>
   def permutationMonoAction: Action[Monomial, Permutation]
 
   /** Default evaluator without additional equivalence relations. */
-  def evaluator(equivalences: Equivalence[self.type]*): Evaluator[self.type] = new GenericEvaluator(equivalences)
+  def evaluator(equivalences: Equivalence[self.type]*): Evaluator[self.type] = new generic.Evaluator[self.type](equivalences)
 
 }

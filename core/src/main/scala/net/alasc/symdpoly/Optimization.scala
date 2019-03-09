@@ -2,7 +2,7 @@ package net.alasc.symdpoly
 
 import shapeless.Witness
 
-import net.alasc.symdpoly.evaluation._
+import net.alasc.symdpoly.generic.EvaluatedPoly
 
 /** Direction along which to optimize the objective: minimization or maximization. */
 sealed trait Direction
@@ -14,7 +14,7 @@ object Direction {
 
 /** Polynomial optimization problem. */
 case class Optimization[
-  E <: Evaluator[M] with Singleton: Witness.Aux,
+  E <: generic.Evaluator[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
 ](direction: Direction, evaluatedPoly: EvaluatedPoly[E, M], constraints: Seq[Constraint[E, M]] = Seq.empty) {
 

@@ -5,11 +5,12 @@ import shapeless.Witness
 import cyclo.Cyclo
 import scalin.immutable.Vec
 
-import net.alasc.symdpoly.evaluation.{EvaluatedPoly, Evaluator}
 import net.alasc.symdpoly.solvers.{MosekInstance, SDPAInstance}
 import scalin.immutable.dense._
+
 import net.alasc.perms.default._
 import net.alasc.finite.Grp
+import net.alasc.symdpoly.generic.EvaluatedPoly
 import net.alasc.symdpoly.math.GenPerm
 
 /** Moment/SOS-based relaxation of a polynomial optimization problem.
@@ -17,7 +18,7 @@ import net.alasc.symdpoly.math.GenPerm
   * @param generatingSet Set of monomials used to generate the moment matrix
   */
 case class Relaxation[
-  E <: Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux,
 ](problem: Optimization[E, M], generatingSet: GSet[M]) {
 
@@ -35,47 +36,47 @@ case class Relaxation[
 
   def sdpaInstance: SDPAInstance = new SDPAInstance(this)
 
+  /** Writes the Gram matrix indices to the file with given filename.
+    * The structure of the file is as follows
+    *
+    * Line   1: N M
+    * Line   2: g11 g12 ... g1N
+    * ...
+    * Line 1+N: gN1 gN2 ... gNN
+    *
+    * where N is the size of the Gram matrix, and M is the number of monomials involved,
+    * including the identity.
+    *
+    * The matrix index g(r,c) takes the value
+    *
+    * -  0 if the element is always 0
+    * -  1 if the element takes the constant value  1 or -1
+    * -  j if the element corresponds to the expectation value of j-th monomial (with a possible factor -1)
+    *
+    * and max_{r c} g(r,c) = M
+    *
+    */
+  def momentIndexMatrixDescription: String = {
+    import scalin.immutable.dense._
+    import gramMatrix._
+    val mat = momentIndexMatrix
+    s"${matrixSize} ${nUniqueMonomials}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
+  }
+
+  /** Writes the sign/phase of the monomials present in the Gram matrix. */
+  def phaseMatrixDescription: String = {
+    import scalin.immutable.dense._
+    import gramMatrix._
+    val mat = phaseMatrix
+    s"${matrixSize}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
+  }
+
+  def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
+
 }
-
-
 
 /*
-/** Writes the Gram matrix indices to the file with given filename.
-  * The structure of the file is as follows
-  *
-  * Line   1: N M
-  * Line   2: g11 g12 ... g1N
-  * ...
-  * Line 1+N: gN1 gN2 ... gNN
-  *
-  * where N is the size of the Gram matrix, and M is the number of monomials involved,
-  * including the identity.
-  *
-  * The matrix index g(r,c) takes the value
-  *
-  * -  0 if the element is always 0
-  * -  1 if the element takes the constant value  1 or -1
-  * -  j if the element corresponds to the expectation value of j-th monomial (with a possible factor -1)
-  *
-  * and max_{r c} g(r,c) = M
-  *
-  */
-def momentIndexMatrixDescription: String = {
-  import scalin.immutable.dense._
-  import gramMatrix._
-  val mat = momentIndexMatrix
-  s"${matrixSize} ${nUniqueMonomials}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
-}
 
-/** Writes the sign/phase of the monomials present in the Gram matrix. */
-def phaseMatrixDescription: String = {
-  import scalin.immutable.dense._
-  import gramMatrix._
-  val mat = phaseMatrix
-  s"${matrixSize}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
-}
-
-def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
 
 // TODO: use the symmetry equivalence of the evaluator
 def canonicalMonomialsDescription(symmetryGroup: Grp[M#Permutation]): String = {

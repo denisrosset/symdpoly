@@ -14,7 +14,7 @@ import net.alasc.finite.Grp
 import net.alasc.perms.Perm
 import net.alasc.perms.default._
 import net.alasc.symdpoly.algebra.{Morphism, Phased}
-import net.alasc.symdpoly.evaluation.SymmetryEquivalence
+import net.alasc.symdpoly.generic.SymmetryEquivalence
 import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.symdpoly.{generic, valueOf}

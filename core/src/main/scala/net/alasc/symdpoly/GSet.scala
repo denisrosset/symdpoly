@@ -8,7 +8,7 @@ import spire.syntax.action._
 
 import net.alasc.finite.Grp
 import net.alasc.symdpoly
-import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef}
+import net.alasc.symdpoly.freebased.{Mono, MonoidDef}
 import syntax.phased._
 
 /** Generating set of monomials.
@@ -45,12 +45,12 @@ object GSet {
 
   /** Additional operations for generating sets on free-based monomials. */
   implicit class RichGSet[
-    M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+    M <: MonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](val lhs: GSet[M with FreeBasedMonoidDef.Aux[F]]) {
+  ](val lhs: GSet[M with MonoidDef.Aux[F]]) {
 
     /** Completes a generating set of monomials by their orbit under a group. */
-    def orbit[G](grp: Grp[G])(implicit action: Action[FreeBasedMono[M, F], G]): GSet[M] = Orbit[M, F, G](lhs, grp)
+    def orbit[G](grp: Grp[G])(implicit action: Action[Mono[M, F], G]): GSet[M] = Orbit[M, G](lhs, grp)
 
   }
 
@@ -58,12 +58,12 @@ object GSet {
   def ordering[M <: generic.MonoidDef with Singleton](implicit witness: Witness.Aux[M]): Ordering[M#Monomial] =
     spire.compat.ordering((witness.value: M).monoOrder)
 
-  case class Quotient[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](preimage: GSet[F]) extends GSet[M] {
+  case class Quotient[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](preimage: GSet[F]) extends GSet[M] {
     override def toString: String = s"Quotient($preimage)"
-    def monomials(implicit wM: Witness.Aux[M]): SortedSet[FreeBasedMono[M, F]] = {
+    def monomials(implicit wM: Witness.Aux[M]): SortedSet[Mono[M, F]] = {
       def M: M = wM.value
       implicit def wF: Witness.Aux[F] = (M.Free: F).witness
-      implicit val o: Ordering[FreeBasedMono[M, F]] = ordering[M]
+      implicit val o: Ordering[Mono[M, F]] = ordering[M]
       preimage.monomials.map(mono => M.quotient(mono))
     }
   }
@@ -99,17 +99,16 @@ object GSet {
   def id[M <: generic.MonoidDef with Singleton]: GSet[M] = Id[M]()
 
   protected case class Orbit[
-    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton,
+    M <: generic.MonoidDef with Singleton,
     G
-  ](gm: GSet[M], grp: Grp[G])(implicit action: Action[FreeBasedMono[M, F], G]) extends GSet[M] {
+  ](gm: GSet[M], grp: Grp[G])(implicit action: Action[M#Monomial, G]) extends GSet[M] {
     override def toString: String = s"Orbit($gm)"
-    def monomials(implicit wM: Witness.Aux[M]): SortedSet[FreeBasedMono[M, F]] = {
-      implicit def o: Ordering[FreeBasedMono[M, F]] = spire.compat.ordering((wM.value: M).monoOrder)
+    def monomials(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
+      implicit def o: Ordering[M#Monomial] = spire.compat.ordering((wM.value: M).monoOrder)
       for {
         m <- gm.monomials
         g <- grp.iterator
-      } yield (m <|+| g).phaseCanonical
+      } yield valueOf[M].monoPhased.phaseCanonical(m <|+| g)
     }
   }
 
@@ -135,7 +134,7 @@ object GSet {
       else opEnum.allInstances.head.productPrefix
     def monomials(implicit wF: Witness.Aux[F]): SortedSet[F#Monomial] = {
       implicit def o: Ordering[F#Monomial] = ordering[F]
-      opEnum.allInstances.map(op => generic.FreeBasedMono.fromOp(op): F#Monomial).to[SortedSet]
+      opEnum.allInstances.map(op => freebased.Mono.fromOp(op): F#Monomial).to[SortedSet]
     }
   }
 
@@ -150,9 +149,9 @@ object GSet {
       implicit def o: Ordering[F#Monomial] = ordering[F]
       seq match {
         case Seq() => SortedSet(F.one: F#Monomial)
-        case Seq(op) => op.allInstances.map(op => generic.FreeBasedMono.fromOp(op): F#Monomial).to[SortedSet]
+        case Seq(op) => op.allInstances.map(op => freebased.Mono.fromOp(op): F#Monomial).to[SortedSet]
         case Seq(hd, tl@_*) => for {
-          x <- hd.allInstances.map(op => generic.FreeBasedMono.fromOp(op)).to[SortedSet]
+          x <- hd.allInstances.map(op => freebased.Mono.fromOp(op)).to[SortedSet]
           y <- Word(tl).monomials
         } yield F.monoMultiplicativeBinoid.times(x, y)
       }

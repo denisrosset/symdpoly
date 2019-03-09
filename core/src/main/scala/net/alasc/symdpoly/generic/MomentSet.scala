@@ -1,22 +1,23 @@
 package net.alasc.symdpoly
-package internal
+package generic
 
 import shapeless.Witness
 import spire.syntax.cfor._
+
 import metal.IsVPtr
 import metal.mutable.{Buffer, HashMap}
 import metal.syntax._
+
 import net.alasc.perms.Perm
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator}
-import net.alasc.util._
-import metal.syntax._
 import net.alasc.symdpoly.util.OrderedSet
+import net.alasc.symdpoly.{generic, valueOf}
+import net.alasc.util._
 
 // TODO: optimize the things below for evaluated monomials with a normal form as a free monomial
 
 /** Describes an ordered set of equivalence classes of monomials under evaluation. */
 class MomentSet[
-  E <: Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val elements: OrderedSet[EvaluatedMono[E, M]], private[this] val _conjugateIndices: Array[Int]) {
   require(_conjugateIndices.length == elements.length)
@@ -38,7 +39,7 @@ class MomentSet[
 
 /** Builds a [[MomentSet]] incrementally. */
 class MomentSetBuilder[
-  E <: Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val sequence: Buffer[EvaluatedMono[E, M]],
   val conjugate: Buffer[Int],
@@ -95,7 +96,7 @@ class MomentSetBuilder[
 
 object MomentSetBuilder {
 
-  def make[E <: Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton:Witness.Aux]: MomentSetBuilder[E, M] = {
+  def make[E <: generic.Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton:Witness.Aux]: MomentSetBuilder[E, M] = {
     val empty = valueOf[E].apply(valueOf[M].one)
     val sequence = Buffer(empty)
     val conjugate = Buffer(0)

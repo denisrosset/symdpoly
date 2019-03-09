@@ -2,7 +2,7 @@ package net.alasc.symdpoly
 
 import shapeless.Witness
 
-import net.alasc.symdpoly.evaluation.{EvaluatedPoly, Evaluator}
+import net.alasc.symdpoly.generic.{EvaluatedPoly, Evaluator}
 
 sealed trait Constraint[+E <: Evaluator[M] with Singleton, M <: generic.MonoidDef with Singleton]
 

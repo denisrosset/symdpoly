@@ -36,6 +36,13 @@ trait InvariantInstances {
     }
   }
 
+  implicit def symdpolyContravariantForAction[P]: Contravariant[Lambda[G => Action[P, G]]] = new Contravariant[Lambda[G => Action[P, G]]] {
+    def contramap[A, B](fa: Action[P, A])(f: B => A): Action[P, B] = new Action[P, B] {
+      def actr(p: P, b: B): P = fa.actr(p, f(b))
+      def actl(b: B, p: P): P = fa.actl(f(b), p)
+    }
+  }
+
   implicit def symdpolyInvariantForAction[G]: Invariant[Lambda[P => Action[P, G]]] = new Invariant[Lambda[P => Action[P, G]]] {
     def imap[A, B](fa: Action[A, G])(f1: A => B)(f2: B => A): Action[B, G] = new Action[B, G] {
       def actl(g: G, b: B): B = f1(fa.actl(g, f2(b)))

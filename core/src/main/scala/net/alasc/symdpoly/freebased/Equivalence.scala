@@ -1,7 +1,21 @@
-package net.alasc.symdpoly.evaluation.freebased
+package net.alasc.symdpoly
+package freebased
+
+import shapeless.Witness
+
+/** An equivalence relation on monomials from a quotient monoid over a free monoid. */
+abstract class Equivalence[
+M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
+F <: free.MonoidDef.Aux[F] with Singleton
+] extends generic.Equivalence[M] {
+
+  def M: M = valueOf[M]
+  def F: F = (M.Free: F)
+
+}
 /*
-import net.alasc.symdpoly.evaluation.Equivalence
-import net.alasc.symdpoly.generic.FreeBasedMono
+import net.alasc.symdpoly.generic.Equivalence
+import net.alasc.symdpoly.freebased.FreeBasedMono
 import net.alasc.symdpoly.{free, generic, valueOf}
 import shapeless.Witness
 

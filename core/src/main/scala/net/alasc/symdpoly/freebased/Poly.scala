@@ -1,41 +1,40 @@
 package net.alasc.symdpoly
-package generic
-
-import cats.evidence.Is
+package freebased
 
 import scala.annotation.tailrec
 import scala.util.hashing.MurmurHash3
+
 import shapeless.Witness
 import spire.algebra.{Action, Eq, FieldAssociativeAlgebra, Involution}
 import spire.math.{Rational, Searching}
 import spire.syntax.cfor._
 import spire.syntax.involution._
 import spire.syntax.order._
+
 import cyclo.Cyclo
 import metal.mutable.{HashMap => MMap}
 import metal.syntax._
-import net.alasc.symdpoly.free.{MutablePoly, MutableWord}
-import net.alasc.symdpoly.generic._
-import net.alasc.symdpoly.math.{GenPerm, Phase}
-import org.scalacheck.{Arbitrary, Gen}
-import org.typelevel.discipline.Predicate
-import syntax.all._
-import instances.all._
 
-class FreeBasedPoly[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+import syntax.all._
+
+import net.alasc.symdpoly.free.{MutablePoly, MutableWord}
+import net.alasc.symdpoly.math.{GenPerm, Phase}
+import org.typelevel.discipline.Predicate
+
+class Poly[
+  M <: MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
 ](private[this] val keys: Array[MutableWord[F]],
   private[this] val values: Array[Cyclo])
- (implicit val wM: Witness.Aux[M]) extends GenPoly[M] with FreeBasedPolyLike[M, F] { lhs =>
+ (implicit val wM: Witness.Aux[M]) extends generic.Poly[M] with PolyLike[M, F] { lhs =>
 
-  def toPoly: FreeBasedPoly[M, F] = lhs
+  def toPoly: Poly[M, F] = lhs
 
   def M: M = wM.value
   def F: F = M.Free
   implicit def wF: Witness.Aux[F] = F.witness
 
-  def eqv(rhs: FreeBasedPoly[M, F]): Boolean = (lhs.nTerms == rhs.nTerms) && {
+  def eqv(rhs: Poly[M, F]): Boolean = (lhs.nTerms == rhs.nTerms) && {
     @tailrec def rec(i: Int): Boolean =
       if (i == lhs.nTerms) true
       else if (lhs.coeff(i) =!= rhs.coeff(i)) false
@@ -44,13 +43,13 @@ class FreeBasedPoly[
     rec(0)
   }
 
-  def normalForm: FreeBasedPoly[F, F] = new FreeBasedPoly[F, F](keys, values)
+  def normalForm: Poly[F, F] = new Poly[F, F](keys, values)
 
   def nTerms: Int = keys.length
   def monomialNormalForm(i: Int): MutableWord[F] = keys(i)
-  def monomial(i: Int): FreeBasedMono[M, F] = new FreeBasedMono[M ,F](keys(i))
+  def monomial(i: Int): Mono[M, F] = new Mono[M ,F](keys(i))
   def coeff(i: Int): Cyclo = values(i)
-  def coeff(mono: FreeBasedMono[M, F]): Cyclo = {
+  def coeff(mono: Mono[M, F]): Cyclo = {
     require(!mono.isZero)
     require(mono.phaseOffset == Phase.one)
     val i = Searching.search(keys, mono.data)
@@ -90,7 +89,7 @@ class FreeBasedPoly[
   override def toString: String = string()
 
   override def equals(any: Any): Boolean = any match {
-    case rhs: FreeBasedPoly[M, F] if (lhs.M eq rhs.M) => lhs.eqv(rhs)
+    case rhs: Poly[M, F] if (lhs.M eq rhs.M) => lhs.eqv(rhs)
     case _ => false
   }
 
@@ -105,7 +104,7 @@ class FreeBasedPoly[
 
   override def hashCode: Int = hash
 
-  def adjoint: FreeBasedPoly[M, F] = {
+  def adjoint: Poly[M, F] = {
     val res = MutablePoly.empty[F](lhs.nTerms)
     cforRange(0 until nTerms) { i =>
       val newMono: MutableWord[F] = lhs.keys(i).mutableCopy()
@@ -117,12 +116,12 @@ class FreeBasedPoly[
     res.immutableCopy[M]
   }
 
-  def unary_- : FreeBasedPoly[M, F] = {
+  def unary_- : Poly[M, F] = {
     val newValues = values.map(x => -x)
-    new FreeBasedPoly[M, F](keys, newValues)
+    new Poly[M, F](keys, newValues)
   }
 
-  def *(rhs: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = {
+  def *(rhs: Poly[M, F]): Poly[M, F] = {
     val res = MutablePoly.empty[F](lhs.nTerms * rhs.nTerms)
     cforRange(0 until lhs.nTerms) { i =>
       cforRange(0 until rhs.nTerms) { j =>
@@ -139,7 +138,7 @@ class FreeBasedPoly[
     res.immutableCopy[M]
   }
 
-  def *(rhs: FreeBasedMono[M, F]): FreeBasedPoly[M, F] = {
+  def *(rhs: Mono[M, F]): Poly[M, F] = {
     val res = MutablePoly.empty[F](lhs.nTerms)
     val rm = rhs.data
     cforRange(0 until lhs.nTerms) { i =>
@@ -154,26 +153,26 @@ class FreeBasedPoly[
     res.immutableCopy[M]
   }
 
-  def *(rhs: Int): FreeBasedPoly[M, F] = lhs * Cyclo(rhs)
-  def *(rhs: Rational): FreeBasedPoly[M, F] = lhs * Cyclo(rhs)
-  def *(rhs: Cyclo): FreeBasedPoly[M, F] =
-    if (rhs.isZero) FreeBasedPoly.zero[M, F] else new FreeBasedPoly[M, F](keys, values.map(_ * rhs))
+  def *(rhs: Int): Poly[M, F] = lhs * Cyclo(rhs)
+  def *(rhs: Rational): Poly[M, F] = lhs * Cyclo(rhs)
+  def *(rhs: Cyclo): Poly[M, F] =
+    if (rhs.isZero) Poly.zero[M, F] else new Poly[M, F](keys, values.map(_ * rhs))
 
-  def /(rhs: Int): FreeBasedPoly[M, F] = lhs / Cyclo(rhs)
-  def /(rhs: Rational): FreeBasedPoly[M, F] = lhs / Cyclo(rhs)
-  def /(rhs: Cyclo): FreeBasedPoly[M, F] = lhs * (rhs.reciprocal)
+  def /(rhs: Int): Poly[M, F] = lhs / Cyclo(rhs)
+  def /(rhs: Rational): Poly[M, F] = lhs / Cyclo(rhs)
+  def /(rhs: Cyclo): Poly[M, F] = lhs * (rhs.reciprocal)
 
-  def *:(realLhs: Cyclo): FreeBasedPoly[M, F] =
-    if (realLhs.isZero) FreeBasedPoly.zero[M, F] else new FreeBasedPoly[M, F](keys, values.map(realLhs * _))
+  def *:(realLhs: Cyclo): Poly[M, F] =
+    if (realLhs.isZero) Poly.zero[M, F] else new Poly[M, F](keys, values.map(realLhs * _))
 
-  def +(rhs: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = {
+  def +(rhs: Poly[M, F]): Poly[M, F] = {
     val res = MutablePoly.empty[F](lhs.nTerms + rhs.nTerms)
     cforRange(0 until lhs.nTerms) { i => res(monomialNormalForm(i)) = values(i) }
     cforRange(0 until rhs.nTerms) { j => res.add(rhs.monomialNormalForm(j), rhs.coeff(j)) }
     res.immutableCopy[M]
   }
 
-  def -(rhs: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = {
+  def -(rhs: Poly[M, F]): Poly[M, F] = {
     val res = MutablePoly.empty[F](lhs.nTerms + rhs.nTerms)
     cforRange(0 until lhs.nTerms) { i => res(monomialNormalForm(i)) = values(i) }
     cforRange(0 until rhs.nTerms) { j => res.add(rhs.monomialNormalForm(j), -rhs.coeff(j)) }
@@ -182,64 +181,64 @@ class FreeBasedPoly[
 
 }
 
-object FreeBasedPoly {
+object Poly {
 
-  implicit def polyTermToPoly[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](polyTerm: FreeBasedPolyLike[M, F]): FreeBasedPoly[M, F] =
+  implicit def polyTermToPoly[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](polyTerm: PolyLike[M, F]): Poly[M, F] =
     polyTerm.toPoly
 
-  def zero[M <: FreeBasedMonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton]: FreeBasedPoly[M, F] =
-    new FreeBasedPoly[M, F](new Array[MutableWord[F]](0), new Array[Cyclo](0))
+  def zero[M <: MonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton]: Poly[M, F] =
+    new Poly[M, F](new Array[MutableWord[F]](0), new Array[Cyclo](0))
 
-  def one[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = {
+  def one[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Poly[M, F] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
 
-    new FreeBasedPoly[M, F](Array(MutableWord.one[F].setImmutable()), Array(Cyclo.one))
+    new Poly[M, F](Array(MutableWord.one[F].setImmutable()), Array(Cyclo.one))
   }
 
   def constant[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+  M <: MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-  ](int: Int)(implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = constant(Cyclo(int))
+  ](int: Int)(implicit wM: Witness.Aux[M]): Poly[M, F] = constant(Cyclo(int))
 
   def constant[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+  M <: MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-  ](phase: Phase)(implicit d: DummyImplicit, wM: Witness.Aux[M]): FreeBasedPoly[M, F] = constant(phase.toCyclo)
+  ](phase: Phase)(implicit d: DummyImplicit, wM: Witness.Aux[M]): Poly[M, F] = constant(phase.toCyclo)
 
   def constant[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+  M <: MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-  ](rational: Rational)(implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = constant(Cyclo(rational))
+  ](rational: Rational)(implicit wM: Witness.Aux[M]): Poly[M, F] = constant(Cyclo(rational))
 
   def constant[
-  M <: FreeBasedMonoidDef.Aux[F] with Singleton,
+  M <: MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-  ](cyclo: Cyclo)(implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = {
+  ](cyclo: Cyclo)(implicit wM: Witness.Aux[M]): Poly[M, F] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
 
-    if (cyclo.isZero) zero[M, F] else new FreeBasedPoly[M, F](Array(MutableWord.one[F]), Array(cyclo))
+    if (cyclo.isZero) zero[M, F] else new Poly[M, F](Array(MutableWord.one[F]), Array(cyclo))
   }
 
-  def single[M <: FreeBasedMonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: FreeBasedMono[M, F], coeff: Cyclo): FreeBasedPoly[M, F] =
+  def single[M <: MonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: Mono[M, F], coeff: Cyclo): Poly[M, F] =
     if (coeff.isZero || mono.isZero) zero[M, F]
-    else if (mono.data.phase.isOne) new FreeBasedPoly[M, F](Array(mono.data), Array(coeff))
+    else if (mono.data.phase.isOne) new Poly[M, F](Array(mono.data), Array(coeff))
     else {
       val res = mono.data.mutableCopy()
       val newCoeff = coeff * res.phase.toCyclo
-      new FreeBasedPoly[M, F](Array(res.setPhase(Phase.one).setImmutable()), Array(newCoeff))
+      new Poly[M, F](Array(res.setPhase(Phase.one).setImmutable()), Array(newCoeff))
     }
 
-  def apply[M <: FreeBasedMonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: FreeBasedMono[M, F]): FreeBasedPoly[M, F] =
+  def apply[M <: MonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: Mono[M, F]): Poly[M, F] =
     if (mono.isZero) zero[M, F]
-    else if (mono.data.phase.isOne) new FreeBasedPoly[M, F](Array(mono.data), Array(Cyclo.one))
+    else if (mono.data.phase.isOne) new Poly[M, F](Array(mono.data), Array(Cyclo.one))
     else {
       val newMono = mono.data.mutableCopy()
       val phase = newMono.phase
       newMono.setPhase(Phase.one)
-      new FreeBasedPoly[M, F](Array(newMono.setImmutable()), Array(phase.toCyclo))
+      new Poly[M, F](Array(newMono.setImmutable()), Array(phase.toCyclo))
     }
 
-  def apply[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](terms: (FreeBasedMono[M, F], Cyclo)*)(implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = {
+  def apply[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](terms: (Mono[M, F], Cyclo)*)(implicit wM: Witness.Aux[M]): Poly[M, F] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
 
     if (terms.size == 0) zero[M, F]
@@ -264,29 +263,29 @@ object FreeBasedPoly {
 
   // Typeclasses
 
-  implicit def predicate[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton]: Predicate[FreeBasedPoly[M, F]] = {
+  implicit def predicate[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton]: Predicate[Poly[M, F]] = {
     poly => poly.nTerms > 0
   }
 
-  implicit def associativeAlgebra[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): FieldAssociativeAlgebra[FreeBasedPoly[M, F], Cyclo] =
+  implicit def associativeAlgebra[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): FieldAssociativeAlgebra[Poly[M, F], Cyclo] =
     (wM.value: M).polyAssociativeAlgebra
 
-  implicit def involution[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Involution[FreeBasedPoly[M, F]] =
+  implicit def involution[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Involution[Poly[M, F]] =
     (wM.value: M).polyInvolution
 
-  implicit def equ[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Eq[FreeBasedPoly[M, F]] =
+  implicit def equ[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Eq[Poly[M, F]] =
     (wM.value: M).polyEq
 
-  implicit def genPermAction[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Action[FreeBasedPoly[M, F], GenPerm] =
+  implicit def genPermAction[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Action[Poly[M, F], GenPerm] =
     (wM.value: M).polyGenPermAction
 
-  final class PolyGenPermAction[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M])
-    extends Action[FreeBasedPoly[M, F], GenPerm] {
+  final class PolyGenPermAction[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M])
+    extends Action[Poly[M, F], GenPerm] {
     def M: M = wM.value
 
     implicit def wF: Witness.Aux[F] = M.witnessFree
 
-    def actr(p: FreeBasedPoly[M, F], g: GenPerm): FreeBasedPoly[M, F] = {
+    def actr(p: Poly[M, F], g: GenPerm): Poly[M, F] = {
       val res = free.MutablePoly.empty[F](p.nTerms)
       cforRange(0 until p.nTerms) { i =>
         val newMono = p.monomialNormalForm(i).mutableCopy()
@@ -299,7 +298,7 @@ object FreeBasedPoly {
       res.immutableCopy[M]
     }
 
-    def actl(g: GenPerm, p: FreeBasedPoly[M, F]): FreeBasedPoly[M, F] = actr(p, g.inverse)
+    def actl(g: GenPerm, p: Poly[M, F]): Poly[M, F] = actr(p, g.inverse)
   }
 
 }

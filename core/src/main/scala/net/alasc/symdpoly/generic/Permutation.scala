@@ -8,7 +8,6 @@ import spire.algebra.{Action, Eq, Group, Order}
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.algebra.Phased
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, EvaluatedPoly, Evaluator}
 import net.alasc.util._
 import syntax.all._
 import instances.all._
