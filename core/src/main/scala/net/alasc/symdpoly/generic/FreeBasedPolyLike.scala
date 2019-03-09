@@ -8,7 +8,7 @@ import shapeless.Witness
 import spire.math.Rational
 
 /** Mixin trait offering methods that treat other objects as polynomials. */
-trait FreeBasedPolyTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] { lhs =>
+trait FreeBasedPolyLike[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] { lhs =>
 
   // Abstract method to be implemented
   def toPoly: FreeBasedPoly[M, F]
@@ -51,4 +51,20 @@ trait FreeBasedPolyTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free
   def /(rhs: Int)(implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = lhs * Cyclo(rhs).reciprocal
   def /(rhs: Rational)(implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = lhs * rhs.reciprocal
   def /(rhs: Cyclo)(implicit wM: Witness.Aux[M]): FreeBasedPoly[M, F] = lhs * rhs.reciprocal
+
+  def <=! (rhs: FreeBasedPolyLike[M, F])(implicit wM: Witness.Aux[M]): LinearConstraint[M] = LinearConstraint[M](lhs.toPoly, ComparisonOp.LE, rhs.toPoly)
+  def <=! (rhs: Int)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs <=! valueOf[M].constant(rhs)
+  def <=! (rhs: Rational)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs <=! valueOf[M].constant(rhs)
+  def <=! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs <=! valueOf[M].constant(rhs)
+
+  def >=! (rhs: FreeBasedPolyLike[M, F])(implicit wM: Witness.Aux[M]): LinearConstraint[M] = LinearConstraint[M](lhs.toPoly, ComparisonOp.GE, rhs.toPoly)
+  def >=! (rhs: Int)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs >=! valueOf[M].constant(rhs)
+  def >=! (rhs: Rational)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs >=! valueOf[M].constant(rhs)
+  def >=! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs >=! valueOf[M].constant(rhs)
+
+  def =! (rhs: FreeBasedPolyLike[M, F])(implicit wM: Witness.Aux[M]): LinearConstraint[M] = LinearConstraint[M](lhs.toPoly, ComparisonOp.EQ, rhs.toPoly)
+  def =! (rhs: Int)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs =! valueOf[M].constant(rhs)
+  def =! (rhs: Rational)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs =! valueOf[M].constant(rhs)
+  def =! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs =! valueOf[M].constant(rhs)
+
 }

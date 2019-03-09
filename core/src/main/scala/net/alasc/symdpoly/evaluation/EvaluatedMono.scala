@@ -8,9 +8,14 @@ import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.generic.FreeBasedPermutation
 
 /** Evaluated monomial, i.e. equivalence class under some evaluator. */
-final class EvaluatedMono[E <: Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton:Witness.Aux](val normalForm: M#Monomial) { lhs =>
+final class EvaluatedMono[
+  E <: Evaluator[M] with Singleton:Witness.Aux,
+  M <: generic.MonoidDef with Singleton:Witness.Aux
+](val normalForm: M#Monomial) extends EvaluatedPolyLike[E, M] { lhs =>
   def E: E = valueOf[E]
   def M: M = valueOf[M]
+
+  def toPoly: EvaluatedPoly[E, M] = E.apply(M.monomialToPolynomial(normalForm))
 
   override def toString: String = "L(" + normalForm.toString + ")"
   override def hashCode: Int = normalForm.hashCode()

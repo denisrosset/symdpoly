@@ -2,9 +2,12 @@ package net.alasc.symdpoly
 package generic
 
 import cyclo.Cyclo
+
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import shapeless.Witness
 import spire.algebra._
+import spire.math.Rational
+
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator, GenericEvaluator}
 import net.alasc.symdpoly.math.GenPerm
@@ -57,6 +60,15 @@ abstract class MonoidDef { self =>
   /** Polynomial equality. */
   def polyEq: Eq[Polynomial]
 
+  /** Construct a constant polynomial from the given constant. */
+  def constant(i: Int): Polynomial
+
+  /** Construct a constant polynomial from the given constant. */
+  def constant(r: Rational): Polynomial
+
+  /** Construct a constant polynomial from the given constant. */
+  def constant(c: Cyclo): Polynomial
+
   /** Converts a monomial to single term polynomial. */
   def monomialToPolynomial(m: Monomial): Polynomial
 
@@ -69,6 +81,6 @@ abstract class MonoidDef { self =>
   def permutationMonoAction: Action[Monomial, Permutation]
 
   /** Default evaluator without additional equivalence relations. */
-  def evaluator(equivalences: Equivalence[self.type]*): Evaluator[self.type] = ??? // TODO new GenericGenericEvaluator[self.type](Vector.empty)(witness)
+  def evaluator(equivalences: Equivalence[self.type]*): Evaluator[self.type] = new GenericEvaluator(equivalences)
 
 }

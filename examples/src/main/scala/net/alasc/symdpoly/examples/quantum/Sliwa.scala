@@ -152,11 +152,13 @@ object SliwaApp extends App {
     val obj = -expression
     val symmetryGroup = feasibilityGroup.leavesInvariant(L(obj))
     println(s"Symmetry group order: ${symmetryGroup.order}")
+    /*
     val Lsym = L.symmetric(symmetryGroup)
     val problem = Lsym(obj).maximize
     val relaxation = problem.relaxation(generatingSet)
     println(s"Number of unique monomials: ${relaxation.gramMatrix.nUniqueMonomials}")
     relaxation.mosekInstance.writeCBF(s"sliwa_$index1.cbf")
+     */
   }
 
 }

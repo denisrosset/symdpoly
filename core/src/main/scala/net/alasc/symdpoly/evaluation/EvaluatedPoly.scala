@@ -3,20 +3,62 @@ package evaluation
 
 import shapeless.Witness
 import spire.algebra.{Eq, Order, VectorSpace}
+import spire.math.Rational
 import spire.syntax.cfor._
+import spire.syntax.vectorSpace._
+
 import scalin.syntax.all._
 import cyclo.Cyclo
+
 import net.alasc.symdpoly.util.OrderedSet
 import scalin.immutable.{Vec, VecEngine}
+
+import net.alasc.symdpoly
 import net.alasc.symdpoly.{generic, valueOf}
+
+trait EvaluatedPolyLike[
+  E <: Evaluator[M] with Singleton,
+  M <: generic.MonoidDef with Singleton
+] { lhs =>
+
+  def toPoly: EvaluatedPoly[E, M]
+
+  def <=!(rhs: EvaluatedPolyLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] =
+    EvaluatedConstraint(lhs.toPoly, ComparisonOp.LE, rhs.toPoly)
+
+  def <=!(rhs: Int)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs <=! valueOf[E].constant(rhs)
+  def <=!(rhs: Rational)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs <=! valueOf[E].constant(rhs)
+  def <=!(rhs: Cyclo)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs <=! valueOf[E].constant(rhs)
+
+  def >=!(rhs: EvaluatedPolyLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] =
+    EvaluatedConstraint(lhs.toPoly, ComparisonOp.GE, rhs.toPoly)
+
+  def >=!(rhs: Int)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs >=! valueOf[E].constant(rhs)
+  def >=!(rhs: Rational)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs >=! valueOf[E].constant(rhs)
+  def >=!(rhs: Cyclo)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs >=! valueOf[E].constant(rhs)
+
+  def =!(rhs: EvaluatedPolyLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] =
+    EvaluatedConstraint(lhs.toPoly, ComparisonOp.EQ, rhs.toPoly)
+
+  def =!(rhs: Int)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs =! valueOf[E].constant(rhs)
+  def =!(rhs: Rational)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs =! valueOf[E].constant(rhs)
+  def =!(rhs: Cyclo)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): EvaluatedConstraint[E, M] = lhs =! valueOf[E].constant(rhs)
+
+  def maximize(implicit E: Witness.Aux[E], M: Witness.Aux[M]): Optimization[E, M] = new Optimization[E, M](Direction.Maximize, lhs.toPoly)
+
+  def minimize(implicit E: Witness.Aux[E], M: Witness.Aux[M]): Optimization[E, M] = new Optimization[E, M](Direction.Minimize, lhs.toPoly)
+
+}
 
 /** Evaluated noncommutative polynomial. */
 final class EvaluatedPoly[
   E <: Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
-](val normalForm: M#Polynomial) { lhs =>
+](val normalForm: M#Polynomial) extends EvaluatedPolyLike[E, M] { lhs =>
 
   def E: E = valueOf[E]
+
+  def toPoly: EvaluatedPoly[E, M] = lhs
 
   override def toString: String = normalForm.string("L(", ")")
   override def hashCode: Int = normalForm.hashCode()
@@ -40,10 +82,24 @@ final class EvaluatedPoly[
       }
     }
 
-  def maximize: Maximization[E, M] = new Maximization[E, M](lhs)
 }
 
 object EvaluatedPoly {
+
+  implicit def polyFromInt[
+    E <: Evaluator[M] with Singleton:Witness.Aux,
+    M <: generic.MonoidDef with Singleton:Witness.Aux
+  ](i: Int): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.fromInt(i))
+
+  implicit def polyFromRational[
+    E <: Evaluator[M] with Singleton:Witness.Aux,
+    M <: generic.MonoidDef with Singleton:Witness.Aux
+  ](r: Rational): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(Cyclo.viewFromRational(r), valueOf[M].polyAssociativeAlgebra.one))
+
+  implicit def polyFromCyclo[
+    E <: Evaluator[M] with Singleton:Witness.Aux,
+    M <: generic.MonoidDef with Singleton:Witness.Aux
+  ](c: Cyclo): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(c, valueOf[M].polyAssociativeAlgebra.one))
 
   //region Typeclasses
 

@@ -1,4 +1,4 @@
-package net.alasc.symdpoly.evaluation.scratch
+package net.alasc.symdpoly.evaluation.freebased
 
 import net.alasc.symdpoly.free.MutableWord
 import net.alasc.symdpoly.{free, valueOf}

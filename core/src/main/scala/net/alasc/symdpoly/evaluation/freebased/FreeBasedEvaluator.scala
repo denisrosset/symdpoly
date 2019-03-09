@@ -1,5 +1,10 @@
-package net.alasc.symdpoly.evaluation.scratch
+package net.alasc.symdpoly
+package evaluation
+package freebased
 
+object Evaluator {
+
+}
 /*
 import cats.Invariant
 import net.alasc.finite.Grp

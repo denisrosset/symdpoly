@@ -1,6 +1,6 @@
 package net.alasc.symdpoly
 package matlab
-
+/*
 import spire.syntax.cfor._
 
 import com.jmatio.io.MatFileWriter
@@ -43,7 +43,6 @@ class SeDuMiInstance(val relaxation: Relaxation[_, _]) extends Instance {
     val rho: Seq[SparseMatrix] = genPerms.map(g => genPermToSparseMatrix(g, matrixSize))
     (nG, G, rho)
   }
-
 
   val Gcell: MLCell = new MLCell("G", Array(1, nG))
   gperms.zipWithIndex.foreach { case (g, i) => Gcell.set(new MLDouble(null, g, 1), i) }
@@ -145,3 +144,4 @@ object SeDuMiInstance {
   }
 
 }
+*/

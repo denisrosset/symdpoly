@@ -14,6 +14,7 @@ import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.generic
 import cats.instances.order.catsContravariantMonoidalForOrder
 import cats.instances.eq.catsContravariantMonoidalForEq
+import spire.math.Rational
 
 import net.alasc.finite.Grp
 import spire.util.Opt
@@ -28,7 +29,9 @@ import instances.all._
   * preserve the polynomial structure.
   *
   */
-abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivalences: Seq[Equivalence[M]]) { self =>
+abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux] { self =>
+
+  def equivalences: Seq[Equivalence[M]]
 
   def M: M = valueOf[M]
   val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
@@ -39,17 +42,37 @@ abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val
   // optimization: set to true if apply(a) == apply(a.adjoint)
   def isSelfAdjoint: Boolean = ??? // TODO equivalences.exists(e => e.isInstanceOf[AdjointEquivalence[_]] || e.isInstanceOf[AdjointFreeBasedEquivalence[_, _]])
 
+  //region Evaluated monomials
+
+  type EvaluatedMonomial = EvaluatedMono[self.type, M]
+
   def apply(mono: M#Monomial): EvaluatedMono[self.type, M] = apply(mono, makeScratchPad)
   def apply(mono: M#Monomial, pad: ScratchPad): EvaluatedMono[self.type, M]
 
+  //endregion
+
+  //region Evaluated polynomials
+
+  type EvaluatedPolynomial = EvaluatedPoly[self.type, M]
+
   def apply(poly: M#Polynomial)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M] = apply(poly, makeScratchPad)
+
   def apply(poly: M#Polynomial, pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M]
 
-  type EvaluatedMonomial = EvaluatedMono[self.type, M]
-  type EvaluatedPolynomial = EvaluatedPoly[self.type, M]
+  /** Construct a constant evaluated polynomial from the given constant. */
+  def constant(i: Int): EvaluatedPolynomial = apply(M.constant(i))
+
+  /** Construct a constant evaluated polynomial from the given constant. */
+  def constant(r: Rational): EvaluatedPolynomial = apply(M.constant(r))
+
+  /** Construct a constant evaluated polynomial from the given constant. */
+  def constant(c: Cyclo): EvaluatedPolynomial = apply(M.constant(c))
+
+  //endregion
+
   type Permutation = M#Permutation
 
-  // typeclasses
+  //region Typeclasses
 
   val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, M](M.monoMultiplicativeBinoid.zero)
   val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
@@ -59,9 +82,10 @@ abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val
 
   def evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation]
 
+  //endregion
 }
 
-class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M](equivalences) { self =>
+case class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M] { self =>
 
   val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = {
     val action: Action[M#Monomial, Permutation] = (M: M).permutationMonoAction

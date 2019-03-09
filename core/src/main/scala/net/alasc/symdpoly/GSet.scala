@@ -11,31 +11,50 @@ import net.alasc.symdpoly
 import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedMonoidDef}
 import syntax.phased._
 
-/** Generating set of monomials. */
+/** Generating set of monomials.
+  *
+  * Compared to a standard Scala Set, it preserves the structure of its construction, and provides additional
+  * combinators.
+  *
+  */
 sealed trait GSet[M <: generic.MonoidDef with Singleton] { lhs =>
+
+  /** Computes and returns the sorted generating set of monomials. */
   def monomials(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial]
+
+  /** Union. */
   def +(rhs: GSet[M]): GSet[M] =
     lhs match {
       case GSet.Sequence(seq) => GSet.Sequence(seq :+ rhs)
       case _ => GSet.Sequence(Seq(lhs, rhs))
     }
+
+  /** Cartesian product. */
   def *(rhs: GSet[M]): GSet[M] =
     lhs match {
       case GSet.Tensor(seq) => GSet.Tensor(seq :+ rhs)
       case _ => GSet.Tensor(Seq(lhs, rhs))
     }
+
+  /** Power. */
   def pow(exp: Int): GSet[M] = GSet.Power(lhs, exp)
+
 }
 
 object GSet {
 
+  /** Additional operations for generating sets on free-based monomials. */
   implicit class RichGSet[
     M <: FreeBasedMonoidDef.Aux[F] with Singleton,
     F <: free.MonoidDef.Aux[F] with Singleton
   ](val lhs: GSet[M with FreeBasedMonoidDef.Aux[F]]) {
-    def orbit[G](grp: Grp[G])(implicit action: Action[FreeBasedMono[M, F], G]): GSet[M] = Orbit[G, M, F](lhs, grp)
+
+    /** Completes a generating set of monomials by their orbit under a group. */
+    def orbit[G](grp: Grp[G])(implicit action: Action[FreeBasedMono[M, F], G]): GSet[M] = Orbit[M, F, G](lhs, grp)
+
   }
 
+  /** Ordering typeclass for Scala collections. */
   def ordering[M <: generic.MonoidDef with Singleton](implicit witness: Witness.Aux[M]): Ordering[M#Monomial] =
     spire.compat.ordering((witness.value: M).monoOrder)
 
@@ -73,13 +92,17 @@ object GSet {
     if (opEnums.length == 0) id[F]
     else Word(opEnums)
 
+  /** Empty generating set of monomials. */
   def empty[M <: generic.MonoidDef with Singleton]: GSet[M] = Empty[M]
 
+  /** Generating set of monomials containing the identity only. */
   def id[M <: generic.MonoidDef with Singleton]: GSet[M] = Id[M]()
 
-  case class Orbit[G, M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton](gm: GSet[M], grp: Grp[G])
-                                            (implicit action: Action[FreeBasedMono[M, F], G]) extends GSet[M] {
+  protected case class Orbit[
+    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton,
+    F <: free.MonoidDef.Aux[F] with Singleton,
+    G
+  ](gm: GSet[M], grp: Grp[G])(implicit action: Action[FreeBasedMono[M, F], G]) extends GSet[M] {
     override def toString: String = s"Orbit($gm)"
     def monomials(implicit wM: Witness.Aux[M]): SortedSet[FreeBasedMono[M, F]] = {
       implicit def o: Ordering[FreeBasedMono[M, F]] = spire.compat.ordering((wM.value: M).monoOrder)
@@ -90,21 +113,23 @@ object GSet {
     }
   }
 
-  case class Empty[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
+  protected case class Empty[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
     override def toString: String = "{}"
     def monomials(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       implicit def o: Ordering[M#Monomial] = ordering[M]
       SortedSet.empty[M#Monomial]
     }
   }
-  case class Id[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
+
+  protected case class Id[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
     override def toString: String = "1"
     def monomials(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       implicit def o: Ordering[M#Monomial] = ordering[M]
       SortedSet((wM.value: M).one)
     }
   }
-  case class Ops[F <: free.MonoidDef.Aux[F] with Singleton](opEnum: F#OpEnum) extends GSet[F] {
+
+  protected case class Ops[F <: free.MonoidDef.Aux[F] with Singleton](opEnum: F#OpEnum) extends GSet[F] {
     override def toString: String =
       if (opEnum.allInstances.isEmpty) opEnum.toString
       else opEnum.allInstances.head.productPrefix
@@ -114,7 +139,7 @@ object GSet {
     }
   }
 
-  case class Word[F <: free.MonoidDef.Aux[F] with Singleton](seq: Seq[F#OpEnum]) extends GSet[F] {
+  protected case class Word[F <: free.MonoidDef.Aux[F] with Singleton](seq: Seq[F#OpEnum]) extends GSet[F] {
     def opEnumString(opEnum: F#OpEnum): String =
       if (opEnum.allInstances.isEmpty) opEnum.toString
       else opEnum.allInstances.head.productPrefix
@@ -134,7 +159,7 @@ object GSet {
     }
   }
 
-  case class Power[M <: generic.MonoidDef with Singleton](gm: GSet[M], exp: Int) extends GSet[M] {
+  protected case class Power[M <: generic.MonoidDef with Singleton](gm: GSet[M], exp: Int) extends GSet[M] {
     override def toString: String = s"($gm)^$exp"
     def monomials(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       def M: M = wM.value
@@ -151,7 +176,7 @@ object GSet {
     }
   }
 
-  case class Tensor[M <: generic.MonoidDef with Singleton](seq: Seq[GSet[M]]) extends GSet[M] {
+  protected case class Tensor[M <: generic.MonoidDef with Singleton](seq: Seq[GSet[M]]) extends GSet[M] {
     override def toString: String = seq.mkString("*")
     def monomials(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       def M: M = wM.value
