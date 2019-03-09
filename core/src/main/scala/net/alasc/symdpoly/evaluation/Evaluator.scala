@@ -90,4 +90,3 @@ class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equiv
   }
 
 }
-
