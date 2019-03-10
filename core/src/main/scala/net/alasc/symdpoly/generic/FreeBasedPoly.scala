@@ -27,7 +27,7 @@ class FreeBasedPoly[
   F <: free.MonoidDef.Aux[F] with Singleton
 ](private[this] val keys: Array[MutableWord[F]],
   private[this] val values: Array[Cyclo])
- (implicit val wM: Witness.Aux[M]) extends GenPoly[M] with FreeBasedPolyTerm[M, F] { lhs =>
+ (implicit val wM: Witness.Aux[M]) extends GenPoly[M] with FreeBasedPolyLike[M, F] { lhs =>
 
   def toPoly: FreeBasedPoly[M, F] = lhs
 
@@ -179,11 +179,12 @@ class FreeBasedPoly[
     cforRange(0 until rhs.nTerms) { j => res.add(rhs.monomialNormalForm(j), -rhs.coeff(j)) }
     res.immutableCopy[M]
   }
+
 }
 
 object FreeBasedPoly {
 
-  implicit def polyTermToPoly[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](polyTerm: FreeBasedPolyTerm[M, F]): FreeBasedPoly[M, F] =
+  implicit def polyTermToPoly[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](polyTerm: FreeBasedPolyLike[M, F]): FreeBasedPoly[M, F] =
     polyTerm.toPoly
 
   def zero[M <: FreeBasedMonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton]: FreeBasedPoly[M, F] =

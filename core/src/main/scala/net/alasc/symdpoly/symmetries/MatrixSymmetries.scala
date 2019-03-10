@@ -1,32 +1,23 @@
 package net.alasc.symdpoly
-
+package symmetries
+/*
 import cats.Contravariant
-import net.alasc.symdpoly.evaluation.{EvaluatedMono, Evaluator, SymmetryEquivalence}
-import net.alasc.symdpoly.internal.{MomentSet, MomentSetBuilder}
-import scalin.immutable.dense._
-import spire.syntax.action._
-import syntax.all._
-import instances.all._
-import spire.syntax.group._
-import spire.syntax.multiplicativeMonoid._
-import spire.syntax.involution._
-import cats.syntax.invariant._
-import cats.syntax.contravariant._
 import shapeless.Witness
 import spire.algebra.{Group, Monoid, Order}
+import spire.std.unit._
 import spire.syntax.action._
 import spire.syntax.cfor._
+
 import net.alasc.algebra.PermutationAction
 import net.alasc.bsgs.GrpChain
 import net.alasc.finite.Grp
 import net.alasc.perms.Perm
-import net.alasc.symdpoly.algebra.{Morphism, MultiplicativeBinoid, Phased}
-import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
-import spire.std.unit._
 import net.alasc.perms.default._
-import net.alasc.symdpoly.generic.FreeBasedMono
+import net.alasc.symdpoly.algebra.{Morphism, Phased}
+import net.alasc.symdpoly.evaluation.SymmetryEquivalence
+import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import net.alasc.symdpoly.util.OrderedSet
-import net.alasc.util.Tuple2Int
+import net.alasc.symdpoly.{generic, valueOf}
 
 /** Describes the symmetries of a matrix. */
 trait MatrixSymmetries {
@@ -99,8 +90,9 @@ object MatrixSymmetries {
         def apply(g: G): GenPerm = {
           implicit def order: Order[M#Monomial] = valueOf[M].monoOrder
           implicit def phased: Phased[M#Monomial] = valueOf[M].monoPhased
-          import e.action
           import scala.collection.mutable.{HashMap => MMap}
+
+          import e.action
           val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
           val n = set.length
           val permImages = new Array[Int](n)
@@ -120,3 +112,4 @@ object MatrixSymmetries {
     }
 
 }
+*/

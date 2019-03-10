@@ -6,7 +6,7 @@ import spire.algebra.MultiplicativeMonoid
 import net.alasc.symdpoly.free
 
 /** Mixin trait offering methods that treat other objects (such as operator variables) as monomials. */
-trait FreeBasedMonoTerm[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] {
+trait FreeBasedMonoLike[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton] extends FreeBasedPolyLike[M, F] {
   lhs =>
 
   // Abstract methods to overload

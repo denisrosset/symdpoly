@@ -58,21 +58,23 @@ object Choi {
   /** Group that preserves optimality. */
   val symmetryGroup = feasibilityGroup.leavesInvariant(L(obj))
 
+  /*
   /** Evaluator with equivalence under symmetries. */
   val Lsym = L.symmetric(symmetryGroup)
 
   /** Symmetrized maximization problem. */
   val problem = Lsym(obj).maximize
+  */
 
   /** Generating set of monomials. */
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
 
   /** Nonsymmetric relaxation. */
   val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
-
+/*
   /** Symmetric relaxation. */
   val relaxationSym = Lsym(obj).maximize.relaxation(generatingSet)
-
+*/
 }
 
 object ChoiApp extends App {
@@ -80,9 +82,9 @@ object ChoiApp extends App {
   import Choi._
 
   relaxationNoSym.mosekInstance.writeCBF("choi_nosym.cbf")
-
+/*
   relaxationSym.mosekInstance.writeCBF("choi_sym.cbf")
 
   relaxationSym.sedumiInstance.writeFile("choi_sym_sedumi.mat")
-
+*/
 }

@@ -93,7 +93,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
     *
     * Instance types must be declared in this monoid [[operators]] sequence before using them in monomials/polynomials.
     */
-  abstract class Op extends Product with FreeBasedMonoTerm[Free, Free] with FreeBasedPolyTerm[Free, Free] { lhs =>
+  abstract class Op extends Product with FreeBasedMonoLike[Free, Free] with FreeBasedPolyLike[Free, Free] { lhs =>
     def wM: Witness.Aux[Free] = witnessFree
     def index: Int = indexFromOp(this)
 
@@ -120,7 +120,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends FreeBasedMonoidDef {
   }
 
   /** An operator variable in this free monoid along with a phase. */
-  case class PhasedOp(phase: Phase, op: Op) extends FreeBasedMonoTerm[Free, Free] with FreeBasedPolyTerm[Free, Free] { lhs =>
+  case class PhasedOp(phase: Phase, op: Op) extends FreeBasedMonoLike[Free, Free] with FreeBasedPolyLike[Free, Free] { lhs =>
     override def toString: String = FreeBasedMono[Free](phase, op).toString
     def toPoly: FreeBasedPoly[Free, Free] = FreeBasedPoly(lhs.toMono)
     def toMono: FreeBasedMono[Free, Free] = FreeBasedMono(lhs)

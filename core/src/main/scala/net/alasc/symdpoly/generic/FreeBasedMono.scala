@@ -16,7 +16,7 @@ import org.typelevel.discipline.Predicate
 class FreeBasedMono[
   M <: FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](protected[symdpoly] val data: MutableWord[F]) extends FreeBasedPolyTerm[M, F] { lhs =>
+](protected[symdpoly] val data: MutableWord[F]) extends FreeBasedPolyLike[M, F] { lhs =>
 
   require(!data.mutable)
   require(F.cyclotomicOrder % data.phase.n == 0)
@@ -85,7 +85,7 @@ class FreeBasedMono[
 
 object FreeBasedMono {
 
-  implicit def monoTermToMono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](monoTerm: FreeBasedMonoTerm[M, F]): FreeBasedMono[M, F] =
+  implicit def monoTermToMono[M <: FreeBasedMonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](monoTerm: FreeBasedMonoLike[M, F]): FreeBasedMono[M, F] =
     monoTerm.toMono
 
   type Free[F <: free.MonoidDef.Aux[F] with Singleton] = FreeBasedMono[F, F]

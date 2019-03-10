@@ -68,29 +68,35 @@ object Robinson {
   /** We verify that we recover the group described in the paper. */
   assert(group === Quotient.groupInQuotientNC(Grp(d, s)))
 
+  /** Optimization problem. */
+  val problem: Optimization[L.type, Quotient.type] = L(obj).maximize
+
+  val prob1 = problem.subjectTo(L(Quotient.quotient(X*Y)) >=! 0, Quotient.quotient(X*X) =! 1)
+
+  println(prob1.constraints)
+  /*
   /** Monomial evaluator invariant under the problem symmetry group. */
   val Lsym = L.symmetric(group)
 
-  /** Symmetric optimization problem. */
-  val problem = Lsym(obj).maximize
-
+*/
   /** Relaxation with all monomials of maximal degree 3. */
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
-
+/*
   /** Symmetric relaxation. */
   val relaxationSym = problem.relaxation(generatingSet)
-
+*/
   /** Non symmetric relaxation for comparison. */
-  val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
+  val relaxationNoSym = problem.relaxation(generatingSet)
 
 }
 
 object RobinsonApp extends App {
   import Robinson._
-
+  Robinson.generatingSet
+/*
   // We write the symmetrized SDP
   relaxationSym.sedumiInstance.writeFile("robinson_sedumi.mat")
-
+*/
   // We write the non symmetrized SDP
-  relaxationNoSym.sedumiInstance.writeFile("robinson_sedumi_nosym.mat")
+  //relaxationNoSym.sedumiInstance.writeFile("robinson_sedumi_nosym.mat")
 }

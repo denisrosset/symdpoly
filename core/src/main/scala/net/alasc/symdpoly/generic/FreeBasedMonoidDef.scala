@@ -2,11 +2,13 @@ package net.alasc.symdpoly
 package generic
 
 import cats.Invariant
+
 import cyclo.Cyclo
 import cats.instances.invariant._
 import cats.syntax.invariant._
 import cats.syntax.contravariant._
 import cats.instances.eq._
+
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.{FaithfulActionBuilder, FaithfulPermutationActionBuilder, Grp}
 import net.alasc.partitions.Partition
@@ -17,7 +19,10 @@ import net.alasc.perms.default._
 import net.alasc.util._
 import shapeless.Witness
 import spire.algebra.{free => _, _}
+import spire.math.Rational
+
 import instances.all._
+import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator}
 import net.alasc.symdpoly.generic.FreeBasedMonoidDef.PolyInstances
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
@@ -85,6 +90,10 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def polyEq: Eq[Polynomial] = polyInstances
   val polyGenPermAction: Action[FreeBasedPoly[self.type, Free], GenPerm] = new FreeBasedPoly.PolyGenPermAction
 
+  def constant(i: Int): Polynomial = polyAssociativeAlgebra.fromInt(i)
+  def constant(r: Rational): Polynomial = polyAssociativeAlgebra.timesl(r, polyAssociativeAlgebra.one)
+  def constant(c: Cyclo): Polynomial = polyAssociativeAlgebra.timesl(c, polyAssociativeAlgebra.one)
+
   //endregion
 
   //region Permutations
@@ -101,6 +110,8 @@ abstract class FreeBasedMonoidDef extends generic.MonoidDef { self =>
   def symmetryGroup: Grp[FreeBasedPermutation[self.type, Free]]
 
   //endregion
+
+  override def evaluator(equivalences: Equivalence[self.type]*): Evaluator[self.type] = freebased.Evaluator[self.type, Free](equivalences)
 
 }
 

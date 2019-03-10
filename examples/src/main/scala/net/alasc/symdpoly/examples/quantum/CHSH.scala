@@ -66,7 +66,7 @@ object CHSH {
 
   /** Problem symmetry group. */
   val symmetryGroup = feasibilityGroup.leavesInvariant(L(bellOperator))
-
+/*
   /** Monomial evaluator invariant under the problem symmetry group. */
   val Lsym = L.symmetric(symmetryGroup)
 
@@ -77,14 +77,16 @@ object CHSH {
   val problem = Lsym(bellOperator).maximize
 
   /** Relaxation. */
-  val relaxation = problem.relaxation(generatingSet)
+  val relaxation = problem.relaxation(generatingSet)*/
 
 }
 
 object CHSHApp extends App {
   import CHSH._
+  /*
   println(relaxation.gramMatrix.momentMatrix)
   println(relaxation.jOptimizerInstance.solve())
   relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
   relaxation.mosekInstance.writeCBF("chsh.cbf")
+   */
 }

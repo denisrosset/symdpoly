@@ -21,10 +21,20 @@ import org.typelevel.discipline.Predicate
 import syntax.all._
 import instances.all._
 
-abstract class GenPoly[M <: MonoidDef with Singleton] {
+abstract class GenPoly[M <: MonoidDef with Singleton:Witness.Aux] { lhs: M#Polynomial =>
+
   def nTerms: Int
   def monomial(i: Int): M#Monomial
   def coeff(i: Int): Cyclo
   def coeff(mono: M#Monomial): Cyclo
   def string(leftBracket: String = "", rightBracket: String = ""): String
+
+  def *(rhs: Int): M#Polynomial
+  def *(rhs: Rational): M#Polynomial
+  def *(rhs: Cyclo): M#Polynomial
+
+  def /(rhs: Int): M#Polynomial
+  def /(rhs: Rational): M#Polynomial
+  def /(rhs: Cyclo): M#Polynomial
+
 }
