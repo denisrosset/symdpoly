@@ -1,6 +1,6 @@
 package net.alasc.symdpoly
 package symmetries
-/*
+
 import cats.Contravariant
 import shapeless.Witness
 import spire.algebra.{Group, Monoid, Order}
@@ -19,8 +19,18 @@ import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.symdpoly.{generic, valueOf}
 
-/** Describes the symmetries of a matrix. */
-trait MatrixSymmetries {
+/** Describes the symmetries of a matrix.
+  *
+  * @param grp Group of symmetries
+  * @param representation Group representation,
+  * @tparam G Generic group element type
+  *
+  */
+case class MatrixSymmetries[G](grp: Grp[G], representation: Morphism[G, GenPerm, Group]) {
+
+}
+
+/*trait MatrixSymmetries {
 
   /** Generic group element type. */
   type G
@@ -46,8 +56,8 @@ trait MatrixSymmetries {
     }
   }
 
-}
-
+}*/
+/*
 object MatrixSymmetries {
 
   implicit val monoid: Monoid[MatrixSymmetries] = new Monoid[MatrixSymmetries] {

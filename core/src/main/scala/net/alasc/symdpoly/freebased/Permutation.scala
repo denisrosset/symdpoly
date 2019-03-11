@@ -63,15 +63,6 @@ object Permutation {
     F <: free.MonoidDef.Aux[F] with Singleton
   ]: Action[Mono[M, F], Permutation[M, F]] = (valueOf[M]: M).permutationMonoAction
 
-  implicit def grpGenericPermutationOps[
-    M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
-    F <: free.MonoidDef.Aux[F] with Singleton
-  ](grp: Grp[Permutation[M, F]])(implicit classTag: ClassTag[Permutation[M, F]],
-                                 equ: Eq[Permutation[M, F]],
-                                 fpab: FaithfulPermutationActionBuilder[Permutation[M, F]],
-                                 group: Group[Permutation[M, F]]): GrpPermutationsOps[M, Permutation[M, F]] =
-    new GrpPermutationsOps[M, Permutation[M, F]](grp)
-
   //endregion
 
 }

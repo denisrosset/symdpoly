@@ -28,6 +28,14 @@ trait Permutation[M <: generic.MonoidDef with Singleton] { self: M#Permutation =
 
 object Permutation {
 
+  implicit def grpGenericPermutationOps[
+    M <: generic.MonoidDef with Singleton: Witness.Aux
+  ](grp: Grp[Permutation[M] with M#Permutation])(implicit classTag: ClassTag[Permutation[M]],
+                              equ: Eq[Permutation[M]],
+                              fpab: FaithfulPermutationActionBuilder[Permutation[M]],
+                              group: Group[Permutation[M]]): GrpPermutationsOps[M] =
+    new GrpPermutationsOps[M](grp)
+
   class GrpPermutationsOps[
     M <: generic.MonoidDef with Singleton: Witness.Aux
   ](grp: Grp[Permutation[M] with M#Permutation]) {
@@ -43,7 +51,6 @@ object Permutation {
       new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
     }
 
-    /*
     def leavesInvariant(poly: generic.Poly[M])(implicit action: Action[M#Monomial, M#Permutation]): Grp[M#Permutation] = {
       val monomials = allElementsOf(poly)(action)
       val order = M.cyclotomicOrder
@@ -78,17 +85,9 @@ object Permutation {
       val stabilizer = grp.orderedPartitionStabilizer(monomialsAction, partition)
       val generators = stabilizer.smallGeneratingSet
       Grp.fromGeneratorsAndOrder(generators, stabilizer.order)
-    }*/
+    }
 
   }
-
-  implicit def grpGenericPermutationOps[
-    M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](grp: Grp[Permutation[M]])(implicit classTag: ClassTag[Permutation[M]],
-                              equ: Eq[Permutation[M]],
-                              fpab: FaithfulPermutationActionBuilder[Permutation[M]],
-                              group: Group[Permutation[M]]): GrpPermutationsOps[M] =
-    new GrpPermutationsOps[M](grp)
 
   def phasedIntAction[
     M <: generic.MonoidDef with Singleton:Witness.Aux

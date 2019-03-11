@@ -1,12 +1,12 @@
 package net.alasc.symdpoly
 package algebra
 
+import cats.arrow.Compose
 import net.alasc.algebra.PermutationAction
 import net.alasc.attributes.Attributable
 import net.alasc.finite._
 import spire.syntax.group._
 import spire.algebra.{Eq, Group}
-
 import net.alasc.perms.default._
 import net.alasc.std.product._
 import spire.std.tuples._
@@ -14,12 +14,12 @@ import instances.invariant._
 import net.alasc.syntax.all._
 import net.alasc.util.NNOption
 import shapeless.Witness
+
 import scala.annotation.tailrec
 import scala.reflect.ClassTag
-
 import cats.{Contravariant, Invariant, InvariantMonoidal}
+import net.alasc.bsgs.{Chain, GrpChain, Node}
 import spire.math.SafeLong
-
 import net.alasc.perms.Perm
 
 /** Describes a map S => T that preserves the algebraic structure F[_] */
@@ -52,6 +52,33 @@ object Morphism {
     }
 
   }
+
+  protected def faithfulPermutationActionFromGrp[G](grp: Grp[G]): Option[PermutationAction[G]] = grp match {
+    case grpChain: GrpChain[G, a1] if grpChain.action.isFaithful => Some(grpChain.action)
+    case grpChain: GrpChain[G, a1] => grpChain.kernel match {
+      case node: Node[G, a2] if node.action.isFaithful => Some(node.action)
+      case _ => None
+    }
+    case _ => None
+  }
+
+  def niceMonomorphism[G](grp: Grp[G])(implicit ev: FaithfulPermutationActionBuilder[G]): Morphism[G, Perm, Group] = {
+    val action: PermutationAction[G] = faithfulPermutationActionFromGrp(grp).getOrElse(ev(grp))
+    new Morphism[G, Perm, Group] {
+      def S: Group[G] = grp.group
+      def T: Group[Perm] = Perm.algebra
+      def apply(g: G): Perm = action.toPerm(g)
+    }
+  }
+
+  implicit def compose[F[_]]: Compose[Lambda[(S, T) => Morphism[S, T, F]]] =
+    new Compose[Lambda[(S, T) => Morphism[S, T, F]]] {
+      def compose[A, B, C](f: Morphism[B, C, F], g: Morphism[A, B, F]): Morphism[A, C, F] = new Morphism[A, C, F] {
+        def S: F[A] = g.S
+        def T: F[C] = f.T
+        def apply(a: A): C = f(g(a))
+      }
+    }
 
 }
 
