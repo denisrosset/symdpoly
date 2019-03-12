@@ -8,8 +8,11 @@ import net.alasc.util._
 import spire.algebra._
 import spire.math.SafeLong
 import spire.syntax.eq._
-
 import scala.annotation.tailrec
+import scalin.immutable.csc._
+import scalin.immutable.{Mat, Vec}
+import net.alasc.syntax.all._
+import cyclo.Cyclo
 
 /** A generalized permutation is an element of the generalized symmetric group, and combines
   * a permutation and a multiplication by a diagonal matrix whose entries are rational roots
@@ -68,6 +71,8 @@ case class GenPerm(val perm: Perm, val phases: Phases) { lhs =>
     GenPerm(Perm.fromImages(permImages), phases.truncate(n))
   }
 
+  def toMatrix(n: Int): Mat[Cyclo] = Mat.sparse(n, n)(Vec.tabulate(n)(identity), Vec.fromSeq(perm.images(n)), Vec.tabulate(n)(i => phases.phaseFor(perm.image(i))))
+
 }
 
 object GenPerm {
@@ -93,12 +98,12 @@ object GenPerm {
   /** Returns the generalized symmetric group, i.e. the wreath product of the cyclic group
     * of order m and the symmetric group of order n.
     */
-  def generalizedSymmetricGroup(m: Int, n: Int)(implicit gg: GrpGroup[GenPerm]): Grp[GenPerm] = {
+  def generalizedSymmetricGroup(cyclotomicOrder: Int, n: Int)(implicit gg: GrpGroup[GenPerm]): Grp[GenPerm] = {
     val sGens = if (n > 1) Vector(Symmetric.transposition(0, 1), Cyclic.shift(n)).map(GenPerm(_, Phases.empty)) else Vector.empty
     val sOrder = Symmetric.order(n)
-    if (m == 1) Grp.fromGeneratorsAndOrder(sGens, sOrder) else {
-      val pGens = Vector.tabulate(n)(i => GenPerm(Perm.id, Phases((i, Phase.apply(1, m)))))
-      val pOrder = SafeLong(m).pow(n)
+    if (cyclotomicOrder == 1) Grp.fromGeneratorsAndOrder(sGens, sOrder) else {
+      val pGens = Vector.tabulate(n)(i => GenPerm(Perm.id, Phases((i, Phase.apply(1, cyclotomicOrder)))))
+      val pOrder = SafeLong(cyclotomicOrder).pow(n)
       Grp.fromGeneratorsAndOrder(pGens ++ sGens, pOrder * sOrder)
     }
   }

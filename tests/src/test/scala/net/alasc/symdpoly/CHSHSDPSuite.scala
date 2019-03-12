@@ -54,7 +54,7 @@ class CHSHSDPSuite extends CommonSuite {
 
     val L = Quotient.evaluator(Evaluation.real)
 
-    val symmetryGroup = feasibilityGroup.leavesInvariant(bellOperator)
+    val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
 
     val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
 

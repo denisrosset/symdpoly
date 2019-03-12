@@ -7,17 +7,17 @@ import spire.syntax.cfor.cforRange
 
 class SDPAInstance(val relaxation: Relaxation[_, _]) extends Instance {
   import net.alasc.symdpoly.solvers.UpperTriangular.SparseMatrix
-  import relaxation.{gramMatrix, objectiveVector}
-  import gramMatrix.matrixSize
+  import relaxation.{momentMatrix, objectiveVector}
+  import momentMatrix.matrixSize
 
-  val m: Int = gramMatrix.nUniqueMonomials - 1 // number of dual variables
+  val m: Int = momentMatrix.nUniqueMonomials - 1 // number of dual variables
   val nBlocks: Int = 1
   val blocks: Array[Int] = Array(matrixSize)
 
-  val a = Vector.tabulate(m)(i => SparseMatrix.forMoment(gramMatrix, i + 1, -1.0))
+  val a = Vector.tabulate(m)(i => SparseMatrix.forMoment(momentMatrix, i + 1, -1.0))
   val b = Array.tabulate(m)(i => realCycloToDouble(objectiveVector(i + 1)))
   val objConstant = realCycloToDouble(objectiveVector(0))
-  val C = SparseMatrix.forMoment(gramMatrix, 0, -1.0)
+  val C = SparseMatrix.forMoment(momentMatrix, 0, -1.0)
 
   def writeData(writer: Writer): Unit = {
     writer.append(s"* SDPA solves a minimization dual problem, while we express a maximization problem \n")

@@ -14,6 +14,7 @@ import spire.math.Rational
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.freebased.{Permutation, Mono, Poly, MonoLike, PolyLike}
 import net.alasc.symdpoly.util.{IndexMap, SparseTrie}
+import net.alasc.symdpoly.quotient.{MonoidDef => QuotientMonoidDef, Rules => QuotientRules}
 
 /** Base class for a generalized free monoid.
   *
@@ -301,7 +302,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     *
     * @param rules Rewriting rules given as sequences of pairs (lhs -> rhs) describing substitutions.
     */
-  def quotientMonoid(rules: net.alasc.symdpoly.quotient.Rules[monoidDef.type]*): net.alasc.symdpoly.quotient.MonoidDef.Aux[monoidDef.type] = new net.alasc.symdpoly.quotient.MonoidDef {
+  def quotientMonoid(rules: QuotientRules[monoidDef.type]*): QuotientMonoidDef.Aux[monoidDef.type] = new QuotientMonoidDef {
     val allRules: Seq[(MutableWord[monoidDef.type], MutableWord[monoidDef.type])] = rules.flatMap(_.map { case (k, v) => (k.data, v.data) })
     type Free = monoidDef.type
     def Free: Free = monoidDef

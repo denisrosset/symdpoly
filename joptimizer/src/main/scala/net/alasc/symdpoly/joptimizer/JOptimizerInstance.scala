@@ -14,17 +14,17 @@ import net.alasc.symdpoly.solvers.{Instance}
 import net.alasc.symdpoly.{OptimumFound, Relaxation, Solution}
 
 class JOptimizerInstance(val relaxation: Relaxation[_, _]) extends Instance {
-  import relaxation.{gramMatrix, objectiveVector}
-  import gramMatrix.matrixSize
+  import relaxation.{momentMatrix, objectiveVector}
+  import momentMatrix.matrixSize
 
-  val nDualVariables: Int = gramMatrix.nUniqueMonomials - 1
+  val nDualVariables: Int = momentMatrix.nUniqueMonomials - 1
 
   def Gmatrix: Array[Array[Double]] = {
     val res = Array.tabulate(matrixSize)(x => new Array[Double](matrixSize))
     cforRange(0 until matrixSize) { r =>
       cforRange(0 until matrixSize) { c =>
-        if (gramMatrix.momentIndex(r, c) == 0)
-          res(r)(c) = -gramMatrix.phase(r, c).toInt.toDouble
+        if (momentMatrix.momentIndex(r, c) == 0)
+          res(r)(c) = -momentMatrix.phase(r, c).toInt.toDouble
       }
     }
     res
@@ -33,8 +33,8 @@ class JOptimizerInstance(val relaxation: Relaxation[_, _]) extends Instance {
     val res = Array.tabulate(matrixSize)(x => new Array[Double](matrixSize))
     cforRange(0 until matrixSize) { r =>
       cforRange(0 until matrixSize) { c =>
-        if (gramMatrix.momentIndex(r, c) == i + 1)
-          res(r)(c) = -gramMatrix.phase(r, c).toInt.toDouble
+        if (momentMatrix.momentIndex(r, c) == i + 1)
+          res(r)(c) = -momentMatrix.phase(r, c).toInt.toDouble
       }
     }
     res

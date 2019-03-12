@@ -26,9 +26,9 @@ case class Relaxation[
 
   val objective: EvaluatedPoly[E, M] = problem.evaluatedPoly
 
-  lazy val gramMatrix: GramMatrix[E, M] = GramMatrix(E, generatingSet)
+  lazy val momentMatrix: MomentMatrix[E, M] = MomentMatrix(E, generatingSet)
 
-  lazy val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(gramMatrix.momentSet.elements)
+  lazy val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(momentMatrix.momentSet.elements)
 
   def isObjectiveReal: Boolean = objectiveVector.toIndexedSeq.forall(c => c.isReal)
 
@@ -58,7 +58,7 @@ case class Relaxation[
     */
   def momentIndexMatrixDescription: String = {
     import scalin.immutable.dense._
-    import gramMatrix._
+    import momentMatrix._
     val mat = momentIndexMatrix
     s"${matrixSize} ${nUniqueMonomials}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
   }
@@ -66,12 +66,12 @@ case class Relaxation[
   /** Writes the sign/phase of the monomials present in the Gram matrix. */
   def phaseMatrixDescription: String = {
     import scalin.immutable.dense._
-    import gramMatrix._
+    import momentMatrix._
     val mat = phaseMatrix
     s"${matrixSize}\n" ++ Seq.tabulate(matrixSize)( r => mat(r, ::).toIndexedSeq.mkString(" ") ).mkString("\n")
   }
 
-  def momentMatrixDescription: String = scalin.Printer.mat(gramMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
+  def momentMatrixDescription: String = scalin.Printer.mat(momentMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
 
 }
 

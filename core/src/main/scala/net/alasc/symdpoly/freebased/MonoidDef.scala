@@ -87,6 +87,7 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
   def polyInvolution: Involution[Polynomial] = polyInstances
   def polyEq: Eq[Polynomial] = polyInstances
   val polyGenPermAction: Action[Poly[self.type, Free], GenPerm] = new Poly.PolyGenPermAction
+  val polyClassTag: ClassTag[Polynomial] = implicitly
 
   def constant(i: Int): Polynomial = polyAssociativeAlgebra.fromInt(i)
   def constant(r: Rational): Polynomial = polyAssociativeAlgebra.timesl(r, polyAssociativeAlgebra.one)
@@ -103,6 +104,7 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
   val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[Permutation] =
     FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
   val permutationMonoAction: Action[Monomial, Permutation] = new freebased.PermutationMonoAction[self.type, Free]
+  val permutationClassTag: ClassTag[Permutation] = implicitly
 
   /** Returns the symmetry group that leaves the structure of this monoid invariant. */
   def symmetryGroup: Grp[freebased.Permutation[self.type, Free]]

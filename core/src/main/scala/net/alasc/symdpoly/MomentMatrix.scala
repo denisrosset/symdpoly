@@ -34,7 +34,14 @@ import net.alasc.symdpoly.generic.{EvaluatedMono, MomentSet, MomentSetBuilder}
 import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.util.Tuple2Int
 
-class GramMatrix[
+class MomentMatrix1[
+  E <: generic.Evaluator[M] with Singleton: Witness.Aux,
+  M <: generic.MonoidDef with Singleton: Witness.Aux
+](val generatingMoments: OrderedSet[M#Monomial], val moments: Mat[M#Monomial]) {
+
+}
+
+class MomentMatrix[
   E <: generic.Evaluator[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val generatingMoments: OrderedSet[M#Monomial],
@@ -83,12 +90,12 @@ class GramMatrix[
 
 }
 
-object GramMatrix {
+object MomentMatrix {
 
   def genericConstruction[
     E <: generic.Evaluator[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](evaluator: E, gSet: GSet[M]): GramMatrix[E, M] = {
+  ](evaluator: E, gSet: GSet[M]): MomentMatrix[E, M] = {
     implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
     def M: M = valueOf[M]
     val generatingMoments = OrderedSet.fromOrdered(gSet.monomials.toVector)
@@ -133,7 +140,7 @@ object GramMatrix {
       case -1 => -1
       case i => unsortedToSorted.image(i)
     }
-    new GramMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
+    new MomentMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
   }
 
   /*
@@ -216,7 +223,7 @@ object GramMatrix {
   def apply[
     E <: generic.Evaluator[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](evaluator: E with generic.Evaluator[M] with Singleton, gSet: GSet[M]): GramMatrix[E, M] = genericConstruction[E, M](evaluator, gSet)
+  ](evaluator: E with generic.Evaluator[M] with Singleton, gSet: GSet[M]): MomentMatrix[E, M] = genericConstruction[E, M](evaluator, gSet)
 /*    evaluator match {
     case e: FreeBasedEvaluator[mType, fType] with Singleton =>
       freeBasedConstruction[e.type, mType, fType](e, gSet.asInstanceOf[GSet[mType]])((e.M.asInstanceOf[mType]).witness).asInstanceOf[GramMatrix[E, M]]

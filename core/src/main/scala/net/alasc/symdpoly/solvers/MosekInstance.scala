@@ -13,10 +13,10 @@ class MosekInstance(val relaxation: Relaxation[_, _]) extends Instance {
 
   import LowerTriangular.SparseMatrix
 
-  import relaxation.{gramMatrix, objectiveVector}
-  import gramMatrix.matrixSize
+  import relaxation.{momentMatrix, objectiveVector}
+  import momentMatrix.matrixSize
 
-  val m = gramMatrix.nUniqueMonomials - 1 // number of constraints in the primal / variables in the dual
+  val m = momentMatrix.nUniqueMonomials - 1 // number of constraints in the primal / variables in the dual
   val numcon = m
   val numbarvar = 1 // number of semidefinite variables in the primal / LMI in the dual
   val d = matrixSize
@@ -31,10 +31,10 @@ class MosekInstance(val relaxation: Relaxation[_, _]) extends Instance {
   val buc = blc
 
   // LMI constant
-  val c = SparseMatrix.forMoment(gramMatrix, 0)
+  val c = SparseMatrix.forMoment(momentMatrix, 0)
 
   // LMI matrices
-  val a = Vector.tabulate(m)(i => SparseMatrix.forMoment(gramMatrix, i + 1, -1.0))
+  val a = Vector.tabulate(m)(i => SparseMatrix.forMoment(momentMatrix, i + 1, -1.0))
 
   def writeSparseMatrix(writer: Writer, matrix: SparseMatrix): Unit = {
     writer.append(s"${matrix.nTerms}\n")

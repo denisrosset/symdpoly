@@ -6,26 +6,26 @@ import spire.syntax.cfor._
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types._
 import net.alasc.symdpoly.solvers.{Instance}
-import net.alasc.symdpoly.{GramMatrix, Relaxation}
+import net.alasc.symdpoly.{MomentMatrix, Relaxation}
 import syntax.phased._
 
 class SDPT3Instance(val relaxation: Relaxation[_, _]) extends Instance {
 
   import SDPT3Instance.{SparseMatrix, SparseVector}
-  import relaxation.{gramMatrix, objectiveVector}
-  import gramMatrix.{matrixSize => d}
+  import relaxation.{momentMatrix, objectiveVector}
+  import momentMatrix.{matrixSize => d}
   // TODO require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
-  val m: Int = gramMatrix.nUniqueMonomials - 1 // number of dual variables
+  val m: Int = momentMatrix.nUniqueMonomials - 1 // number of dual variables
   val n: Int = d * (d + 1) / 2
 
   val objShift = realCycloToDouble(objectiveVector(0)) // constant in objective not supported
 
   val b = Array.tabulate(m)(i => realCycloToDouble(objectiveVector(i + 1)))
 
-  val C = SparseMatrix.forMoment(gramMatrix, 0, 1.0)
+  val C = SparseMatrix.forMoment(momentMatrix, 0, 1.0)
 
   def aMatrix: SparseMatrix = {
-    val columns = Array.tabulate(m)(c => SparseVector.forMoment(gramMatrix, c + 1, -1.0))
+    val columns = Array.tabulate(m)(c => SparseVector.forMoment(momentMatrix, c + 1, -1.0))
     val rows = columns.flatMap(_.indices)
     val cols = columns.zipWithIndex.flatMap { case (col, c) => Array.fill(col.nEntries)(c) }
     val data = columns.flatMap(_.data)
@@ -76,7 +76,7 @@ object SDPT3Instance {
 
   object SparseVector {
     val sqrt2 = spire.math.sqrt(2.0)
-    def forMoment(gramMatrix: GramMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseVector = {
+    def forMoment(gramMatrix: MomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseVector = {
       import gramMatrix.{matrixSize => d}
       val indices = metal.mutable.Buffer.empty[Int]
       val data = metal.mutable.Buffer.empty[Double]
@@ -104,7 +104,7 @@ object SDPT3Instance {
   }
 
   object SparseMatrix {
-    def forMoment(gramMatrix: GramMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseMatrix = {
+    def forMoment(gramMatrix: MomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseMatrix = {
       import gramMatrix.{matrixSize => d}
       val rows = metal.mutable.Buffer.empty[Int]
       val cols = metal.mutable.Buffer.empty[Int]

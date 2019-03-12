@@ -28,66 +28,6 @@ trait Permutation[M <: generic.MonoidDef with Singleton] { self: M#Permutation =
 
 object Permutation {
 
-  implicit def grpGenericPermutationOps[
-    M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](grp: Grp[Permutation[M] with M#Permutation])(implicit classTag: ClassTag[Permutation[M]],
-                              equ: Eq[Permutation[M]],
-                              fpab: FaithfulPermutationActionBuilder[Permutation[M]],
-                              group: Group[Permutation[M]]): GrpPermutationsOps[M] =
-    new GrpPermutationsOps[M](grp)
-
-  class GrpPermutationsOps[
-    M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](grp: Grp[Permutation[M] with M#Permutation]) {
-
-    def M: M = valueOf[M]
-
-    def allElementsOf(poly: generic.Poly[M])(implicit action: Action[M#Monomial, M#Permutation]): OrderedSet[Mono[M]] = {
-      implicit def phasedMono: Phased[M#Monomial] = valueOf[M].monoPhased
-      implicit def classTag: ClassTag[M#Monomial] = valueOf[M].monoClassTag
-      val monomials: Iterator[M#Monomial] = grp.iterator.flatMap(g => Iterator.tabulate(poly.nTerms)(i => phasedMono.phaseCanonical(action.actr(poly.monomial(i), g))))
-      val array = monomials.toArray
-      spire.math.Sorting.quickSort(array)(valueOf[M].monoOrder, implicitly)
-      new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
-    }
-
-    def leavesInvariant(poly: generic.Poly[M])(implicit action: Action[M#Monomial, M#Permutation]): Grp[M#Permutation] = {
-      val monomials = allElementsOf(poly)(action)
-      val order = M.cyclotomicOrder
-      val monomialsAction = new PermutationAction[M#Permutation] {
-        def isFaithful: Boolean = false
-        def findMovedPoint(g: Permutation[M]): NNOption = {
-          cforRange(0 until monomials.length * order) { i =>
-            if (actr(i, g) != i) return NNSome(i)
-          }
-          NNNone
-        }
-        def movedPointsUpperBound(g: Permutation[M]): NNOption = NNSome(monomials.length * order - 1)
-        def actr(p: Int, g: Permutation[M]): Int = {
-          val phase = Phase(p % order, order)
-          val index = p / order
-          val res = action.actr(monomials(index), g)
-          val canonical = res.phaseCanonical
-          val newPhase = res.phaseOffset * phase
-          val newIndex = monomials.indexOf(canonical)
-          newIndex * order + newPhase.numeratorIn(order)
-        }
-        def actl(g: Permutation[M], p: Int): Int = actr(p, g.inverse)
-      }
-      val nMonomials = monomials.length
-      val coeffSeq = for {
-        mono <- monomials.iterator.toVector
-        coeff = poly.coeff(mono.normalForm: M#Monomial)
-        k <- 0 until order
-        phase = Phase(k, order)
-      } yield coeff * phase.toCyclo
-      val partition = Partition.fromSeq(coeffSeq)
-      val stabilizer = grp.orderedPartitionStabilizer(monomialsAction, partition)
-      val generators = stabilizer.smallGeneratingSet
-      Grp.fromGeneratorsAndOrder(generators, stabilizer.order)
-    }
-
-  }
 
   def phasedIntAction[
     M <: generic.MonoidDef with Singleton:Witness.Aux

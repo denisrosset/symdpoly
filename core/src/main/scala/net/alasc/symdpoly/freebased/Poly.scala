@@ -30,7 +30,6 @@ class Poly[
 
   def toPoly: Poly[M, F] = lhs
 
-  def M: M = wM.value
   def F: F = M.Free
   implicit def wF: Witness.Aux[F] = F.witness
 

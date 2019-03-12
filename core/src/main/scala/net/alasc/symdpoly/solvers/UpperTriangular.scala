@@ -12,7 +12,7 @@ object UpperTriangular {
 
   object SparseMatrix {
 
-    def forMoment(gramMatrix: GramMatrix[_, _], momentIndex: Int, factor: Double): SparseMatrix = {
+    def forMoment(gramMatrix: MomentMatrix[_, _], momentIndex: Int, factor: Double): SparseMatrix = {
       import gramMatrix.matrixSize
       val rows = metal.mutable.Buffer.empty[Int]
       val cols = metal.mutable.Buffer.empty[Int]
