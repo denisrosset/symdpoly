@@ -263,4 +263,5 @@ object Configuration {
     identifyNextOrbit(0, 0, 0)
     new Configuration(n, orbitStart.toArray, orbitNext, orbit, phase)
   }
+
 }

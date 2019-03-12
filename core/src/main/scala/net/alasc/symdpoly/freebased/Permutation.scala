@@ -8,7 +8,6 @@ import spire.algebra.{Action, Eq, Group}
 import spire.syntax.group._
 
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
-import net.alasc.symdpoly.generic.Permutation.GrpPermutationsOps
 import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
 
 /** Permutation of the operator variables compatible with the structure of a monoid structure M. */

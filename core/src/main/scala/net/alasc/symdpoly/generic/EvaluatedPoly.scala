@@ -5,11 +5,10 @@ import shapeless.Witness
 import spire.algebra.{Eq, Order, VectorSpace}
 import spire.math.Rational
 import spire.syntax.cfor._
-
 import cyclo.Cyclo
+import net.alasc.finite.Grp
 import scalin.immutable.{Vec, VecEngine}
 import scalin.syntax.all._
-
 import net.alasc.symdpoly.util.OrderedSet
 
 /** Evaluated noncommutative polynomial. */
@@ -18,6 +17,7 @@ final class EvaluatedPoly[
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val normalForm: M#Polynomial) extends EvaluatedPolyLike[E, M] { lhs =>
 
+  def M: M = valueOf[M]
   def E: E = valueOf[E]
 
   def toPoly: EvaluatedPoly[E, M] = lhs
@@ -32,6 +32,7 @@ final class EvaluatedPoly[
   def nTerms: Int = normalForm.nTerms
   def monomial(i: Int): EvaluatedMono[E, M] = new EvaluatedMono[E, M](normalForm.monomial(i))
   def coeff(i: Int): Cyclo = normalForm.coeff(i)
+  def coeff(mono: EvaluatedMono[E, M]): Cyclo = normalForm.coeff(mono.normalForm)
 
   def vecOverOrderedSet(orderedSet: OrderedSet[EvaluatedMono[E, M]])(implicit V: VecEngine[Cyclo]): Vec[Cyclo] =
     V.fromMutable(orderedSet.length, Cyclo.zero) { vec =>
@@ -44,6 +45,9 @@ final class EvaluatedPoly[
       }
     }
 
+  def invariantSubgroupOf(grp: Grp[E#Permutation]): Grp[E#Permutation] =
+    symmetries.invariantSubgroupOf[E#EvaluatedMonomial, E#Permutation]((0 until nTerms).map(monomial), (x: EvaluatedMono[E, M]) => coeff(x), grp, M.cyclotomicOrder)(
+      E.evaluatedMonoClassTag, E.evaluatedMonoOrder, E.evaluatedMonoPhased, E.permutationClassTag, E.permutationEq, E.permutationFaithfulPermutationActionBuilder, E.permutationGroup, E.evaluatedMonoPermutationAction)
 }
 
 object EvaluatedPoly {

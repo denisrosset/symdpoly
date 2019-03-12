@@ -56,7 +56,7 @@ object Choi {
   val feasibilityGroup = Quotient.symmetryGroup
 
   /** Group that preserves optimality. */
-  val symmetryGroup = feasibilityGroup.leavesInvariant(L(obj))
+  val symmetryGroup = L(obj).invariantSubgroupOf(feasibilityGroup)
 
   /*
   /** Evaluator with equivalence under symmetries. */

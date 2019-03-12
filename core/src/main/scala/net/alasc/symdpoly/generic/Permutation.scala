@@ -28,7 +28,6 @@ trait Permutation[M <: generic.MonoidDef with Singleton] { self: M#Permutation =
 
 object Permutation {
 
-
   def phasedIntAction[
     M <: generic.MonoidDef with Singleton:Witness.Aux
   ](set: OrderedSet[M#Monomial])(implicit group: Group[Permutation[M]],

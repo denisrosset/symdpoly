@@ -37,47 +37,7 @@ abstract class Poly[M <: generic.MonoidDef with Singleton:Witness.Aux] { lhs: M#
   def /(rhs: Rational): M#Polynomial
   def /(rhs: Cyclo): M#Polynomial
 
-  def allMonomialsUnderOrbit(grp: Grp[M#Permutation]): OrderedSet[M#Monomial] = {
-    val monomials: Iterator[M#Monomial] = grp.iterator.flatMap(g => Iterator.tabulate(lhs.nTerms)(i => (lhs.monomial(i) <|+| g).phaseCanonical))
-    val array = monomials.toArray
-    spire.math.Sorting.quickSort(array)(valueOf[M].monoOrder, implicitly)
-    new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
-  }
-
-  def invariantSubgroupOf(grp: Grp[M#Permutation]): Grp[M#Permutation] = {
-    val monomials: OrderedSet[M#Monomial] = allMonomialsUnderOrbit(grp)
-    val order = M.cyclotomicOrder
-    val monomialsAction: PermutationAction[M#Permutation] = new PermutationAction[M#Permutation] {
-      def isFaithful: Boolean = false
-      def findMovedPoint(g: M#Permutation): NNOption = {
-        cforRange(0 until monomials.length * order) { i =>
-          if (actr(i, g) != i) return NNSome(i)
-        }
-        NNNone
-      }
-      def movedPointsUpperBound(g: M#Permutation): NNOption = NNSome(monomials.length * order - 1)
-      def actr(p: Int, g: M#Permutation): Int = {
-        val phase = Phase(p % order, order)
-        val index = p / order
-        val res = M.permutationMonoAction.actr(monomials(index), g)
-        val canonical = res.phaseCanonical
-        val newPhase = res.phaseOffset * phase
-        val newIndex = monomials.indexOf(canonical)
-        newIndex * order + newPhase.numeratorIn(order)
-      }
-      def actl(g: M#Permutation, p: Int): Int = actr(p, g.inverse)
-    }
-    val nMonomials = monomials.length
-    val coeffSeq = for {
-      mono <- monomials.iterator.toVector
-      coeff = lhs.coeff(mono: M#Monomial)
-      k <- 0 until order
-      phase = Phase(k, order)
-    } yield coeff * phase.toCyclo
-    val partition = Partition.fromSeq(coeffSeq)
-    val stabilizer = grp.orderedPartitionStabilizer(monomialsAction, partition)
-    val generators = stabilizer.smallGeneratingSet
-    Grp.fromGeneratorsAndOrder(generators, stabilizer.order)
-  }
+  def invariantSubgroupOf(grp: Grp[M#Permutation]): Grp[M#Permutation] =
+    symmetries.invariantSubgroupOf((0 until nTerms).map(monomial), (x: M#Monomial) => coeff(x), grp, M.cyclotomicOrder)
 
 }

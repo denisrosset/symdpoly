@@ -2,26 +2,22 @@ package net.alasc.symdpoly
 package generic
 
 import scala.annotation.tailrec
-
 import cats.{Contravariant, Invariant}
 import shapeless.Witness
-import spire.algebra.{Action, Eq, Order, VectorSpace}
+import spire.algebra.{Action, Eq, Group, Involution, Order, VectorSpace}
 import spire.syntax.action._
-
 import cyclo.Cyclo
-
 import net.alasc.symdpoly.algebra.Phased
 import net.alasc.symdpoly.generic
 import cats.instances.order.catsContravariantMonoidalForOrder
 import cats.instances.eq.catsContravariantMonoidalForEq
 import spire.math.Rational
-
-import net.alasc.finite.Grp
+import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import spire.util.Opt
 import spire.syntax.std.seq._
-
 import syntax.all._
 import instances.all._
+import spire.ClassTag
 
 /** Describes a quotient vector space defined on a polynomial ring.
   *
@@ -33,9 +29,6 @@ class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivale
 
   def M: M = valueOf[M]
   val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
-
-  // optimization: set to true if apply(a) == apply(a.adjoint)
-  def isSelfAdjoint: Boolean = ??? // TODO equivalences.exists(e => e.isInstanceOf[AdjointEquivalence[_]] || e.isInstanceOf[AdjointFreeBasedEquivalence[_, _]])
 
   //region Evaluated monomials
 
@@ -76,15 +69,39 @@ class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivale
 
   //endregion
 
-  type Permutation = generic.EvaluatedPermutation[self.type, M]
+  type Permutation = EvaluatedPermutation[self.type, M]
+
+  /** Returns the permutation in the evaluator corresponding ot the given permutation on the monoid. */
+  def permutationNC(p: M#Permutation): EvaluatedPermutation[self.type, M]
+
+  /** Returns the subgroup of a group of permutations on the monoid that is compatible with the evaluator. */
+  def groupInEvaluator(grp: Grp[M#Permutation]): Grp[Permutation] = {
+    groupInEvaluatorNC(equivalences.foldLeft(grp) {
+      case (curGrp, equiv) => equiv.groupInEvaluator(curGrp)
+    })
+
+  /** Translates a group on the monoid onto a group on the evaluated objects, without checking compatibility. */
+  def groupInEvaluatorNC(grp: Grp[M#Permutation]): Grp[Permutation] =
+    Grp.fromGeneratorsAndOrder(grp.generators.map(permutationNC), grp.order)
 
   //region Typeclasses
 
   val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, M](M.monoMultiplicativeBinoid.zero)
   val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
+  val evaluatedMonoInvolution: Involution[EvaluatedMonomial] = Invariant[Involution].imap(M.monoInvolution)(apply)(_.normalForm)
   val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(apply)(_.normalForm)
+  val evaluatedMonoClassTag: ClassTag[EvaluatedMonomial] = implicitly
+
+  val evaluatedPolyInvolution: Involution[EvaluatedPolynomial] = Invariant[Involution].imap(M.polyInvolution)(apply)(_.normalForm)
   val evaluatedPolyEq: Eq[EvaluatedPolynomial] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
   val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPolynomial, Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply)(_.normalForm)
+  val evaluatedPolyClassTag: ClassTag[EvaluatedPolynomial] = implicitly
+
+  val permutationGroup: Group[Permutation] = Invariant[Group].imap(M.permutationGroup)(mp => new EvaluatedPermutation[self.type, M](mp))(_.permutation)
+  val permutationEq: Eq[Permutation] = Contravariant[Eq].contramap(M.permutationEq)(ep => ep.permutation)
+  val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[Permutation]
+    = Contravariant[FaithfulPermutationActionBuilder].contramap(M.permutationFaithfulPermutationActionBuilder)(_.permutation)
+  val permutationClassTag: ClassTag[Permutation] = implicitly
 
   val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = new Action[EvaluatedMonomial, Permutation] {
     def actr(p: EvaluatedMonomial, g: Permutation): EvaluatedMonomial = apply(M.permutationMonoAction.actr(p.normalForm, g.permutation))
@@ -92,4 +109,25 @@ class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](val equivale
   }
 
   //endregion
+}
+
+object Evaluator {
+
+  implicit def evaluatedMonoInvolution[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Involution[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoInvolution
+  implicit def evaluatedMonoOrder[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Order[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoOrder
+  implicit def evaluatedMonoPhased[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Phased[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoPhased
+  implicit def evaluatedMonoClassTag[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: ClassTag[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoClassTag
+
+  implicit def evaluatedPolyVectorSpace[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: VectorSpace[E#EvaluatedPolynomial, Cyclo] = valueOf[E].evaluatedPolyVectorSpace
+  implicit def evaluatedPolyInvolution[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Involution[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyInvolution
+  implicit def evaluatedPolyEq[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Eq[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyEq
+  implicit def evaluatedPolyClassTag[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: ClassTag[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyClassTag
+
+  implicit def permutationGroup[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Group[E#Permutation] = valueOf[E].permutationGroup
+  implicit def permutationEq[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Eq[E#Permutation] = valueOf[E].permutationEq
+  implicit def permutationFaithfulPermutationActionBuilder[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: FaithfulPermutationActionBuilder[E#Permutation] = valueOf[E].permutationFaithfulPermutationActionBuilder
+  implicit def permutationClassTag[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: ClassTag[E#Permutation] = valueOf[E].permutationClassTag
+
+  implicit def permutationMonoAction[E <: Evaluator[M] with Singleton: Witness.Aux, M <: generic.MonoidDef with Singleton]: Action[E#EvaluatedMonomial, E#Permutation] = valueOf[E].evaluatedMonoPermutationAction
+
 }
