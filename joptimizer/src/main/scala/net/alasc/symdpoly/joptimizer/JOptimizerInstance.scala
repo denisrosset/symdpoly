@@ -11,9 +11,9 @@ import scalin.immutable.dense._
 import com.joptimizer.functions.{LinearMultivariateRealFunction, SDPLogarithmicBarrier}
 import com.joptimizer.optimizers.{BarrierMethod, OptimizationRequest}
 import net.alasc.symdpoly.solvers.{Instance}
-import net.alasc.symdpoly.{OptimumFound, Relaxation, Solution}
+import net.alasc.symdpoly.{OptimumFound, OldRelaxation, Solution}
 
-class JOptimizerInstance(val relaxation: Relaxation[_, _]) extends Instance {
+class JOptimizerInstance(val relaxation: OldRelaxation[_, _]) extends Instance {
   import relaxation.{momentMatrix, objectiveVector}
   import momentMatrix.matrixSize
 

@@ -22,6 +22,16 @@ import syntax.phased._
 
 package object symmetries {
 
+  /*
+  def symmetrize[
+    E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
+    M <: generic.MonoidDef with Singleton
+  ](relaxation: Relaxation[E, M]): Relaxation[_ <: generic.Evaluator.Aux[M] with Singleton, M] = {
+    require(relaxation.)
+    def E: E = valueOf[E]
+    def M: M = E.M
+  }*/
+
   def allElementsUnderOrbit[A:ClassTag:Order, G](elements: Iterable[A], generators: Seq[G], normalForm: (A => A) = identity[A](_))
                                                 (implicit action: Action[A, G]): OrderedSet[A] = {
     import scala.collection.mutable.HashSet
@@ -93,6 +103,17 @@ package object symmetries {
       def actl(g: G, p: Int): Int = actr(p, g.inverse)
     }
 
+  /** Computes the subgroup of "grp" that leaves an element of a vector space over Cyclo invariant.
+    *
+    * @param keys  Basis elements that have nonzero coefficients in their canonical form.
+    * @param value Value function that takes a basis element (canonical form) and returns its coefficient.
+    * @param grp   Group to find a subgroup of.
+    * @param cyclotomicOrder LCM of the cyclotomic orders present in the coefficients and the group action.
+    * @param action Group action.
+    * @tparam A Type of the basis elements of the vector space. Can include a phase.
+    * @tparam G Group element type.
+    * @return The invariant subgroup.
+    */
   def invariantSubgroupOf[A:ClassTag:Order:Phased, G:ClassTag:Eq:FaithfulPermutationActionBuilder:Group](keys: Iterable[A], value: A => Cyclo, grp: Grp[G], cyclotomicOrder: Int)
                                                                                       (implicit action: Action[A, G]): Grp[G] = {
     val canonicalElements: OrderedSet[A] = allElementsUnderOrbit(keys, grp.generators, Phased[A].phaseCanonical(_))

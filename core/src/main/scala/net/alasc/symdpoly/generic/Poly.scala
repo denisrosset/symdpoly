@@ -23,6 +23,7 @@ abstract class Poly[M <: generic.MonoidDef with Singleton:Witness.Aux] { lhs: M#
 
   def M: M = valueOf[M]
 
+  def degree: Int = Iterator.tabulate(nTerms)(monomial(_).degree).max
   def nTerms: Int
   def monomial(i: Int): M#Monomial
   def coeff(i: Int): Cyclo

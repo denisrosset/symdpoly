@@ -42,17 +42,21 @@ class OrderedSet[A](private[this] val sortedArray: Array[AnyRef]) { lhs =>
   def diff(rhs: OrderedSet[A])(implicit ord: Order[A]): OrderedSet[A] =
     OrderedSet.fromSortedSet(lhs.toSortedSet diff rhs.toSortedSet)
 
+  def union(rhs: OrderedSet[A])(implicit ord: Order[A]): OrderedSet[A] =
+    OrderedSet.fromSortedSet(lhs.toSortedSet union rhs.toSortedSet)
+
 }
 
 object OrderedSet {
   import spire.compat._
+
+  def empty[A]: OrderedSet[A] = new OrderedSet[A](Array.empty[AnyRef])
 
   def fromIterator[A:Order](iterator: Iterator[A]): OrderedSet[A] =
     fromSortedSet(iterator.to[SortedSet])
 
   def apply[A:Order](elements: A*): OrderedSet[A] =
     fromSortedSet(elements.to[SortedSet])
-
 
   def fromOrdered[A](seq: Seq[A]): OrderedSet[A] =
     new OrderedSet[A](seq.map(_.asInstanceOf[AnyRef]).toArray)

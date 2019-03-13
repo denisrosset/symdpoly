@@ -59,17 +59,16 @@ class CHSHSDPSuite extends CommonSuite {
 
     val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
 
-    val mm = MomentMatrix[Lsym.type, Quotient.type](Lsym, OrderedSet.fromSortedSet(generatingSet.monomials), true)
-    val mm1 = MomentMatrix[Lsym.type, Quotient.type](Lsym, OrderedSet.fromSortedSet(generatingSet.monomials), false)
+    val mm = MomentMatrix[Lsym.type, Quotient.type](generatingSet.monomials, true)
+    val mm1 = MomentMatrix[Lsym.type, Quotient.type](generatingSet.monomials, false)
 
-    assert(mm.moments == mm1.moments)
+    assert(mm.mat == mm1.mat)
 
     val problem = Lsym(bellOperator).maximize
 
-    val relaxation = problem.relaxation(generatingSet)
+    val relaxation = problem.oldRelaxation(generatingSet)
     import net.alasc.symdpoly.matlab._
 
-    println(relaxation.momentMatrix.momentMatrix)
     relaxation.mosekInstance.writeCBF("chsh.cbf")
 
     val OptimumFound(_, ub, _, _) = relaxation.jOptimizerInstance.solve()

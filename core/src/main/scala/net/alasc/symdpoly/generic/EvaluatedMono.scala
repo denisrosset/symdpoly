@@ -10,7 +10,8 @@ import net.alasc.symdpoly.algebra.Phased
 final class EvaluatedMono[
   E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
-](val normalForm: M#Monomial) extends EvaluatedPolyLike[E, M] { lhs =>
+](val normalForm: M#Monomial) extends EvaluatedPolyLike[E, M] { lhs: E#EvaluatedMonomial =>
+
   def E: E = valueOf[E]
   def M: M = valueOf[M]
 

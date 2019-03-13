@@ -10,8 +10,11 @@ import spire.algebra.{Action, Involution, Order}
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 
 abstract class Mono[M <: generic.MonoidDef with Singleton:Witness.Aux] { self: M#Monomial =>
-
+  def toPoly: M#Polynomial
+  def M: M = valueOf[M]
+  def degree: Int
 }
+
 /* TODO: remove if unused
 object Mono {
 

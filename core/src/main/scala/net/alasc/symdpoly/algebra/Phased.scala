@@ -16,6 +16,8 @@ import spire.macros.Ops
   *
   * a === phaseCanonical(a) <* phaseOffset(a)
   *
+  * When Involution[A] exists, we must have a.adjoint.phaseCanonical === a.phaseCanonical.adjoint.
+  *
   */
 trait Phased[A] extends MultiplicativeAction[A, Phase] {
   /** Canonical element in the equivalence class of elements under phase action. */

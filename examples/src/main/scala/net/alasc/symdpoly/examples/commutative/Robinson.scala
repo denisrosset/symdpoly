@@ -83,7 +83,7 @@ object Robinson {
   val relaxationSym = problem.relaxation(generatingSet)
 */
   /** Non symmetric relaxation for comparison. */
-  val relaxationNoSym = problem.relaxation(generatingSet)
+  val relaxationNoSym = problem.oldRelaxation(generatingSet)
 
 }
 

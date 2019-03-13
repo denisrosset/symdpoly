@@ -7,7 +7,7 @@ import cyclo.{Cyclo, RealCyclo}
 
 abstract class Instance {
 
-  def relaxation: Relaxation[_, _]
+  def relaxation: OldRelaxation[_, _]
 
   //require(relaxation.gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
   // TODO

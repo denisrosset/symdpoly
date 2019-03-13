@@ -141,14 +141,16 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
     freeBasedEquivalences match {
       case Some(freeBasedEqs) => new {
         val equivalences: Seq[generic.Equivalence[self.type]] = freeBasedEqs
-        type Mono = self.type
         implicit val witnessMono: Witness.Aux[self.type] = self.witness
-      } with generic.Evaluator
+      } with generic.Evaluator {
+        type Mono = self.type
+      }
       case None => new {
         val equivalences: Seq[generic.Equivalence[self.type]] = equivalences0
-        type Mono = self.type
         implicit val witnessMono: Witness.Aux[self.type] = self.witness
-      } with generic.Evaluator
+      } with generic.Evaluator {
+        type Mono = self.type
+      }
     }
     // freebased.Evaluator[self.type, Free](equivalences)
   }

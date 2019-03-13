@@ -70,7 +70,7 @@ object Choi {
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
 
   /** Nonsymmetric relaxation. */
-  val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
+  val relaxationNoSym = L(obj).maximize.oldRelaxation(generatingSet)
 /*
   /** Symmetric relaxation. */
   val relaxationSym = Lsym(obj).maximize.relaxation(generatingSet)

@@ -15,7 +15,7 @@ import net.alasc.symdpoly.util.OrderedSet
 final class EvaluatedPoly[
   E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
-](val normalForm: M#Polynomial) extends EvaluatedPolyLike[E, M] { lhs =>
+](val normalForm: M#Polynomial) extends EvaluatedPolyLike[E, M] { lhs: E#EvaluatedPolynomial =>
 
   def M: M = valueOf[M]
   def E: E = valueOf[E]

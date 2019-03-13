@@ -9,7 +9,7 @@ import net.alasc.symdpoly.solvers.{Instance}
 import syntax.phased._
 
 /** Data provided in the format of https://github.com/bodono/scs-matlab */
-class SCSInstance(val relaxation: Relaxation[_, _]) extends Instance {
+class SCSInstance(val relaxation: OldRelaxation[_, _]) extends Instance {
   import SCSInstance.{SparseMatrix, SparseVector}
   import relaxation.{momentMatrix, objectiveVector}
   import momentMatrix.{matrixSize => d}

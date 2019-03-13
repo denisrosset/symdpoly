@@ -39,36 +39,72 @@ import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.util.Tuple2Int
 import scalin.syntax.all._
 
+class LocalizingMatrix[
+  E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
+  M <: generic.MonoidDef with Singleton: Witness.Aux
+](val polynomial: M#Polynomial, val generatingMoments: OrderedSet[M#Monomial], val mat: Mat[E#EvaluatedPolynomial]) {
+  def E: E = valueOf[E]
+  def M: M = valueOf[M]
+
+  /** The matrix of moments has shape size x size */
+  def size: Int =  generatingMoments.length
+
+  def allMoments: OrderedSet[E#EvaluatedMonomial] =
+    OrderedSet.fromIterator(
+      MomentMatrix.matIterator(mat).flatMap(p => Iterator.tabulate(p.nTerms)(p.monomial))
+    )
+}
+
+object LocalizingMatrix {
+
+  def apply[
+    E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
+    M <: generic.MonoidDef with Singleton: Witness.Aux
+  ](polynomial: M#Polynomial, generatingMoments: OrderedSet[M#Monomial]): LocalizingMatrix[E, M] = {
+    def E: E = valueOf[E]
+    def M: M = valueOf[M]
+    val size = generatingMoments.length
+    val moments: Mat[E#EvaluatedPolynomial] =
+        Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint.toPoly * polynomial * generatingMoments(c).toPoly) }
+    new LocalizingMatrix[E, M](polynomial, generatingMoments, moments)
+  }
+
+}
+
 /** Moment matrix
   *
   * @param generatingMoments Generating moments of this moment matrix
   * @param symmetries Symmetries of the moment matrix, as described by generalized permutations
-  * @param moments Matrix of evaluated moments, such that moments(r, c) = E(generatingMoments(r).adjoint * generatingMoments(c))
+  * @param mat Matrix of evaluated moments, such that moments(r, c) = E(generatingMoments(r).adjoint * generatingMoments(c))
   * @tparam E Evaluator
   * @tparam M Monomial monoid
   */
 class MomentMatrix[
-  E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
-  M <: generic.MonoidDef with Singleton
-](val generatingMoments: OrderedSet[M#Monomial], val moments: Mat[E#EvaluatedMonomial], val symmetries: MatrixSymmetries[Perm]) {
+  E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
+  M <: generic.MonoidDef with Singleton: Witness.Aux
+](val generatingMoments: OrderedSet[M#Monomial], val mat: Mat[E#EvaluatedMonomial], val symmetries: MatrixSymmetries[Perm]) {
   def E: E = valueOf[E]
-  def M: M = E.M
-  implicit def witnessM: Witness.Aux[M] = M.witness
+  def M: M = valueOf[M]
 
   /** The matrix of moments has shape size x size */
   def size: Int =  generatingMoments.length
+
+  def allMoments: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromIterator(MomentMatrix.matIterator(mat))
 }
 
 object MomentMatrix {
 
+  def matIterator[A](mat: Mat[A]): Iterator[A] = for {
+    r <- Iterator.range(0, mat.nRows)
+    c <- Iterator.range(0, mat.nCols)
+  } yield mat(r, c)
+
   def apply[
-    E <: generic.Evaluator.Aux[M] with Singleton,
-    M <: generic.MonoidDef with Singleton
-  ](e: E with generic.Evaluator.Aux[M], generatingMoments: OrderedSet[M#Monomial], optimize: Boolean = true): MomentMatrix[E, M] = {
-    def E: E = e
-    def M: M = e.M
-    implicit def witnessE: Witness.Aux[E] = E.witness
-    implicit def witnessM: Witness.Aux[M] = M.witness
+    E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
+    M <: generic.MonoidDef with Singleton: Witness.Aux
+  ](generatingMoments: OrderedSet[M#Monomial], optimize: Boolean = true): MomentMatrix[E, M] = {
+    def E: E = valueOf[E]
+    def M: M = valueOf[M]
     val size = generatingMoments.length
     val matrixSymmetries = MatrixSymmetries.fromEquivalences(E.equivalences, generatingMoments)
     val moments: Mat[E#EvaluatedMonomial] =
@@ -146,7 +182,7 @@ object OldMomentMatrix {
   ](evaluator: E, gSet: GSet[M]): OldMomentMatrix[E, M] = {
     implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
     def M: M = valueOf[M]
-    val generatingMoments = OrderedSet.fromOrdered(gSet.monomials.toVector)
+    val generatingMoments = gSet.monomials
     val n = generatingMoments.length
     def inMat(r: Int, c: Int): Int = r + c * n
     val phaseMatrix = Array.fill[Int](n * n)(Phase.one.encoding)

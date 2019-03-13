@@ -15,18 +15,19 @@ import org.typelevel.discipline.Predicate
   * @param data Normal form of the monoid element, along with a possible phase
   */
 class Mono[
-  M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
+  M <: MonoidDef.Aux[F] with Singleton: Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
 ](protected[symdpoly] val data: MutableWord[F]) extends generic.Mono[M] with PolyLike[M, F] { lhs =>
 
   require(!data.mutable)
   require(F.cyclotomicOrder % data.phase.n == 0)
 
-  def M: M = valueOf[M]
   def F: F = (M: M).Free
   implicit def witnessF: Witness.Aux[F] = (F: F).witness
 
   def normalForm: Mono[F, F] = new Mono[F, F](data)
+
+  def degree: Int = data.length
 
   //region Java based methods
 

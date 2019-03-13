@@ -1,13 +1,10 @@
 package net.alasc.symdpoly
 
 import shapeless.Witness
-
 import cyclo.Cyclo
-import scalin.immutable.Vec
-
+import scalin.immutable.{Mat, Vec}
 import net.alasc.symdpoly.solvers.{MosekInstance, SDPAInstance}
 import scalin.immutable.dense._
-
 import net.alasc.perms.default._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.generic.EvaluatedPoly
@@ -17,14 +14,14 @@ import net.alasc.symdpoly.math.GenPerm
   * @param problem       Problem to construct the relaxation for
   * @param generatingSet Set of monomials used to generate the moment matrix
   */
-case class Relaxation[
+case class OldRelaxation[
   E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux,
 ](problem: Optimization[E, M], generatingSet: GSet[M]) {
 
   def E: E = valueOf[E]
 
-  val objective: EvaluatedPoly[E, M] = problem.evaluatedPoly
+  val objective: EvaluatedPoly[E, M] = problem.objective
 
   lazy val momentMatrix: OldMomentMatrix[E, M] = OldMomentMatrix(E, generatingSet)
 

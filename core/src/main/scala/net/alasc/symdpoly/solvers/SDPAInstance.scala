@@ -5,7 +5,7 @@ import java.io.{BufferedWriter, FileWriter, PrintWriter, StringWriter, Writer}
 
 import spire.syntax.cfor.cforRange
 
-class SDPAInstance(val relaxation: Relaxation[_, _]) extends Instance {
+class SDPAInstance(val relaxation: OldRelaxation[_, _]) extends Instance {
   import net.alasc.symdpoly.solvers.UpperTriangular.SparseMatrix
   import relaxation.{momentMatrix, objectiveVector}
   import momentMatrix.matrixSize
