@@ -51,7 +51,7 @@ class LocalizingMatrix[
 
   def allMoments: OrderedSet[E#EvaluatedMonomial] =
     OrderedSet.fromIterator(
-      MomentMatrix.matIterator(mat).flatMap(p => Iterator.tabulate(p.nTerms)(p.monomial))
+      MomentMatrix.matIterator(mat).flatMap(p => Iterator.tabulate(p.nTerms)(i => p.monomial(i).phaseCanonical).filterNot(_.isZero))
     )
 }
 
@@ -90,7 +90,7 @@ class MomentMatrix[
   /** The matrix of moments has shape size x size */
   def size: Int =  generatingMoments.length
 
-  def allMoments: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromIterator(MomentMatrix.matIterator(mat))
+  def allMoments: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromIterator(MomentMatrix.matIterator(mat).map(_.phaseCanonical).filterNot(_.isZero))
 }
 
 object MomentMatrix {

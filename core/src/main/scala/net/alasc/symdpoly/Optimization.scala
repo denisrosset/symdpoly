@@ -1,5 +1,7 @@
 package net.alasc.symdpoly
 
+import java.io.{BufferedWriter, FileWriter, StringWriter, Writer}
+
 import net.alasc.symdpoly.ComparisonOp.{EQ, GE, LE}
 import shapeless.Witness
 
@@ -19,6 +21,7 @@ import scala.collection.immutable.{SortedMap, SortedSet}
 import spire.algebra.{Eq, Order, VectorSpace}
 import spire.math.Complex
 import spire.std.double._
+
 import cyclo.{Cyclo, RealCyclo}
 
 import net.alasc.symdpoly.SDP.Block
@@ -49,20 +52,73 @@ object Direction {
   *   ineqA * y >= 0 (component-wise)
   */
 case class SDP(objToMaximize: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Double], ineqA: Mat[Double]) {
-  def m: Int = objToMaximize.length
-  def convertEqualities: SDP = SDP(objToMaximize, blocks, Mat.zeros[Double](0, m), ineqA vertcat eqA vertcat (-eqA))
+
+  def convertEqualities: SDP = SDP(objToMaximize, blocks, Mat.zeros[Double](0, objToMaximize.length), ineqA vertcat eqA vertcat (-eqA))
+
+  def writeDataSDPA(writer: Writer): Unit =
+    if (eqA.nRows > 0) convertEqualities.writeDataSDPA(writer) else {
+      val m: Int = objToMaximize.length - 1
+      objToMaximize(0) match {
+        case 0 =>
+        case constantTerm =>
+          writer.append(s"* SDPA solves a minimization dual problem, while we express a maximization problem \n")
+          writer.append(s"* also, the original objective has constant term cte = ${constantTerm} (constant terms are not supported by SDPA)\n")
+          writer.append(s"* the real objective is thus cte - obj_SDPA value\n")
+      }
+      val nBlocks = blocks.length + (if (ineqA.nRows > 0) 1 else 0)
+      writer.append(s"$m\n")
+      writer.append(s"$nBlocks\n")
+      val sdpaBlockSizes = blocks.map(_.size) ++ (if (ineqA.nRows > 0) Seq(-ineqA.nRows) else Seq.empty)
+      writer.append(sdpaBlockSizes.mkString("", " ", "\n"))
+      writer.append((1 until objToMaximize.length).map(i => -objToMaximize(i)).mkString("", " ", "\n"))
+      cforRange(0 until blocks.length) { b =>
+        val block = blocks(b)
+        cforRange(0 until block.nEntries) { i =>
+          val di = block.basisIndex(i)
+          val r = block.rowIndex(i)
+          val c = block.colIndex(i)
+          val e = if (di == 0) -block.coeffs(i) else block.coeffs(i)
+          if (c >= r) // upper triangle
+            writer.append(s"$di ${b + 1} ${r + 1} ${c + 1} $e\n")
+        }
+      }
+      if (ineqA.nRows > 0) {
+        cforRange(0 until ineqA.nRows) { r =>
+          cforRange(0 until ineqA.nCols) { c =>
+            if (ineqA(r, c) != 0) {
+              val e = if (c == 0) -ineqA(r, c) else ineqA(r, c)
+              writer.append(s"$c $nBlocks $r $r $e\n")
+            }
+          }
+        }
+      }
+    }
+
+
+  def writeFileSDPA(filename: String): Unit = {
+    val file = new java.io.File(filename)
+    import resource._
+    for {
+      fileWriter <- managed(new FileWriter(file))
+      bufferedWriter <- managed(new BufferedWriter(fileWriter))
+    } {
+      writeDataSDPA(bufferedWriter)
+    }
+  }
+
+  def dataSDPA: String = {
+    val sw = new StringWriter
+    writeDataSDPA(sw)
+    sw.toString
+  }
 }
+
 
 object SDP {
 
-  /*
-  def expandOverFiniteBasis[V, B, F](basis: OrderedSet[B], v: V)(implicit V: NiceVectorSpace[V, B, F], F: VecEngine[F]): Vec[F] =
-    F.fromMutable(basis.length, V.scalar.zero) { vec =>
-      import V.scalar
-
-    }*/
-
-  case class Block(basisIndex: Array[Int], rowIndex: Array[Int], colIndex: Array[Int], coeffs: Array[Double])
+  case class Block(size: Int, basisIndex: Array[Int], rowIndex: Array[Int], colIndex: Array[Int], coeffs: Array[Double]) {
+    def nEntries: Int = basisIndex.length
+  }
 
 }
 
@@ -131,10 +187,10 @@ class Relaxation[
 
   case class BlockElement(dualIndex: Int, r: Int, c: Int, realPart: Double, complexPart: Double)
 
-  def realBlock(elements: Seq[BlockElement]): SDP.Block =
-    Block(elements.map(_.dualIndex).toArray, elements.map(_.r).toArray, elements.map(_.c).toArray, elements.map(_.realPart).toArray)
+  def realBlock(size: Int, elements: Seq[BlockElement]): SDP.Block =
+    Block(size, elements.map(_.dualIndex).toArray, elements.map(_.r).toArray, elements.map(_.c).toArray, elements.map(_.realPart).toArray)
 
-  def complexBlock(elements: Seq[BlockElement]): SDP.Block = {
+  def complexBlock(size: Int, elements: Seq[BlockElement]): SDP.Block = {
     def realPart(i: Int, r: Int, c: Int, a: Double) = Seq(
       BlockElement(i, r*2, c*2, a, 0),
       BlockElement(i, r*2+1, c*2+1, a, 0)
@@ -148,15 +204,15 @@ class Relaxation[
       case BlockElement(i, r, c, a, 0.0) => realPart(i, r, c, a)
       case BlockElement(i, r, c, a, b) => realPart(i, r, c, a) ++ imagPart(i, r, c, b)
     }
-    realBlock(complexEncoding)
+    realBlock(size * 2, complexEncoding)
   }
 
   /** Constructs a SDP block from a series of indices.
     *
     * Assumes that no two elements have the same (dualIndex, r, c) value.
     */
-  def block(elements: Seq[BlockElement]): SDP.Block =
-    if (elements.forall(_.complexPart == 0)) realBlock(elements) else complexBlock(elements)
+  def block(size: Int, elements: Seq[BlockElement]): SDP.Block =
+    if (elements.forall(_.complexPart == 0)) realBlock(size, elements) else complexBlock(size, elements)
 
   case class DualTerm(dualIndex: Int, realPart: Double, imagPart: Double)
 
@@ -192,7 +248,7 @@ class Relaxation[
       c <- 0 until mat.nCols
       DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(Cyclo.one, mat(r, c))
     } yield BlockElement(dualIndex, r, c, realPart, complexPart)
-    block(nonZeroElements)
+    block(mat.nRows, nonZeroElements)
   }
 
   def expandLocalizingMatrix(mat: Mat[E#EvaluatedPolynomial]): SDP.Block = {
@@ -205,7 +261,7 @@ class Relaxation[
       coeff = poly.coeff(i)
       DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(coeff, mono)
     } yield BlockElement(dualIndex, r, c, realPart, complexPart)
-    block(nonZeroElements)
+    block(mat.nRows, nonZeroElements)
   }
 
   def expandRealPart(p: E#EvaluatedPolynomial): Vec[Double] = Vec.fromMutable(allMoments.length, 0.0) { vec =>
@@ -241,7 +297,7 @@ class Relaxation[
   }
 
   def toSDP: SDP = {
-    lazy val m = allMoments.length
+    val m = allMoments.length
     // convention for the mapping of variables
     // for a moment of index i in allMoments, we distinguish two cases depending on iadj = adjointMoment(i)
     // - i == iadj: dualVariable(i) is the real value

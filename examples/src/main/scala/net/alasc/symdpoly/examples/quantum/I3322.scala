@@ -65,10 +65,10 @@ object I3322 {
      - A(0) - A(1) - B(0) - B(1)
   )/4
 
-  val feasGrp = L.symmetryGroup
-  val symGrp = L(bellOperator).invariantSubgroupOf(feasGrp)
-  /*val Lsym = L.symmetric(symGrp)
-  val problem = Lsym(bellOperator).maximize*/
+  val feasGrp = Quotient.symmetryGroup
+  val symGrp = bellOperator.invariantSubgroupOf(feasGrp)
+  val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symGrp))
+  val problem = Lsym(bellOperator).maximize
 }
 
 /** Creates the problem files for I3322 in the Mosek and SDPA formats, relaxation levels 2,3,4,5 */
@@ -77,9 +77,8 @@ object I3322App extends App {
   import I3322._
   for (level <- 2 to 5) {
     println(level)
-    /*
     val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
-    relaxation.mosekInstance.writeCBF(s"i3322_$level.cbf")
-    relaxation.sdpaInstance.writeFile(s"i3322_$level.dat-s")*/
+    //relaxation.mosekInstance.writeCBF(s"i3322_$level.cbf")
+    relaxation.toSDP.writeFileSDPA(s"i3322_$level.dat-s")
   }
 }

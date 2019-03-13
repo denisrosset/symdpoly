@@ -22,16 +22,6 @@ import syntax.phased._
 
 package object symmetries {
 
-  /*
-  def symmetrize[
-    E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
-    M <: generic.MonoidDef with Singleton
-  ](relaxation: Relaxation[E, M]): Relaxation[_ <: generic.Evaluator.Aux[M] with Singleton, M] = {
-    require(relaxation.)
-    def E: E = valueOf[E]
-    def M: M = E.M
-  }*/
-
   def allElementsUnderOrbit[A:ClassTag:Order, G](elements: Iterable[A], generators: Seq[G], normalForm: (A => A) = identity[A](_))
                                                 (implicit action: Action[A, G]): OrderedSet[A] = {
     import scala.collection.mutable.HashSet
