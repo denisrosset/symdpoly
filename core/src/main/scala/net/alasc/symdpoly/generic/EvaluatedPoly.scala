@@ -20,6 +20,8 @@ final class EvaluatedPoly[
   def M: M = valueOf[M]
   def E: E = valueOf[E]
 
+  def isZero: Boolean = normalForm.isZero
+
   def toPoly: EvaluatedPoly[E, M] = lhs
 
   override def toString: String = normalForm.string("L(", ")")

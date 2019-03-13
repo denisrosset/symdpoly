@@ -73,7 +73,7 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
   /** Returns the floating point value of this phase when it is real (either -1 or 1), or NaN when it is complex. */
   def toDouble: Double =
     if (isOne) 1.0
-    else (isMinusOne) -1.0
+    else if (isMinusOne) -1.0
     else Double.NaN
 
 }

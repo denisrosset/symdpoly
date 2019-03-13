@@ -50,6 +50,7 @@ object Direction {
   */
 case class SDP(objToMaximize: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Double], ineqA: Mat[Double]) {
   def m: Int = objToMaximize.length
+  def convertEqualities: SDP = SDP(objToMaximize, blocks, Mat.zeros[Double](0, m), ineqA vertcat eqA vertcat (-eqA))
 }
 
 object SDP {
@@ -120,10 +121,13 @@ class Relaxation[
     Cyclo.i -> Complex.i[Double],
     (-Cyclo.i) -> -Complex.i[Double]
   )
-  private[this] val phaseValues = scala.collection.mutable.HashMap[Phase, Complex[Double]]
 
-  def cycloValue(c: Cyclo): Complex[Double] = cycloValues.getOrElseUpdate(c, c => Complex(RealCyclo.real(c).toAlgebraic.toDouble, RealCyclo.imag(c).toAlgebraic.toDouble))
-  def phaseValue(p: Phase): Complex[Double] = phaseValues.getOrElseUpdate(p, p => cycloValue(p.toCyclo))
+  private[this] val phaseValues = scala.collection.mutable.HashMap[Phase, Complex[Double]](
+    Phase.one -> Complex.one[Double]
+  )
+
+  def cycloValue(c: Cyclo): Complex[Double] = cycloValues.getOrElseUpdate(c, Complex(RealCyclo.real(c).toAlgebraic.toDouble, RealCyclo.imag(c).toAlgebraic.toDouble))
+  def phaseValue(p: Phase): Complex[Double] = phaseValues.getOrElseUpdate(p, cycloValue(p.toCyclo))
 
   case class BlockElement(dualIndex: Int, r: Int, c: Int, realPart: Double, complexPart: Double)
 
@@ -132,12 +136,12 @@ class Relaxation[
 
   def complexBlock(elements: Seq[BlockElement]): SDP.Block = {
     def realPart(i: Int, r: Int, c: Int, a: Double) = Seq(
-      (i, r*2, c*2, a),
-      (i, r*2+1, c*2+1, a)
+      BlockElement(i, r*2, c*2, a, 0),
+      BlockElement(i, r*2+1, c*2+1, a, 0)
     )
     def imagPart(i: Int, r: Int, c: Int, b: Double) = Seq(
-      (i, r*2, c*2+1, -b),
-      (i, r*2+1, c*2, b)
+      BlockElement(i, r*2, c*2+1, -b, 0),
+      BlockElement(i, r*2+1, c*2, b, 0)
     )
     val complexEncoding = elements.flatMap {
       case BlockElement(i, r, c, 0.0, b) => imagPart(i, r, c, b)
@@ -154,61 +158,86 @@ class Relaxation[
   def block(elements: Seq[BlockElement]): SDP.Block =
     if (elements.forall(_.complexPart == 0)) realBlock(elements) else complexBlock(elements)
 
-  def expandLocalizingMatrix(mat: Mat[E#EvaluatedPolynomial]): SDP.Block = {
+  case class DualTerm(dualIndex: Int, realPart: Double, imagPart: Double)
 
+  def inDualVariables(c: Cyclo, mono: E#EvaluatedMonomial): Seq[DualTerm] = if (mono.isZero) Seq.empty else {
+    val canonical = mono.phaseCanonical
+    val coeff = if (c.isOne) phaseValue(mono.phaseOffset) else cycloValue(c * mono.phaseOffset.toCyclo)
+    val index = allMoments.indexOf(canonical)
+    val indexAdjoint = adjointMoment(index)
+    if (index == indexAdjoint) // monomial is self adjoint
+      Seq(DualTerm(index, coeff.real, coeff.imag))
+    else if (index < indexAdjoint) // monomial value is y(index) + i * y(indexAdjoint)
+      Seq(
+        DualTerm(index, coeff.real, coeff.imag),
+        DualTerm(indexAdjoint, -coeff.imag, coeff.real) // (*) see below
+      )
+    else // monomial value is y(indexAdjoint) - i * y(index)
+      Seq(
+        DualTerm(indexAdjoint, coeff.real, coeff.imag),
+        DualTerm(index, coeff.imag, -coeff.real) // opposite of the dual term in (*)
+      )
   }
 
-  def expandMomentMatrix(mat: Mat[E#EvaluatedMonomial]): SDP.Block = {
-    /*val phases: Mat[Phase] = mat.map( e => e.phaseOffset )
-    val canonical = mat.map( e => e.phaseCanonical )
-    if (allSelfAdjoint && MomentMatrix.matIterator(phases).forall(_.isReal)) {*/
+  def inDualVariables(poly: E#EvaluatedPolynomial): Seq[DualTerm] =
+    (0 until poly.nTerms).flatMap(i => inDualVariables(poly.coeff(i), poly.monomial(i)))
+      .groupBy(_.dualIndex)
+      .values.map {
+      case Seq(DualTerm(d, rp, ip), tl@_*) => DualTerm(d, tl.map(_.realPart).foldLeft(rp)(_+_), tl.map(_.imagPart).foldLeft(rp)(_+_))
+    }.toSeq
 
-    val nonZeroElements: Seq[(Int, Int, Int, Phase)] = for {
-        r <- 0 until mat.nRows
-        c <- 0 until mat.nCols
-        canonical = mat(r, c).phaseCanonical if !canonical.isZero
-        phase = mat(r, c).phaseOffset
-        momentIndex = allElements.indexOf(canonical)
-      } yield (momentIndex, r, c, phase)
-    if (allSelfAdjoint && nonZeroElements.forall(_._4.isReal)) { // all moments are real, phases are all real
-      val basisIndex = nonZeroElements.map(_._1).toArray
-      val rowIndex = nonZeroElements.map(_._2).toArray
-      val colIndex = nonZeroElements.map(_._3).toArray
-      val coeffs = nonZeroElements.map(_._4.toDouble).toArray
-      Block(basisIndex, rowIndex, colIndex, coeffs)
-    } else {
-      // complex encoding with
-      // [real -imag; imag real]
-      val complexEncoding = nonZeroElements.flatMap {
-        case (b, r, c, phase) if adjointMoment(b) == b && phase.isReal =>
-          Seq(
-            (b, r*2, c*2, phase.toDouble),
-            (b, r*2+1, c*2+1, phase.toDouble)
-          )
-        case (b, r, c, phase) if b < adjointMoment(b) =>
-          val badj = adjointMoment(b)
-          // the value of the monomial b is encoded as y(b) + i * y(badj)
-          // we consider the product
-          // y(b) * phaseR - y(badj) * phaseI + i * (y(b) * phaseI + y(badj) * phaseR)
-          val phaseR = RealCyclo.real(phase.toCyclo).toAlgebraic.toDouble
-          val phaseI = RealCyclo.imag(phase.toCyclo).toAlgebraic.toDouble
-          Seq(
-            (b, r*2, c*2, phaseR),     // y(b) * phaseR
-            (b, r*2+1, c*2+1, phaseR),
-            (badj, r*2, c*2, -phaseI), // -y(badj) * phaseI
-            (badj, r*2+1, c*2+1, -phaseI),
-            (b, r*2, c*2+1, -phaseI), // i*y(b)*phaseI, but with sign change due to algebra encoding
-            (b, r*2+1, c*2, phaseI), // no sign change
-            (badj, r*2, c*2+1, -phaseR), // i*y(badj)*phaseR, but with sign change
-            (badj, r*2+1, c*2, phaseR) // no sign change
-          )
+  def expandMomentMatrix(mat: Mat[E#EvaluatedMonomial]): SDP.Block = {
+    val nonZeroElements: Seq[BlockElement] = for {
+      r <- 0 until mat.nRows
+      c <- 0 until mat.nCols
+      DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(Cyclo.one, mat(r, c))
+    } yield BlockElement(dualIndex, r, c, realPart, complexPart)
+    block(nonZeroElements)
+  }
+
+  def expandLocalizingMatrix(mat: Mat[E#EvaluatedPolynomial]): SDP.Block = {
+    val nonZeroElements: Seq[BlockElement] = for {
+      r <- 0 until mat.nRows
+      c <- 0 until mat.nCols
+      poly = mat(r, c)
+      i <- 0 until poly.nTerms
+      mono = poly.monomial(i)
+      coeff = poly.coeff(i)
+      DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(coeff, mono)
+    } yield BlockElement(dualIndex, r, c, realPart, complexPart)
+    block(nonZeroElements)
+  }
+
+  def expandRealPart(p: E#EvaluatedPolynomial): Vec[Double] = Vec.fromMutable(allMoments.length, 0.0) { vec =>
+    cforRange(0 until p.nTerms) { pi =>
+      val m = p.monomial(pi)
+      val i = allMoments.indexOf(m)
+      val iadj = adjointMoment(i)
+      val beta = p.coeff(pi)
+      if (i == iadj) {
+        assert(beta.isReal)
+        vec(i) := vec(i) + RealCyclo.real(beta).toAlgebraic.toDouble
+      } else if (i < iadj) { // only consider half the self-adjoint terms
+        // we have beta <m> + beta' <m'> =
+        //   beta.real * m.real - beta.imag * m.imag + i * (beta.real * m.imag + beta.imag * m.real)
+        //   beta.real * m.real - beta.imag * m.imag - i * (beta.real * m.imag + beta.imag * m.real)
+        // = 2 * beta.real*m.real - 2 * beta.imag*m.imag
+        val madj = allMoments(iadj)
+        val betaAdj = p.coeff(madj)
+        assert(betaAdj.adjoint === beta)
+        val imagPart = RealCyclo.imag(beta).toAlgebraic.toDouble
+        vec(i) := vec(i) + RealCyclo.real(beta * 2).toAlgebraic.toDouble
+        vec(iadj) := vec(iadj) - RealCyclo.imag(beta * 2).toAlgebraic.toDouble
       }
-      val basisIndex = complexEncoding.map(_._1).toArray
-      val rowIndex = complexEncoding.map(_._2).toArray
-      val colIndex = complexEncoding.map(_._3).toArray
-      val coeffs = complexEncoding.map(_._4).toArray
-      Block(basisIndex, rowIndex, colIndex, coeffs)
     }
+  }
+
+  def expandLinear(p: E#EvaluatedPolynomial): Seq[Vec[Double]] = {
+    val padj = E.evaluatedPolyInvolution.adjoint(p)
+    val realPart = E.evaluatedPolyVectorSpace.divr(E.evaluatedPolyVectorSpace.plus(p, padj), Cyclo(2))
+    val imagPart = E.evaluatedPolyVectorSpace.divr(E.evaluatedPolyVectorSpace.plus(p, padj), Cyclo(2))
+    def optionExpand(sap: E#EvaluatedPolynomial): Seq[Vec[Double]] = if (sap.isZero) Seq.empty else Seq(expandRealPart(sap))
+    optionExpand(realPart) ++ optionExpand(imagPart)
   }
 
   def toSDP: SDP = {
@@ -220,12 +249,18 @@ class Relaxation[
     require(allMoments(0) == E.one)
 
     val obj = direction match {
-      case Direction.Minimize => expandSelfAdjoint(-objective)
+      case Direction.Minimize => expandSelfAdjoint(E.evaluatedPolyVectorSpace.negate(objective))
       case Direction.Maximize => expandSelfAdjoint(objective)
     }
 
     val mainBlock = expandMomentMatrix(momentMatrix.mat)
-
+    val localizingBlocks = localizingMatrices.map(lm => expandLocalizingMatrix(lm.mat))
+    val blocks: Seq[SDP.Block] = mainBlock +: localizingBlocks
+    val eqVecs = scalarEq.flatMap(expandLinear)
+    val ineqVecs = scalarIneq.flatMap(expandLinear)
+    val eqA = Mat.tabulate(eqVecs.size, m)( (r, c) => eqVecs(r)(c) )
+    val ineqA = Mat.tabulate(eqVecs.size, m)( (r, c) => ineqVecs(r)(c) )
+    SDP(obj, blocks, eqA, ineqA)
   }
 
 }
@@ -272,7 +307,7 @@ object Relaxation {
       case ScalarConstraint(lhs, LE, rhs) => rhs - lhs
       case ScalarConstraint(lhs, GE, rhs) => lhs - rhs
     }
-    new Relaxation(direction, objective, momentMatrix, scalarEq, scalarIneq, localizingMatrices)
+    new Relaxation[E, M](direction, objective, momentMatrix, scalarEq, scalarIneq, localizingMatrices)
   }
 
 }
@@ -281,7 +316,7 @@ object Relaxation {
 case class Optimization[
   E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
-](direction: Direction, objective: EvaluatedPoly[E, M], operatorConstraints: Seq[OperatorConstraint[M]] = Seq.empty, scalarConstraints: Seq[ScalarConstraint[E, M]] = Seq.empty) {
+](direction: Direction, objective: E#EvaluatedPolynomial, operatorConstraints: Seq[OperatorConstraint[M]] = Seq.empty, scalarConstraints: Seq[ScalarConstraint[E, M]] = Seq.empty) {
 
   def E: E = valueOf[E]
   def M: M = valueOf[M]

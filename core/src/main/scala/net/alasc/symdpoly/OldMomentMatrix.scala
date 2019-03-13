@@ -30,7 +30,7 @@ import net.alasc.perms.Perm
 import net.alasc.symdpoly.algebra.{Morphism, MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
 import spire.std.unit._
-
+import spire.syntax.eq._
 import net.alasc.perms.default._
 import net.alasc.symdpoly.freebased.Mono
 import net.alasc.symdpoly.generic.{EvaluatedMono, MomentSet, MomentSetBuilder}
@@ -63,6 +63,7 @@ object LocalizingMatrix {
   ](polynomial: M#Polynomial, generatingMoments: OrderedSet[M#Monomial]): LocalizingMatrix[E, M] = {
     def E: E = valueOf[E]
     def M: M = valueOf[M]
+    require(polynomial.adjoint === polynomial)
     val size = generatingMoments.length
     val moments: Mat[E#EvaluatedPolynomial] =
         Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint.toPoly * polynomial * generatingMoments(c).toPoly) }
