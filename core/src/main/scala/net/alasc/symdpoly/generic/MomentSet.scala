@@ -17,7 +17,7 @@ import net.alasc.util._
 
 /** Describes an ordered set of equivalence classes of monomials under evaluation. */
 class MomentSet[
-  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val elements: OrderedSet[EvaluatedMono[E, M]], private[this] val _conjugateIndices: Array[Int]) {
   require(_conjugateIndices.length == elements.length)
@@ -39,7 +39,7 @@ class MomentSet[
 
 /** Builds a [[MomentSet]] incrementally. */
 class MomentSetBuilder[
-  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val sequence: Buffer[EvaluatedMono[E, M]],
   val conjugate: Buffer[Int],
@@ -96,7 +96,7 @@ class MomentSetBuilder[
 
 object MomentSetBuilder {
 
-  def make[E <: generic.Evaluator[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton:Witness.Aux]: MomentSetBuilder[E, M] = {
+  def make[E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux, M <: generic.MonoidDef with Singleton:Witness.Aux]: MomentSetBuilder[E, M] = {
     val empty = valueOf[E].apply(valueOf[M].one)
     val sequence = Buffer(empty)
     val conjugate = Buffer(0)

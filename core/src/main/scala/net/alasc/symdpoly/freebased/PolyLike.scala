@@ -54,19 +54,19 @@ trait PolyLike[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] 
   def /(rhs: Rational)(implicit wM: Witness.Aux[M]): Poly[M, F] = lhs * rhs.reciprocal
   def /(rhs: Cyclo)(implicit wM: Witness.Aux[M]): Poly[M, F] = lhs * rhs.reciprocal
 
-  def <=!(rhs: PolyLike[M, F])(implicit wM: Witness.Aux[M]): LinearConstraint[M] = LinearConstraint[M](lhs.toPoly, ComparisonOp.LE, rhs.toPoly)
-  def <=! (rhs: Int)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs <=! valueOf[M].constant(rhs)
-  def <=! (rhs: Rational)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs <=! valueOf[M].constant(rhs)
-  def <=! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs <=! valueOf[M].constant(rhs)
+  def <=!(rhs: PolyLike[M, F])(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = OperatorConstraint[M](lhs.toPoly, ComparisonOp.LE, rhs.toPoly)
+  def <=! (rhs: Int)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs <=! valueOf[M].constant(rhs)
+  def <=! (rhs: Rational)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs <=! valueOf[M].constant(rhs)
+  def <=! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs <=! valueOf[M].constant(rhs)
 
-  def >=!(rhs: PolyLike[M, F])(implicit wM: Witness.Aux[M]): LinearConstraint[M] = LinearConstraint[M](lhs.toPoly, ComparisonOp.GE, rhs.toPoly)
-  def >=! (rhs: Int)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs >=! valueOf[M].constant(rhs)
-  def >=! (rhs: Rational)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs >=! valueOf[M].constant(rhs)
-  def >=! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs >=! valueOf[M].constant(rhs)
+  def >=!(rhs: PolyLike[M, F])(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = OperatorConstraint[M](lhs.toPoly, ComparisonOp.GE, rhs.toPoly)
+  def >=! (rhs: Int)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs >=! valueOf[M].constant(rhs)
+  def >=! (rhs: Rational)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs >=! valueOf[M].constant(rhs)
+  def >=! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs >=! valueOf[M].constant(rhs)
 
-  def =!(rhs: PolyLike[M, F])(implicit wM: Witness.Aux[M]): LinearConstraint[M] = LinearConstraint[M](lhs.toPoly, ComparisonOp.EQ, rhs.toPoly)
-  def =! (rhs: Int)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs =! valueOf[M].constant(rhs)
-  def =! (rhs: Rational)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs =! valueOf[M].constant(rhs)
-  def =! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): LinearConstraint[M] = lhs =! valueOf[M].constant(rhs)
+  def =!(rhs: PolyLike[M, F])(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = OperatorConstraint[M](lhs.toPoly, ComparisonOp.EQ, rhs.toPoly)
+  def =! (rhs: Int)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs =! valueOf[M].constant(rhs)
+  def =! (rhs: Rational)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs =! valueOf[M].constant(rhs)
+  def =! (rhs: Cyclo)(implicit wM: Witness.Aux[M]): OperatorConstraint[M] = lhs =! valueOf[M].constant(rhs)
 
 }

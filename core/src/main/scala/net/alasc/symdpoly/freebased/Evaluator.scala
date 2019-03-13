@@ -3,12 +3,7 @@ package freebased
 
 import shapeless.Witness
 
-class Evaluator[
-  M <: freebased.MonoidDef.Aux[F] with Singleton:Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton
-](override val equivalences: Seq[freebased.Equivalence[M, F]]) extends generic.Evaluator[M](equivalences) {
 
-}
 /*
 object Evaluator {
 

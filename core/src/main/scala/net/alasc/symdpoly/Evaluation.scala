@@ -15,7 +15,7 @@ object Evaluation {
   /** Equivalence under a group action. */
   def symmetric[
     M <: generic.MonoidDef with Singleton:Witness.Aux, G
-  ](grp: Grp[G])(implicit action: Action[M#Monomial, G]): Equivalence[M] = new SymmetryEquivalence[M, G](grp)
+  ](grp: Grp[G])(implicit action: Action[M#Monomial, G]): Equivalence[M] = SymmetryEquivalence[M, G](grp)
 
   /** Equivalence under cyclic permutation of operators selected by the given predicate. */
   def cyclic[

@@ -65,7 +65,7 @@ object CHSH {
   val L = Quotient.evaluator(Evaluation.real)
 
   /** Problem symmetry group. */
-  val symmetryGroup = feasibilityGroup.leavesInvariant(L(bellOperator))
+  val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
 /*
   /** Monomial evaluator invariant under the problem symmetry group. */
   val Lsym = L.symmetric(symmetryGroup)

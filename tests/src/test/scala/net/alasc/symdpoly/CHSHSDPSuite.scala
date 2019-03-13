@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 
 import joptimizer._
 import defaults._
+import net.alasc.symdpoly.util.OrderedSet
 
 class CHSHSDPSuite extends CommonSuite {
 
@@ -50,7 +51,7 @@ class CHSHSDPSuite extends CommonSuite {
 
     assert(feasibilityGroup === quotientGroup)
 
-    val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
+    val generatingSet = Quotient.quotient(GSet.onePlus(A, B).pow(3))
 
     val L = Quotient.evaluator(Evaluation.real)
 
@@ -58,10 +59,18 @@ class CHSHSDPSuite extends CommonSuite {
 
     val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
 
+    val mm = MomentMatrix[Lsym.type, Quotient.type](Lsym, OrderedSet.fromSortedSet(generatingSet.monomials), true)
+    val mm1 = MomentMatrix[Lsym.type, Quotient.type](Lsym, OrderedSet.fromSortedSet(generatingSet.monomials), false)
+
+    assert(mm.moments == mm1.moments)
+
     val problem = Lsym(bellOperator).maximize
 
     val relaxation = problem.relaxation(generatingSet)
     import net.alasc.symdpoly.matlab._
+
+    println(relaxation.momentMatrix.momentMatrix)
+    relaxation.mosekInstance.writeCBF("chsh.cbf")
 
     val OptimumFound(_, ub, _, _) = relaxation.jOptimizerInstance.solve()
 

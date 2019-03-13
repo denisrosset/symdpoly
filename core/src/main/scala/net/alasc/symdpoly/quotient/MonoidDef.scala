@@ -41,6 +41,7 @@ abstract class MonoidDef extends freebased.MonoidDef {
     private[this] val phases: Vector[Phase] = Vector.tabulate(m)(k => Phase(k, m))
     private[this] def op(i: Int): Free#Op = Free.opFromIndex(i)
     private[this] def monoFromOpIndex(i: Int): Mono[Free, Free] = Mono(op(i))
+    // TODO: support more complicated rewriting rules
 
     /** Ordered set of all monomials of degree <= 2, with all possible phases. */
     private[this] val monoSet: OrderedSet[Mono[Free, Free]] = {
@@ -93,13 +94,13 @@ abstract class MonoidDef extends freebased.MonoidDef {
 
   /** Returns the permutation of the quotient monoid equivalence classes that correspond to the free permutation given,
     * without performing sanity checks. */
-  def quotientNC(permutation: freebased.Permutation[Free, Free]): freebased.Permutation[monoidDef.type, Free] =
+  def quotientNC(permutation: Free#Permutation): freebased.Permutation[monoidDef.type, Free] =
     new freebased.Permutation[monoidDef.type, Free](permutation.genPerm)
 
   /** Returns the permutation of the quotient monoid equivalence classes that correspond to the given free permutation
     * when it is compatible, or returns None otherwise.
     */
-  def quotient(permutation: freebased.Permutation[Free, Free]): Option[freebased.Permutation[monoidDef.type, Free]] =
+  def quotient(permutation: Free#Permutation): Option[freebased.Permutation[monoidDef.type, Free]] =
     if (UnorderedPartitionStabilizer.partitionInvariantUnder(Symmetries.partition, Symmetries.action, permutation))
       Some(new freebased.Permutation[monoidDef.type, Free](permutation.genPerm))
     else None

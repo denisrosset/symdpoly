@@ -51,31 +51,54 @@ package object symmetries {
     new OrderedSet(array.map(_.asInstanceOf[AnyRef]))
   }
 
-  def invariantSubgroupOf[A:ClassTag:Order:Phased, G:ClassTag:Eq:FaithfulPermutationActionBuilder:Group](keys: Iterable[A], value: A => Cyclo, grp: Grp[G], cyclotomicOrder: Int)
-                                                                                      (implicit action: Action[A, G]): Grp[G] = {
-    val elements: OrderedSet[A] = allElementsUnderOrbit(keys, grp.generators, Phased[A].phaseCanonical(_))
-    val monomialsAction: PermutationAction[G] = new PermutationAction[G] {
+  /** Constructs the permutation action */
+  def canonicalPermutationAction[A:Order:Phased, G:Group](canonicalElements: OrderedSet[A])(implicit action: Action[A, G]): PermutationAction[G] =
+    new PermutationAction[G] {
       def isFaithful: Boolean = false
       def findMovedPoint(g: G): NNOption = {
-        cforRange(0 until elements.length * cyclotomicOrder) { i =>
+        cforRange(0 until canonicalElements.length) { i =>
           if (actr(i, g) != i) return NNSome(i)
         }
         NNNone
       }
-      def movedPointsUpperBound(g: G): NNOption = NNSome(elements.length * cyclotomicOrder - 1)
+      def movedPointsUpperBound(g: G): NNOption = NNSome(canonicalElements.length - 1)
+      def actr(p: Int, g: G): Int = {
+        val a = canonicalElements(p)
+        val a1 = action.actr(a, g)
+        canonicalElements.indexOf(a1)
+      }
+      def actl(g: G, p: Int): Int = actr(p, g.inverse)
+    }
+
+  /** Constructs the permutation action */
+  def permutationAction[A:Order:Phased, G:Group](canonicalElements: OrderedSet[A], cyclotomicOrder: Int)(implicit action: Action[A, G]): PermutationAction[G] =
+    new PermutationAction[G] {
+      def isFaithful: Boolean = false
+      def findMovedPoint(g: G): NNOption = {
+        cforRange(0 until canonicalElements.length * cyclotomicOrder) { i =>
+          if (actr(i, g) != i) return NNSome(i)
+        }
+        NNNone
+      }
+      def movedPointsUpperBound(g: G): NNOption = NNSome(canonicalElements.length * cyclotomicOrder - 1)
       def actr(p: Int, g: G): Int = {
         val phase = Phase(p % cyclotomicOrder, cyclotomicOrder)
         val index = p / cyclotomicOrder
-        val res = action.actr(elements(index), g)
+        val res = action.actr(canonicalElements(index), g)
         val canonical = res.phaseCanonical
         val newPhase = res.phaseOffset * phase
-        val newIndex = elements.indexOf(canonical)
+        val newIndex = canonicalElements.indexOf(canonical)
         newIndex * cyclotomicOrder + newPhase.numeratorIn(cyclotomicOrder)
       }
       def actl(g: G, p: Int): Int = actr(p, g.inverse)
     }
+
+  def invariantSubgroupOf[A:ClassTag:Order:Phased, G:ClassTag:Eq:FaithfulPermutationActionBuilder:Group](keys: Iterable[A], value: A => Cyclo, grp: Grp[G], cyclotomicOrder: Int)
+                                                                                      (implicit action: Action[A, G]): Grp[G] = {
+    val canonicalElements: OrderedSet[A] = allElementsUnderOrbit(keys, grp.generators, Phased[A].phaseCanonical(_))
+    val monomialsAction: PermutationAction[G] = permutationAction(canonicalElements, cyclotomicOrder)
     val coeffSeq = for {
-      element <- elements.iterator.toVector
+      element <- canonicalElements.iterator.toVector
       coeff = value(element)
       k <- 0 until cyclotomicOrder
       phase = Phase(k, cyclotomicOrder)

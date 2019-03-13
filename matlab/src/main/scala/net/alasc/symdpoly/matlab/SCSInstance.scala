@@ -78,7 +78,7 @@ object SCSInstance {
 
   object SparseVector {
     val sqrt2 = spire.math.sqrt(2.0)
-    def forMoment(gramMatrix: MomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseVector = {
+    def forMoment(gramMatrix: OldMomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseVector = {
       import gramMatrix.{matrixSize => d}
       val indices = metal.mutable.Buffer.empty[Int]
       val data = metal.mutable.Buffer.empty[Double]

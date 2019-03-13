@@ -10,13 +10,6 @@ import scala.collection.mutable
 
 package object symdpoly {
 
-  implicit class GroupOps[
-    E <: generic.Evaluator[M] with Singleton,
-    M <: generic.MonoidDef with Singleton
-  ](val grp: Grp[generic.EvaluatedPermutation[E, M] with E#Permutation]) {
-    def leavesInvariant(poly: E#EvaluatedPolynomial): Unit = ()
-  }
-
   def trivialAction[A]: Action[A, Unit] = new Action[A, Unit] {
     def actl(g: Unit, a: A): A = a
     def actr(a: A, g: Unit): A = a

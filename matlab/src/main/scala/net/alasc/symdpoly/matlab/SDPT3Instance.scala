@@ -6,7 +6,7 @@ import spire.syntax.cfor._
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types._
 import net.alasc.symdpoly.solvers.{Instance}
-import net.alasc.symdpoly.{MomentMatrix, Relaxation}
+import net.alasc.symdpoly.{OldMomentMatrix, Relaxation}
 import syntax.phased._
 
 class SDPT3Instance(val relaxation: Relaxation[_, _]) extends Instance {
@@ -76,7 +76,7 @@ object SDPT3Instance {
 
   object SparseVector {
     val sqrt2 = spire.math.sqrt(2.0)
-    def forMoment(gramMatrix: MomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseVector = {
+    def forMoment(gramMatrix: OldMomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseVector = {
       import gramMatrix.{matrixSize => d}
       val indices = metal.mutable.Buffer.empty[Int]
       val data = metal.mutable.Buffer.empty[Double]
@@ -104,7 +104,7 @@ object SDPT3Instance {
   }
 
   object SparseMatrix {
-    def forMoment(gramMatrix: MomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseMatrix = {
+    def forMoment(gramMatrix: OldMomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseMatrix = {
       import gramMatrix.{matrixSize => d}
       val rows = metal.mutable.Buffer.empty[Int]
       val cols = metal.mutable.Buffer.empty[Int]

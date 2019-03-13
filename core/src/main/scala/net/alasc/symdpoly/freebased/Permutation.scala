@@ -30,6 +30,11 @@ class Permutation[
 
 object Permutation {
 
+  def applyNC[
+    M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
+    F <: free.MonoidDef.Aux[F] with Singleton
+  ](genPerm: GenPerm): Permutation[M, F] = new Permutation[M, F](genPerm)
+
   def prettyPrintGenPerm(opAction: GenPerm, F: free.MonoidDef): String = {
     val elements = for {
       i <- 0 until F.nOperators

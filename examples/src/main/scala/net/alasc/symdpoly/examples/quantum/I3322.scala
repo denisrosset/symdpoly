@@ -65,8 +65,8 @@ object I3322 {
      - A(0) - A(1) - B(0) - B(1)
   )/4
 
-  val feasGrp = Quotient.groupInQuotient(Free.symmetryGroup)
-  val symGrp = feasGrp.leavesInvariant(L(bellOperator))
+  val feasGrp = L.symmetryGroup
+  val symGrp = L(bellOperator).invariantSubgroupOf(feasGrp)
   /*val Lsym = L.symmetric(symGrp)
   val problem = Lsym(bellOperator).maximize*/
 }

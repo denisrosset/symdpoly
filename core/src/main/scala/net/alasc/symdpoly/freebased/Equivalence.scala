@@ -4,13 +4,13 @@ package freebased
 import shapeless.Witness
 
 /** An equivalence relation on monomials from a quotient monoid over a free monoid. */
-abstract class Equivalence[
-M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
-F <: free.MonoidDef.Aux[F] with Singleton
+trait Equivalence[
+  M <: MonoidDef.Aux[F] with Singleton,
+  F <: free.MonoidDef.Aux[F] with Singleton
 ] extends generic.Equivalence[M] {
 
-  def M: M = valueOf[M]
   def F: F = (M.Free: F)
+  implicit def witnessF: Witness.Aux[F] = F.witness
 
 }
 /*

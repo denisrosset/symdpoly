@@ -8,7 +8,7 @@ import net.alasc.symdpoly.algebra.Phased
 
 /** Evaluated monomial, i.e. equivalence class under some evaluator. */
 final class EvaluatedMono[
-  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val normalForm: M#Monomial) extends EvaluatedPolyLike[E, M] { lhs =>
   def E: E = valueOf[E]
@@ -31,17 +31,17 @@ object EvaluatedMono {
   //region Typeclasses
 
   implicit def order[
-    E <: generic.Evaluator[M] with Singleton:Witness.Aux,
+    E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton
   ]: Order[EvaluatedMono[E, M]] = valueOf[E].evaluatedMonoOrder
 
   implicit def phased[
-    E <: generic.Evaluator[M] with Singleton:Witness.Aux,
+    E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton
   ]: Phased[EvaluatedMono[E, M]] = valueOf[E].evaluatedMonoPhased
 
   implicit def evaluatedMonoAction[
-    E <: generic.Evaluator[M] with Singleton: Witness.Aux,
+    E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
     M <: generic.MonoidDef with Singleton
   ]: Action[EvaluatedMono[E, M], EvaluatedPermutation[E, M]] = (valueOf[E]: E).evaluatedMonoPermutationAction
 

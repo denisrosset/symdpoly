@@ -83,7 +83,10 @@ abstract class MonoidDef { self =>
   /** Permutation acting on the monomials/monoid elements. */
   type Permutation <: generic.Permutation[self.type]
 
-  /** Group of permutations. */
+  /** Symmetry group of this monoid. */
+  def symmetryGroup: Grp[Permutation]
+
+  /** Permutations form a group. */
   def permutationGroup: Group[Permutation]
 
   /** Permutation equality. */
@@ -99,7 +102,11 @@ abstract class MonoidDef { self =>
   def permutationClassTag: ClassTag[Permutation]
 
   /** Default evaluator without additional equivalence relations. */
-  def evaluator(equivalences: Equivalence[self.type]*): Evaluator[self.type] = new generic.Evaluator[self.type](equivalences)
+  def evaluator(equivalences0: Equivalence[self.type]*): Evaluator.Aux[self.type] = new generic.Evaluator { evaluator =>
+    def equivalences: Seq[Equivalence[self.type]] = equivalences0
+    type Mono = self.type
+    implicit val witnessMono: Witness.Aux[self.type] = self.witness
+  }
 
 }
 

@@ -6,14 +6,13 @@ import spire.algebra._
 import spire.syntax.cfor._
 
 import net.alasc.perms.Perm
-
 import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
-
+import spire.std.int._
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.freebased.{Permutation, Mono, Poly, MonoLike, PolyLike}
-import net.alasc.symdpoly.util.{IndexMap, SparseTrie}
+import net.alasc.symdpoly.freebased.{Mono, MonoLike, Permutation, Poly, PolyLike}
+import net.alasc.symdpoly.util.{IndexMap, OrderedSet, SparseTrie}
 import net.alasc.symdpoly.quotient.{MonoidDef => QuotientMonoidDef, Rules => QuotientRules}
 
 /** Base class for a generalized free monoid.
@@ -117,6 +116,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     def adjoint: Op
   }
 
+  object Op {
+    /** Order on operators. */
+    implicit val opOrder: Order[Op] = Order.by(indexFromOp)
+  }
+
   /** Abstract base class for Hermitian operator variables: implement a no op adjoint operation. */
   abstract class HermitianOp extends Op { selfOp =>
     def adjoint: Op = selfOp
@@ -136,6 +140,12 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
 
   object PhasedOp {
     implicit def fromOp(op: Op): PhasedOp = PhasedOp(Phase.one, op)
+    implicit val phasedOpOrder: Order[PhasedOp] = new Order[PhasedOp] {
+      def compare(x: PhasedOp, y: PhasedOp): Int = Op.opOrder.compare(x.op, y.op) match {
+        case 0 => Phase.order.compare(x.phase, y.phase)
+        case i => i
+      }
+    }
     implicit val phasedOpGenPermAction: Action[PhasedOp, GenPerm] = new Action[PhasedOp, GenPerm] {
       def actl(g: GenPerm, p: PhasedOp): PhasedOp = actr(p, g.inverse)
       def actr(p: PhasedOp, g: GenPerm): PhasedOp = {
@@ -181,18 +191,6 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   //endregion
 
   //region Base classes used to instantiate operator variables
-
-  /** Base class for a singleton family containing one operator.
-    *
-    * Used to instantiate single operator variables using the syntax
-    *
-    *   case object X extends SingleOp
-    *
-    * In that case, we do not distinguish between an operator instance and its family.
-    */
-  protected abstract class SingleOp extends Op with OpFamily {
-    val allInstances = Seq(this)
-  }
 
   /** Base class for a singleton family containing one Hermitian operator.
     *

@@ -18,7 +18,7 @@ import net.alasc.symdpoly.math.GenPerm
   * @param generatingSet Set of monomials used to generate the moment matrix
   */
 case class Relaxation[
-  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
+  E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux,
 ](problem: Optimization[E, M], generatingSet: GSet[M]) {
 
@@ -26,7 +26,7 @@ case class Relaxation[
 
   val objective: EvaluatedPoly[E, M] = problem.evaluatedPoly
 
-  lazy val momentMatrix: MomentMatrix[E, M] = MomentMatrix(E, generatingSet)
+  lazy val momentMatrix: OldMomentMatrix[E, M] = OldMomentMatrix(E, generatingSet)
 
   lazy val objectiveVector: Vec[Cyclo] = objective.vecOverOrderedSet(momentMatrix.momentSet.elements)
 

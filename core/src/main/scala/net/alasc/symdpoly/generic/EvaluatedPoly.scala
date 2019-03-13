@@ -13,7 +13,7 @@ import net.alasc.symdpoly.util.OrderedSet
 
 /** Evaluated noncommutative polynomial. */
 final class EvaluatedPoly[
-  E <: Evaluator[M] with Singleton:Witness.Aux,
+  E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val normalForm: M#Polynomial) extends EvaluatedPolyLike[E, M] { lhs =>
 
@@ -53,29 +53,29 @@ final class EvaluatedPoly[
 object EvaluatedPoly {
 
   implicit def polyFromInt[
-    E <: Evaluator[M] with Singleton:Witness.Aux,
+    E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton:Witness.Aux
   ](i: Int): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.fromInt(i))
 
   implicit def polyFromRational[
-    E <: Evaluator[M] with Singleton:Witness.Aux,
+    E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton:Witness.Aux
   ](r: Rational): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(Cyclo.viewFromRational(r), valueOf[M].polyAssociativeAlgebra.one))
 
   implicit def polyFromCyclo[
-    E <: Evaluator[M] with Singleton:Witness.Aux,
+    E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton:Witness.Aux
   ](c: Cyclo): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(c, valueOf[M].polyAssociativeAlgebra.one))
 
   //region Typeclasses
 
   implicit def equ[
-    E <: Evaluator[M] with Singleton:Witness.Aux,
+    E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton
   ]: Eq[EvaluatedPoly[E, M]] = valueOf[E].evaluatedPolyEq
 
   implicit def vectorSpace[
-    E <: Evaluator[M] with Singleton:Witness.Aux,
+    E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton
   ]: VectorSpace[EvaluatedPoly[E, M], Cyclo] = valueOf[E].evaluatedPolyVectorSpace
 

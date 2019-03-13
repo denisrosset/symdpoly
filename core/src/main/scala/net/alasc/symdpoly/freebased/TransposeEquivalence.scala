@@ -8,9 +8,9 @@ import shapeless.Witness
 import net.alasc.symdpoly.Evaluation.OpPredicate
 
 final class TransposeEquivalence[
-  M <: freebased.MonoidDef.Aux[F] with Singleton:Witness.Aux,
+  M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-](val predicate: OpPredicate[F]) extends PredicateEquivalence[M, F] {
+](val predicate: OpPredicate[F])(implicit val witnessM: Witness.Aux[M]) extends PredicateEquivalence[M, F] {
 
   /** Performs the in place partial transpose of the group of operators selected by the given predicate.
     *

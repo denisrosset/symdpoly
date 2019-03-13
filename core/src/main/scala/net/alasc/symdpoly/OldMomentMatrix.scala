@@ -1,5 +1,7 @@
 package net.alasc.symdpoly
 
+import scala.annotation.tailrec
+
 import cats.Contravariant
 import shapeless.Witness
 import spire.algebra.{Group, Involution, Monoid, Order}
@@ -18,6 +20,7 @@ import spire.syntax.multiplicativeMonoid._
 import spire.syntax.involution._
 import cats.syntax.invariant._
 import cats.syntax.contravariant._
+import shapeless.Witness.Aux
 import spire.syntax.action._
 
 import net.alasc.algebra.PermutationAction
@@ -31,18 +34,70 @@ import spire.std.unit._
 import net.alasc.perms.default._
 import net.alasc.symdpoly.freebased.Mono
 import net.alasc.symdpoly.generic.{EvaluatedMono, MomentSet, MomentSetBuilder}
+import net.alasc.symdpoly.symmetries.{Configuration, MatrixSymmetries}
 import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.util.Tuple2Int
+import scalin.syntax.all._
 
-class MomentMatrix1[
-  E <: generic.Evaluator[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton: Witness.Aux
-](val generatingMoments: OrderedSet[M#Monomial], val moments: Mat[M#Monomial]) {
+/** Moment matrix
+  *
+  * @param generatingMoments Generating moments of this moment matrix
+  * @param symmetries Symmetries of the moment matrix, as described by generalized permutations
+  * @param moments Matrix of evaluated moments, such that moments(r, c) = E(generatingMoments(r).adjoint * generatingMoments(c))
+  * @tparam E Evaluator
+  * @tparam M Monomial monoid
+  */
+class MomentMatrix[
+  E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
+  M <: generic.MonoidDef with Singleton
+](val generatingMoments: OrderedSet[M#Monomial], val moments: Mat[E#EvaluatedMonomial], val symmetries: MatrixSymmetries[Perm]) {
+  def E: E = valueOf[E]
+  def M: M = E.M
+  implicit def witnessM: Witness.Aux[M] = M.witness
+
+  /** The matrix of moments has shape size x size */
+  def size: Int =  generatingMoments.length
+}
+
+object MomentMatrix {
+
+  def apply[
+    E <: generic.Evaluator.Aux[M] with Singleton,
+    M <: generic.MonoidDef with Singleton
+  ](e: E with generic.Evaluator.Aux[M], generatingMoments: OrderedSet[M#Monomial], optimize: Boolean = true): MomentMatrix[E, M] = {
+    def E: E = e
+    def M: M = e.M
+    implicit def witnessE: Witness.Aux[E] = E.witness
+    implicit def witnessM: Witness.Aux[M] = M.witness
+    val size = generatingMoments.length
+    val matrixSymmetries = MatrixSymmetries.fromEquivalences(E.equivalences, generatingMoments)
+    val moments: Mat[E#EvaluatedMonomial] =
+      if (matrixSymmetries.grp.isTrivial && !optimize)
+        Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint * generatingMoments(c))}
+      else
+        Mat.fromMutable[E#EvaluatedMonomial](size, size, E.zero) { mat =>
+          val conf = matrixSymmetries.configuration
+          cforRange(0 until conf.nOrbits) { o =>
+            val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)
+            val r = ptr.row
+            val c = ptr.col
+            val v = E(generatingMoments(ptr.row).adjoint * generatingMoments(ptr.col))
+            mat(r, c) := v
+            @tailrec def rec(p: symmetries.Ptr[conf.type]): Unit =
+              if (!p.isEmpty) {
+                mat(p.row, p.col) := v <* p.phase
+                rec(p.next)
+              }
+            rec(ptr.next)
+          }
+        }
+    new MomentMatrix[E, M](generatingMoments, moments, matrixSymmetries.onPermutationGroup)
+  }
 
 }
 
-class MomentMatrix[
-  E <: generic.Evaluator[M] with Singleton:Witness.Aux,
+class OldMomentMatrix[
+  E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](val generatingMoments: OrderedSet[M#Monomial],
   val momentSet: MomentSet[E, M],
@@ -52,13 +107,6 @@ class MomentMatrix[
 
   def E: E = valueOf[E]
   def M: M = valueOf[M]
-
-  /*
-  lazy val matrixSymmetries: MatrixSymmetries = Monoid[MatrixSymmetries].combineAll(
-    E.equivalences.collect {
-      case se: SymmetryEquivalence[M, g] => MatrixSymmetries.fromEquivalence(se, generatingMoments)
-    }
-  )*/
 
   def isReal: Boolean = {
     cforRange(0 until phaseArray.length) { i =>
@@ -90,12 +138,12 @@ class MomentMatrix[
 
 }
 
-object MomentMatrix {
+object OldMomentMatrix {
 
   def genericConstruction[
-    E <: generic.Evaluator[M] with Singleton,
+    E <: generic.Evaluator.Aux[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](evaluator: E, gSet: GSet[M]): MomentMatrix[E, M] = {
+  ](evaluator: E, gSet: GSet[M]): OldMomentMatrix[E, M] = {
     implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
     def M: M = valueOf[M]
     val generatingMoments = OrderedSet.fromOrdered(gSet.monomials.toVector)
@@ -116,14 +164,14 @@ object MomentMatrix {
           if (phased.isZero) {
             unsortedMomentMatrix(inMat(r, c)) = -1
             unsortedMomentMatrix(inMat(c, r)) = -1
-          } else if (r == c || evaluator.isSelfAdjoint) {
+          } else if (r == c /* TODO: || evaluator.isSelfAdjoint */) {
             val index = sb.getElement(canonical)
             unsortedMomentMatrix(inMat(r, c)) = index
             unsortedMomentMatrix(inMat(c, r)) = index
             phaseMatrix(inMat(r, c)) = phase.encoding
             phaseMatrix(inMat(c, r)) = phase.encoding
           } else {
-            val phasedAdj = (evaluator: E)(generatingMoments(c).adjoint * generatingMoments(r))
+            val phasedAdj: EvaluatedMono[E, M] = (evaluator: E).apply(generatingMoments(c).adjoint * generatingMoments(r))
             val phaseAdj = phasedAdj.phaseOffset
             val canonicalAdj = phasedAdj.phaseCanonical
             val tuple = sb.getElement(canonical, canonicalAdj)
@@ -140,7 +188,7 @@ object MomentMatrix {
       case -1 => -1
       case i => unsortedToSorted.image(i)
     }
-    new MomentMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
+    new OldMomentMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
   }
 
   /*
@@ -221,9 +269,9 @@ object MomentMatrix {
   }*/
 
   def apply[
-    E <: generic.Evaluator[M] with Singleton,
+    E <: generic.Evaluator.Aux[M] with Singleton,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](evaluator: E with generic.Evaluator[M] with Singleton, gSet: GSet[M]): MomentMatrix[E, M] = genericConstruction[E, M](evaluator, gSet)
+  ](evaluator: E with generic.Evaluator.Aux[M] with Singleton, gSet: GSet[M]): OldMomentMatrix[E, M] = genericConstruction[E, M](evaluator, gSet)
 /*    evaluator match {
     case e: FreeBasedEvaluator[mType, fType] with Singleton =>
       freeBasedConstruction[e.type, mType, fType](e, gSet.asInstanceOf[GSet[mType]])((e.M.asInstanceOf[mType]).witness).asInstanceOf[GramMatrix[E, M]]

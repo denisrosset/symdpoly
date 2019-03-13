@@ -149,6 +149,23 @@ object Ptr {
 
 object Configuration {
 
+  def trivial(n: Int): Configuration = {
+    val orbitStart = new Array[Int](n * n)
+    val orbitNext = new Array[Int](n * n)
+    val orbit = new Array[Int](n * n)
+    val phase = Array.fill(n * n)(Phase.one.encoding)
+    @tailrec def rec(ind: Int, r: Int, c: Int): Unit =
+      if (c == n) ()
+      else if (r == n) rec(ind, 0, c + 1)
+      else {
+        orbitStart(ind) = (r << 16) + c
+        orbit(ind) = ind
+        rec(ind + 1, r + 1, c)
+      }
+    rec(0, 0, 0)
+    new Configuration(n, orbitStart, orbitNext, orbit, phase)
+  }
+
   def apply(n: Int, grp: Grp[GenPerm]): Configuration = apply(n, grp.generators)
 
   /** Use an orbit enumeration algorithm to generate a configuration from a group of generalized permutations.
@@ -159,7 +176,8 @@ object Configuration {
     * (pc, c1) is the image of (Phase.one, c) under g.
     *
     */
-  def apply(n: Int, generators: Seq[GenPerm]): Configuration = {
+  def apply(n: Int, generators: Seq[GenPerm]): Configuration =
+  if (generators.isEmpty) trivial(n) else {
     /** Index in the column major storage of the matrix. */
     def index(r: Int, c: Int): Int = r + c * n
     /** Encoding of both (r, c) as a single Int. */

@@ -4,7 +4,7 @@ package generic
 import shapeless.Witness
 
 final class EvaluatedPermutation[
-  E <: generic.Evaluator[M] with Singleton: Witness.Aux,
+  E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton
 ](val permutation: M#Permutation) { self: E#Permutation =>
 

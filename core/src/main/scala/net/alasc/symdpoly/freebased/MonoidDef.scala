@@ -19,8 +19,13 @@ import net.alasc.symdpoly.freebased.MonoidDef.PolyInstances
 import net.alasc.symdpoly.math.GenPerm
 import instances.all._
 import cats.syntax.traverse._
+import spire.syntax.cfor._
 import cats.instances.vector._
 import cats.instances.option._
+
+import net.alasc.util._
+import net.alasc.algebra.PermutationAction
+import net.alasc.symdpoly.util.OrderedSet
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
@@ -54,7 +59,6 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
 
   /** Quotient map applied to generating sets of monomials. */
   def quotient(gset: GSet[Free]): GSet[self.type] = GSet.Quotient[self.type, Free](gset)
-
 
   // Monomial typeclass instances
 
@@ -99,6 +103,14 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
 
   type Permutation = freebased.Permutation[self.type, Free]
 
+  object Permutation {
+    /** Constructs a permutation from a generalized permutation of the free operators.
+      *
+      * Does not check whether the resulting permutation is compatible with the monoid structure.
+      */
+    def applyNC(genPerm: GenPerm): Permutation = new freebased.Permutation[self.type, Free](genPerm)
+  }
+
   val permutationEq: Eq[Permutation] = Eq[GenPerm].contramap(_.genPerm)
   val permutationGroup: Group[Permutation] = Group[GenPerm].imap(new freebased.Permutation[self.type, Free](_))(_.genPerm)
   val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[Permutation] =
@@ -106,13 +118,15 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
   val permutationMonoAction: Action[Monomial, Permutation] = new freebased.PermutationMonoAction[self.type, Free]
   val permutationClassTag: ClassTag[Permutation] = implicitly
 
+  //endregion
+
   /** Returns the symmetry group that leaves the structure of this monoid invariant. */
   def symmetryGroup: Grp[freebased.Permutation[self.type, Free]]
 
   //endregion
 
-  override def evaluator(equivalences: generic.Equivalence[self.type]*): generic.Evaluator[self.type] = {
-    val transformed: Vector[Option[freebased.Equivalence[self.type, Free]]] = equivalences.toVector.map {
+  override def evaluator(equivalences0: generic.Equivalence[self.type]*): generic.Evaluator.Aux[self.type] = {
+    val transformed: Vector[Option[freebased.Equivalence[self.type, Free]]] = equivalences0.toVector.map {
       case freeBased: freebased.Equivalence[self.type, Free] =>
         Some(freeBased)
       case adjoint: generic.AdjointEquivalence[self.type] =>
@@ -125,8 +139,16 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
     }
     val freeBasedEquivalences: Option[Vector[freebased.Equivalence[self.type, Free]]] = transformed.sequence
     freeBasedEquivalences match {
-      case Some(freeBasedEqs) => new freebased.Evaluator(freeBasedEqs)
-      case None => new generic.Evaluator[self.type](equivalences)
+      case Some(freeBasedEqs) => new {
+        val equivalences: Seq[generic.Equivalence[self.type]] = freeBasedEqs
+        type Mono = self.type
+        implicit val witnessMono: Witness.Aux[self.type] = self.witness
+      } with generic.Evaluator
+      case None => new {
+        val equivalences: Seq[generic.Equivalence[self.type]] = equivalences0
+        type Mono = self.type
+        implicit val witnessMono: Witness.Aux[self.type] = self.witness
+      } with generic.Evaluator
     }
     // freebased.Evaluator[self.type, Free](equivalences)
   }

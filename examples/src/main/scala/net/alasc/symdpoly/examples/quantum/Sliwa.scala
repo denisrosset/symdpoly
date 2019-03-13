@@ -69,11 +69,12 @@ object Sliwa {
     case op => op
   }
 
-  /** Group that preserves the quotient monoid structure. */
-  val feasibilityGroup = Quotient.groupInQuotient(Grp(pT, pC, iA, oA0))
 
   /** Default evaluator. */
   val L = Quotient.evaluator(Evaluation.real)
+
+  /** Group that preserves the problem structure. */
+  val feasibilityGroup = L.groupInEvaluator(Quotient.groupInQuotient(Grp(pT, pC, iA, oA0)))
 
   def npaLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B, C).pow(l))
 
@@ -150,7 +151,7 @@ object SliwaApp extends App {
     }
     println(s"Expression: $expression")
     val obj = -expression
-    val symmetryGroup = feasibilityGroup.leavesInvariant(L(obj))
+    val symmetryGroup = L(obj).invariantSubgroupOf(feasibilityGroup)
     println(s"Symmetry group order: ${symmetryGroup.order}")
     /*
     val Lsym = L.symmetric(symmetryGroup)

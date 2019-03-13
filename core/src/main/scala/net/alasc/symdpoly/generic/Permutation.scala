@@ -45,7 +45,7 @@ object Permutation {
     }
 
   implicit def evaluatedMonoAction[
-    E <: Evaluator[M] with Singleton: Witness.Aux,
+    E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
     M <: generic.MonoidDef with Singleton
   ](implicit action: Action[M#Monomial, Permutation[M]]): Action[EvaluatedMono[E, M], Permutation[M]] =
     Invariant[Lambda[P => Action[P, Permutation[M]]]].imap[M#Monomial, EvaluatedMono[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)

@@ -48,7 +48,10 @@ object Morphism {
     /** Returns the image of a net.alasc.finite.Grp under a group morphism. */
     def grpImage(source: Grp[S])(implicit equ: Eq[T], group: Group[T], grpGroup: GrpGroup[T]): Grp[T] = {
       val imageGenerators = source.generators.map(morphism).filterNot(_.isEmpty)
-      grpGroup.fromGenerators(imageGenerators)
+      morphism match {
+        case inj: InjectiveMorphism[S, T, Group] => grpGroup.fromGeneratorsAndOrder(imageGenerators, source.order)
+        case _ => Grp(imageGenerators: _*)
+      }
     }
 
   }
@@ -82,6 +85,19 @@ object Morphism {
 
 }
 
+trait InjectiveMorphism[S, T, F[_]] extends Morphism[S, T, F]
+
+object InjectiveMorphism {
+
+  /** Constructs an injective morphism from a S => T function. */
+  def apply[S, T, F[_]](f: S => T)(implicit S0: F[S], T0: F[T]): InjectiveMorphism[S, T, F] = new InjectiveMorphism[S, T, F] {
+    def S: F[S] = S0
+    def T: F[T] = T0
+    def apply(s: S): T = f(s)
+  }
+
+}
+
 /** Describes a morphism S => T that is also surjective, i.e. every element of T has a preimage, not necessarily unique.*/
 trait SurjectiveMorphism[S, T, F[_]] extends Morphism[S, T, F] {
   def preimageRepresentative(t: T): S
@@ -92,6 +108,21 @@ object SurjectiveMorphism {
   /** Constructs a surjective morphism from a pair of functions S => T and T => S,
     * such that their composition T => S => T is the identity. */
   def apply[S, T, F[_]](image: S => T)(preimage: T => S)(implicit S0: F[S], T0: F[T]): SurjectiveMorphism[S, T, F] = new SurjectiveMorphism[S, T, F] {
+    def S: F[S] = S0
+    def T: F[T] = T0
+    def apply(s: S): T = image(s)
+    def preimageRepresentative(t: T): S = preimage(t)
+  }
+
+}
+
+trait Isomorphism[S, T, F[_]] extends InjectiveMorphism[S, T, F] with SurjectiveMorphism[S, T, F]
+
+object Isomorphism {
+
+  /** Constructs an isomorphism from a pair of functions S => T and T => S,
+    * such that their composition T => S => T is the identity. */
+  def apply[S, T, F[_]](image: S => T)(preimage: T => S)(implicit S0: F[S], T0: F[T]): Isomorphism[S, T, F] = new Isomorphism[S, T, F] {
     def S: F[S] = S0
     def T: F[T] = T0
     def apply(s: S): T = image(s)

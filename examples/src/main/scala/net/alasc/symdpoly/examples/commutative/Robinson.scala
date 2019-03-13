@@ -51,7 +51,7 @@ object Robinson {
   val L = Quotient.evaluator(Evaluation.real)
 
   /** Symmetry group that leaves the objective invariant. */
-  val group = Quotient.symmetryGroup.leavesInvariant(L(obj))
+  val group = L(obj).invariantSubgroupOf(L.symmetryGroup)
 
   /** First group generator given in the paper, page 109 */
   val d = Free.permutation {
@@ -66,14 +66,11 @@ object Robinson {
   }
 
   /** We verify that we recover the group described in the paper. */
-  assert(group === Quotient.groupInQuotientNC(Grp(d, s)))
+  assert(group === L.groupInEvaluatorNC(Quotient.groupInQuotientNC(Grp(d, s))))
 
   /** Optimization problem. */
   val problem: Optimization[L.type, Quotient.type] = L(obj).maximize
 
-  val prob1 = problem.subjectTo(L(Quotient.quotient(X*Y)) >=! 0, Quotient.quotient(X*X) =! 1)
-
-  println(prob1.constraints)
   /*
   /** Monomial evaluator invariant under the problem symmetry group. */
   val Lsym = L.symmetric(group)
@@ -92,7 +89,6 @@ object Robinson {
 
 object RobinsonApp extends App {
   import Robinson._
-  Robinson.generatingSet
 /*
   // We write the symmetrized SDP
   relaxationSym.sedumiInstance.writeFile("robinson_sedumi.mat")
