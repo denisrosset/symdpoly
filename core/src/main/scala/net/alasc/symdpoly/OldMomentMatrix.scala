@@ -39,100 +39,6 @@ import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.util.Tuple2Int
 import scalin.syntax.all._
 
-class LocalizingMatrix[
-  E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton: Witness.Aux
-](val polynomial: M#Polynomial, val generatingMoments: OrderedSet[M#Monomial], val mat: Mat[E#EvaluatedPolynomial]) {
-  def E: E = valueOf[E]
-  def M: M = valueOf[M]
-
-  /** The matrix of moments has shape size x size */
-  def size: Int =  generatingMoments.length
-
-  def allMoments: OrderedSet[E#EvaluatedMonomial] =
-    OrderedSet.fromIterator(
-      MomentMatrix.matIterator(mat).flatMap(p => Iterator.tabulate(p.nTerms)(i => p.monomial(i).phaseCanonical).filterNot(_.isZero))
-    )
-}
-
-object LocalizingMatrix {
-
-  def apply[
-    E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
-    M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](polynomial: M#Polynomial, generatingMoments: OrderedSet[M#Monomial]): LocalizingMatrix[E, M] = {
-    def E: E = valueOf[E]
-    def M: M = valueOf[M]
-    require(polynomial.adjoint === polynomial)
-    val size = generatingMoments.length
-    val moments: Mat[E#EvaluatedPolynomial] =
-        Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint.toPoly * polynomial * generatingMoments(c).toPoly) }
-    new LocalizingMatrix[E, M](polynomial, generatingMoments, moments)
-  }
-
-}
-
-/** Moment matrix
-  *
-  * @param generatingMoments Generating moments of this moment matrix
-  * @param symmetries Symmetries of the moment matrix, as described by generalized permutations
-  * @param mat Matrix of evaluated moments, such that moments(r, c) = E(generatingMoments(r).adjoint * generatingMoments(c))
-  * @tparam E Evaluator
-  * @tparam M Monomial monoid
-  */
-class MomentMatrix[
-  E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton: Witness.Aux
-](val generatingMoments: OrderedSet[M#Monomial], val mat: Mat[E#EvaluatedMonomial], val symmetries: MatrixSymmetries[Perm]) {
-  def E: E = valueOf[E]
-  def M: M = valueOf[M]
-
-  /** The matrix of moments has shape size x size */
-  def size: Int =  generatingMoments.length
-
-  def allMoments: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromIterator(MomentMatrix.matIterator(mat).map(_.phaseCanonical).filterNot(_.isZero))
-}
-
-object MomentMatrix {
-
-  def matIterator[A](mat: Mat[A]): Iterator[A] = for {
-    r <- Iterator.range(0, mat.nRows)
-    c <- Iterator.range(0, mat.nCols)
-  } yield mat(r, c)
-
-  def apply[
-    E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
-    M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](generatingMoments: OrderedSet[M#Monomial], optimize: Boolean = true): MomentMatrix[E, M] = {
-    def E: E = valueOf[E]
-    def M: M = valueOf[M]
-    val size = generatingMoments.length
-    val matrixSymmetries = MatrixSymmetries.fromEquivalences(E.equivalences, generatingMoments)
-    val moments: Mat[E#EvaluatedMonomial] =
-      if (matrixSymmetries.grp.isTrivial && !optimize)
-        Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint * generatingMoments(c))}
-      else
-        Mat.fromMutable[E#EvaluatedMonomial](size, size, E.zero) { mat =>
-          val conf = matrixSymmetries.configuration
-          cforRange(0 until conf.nOrbits) { o =>
-            val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)
-            val r = ptr.row
-            val c = ptr.col
-            val v = E(generatingMoments(ptr.row).adjoint * generatingMoments(ptr.col))
-            mat(r, c) := v
-            @tailrec def rec(p: symmetries.Ptr[conf.type]): Unit =
-              if (!p.isEmpty) {
-                mat(p.row, p.col) := v <* p.phase
-                rec(p.next)
-              }
-            rec(ptr.next)
-          }
-        }
-    new MomentMatrix[E, M](generatingMoments, moments, matrixSymmetries.onPermutationGroup)
-  }
-
-}
-
 class OldMomentMatrix[
   E <: generic.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
@@ -183,7 +89,7 @@ object OldMomentMatrix {
   ](evaluator: E, gSet: GSet[M]): OldMomentMatrix[E, M] = {
     implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
     def M: M = valueOf[M]
-    val generatingMoments = gSet.monomials
+    val generatingMoments = gSet.toOrderedSet
     val n = generatingMoments.length
     def inMat(r: Int, c: Int): Int = r + c * n
     val phaseMatrix = Array.fill[Int](n * n)(Phase.one.encoding)
@@ -227,83 +133,6 @@ object OldMomentMatrix {
     }
     new OldMomentMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
   }
-
-  /*
-  def freeBasedConstruction[
-    E <: FreeBasedEvaluator[M, F] with Singleton,
-    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton: Witness.Aux,
-    F <: free.MonoidDef.Aux[F] with Singleton](evaluator: E, gSet: GSet[M]): GramMatrix[E, M] = {
-    implicit def witnessE: Witness.Aux[E] = (evaluator: E).witness
-    def M: M = valueOf[M]
-    def F: F = M.Free
-    implicit def witnessF: Witness.Aux[F] = F.witness
-    val generatingMoments = OrderedSet.fromOrdered(gSet.monomials.toVector)
-    val n = generatingMoments.length
-    val generatingMomentsAdjoint = Array.tabulate(n)(i => generatingMoments(i).adjoint)
-    val maxDegree = Iterator.range(0, generatingMoments.length).map(i => generatingMoments(i).data.length).max
-    def inMat(r: Int, c: Int): Int = r + c * n
-    val phaseMatrix = Array.fill[Int](n * n)(Phase.one.encoding)
-    val unsortedMomentMatrix = Array.fill[Int](n * n)(Int.MinValue)
-    val sb = MomentSetBuilder.make[E, M]
-
-    val pad = evaluator.makeScratchPad
-    val scratchMono = free.MutableWord.one[F](maxDegree * 2)
-    val scratchAdjoint = free.MutableWord.one[F](maxDegree * 2)
-
-    cforRange(0 until n) { r =>
-      cforRange(r until n) { c =>
-        if (unsortedMomentMatrix(inMat(r, c)) == Int.MinValue) {
-          scratchMono.setToContentOf(generatingMomentsAdjoint(r).data)
-          scratchMono *= generatingMoments(c).data
-
-          evaluator.reduce(scratchMono, pad)
-
-          if (evaluator.isSelfAdjoint) {
-            scratchAdjoint.setToContentOf(scratchMono)
-          } else {
-            scratchAdjoint.setToContentOf(generatingMomentsAdjoint(c).data)
-            scratchAdjoint *= generatingMoments(r).data
-            evaluator.reduce(scratchAdjoint, pad)
-          }
-
-          val phase = if (scratchMono.isZero) {
-            assert(scratchAdjoint.isZero)
-            Phase.one
-          } else {
-            assert(scratchMono.phase.encoding == scratchAdjoint.phase.adjoint.encoding) // TODO: adapt for complex case
-            scratchMono.phase
-          }
-
-          val tuple = if (scratchMono.isZero) Tuple2Int(-1, -1)
-          else if (scratchMono.compareTo(scratchAdjoint) == 0) { // self-adjoint
-            scratchMono.setPhase(Phase.one)
-            val i = sb.getElement(new EvaluatedMono[E, M](new FreeBasedMono[M, F](scratchMono.immutableCopy)))
-            Tuple2Int(i, i)
-          }
-          else { // not self-adjoint
-            scratchMono.setPhase(Phase.one)
-            scratchAdjoint.setPhase(Phase.one)
-            sb.getElement(
-              new EvaluatedMono[E, M](new FreeBasedMono[M, F](scratchMono.immutableCopy)),
-              new EvaluatedMono[E, M](new FreeBasedMono[M, F](scratchAdjoint.immutableCopy))
-            )
-          }
-          val indexMono = tuple._1
-          val indexAdjoint = tuple._2
-          phaseMatrix(inMat(r, c)) = phase.encoding
-          phaseMatrix(inMat(c, r)) = phase.encoding
-          unsortedMomentMatrix(inMat(r, c)) = indexMono
-          unsortedMomentMatrix(inMat(c, r)) = indexAdjoint
-        }
-      }
-    }
-    val (sortedMoments, unsortedToSorted) = sb.result()
-    val sortedMomentMatrix = unsortedMomentMatrix.map {
-      case -1 => -1
-      case i => unsortedToSorted.image(i)
-    }
-    new GramMatrix[E, M](generatingMoments, sortedMoments, sortedMomentMatrix, phaseMatrix)
-  }*/
 
   def apply[
     E <: generic.Evaluator.Aux[M] with Singleton,

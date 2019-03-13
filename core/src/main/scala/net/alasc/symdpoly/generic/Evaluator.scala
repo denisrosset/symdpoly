@@ -50,8 +50,8 @@ abstract class Evaluator { self =>
 
   def apply(mono: Mono#Monomial): EvaluatedMono[self.type, Mono] = {
     val candidates = equivalences.foldLeft(Set(mono)) { case (set, equivalence) => set.flatMap(m => equivalence(m)) }
-    val grouped = candidates.groupBy(M.monoPhased.phaseCanonical)
-    if (grouped.values.exists(_.size > 1))
+    val canonicalCandidates = candidates.map(_.phaseCanonical)
+    if (canonicalCandidates.size != candidates.size)
       new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
     else
       new EvaluatedMono[self.type, Mono](candidates.qmin(M.monoOrder))

@@ -19,7 +19,10 @@ import syntax.phased._
 sealed trait GSet[M <: generic.MonoidDef with Singleton] { lhs =>
 
   /** Computes and returns the sorted generating set of monomials. */
-  def monomials(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial]
+  def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial]
+
+  /** Computes and returns the sorted generating set of monomials as an OrderedSet. */
+  def toOrderedSet(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] = OrderedSet.fromSortedSet(toSortedSet)
 
   /** Union. */
   def +(rhs: GSet[M]): GSet[M] =
@@ -59,22 +62,19 @@ object GSet {
 
   case class Quotient[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](preimage: GSet[F]) extends GSet[M] {
     override def toString: String = s"Quotient($preimage)"
-    def monomials(implicit wM: Witness.Aux[M]): OrderedSet[Mono[M, F]] = {
+    def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[Mono[M, F]] = {
       def M: M = wM.value
       implicit def wF: Witness.Aux[F] = (M.Free: F).witness
       implicit val o: Ordering[Mono[M, F]] = ordering[M]
-      OrderedSet.fromSortedSet(
-        preimage.monomials.toSortedSet
-          .map(mono => M.quotient(mono))
-      )
+        preimage.toSortedSet.map(mono => M.quotient(mono))
     }
   }
 
   case class Sequence[M <: generic.MonoidDef with Singleton](seq: Seq[GSet[M]]) extends GSet[M] {
     override def toString: String = seq.mkString("[",",","]")
-    def monomials(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] = {
+    def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       implicit def o: Ordering[M#Monomial] = ordering[M]
-      seq.foldLeft(OrderedSet.empty[M#Monomial])((set, gm) => set union gm.monomials )
+      seq.foldLeft(SortedSet.empty[M#Monomial])((set, gm) => set union gm.toSortedSet )
     }
   }
 
@@ -105,29 +105,28 @@ object GSet {
     G
   ](gm: GSet[M], grp: Grp[G])(implicit action: Action[M#Monomial, G]) extends GSet[M] {
     override def toString: String = s"Orbit($gm)"
-    def monomials(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] = {
+    def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       implicit def o: Ordering[M#Monomial] = spire.compat.ordering((wM.value: M).monoOrder)
-      val sortedSet = for {
-        m <- gm.monomials.toSortedSet
+      for {
+        m <- gm.toSortedSet
         g <- grp.iterator
       } yield valueOf[M].monoPhased.phaseCanonical(m <|+| g)
-      OrderedSet.fromSortedSet(sortedSet)
     }
   }
 
   protected case class Empty[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
     override def toString: String = "{}"
-    def monomials(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] = {
+    def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       implicit def o: Ordering[M#Monomial] = ordering[M]
-      OrderedSet.empty[M#Monomial]
+      SortedSet.empty[M#Monomial]
     }
   }
 
   protected case class Id[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
     override def toString: String = "1"
-    def monomials(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] = {
+    def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       implicit def o: Ordering[M#Monomial] = ordering[M]
-      OrderedSet((wM.value: M).one)
+      SortedSet((wM.value: M).one)
     }
   }
 
@@ -135,12 +134,9 @@ object GSet {
     override def toString: String =
       if (opEnum.allInstances.isEmpty) opEnum.toString
       else opEnum.allInstances.head.productPrefix
-    def monomials(implicit wF: Witness.Aux[F]): OrderedSet[F#Monomial] = {
+    def toSortedSet(implicit wF: Witness.Aux[F]): SortedSet[F#Monomial] = {
       implicit def o: Ordering[F#Monomial] = ordering[F]
-      OrderedSet.fromSortedSet(
-        opEnum.allInstances.map(op => freebased.Mono.fromOp(op): F#Monomial)
-          .to[SortedSet]
-      )
+      opEnum.allInstances.map(op => freebased.Mono.fromOp(op): F#Monomial).to[SortedSet]
     }
   }
 
@@ -151,54 +147,51 @@ object GSet {
 
     override def toString: String = seq.map(opEnumString).mkString("*")
 
-    def monomials(implicit wF: Witness.Aux[F]): OrderedSet[F#Monomial] = {
+    def toSortedSet(implicit wF: Witness.Aux[F]): SortedSet[F#Monomial] = {
       def F: F = wF.value
       implicit def o: Ordering[F#Monomial] = ordering[F]
-      val sortedSet = seq match {
+      seq match {
         case Seq() => SortedSet(F.one: F#Monomial)
         case Seq(op) => op.allInstances.map(op => freebased.Mono.fromOp(op): F#Monomial).to[SortedSet]
         case Seq(hd, tl@_*) => for {
           x <- hd.allInstances.map(op => freebased.Mono.fromOp(op)).to[SortedSet]
-          y <- Word(tl).monomials.toSortedSet
+          y <- Word(tl).toSortedSet
         } yield F.monoMultiplicativeBinoid.times(x, y)
       }
-      OrderedSet.fromSortedSet(sortedSet)
     }
   }
 
   protected case class Power[M <: generic.MonoidDef with Singleton](gm: GSet[M], exp: Int) extends GSet[M] {
     override def toString: String = s"($gm)^$exp"
-    def monomials(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] = {
+    def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       def M: M = wM.value
       implicit def o: Ordering[M#Monomial] = ordering[M]
-      val sortedSet = exp match {
+      exp match {
         case 0 => SortedSet((wM.value: M).one)
-        case 1 => gm.monomials.toSortedSet
+        case 1 => gm.toSortedSet
         case k =>
           for {
-            x <- gm.monomials.toSortedSet
-            y <- Power(gm, exp - 1).monomials.toSortedSet
+            x <- gm.toSortedSet
+            y <- Power(gm, exp - 1).toSortedSet
           } yield M.monoMultiplicativeBinoid.times(x, y)
       }
-      OrderedSet.fromSortedSet(sortedSet)
     }
   }
 
   protected case class Tensor[M <: generic.MonoidDef with Singleton](seq: Seq[GSet[M]]) extends GSet[M] {
     override def toString: String = seq.mkString("*")
-    def monomials(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] = {
+    def toSortedSet(implicit wM: Witness.Aux[M]): SortedSet[M#Monomial] = {
       def M: M = wM.value
       implicit def o: Ordering[M#Monomial] = ordering[M]
-      val sortedSet = seq match {
+      seq match {
         case Seq() => SortedSet(M.one)
-        case Seq(gm) => gm.monomials.toSortedSet
+        case Seq(gm) => gm.toSortedSet
         case Seq(hd, tl @ _*) =>
           for {
-            x <- hd.monomials.toSortedSet
-            y <- Tensor(tl).monomials.toSortedSet
+            x <- hd.toSortedSet
+            y <- Tensor(tl).toSortedSet
           } yield M.monoMultiplicativeBinoid.times(x, y)
       }
-      OrderedSet.fromSortedSet(sortedSet)
     }
   }
 

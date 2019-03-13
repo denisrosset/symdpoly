@@ -59,8 +59,8 @@ class CHSHSDPSuite extends CommonSuite {
 
     val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
 
-    val mm = MomentMatrix[Lsym.type, Quotient.type](generatingSet.monomials, true)
-    val mm1 = MomentMatrix[Lsym.type, Quotient.type](generatingSet.monomials, false)
+    val mm = MomentMatrix[Lsym.type, Quotient.type](generatingSet.toOrderedSet, true)
+    val mm1 = MomentMatrix[Lsym.type, Quotient.type](generatingSet.toOrderedSet, false)
 
     assert(mm.mat == mm1.mat)
 

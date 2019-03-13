@@ -6,7 +6,7 @@ import net.alasc.symdpoly.ComparisonOp.{EQ, GE, LE}
 import shapeless.Witness
 
 import net.alasc.symdpoly.generic.{EvaluatedMono, EvaluatedPoly}
-import net.alasc.symdpoly.util.OrderedSet
+import net.alasc.symdpoly.util.{MemoMap, OrderedSet}
 import scalin.immutable.{Mat, Vec, VecEngine}
 import spire.syntax.cfor._
 import spire.syntax.eq._
@@ -35,91 +35,6 @@ sealed trait Direction
 object Direction {
   case object Minimize extends Direction
   case object Maximize extends Direction
-}
-
-/** Description of an semidefinite program extended dual.
-  *
-  * The conic linear program is given by:
-  *
-  *   maximize   sum_i objToMaximize(i) * y(i)
-  *   over real y(0), ..., y(m-1)
-  *
-  *   subject to
-  *
-  *   y(0) == 1
-  *   for all j: sum_i y(i) blocks(j).basis(i) >= 0
-  *   eqA * y == 0
-  *   ineqA * y >= 0 (component-wise)
-  */
-case class SDP(objToMaximize: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Double], ineqA: Mat[Double]) {
-
-  def convertEqualities: SDP = SDP(objToMaximize, blocks, Mat.zeros[Double](0, objToMaximize.length), ineqA vertcat eqA vertcat (-eqA))
-
-  def writeDataSDPA(writer: Writer): Unit =
-    if (eqA.nRows > 0) convertEqualities.writeDataSDPA(writer) else {
-      val m: Int = objToMaximize.length - 1
-      objToMaximize(0) match {
-        case 0 =>
-        case constantTerm =>
-          writer.append(s"* SDPA solves a minimization dual problem, while we express a maximization problem \n")
-          writer.append(s"* also, the original objective has constant term cte = ${constantTerm} (constant terms are not supported by SDPA)\n")
-          writer.append(s"* the real objective is thus cte - obj_SDPA value\n")
-      }
-      val nBlocks = blocks.length + (if (ineqA.nRows > 0) 1 else 0)
-      writer.append(s"$m\n")
-      writer.append(s"$nBlocks\n")
-      val sdpaBlockSizes = blocks.map(_.size) ++ (if (ineqA.nRows > 0) Seq(-ineqA.nRows) else Seq.empty)
-      writer.append(sdpaBlockSizes.mkString("", " ", "\n"))
-      writer.append((1 until objToMaximize.length).map(i => -objToMaximize(i)).mkString("", " ", "\n"))
-      cforRange(0 until blocks.length) { b =>
-        val block = blocks(b)
-        cforRange(0 until block.nEntries) { i =>
-          val di = block.basisIndex(i)
-          val r = block.rowIndex(i)
-          val c = block.colIndex(i)
-          val e = if (di == 0) -block.coeffs(i) else block.coeffs(i)
-          if (c >= r) // upper triangle
-            writer.append(s"$di ${b + 1} ${r + 1} ${c + 1} $e\n")
-        }
-      }
-      if (ineqA.nRows > 0) {
-        cforRange(0 until ineqA.nRows) { r =>
-          cforRange(0 until ineqA.nCols) { c =>
-            if (ineqA(r, c) != 0) {
-              val e = if (c == 0) -ineqA(r, c) else ineqA(r, c)
-              writer.append(s"$c $nBlocks $r $r $e\n")
-            }
-          }
-        }
-      }
-    }
-
-
-  def writeFileSDPA(filename: String): Unit = {
-    val file = new java.io.File(filename)
-    import resource._
-    for {
-      fileWriter <- managed(new FileWriter(file))
-      bufferedWriter <- managed(new BufferedWriter(fileWriter))
-    } {
-      writeDataSDPA(bufferedWriter)
-    }
-  }
-
-  def dataSDPA: String = {
-    val sw = new StringWriter
-    writeDataSDPA(sw)
-    sw.toString
-  }
-}
-
-
-object SDP {
-
-  case class Block(size: Int, basisIndex: Array[Int], rowIndex: Array[Int], colIndex: Array[Int], coeffs: Array[Double]) {
-    def nEntries: Int = basisIndex.length
-  }
-
 }
 
 class Relaxation[
@@ -169,21 +84,6 @@ class Relaxation[
       }
     }
   }
-
-  private[this] val cycloValues = scala.collection.mutable.HashMap[Cyclo, Complex[Double]](
-    Cyclo.zero -> Complex.zero[Double],
-    Cyclo.one -> Complex.one[Double],
-    Cyclo.minusOne -> Complex.fromInt[Double](-1),
-    Cyclo.i -> Complex.i[Double],
-    (-Cyclo.i) -> -Complex.i[Double]
-  )
-
-  private[this] val phaseValues = scala.collection.mutable.HashMap[Phase, Complex[Double]](
-    Phase.one -> Complex.one[Double]
-  )
-
-  def cycloValue(c: Cyclo): Complex[Double] = cycloValues.getOrElseUpdate(c, Complex(RealCyclo.real(c).toAlgebraic.toDouble, RealCyclo.imag(c).toAlgebraic.toDouble))
-  def phaseValue(p: Phase): Complex[Double] = phaseValues.getOrElseUpdate(p, cycloValue(p.toCyclo))
 
   case class BlockElement(dualIndex: Int, r: Int, c: Int, realPart: Double, complexPart: Double)
 
@@ -331,7 +231,7 @@ object Relaxation {
     def E: E = valueOf[E]
     import generic.MonoidDef.polyAssociativeAlgebra
     import generic.Evaluator.evaluatedPolyVectorSpace
-    val generatingSet = gSet.monomials
+    val generatingSet = gSet.toOrderedSet
     val degree = generatingSet.iterator.map(_.degree).max
     val momentMatrix = MomentMatrix[E, M](generatingSet, optimize)
     def filterGeneratingSet(maxDegree: Int): OrderedSet[M#Monomial] =

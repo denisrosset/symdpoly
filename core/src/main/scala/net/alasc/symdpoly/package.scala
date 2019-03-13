@@ -1,12 +1,19 @@
 package net.alasc
 
 import cyclo.{Cyclo, RealCyclo}
+
 import net.alasc.finite.Grp
 import shapeless.Witness
 import spire.algebra.{Action, AdditiveGroup}
-import scalin.SparseAdditiveGroup
 
+import scalin.SparseAdditiveGroup
 import scala.collection.mutable
+
+import spire.std.double._
+import spire.math.Complex
+
+import net.alasc.symdpoly.math.Phase
+import net.alasc.symdpoly.util.MemoMap
 
 package object symdpoly {
 
@@ -34,5 +41,8 @@ package object symdpoly {
   /** Computes a Double approximation of a real cyclotomic number. */
   def realCycloToDouble(cyclo: Cyclo): Double =
     cachedCycloDoubleValues.getOrElseUpdate(cyclo, computeCycloToDouble(cyclo))
+
+  val cycloValue = MemoMap[Cyclo, Complex[Double]](c => Complex(RealCyclo.real(c).toAlgebraic.toDouble, RealCyclo.imag(c).toAlgebraic.toDouble))
+  val phaseValue = MemoMap[Phase, Complex[Double]](p => cycloValue(p.toCyclo))
 
 }
