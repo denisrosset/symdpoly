@@ -21,6 +21,7 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
   def isMinusOne: Boolean = (k == 1) && (n == 2)
   def isI: Boolean = (k == 1) && (n == 4)
   def isMinusI: Boolean = (k == 3) && (n == 4)
+  def isReal: Boolean = isOne || isMinusOne
   def toInt: Int =
     if (isOne) 1
     else if (isMinusOne) -1
@@ -68,6 +69,13 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
       java.lang.Long.compare(lhs.k * (lcm / lhs.n), rhs.k * (lcm / rhs.n)).signum
     }
   def toCyclo: Cyclo = Cyclo.e(n).pow(k)
+
+  /** Returns the floating point value of this phase when it is real (either -1 or 1), or NaN when it is complex. */
+  def toDouble: Double =
+    if (isOne) 1.0
+    else (isMinusOne) -1.0
+    else Double.NaN
+
 }
 
 object Phase {

@@ -137,7 +137,7 @@ object Evaluator {
   implicit def evaluatedMonoOrder[E <: Evaluator with Singleton: Witness.Aux]: Order[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoOrder
   implicit def evaluatedMonoPhased[E <: Evaluator with Singleton: Witness.Aux]: Phased[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoPhased
   implicit def evaluatedMonoClassTag[E <: Evaluator with Singleton: Witness.Aux]: ClassTag[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoClassTag
-*/
+   */
   implicit def evaluatedPolyVectorSpace[E <: Evaluator with Singleton: Witness.Aux]: VectorSpace[E#EvaluatedPolynomial, Cyclo] = valueOf[E].evaluatedPolyVectorSpace
   implicit def evaluatedPolyInvolution[E <: Evaluator with Singleton: Witness.Aux]: Involution[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyInvolution
   implicit def evaluatedPolyEq[E <: Evaluator with Singleton: Witness.Aux]: Eq[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyEq
