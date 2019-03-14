@@ -29,9 +29,9 @@ case class OldRelaxation[
 
   def isObjectiveReal: Boolean = objectiveVector.toIndexedSeq.forall(c => c.isReal)
 
-  def mosekInstance: MosekInstance = new MosekInstance(this)
+  def mosekInstance: OldMosekInstance = new OldMosekInstance(this)
 
-  def sdpaInstance: SDPAInstance = new SDPAInstance(this)
+  def sdpaInstance: SDPAInstance = new OldSDPAInstance(this)
 
   /** Writes the Gram matrix indices to the file with given filename.
     * The structure of the file is as follows

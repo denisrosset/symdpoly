@@ -24,64 +24,31 @@ import scalin.immutable.dense._
   */
 case class SDP(objToMaximize: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Double], ineqA: Mat[Double]) {
 
-  def convertEqualities: SDP = SDP(objToMaximize, blocks, Mat.zeros[Double](0, objToMaximize.length), ineqA vertcat eqA vertcat (-eqA))
+  def convertEqualitiesToInequalities: SDP = SDP(objToMaximize, blocks, Mat.zeros[Double](0, objToMaximize.length), ineqA vertcat eqA vertcat (-eqA))
 
-  def writeDataSDPA(writer: Writer): Unit =
-    if (eqA.nRows > 0) convertEqualities.writeDataSDPA(writer) else {
-      val m: Int = objToMaximize.length - 1
-      objToMaximize(0) match {
-        case 0 =>
-        case constantTerm =>
-          writer.append(s"* SDPA solves a minimization dual problem, while we express a maximization problem \n")
-          writer.append(s"* also, the original objective has constant term cte = ${constantTerm} (constant terms are not supported by SDPA)\n")
-          writer.append(s"* the real objective is thus cte - obj_SDPA value\n")
-      }
-      val nBlocks = blocks.length + (if (ineqA.nRows > 0) 1 else 0)
-      writer.append(s"$m\n")
-      writer.append(s"$nBlocks\n")
-      val sdpaBlockSizes = blocks.map(_.size) ++ (if (ineqA.nRows > 0) Seq(-ineqA.nRows) else Seq.empty)
-      writer.append(sdpaBlockSizes.mkString("", " ", "\n"))
-      writer.append((1 until objToMaximize.length).map(i => -objToMaximize(i)).mkString("", " ", "\n"))
-      cforRange(0 until blocks.length) { b =>
-        val block = blocks(b)
-        cforRange(0 until block.nEntries) { i =>
-          val di = block.basisIndex(i)
-          val r = block.rowIndex(i)
-          val c = block.colIndex(i)
-          val e = if (di == 0) -block.coeffs(i) else block.coeffs(i)
-          if (c >= r) // upper triangle
-            writer.append(s"$di ${b + 1} ${r + 1} ${c + 1} $e\n")
-        }
-      }
-      if (ineqA.nRows > 0) {
-        cforRange(0 until ineqA.nRows) { r =>
-          cforRange(0 until ineqA.nCols) { c =>
-            if (ineqA(r, c) != 0) {
-              val e = if (c == 0) -ineqA(r, c) else ineqA(r, c)
-              writer.append(s"$c $nBlocks $r $r $e\n")
-            }
-          }
-        }
-      }
-    }
-
-
-  def writeFileSDPA(filename: String): Unit = {
-    val file = new java.io.File(filename)
-    import resource._
-    for {
-      fileWriter <- managed(new FileWriter(file))
-      bufferedWriter <- managed(new BufferedWriter(fileWriter))
-    } {
-      writeDataSDPA(bufferedWriter)
-    }
+  def convertInequalitiesToBlock: SDP = {
+    val entries = for {
+      r <- 0 until ineqA.nRows
+      c <- 0 until ineqA.nCols
+      coeff = ineqA(r, c) if coeff != 0
+    } yield (c, r, r, coeff)
+    val newBlock = SDP.Block(ineqA.nRows, entries.map(_._1).toArray, entries.map(_._2).toArray, entries.map(_._3).toArray, entries.map(_._4).toArray)
+    SDP(objToMaximize, blocks :+ newBlock, eqA, Mat.zeros[Double](0, objToMaximize.length))
   }
 
-  def dataSDPA: String = {
-    val sw = new StringWriter
-    writeDataSDPA(sw)
-    sw.toString
+  def mergeBlocks: SDP = {
+    val shifts = blocks.map(_.size).scanLeft(0)(_ + _)
+    val basisIndex = blocks.toArray.flatMap(_.basisIndex)
+    val rowIndex = (blocks zip shifts).toArray.flatMap { case (block, shift) => block.rowIndex.map(_ + shift) }
+    val colIndex = (blocks zip shifts).toArray.flatMap { case (block, shift) => block.colIndex.map(_ + shift) }
+    val coeffs = blocks.toArray.flatMap(_.coeffs)
+    val size = blocks.map(_.size).reduce(_ + _)
+    val newBlock = SDP.Block(size, basisIndex, rowIndex, colIndex, coeffs)
+    SDP(objToMaximize, blocks :+ newBlock, eqA, ineqA)
   }
+
+  def sdpa: solvers.SDPAInstance = solvers.SDPAInstance(this)
+
 }
 
 object SDP {

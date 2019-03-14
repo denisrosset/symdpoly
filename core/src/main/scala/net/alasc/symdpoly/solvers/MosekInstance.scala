@@ -9,7 +9,7 @@ import spire.syntax.cfor._
 
 import scalin.syntax.all._
 
-class MosekInstance(val relaxation: OldRelaxation[_, _]) extends Instance {
+class OldMosekInstance(val relaxation: OldRelaxation[_, _]) extends OldInstance {
 
   import LowerTriangular.SparseMatrix
 

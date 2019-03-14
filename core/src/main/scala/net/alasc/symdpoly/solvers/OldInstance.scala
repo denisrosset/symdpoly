@@ -5,7 +5,7 @@ import scala.collection.mutable
 
 import cyclo.{Cyclo, RealCyclo}
 
-abstract class Instance {
+abstract class OldInstance {
 
   def relaxation: OldRelaxation[_, _]
 
