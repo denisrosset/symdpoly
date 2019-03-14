@@ -66,12 +66,12 @@ class CHSHSDPSuite extends CommonSuite {
 
     val problem = Lsym(bellOperator).maximize
 
-    val relaxation = problem.oldRelaxation(generatingSet)
+    val relaxation = problem.relaxation(generatingSet)
     import net.alasc.symdpoly.matlab._
 
-    relaxation.mosekInstance.writeCBF("chsh.cbf")
+    //relaxation.mosekInstance.writeCBF("chsh.cbf")
 
-    val OptimumFound(_, ub, _, _) = relaxation.jOptimizerInstance.solve()
+    val OptimumFound(_, ub, _, _) = relaxation.toSDP.jOptimizer.solve()
 
     import spire.math.{abs, sqrt}
     val tol = 1e-9

@@ -33,7 +33,7 @@ case class JOptimizerInstance(val sdp: SDP) {
         val r = block.rowIndex(i)
         val c = block.colIndex(i)
         val e = -block.coeffs(i)
-        A(di)(r)(c) = e
+        matrices(di)(r)(c) = e
       }
       val cfix = objToMaximize(0)
       val b = Array.tabulate(m)(i => -objToMaximize(i + 1))
@@ -50,10 +50,13 @@ case class JOptimizerInstance(val sdp: SDP) {
       opt.setOptimizationRequest(or)
       opt.optimize()
       val jOptimizerSolution = opt.getOptimizationResponse.getSolution
-      val sol = Vec.tabulate(m)(i => -jOptimizerSolution(i))
+      val sol = Vec.tabulate(m + 1) {
+        case 0 => 1.0
+        case i => jOptimizerSolution(i - 1)
+      }
       @tailrec def iter(i: Int, acc: Double): Double =
-        if (i == m) acc else iter(i + 1, acc - jOptimizerSolution(i) * b(i))
-      val value = iter(0, cfix)
+        if (i == m + 1) acc else iter(i + 1, acc + sol(i) * objToMaximize(i))
+      val value = iter(0, 0.0)
       OptimumFound(None, value, None, sol)
     }
 }

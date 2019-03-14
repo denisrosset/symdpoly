@@ -6,4 +6,8 @@ package object joptimizer {
     def jOptimizerInstance: OldJOptimizerInstance = new OldJOptimizerInstance(relaxation)
   }
 
+  implicit class JOptimizerSDP(val sdp: SDP) {
+    def jOptimizer: JOptimizerInstance = new JOptimizerInstance(sdp)
+  }
+
 }

@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 package examples.quantum
 
 import defaults._
+import joptimizer._
 
 /** Facet inequalities in the scenario with three parties and binary inputs/outputs.
   *
@@ -74,7 +75,7 @@ object Sliwa {
   val L = Quotient.evaluator(Evaluation.real)
 
   /** Group that preserves the problem structure. */
-  val feasibilityGroup = L.groupInEvaluator(Quotient.groupInQuotient(Grp(pT, pC, iA, oA0)))
+  val feasibilityGroup = Quotient.groupInQuotient(Grp(pT, pC, iA, oA0))
 
   def npaLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B, C).pow(l))
 
@@ -194,20 +195,23 @@ object SliwaApp extends App {
   expressions.zipWithIndex.foreach { case (coefficients, index0) =>
     val index1 = index0 + 1
     println(s"Working on inequality #$index1")
-    val expression = (coefficients zip listOfMonomials).foldLeft(Quotient.polyAssociativeAlgebra.zero) {
+    val expression = (coefficients.tail zip listOfMonomials.tail).foldLeft(Quotient.polyAssociativeAlgebra.zero) {
       case (acc, (coeff, mono)) => acc + mono * coeff
     }
     println(s"Expression: $expression")
     val obj = -expression
-    val symmetryGroup = L(obj).invariantSubgroupOf(feasibilityGroup)
+    val symmetryGroup = obj.invariantSubgroupOf(feasibilityGroup)
     println(s"Symmetry group order: ${symmetryGroup.order}")
-    /*
-    val Lsym = L.symmetric(symmetryGroup)
+    val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
     val problem = Lsym(obj).maximize
     val relaxation = problem.relaxation(generatingSet)
-    println(s"Number of unique monomials: ${relaxation.gramMatrix.nUniqueMonomials}")
-    relaxation.mosekInstance.writeCBF(s"sliwa_$index1.cbf")
-     */
+    println(s"Number of unique monomials: ${relaxation.allMoments.length}")
+    val OptimumFound(_, opt, _, _) = relaxation.toSDP.jOptimizer.solve(1e-6)
+    val optPaper = bounds(index0, 3)
+    println(opt -> optPaper)
+    val tol = 1e-3
+    assert(spire.math.abs(opt - optPaper) < tol)
+    //relaxation.mosekInstance.writeCBF(s"sliwa_$index1.cbf")
   }
 
 }

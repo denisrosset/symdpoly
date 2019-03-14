@@ -79,6 +79,6 @@ object I3322App extends App {
     println(level)
     val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
     //relaxation.mosekInstance.writeCBF(s"i3322_$level.cbf")
-    relaxation.toSDP.writeFileSDPA(s"i3322_$level.dat-s")
+    relaxation.toSDP.sdpa.writeFile(s"i3322_$level.dat-s")
   }
 }

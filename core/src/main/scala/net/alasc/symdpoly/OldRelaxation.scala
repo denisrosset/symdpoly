@@ -1,10 +1,13 @@
 package net.alasc.symdpoly
 
 import shapeless.Witness
+
 import cyclo.Cyclo
 import scalin.immutable.{Mat, Vec}
-import net.alasc.symdpoly.solvers.{MosekInstance, SDPAInstance}
+
+import net.alasc.symdpoly.solvers.{MosekInstance, OldMosekInstance, OldSDPAInstance, SDPAInstance}
 import scalin.immutable.dense._
+
 import net.alasc.perms.default._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.generic.EvaluatedPoly
@@ -31,7 +34,7 @@ case class OldRelaxation[
 
   def mosekInstance: OldMosekInstance = new OldMosekInstance(this)
 
-  def sdpaInstance: SDPAInstance = new OldSDPAInstance(this)
+  def sdpaInstance: OldSDPAInstance = new OldSDPAInstance(this)
 
   /** Writes the Gram matrix indices to the file with given filename.
     * The structure of the file is as follows
