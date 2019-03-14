@@ -1,8 +1,6 @@
 package net.alasc.symdpoly
 
-import java.io.{BufferedWriter, FileWriter, StringWriter, Writer}
-
-import spire.syntax.cfor.cforRange
+import spire.syntax.cfor._
 
 import scalin.immutable.{Mat, Vec}
 import spire.std.double._
@@ -23,6 +21,11 @@ import scalin.immutable.dense._
   *   ineqA * y >= 0 (component-wise)
   */
 case class SDP(direction: Direction, obj: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Double], ineqA: Mat[Double]) {
+
+  def asMinimization: SDP = direction match {
+    case Direction.Minimize => this
+    case Direction.Maximize => SDP(Direction.Minimize, -obj, blocks, eqA, ineqA)
+  }
 
   def convertEqualitiesToInequalities: SDP = SDP(direction, obj, blocks, Mat.zeros[Double](0, obj.length), ineqA vertcat eqA vertcat (-eqA))
 
@@ -47,9 +50,9 @@ case class SDP(direction: Direction, obj: Vec[Double], blocks: Seq[SDP.Block], e
     SDP(direction, obj, blocks :+ newBlock, eqA, ineqA)
   }
 
-  def sdpa: solvers.SDPAInstance = solvers.SDPAInstance(this)
+  def sdpa: solvers.SDPAFormat = solvers.SDPAFormat(this)
 
-  def mosek: solvers.MosekInstance = solvers.MosekInstance(this)
+  def mosek: solvers.MosekFormat = solvers.MosekFormat(this)
 
 }
 

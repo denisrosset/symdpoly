@@ -57,6 +57,6 @@ case class JOptimizerInstance(val sdp: SDP) {
       @tailrec def iter(i: Int, acc: Double): Double =
         if (i == m + 1) acc else iter(i + 1, acc + sol(i) * obj(i))
       val value = iter(0, 0.0) * sgn
-      OptimumFound(None, value, None, sol)
+      OptimumFound(None, value) // sol
     }
 }

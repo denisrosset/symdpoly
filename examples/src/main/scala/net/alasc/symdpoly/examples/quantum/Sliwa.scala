@@ -210,7 +210,7 @@ object SliwaApp extends App {
     val problem = Lsym(obj).maximize
     val relaxation = problem.relaxation(generatingSet)
     println(s"Number of unique monomials: ${relaxation.allMoments.length}")
-    val OptimumFound(_, opt, _, _) = relaxation.toSDP.jOptimizer.solve(1e-6)
+    val OptimumFound(_, opt) = relaxation.toSDP.jOptimizer.solve(1e-6)
     val optPaper = bounds(index0, 3)
     println(opt -> optPaper)
     val tol = 1e-3

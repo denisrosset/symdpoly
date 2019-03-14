@@ -5,7 +5,7 @@ import java.io.{BufferedWriter, FileWriter, PrintWriter, StringWriter, Writer}
 
 import spire.syntax.cfor.cforRange
 
-case class SDPAInstance(val sdp: SDP) extends TextInstance {
+case class SDPAFormat(val sdp: SDP) extends TextFormat {
   import sdp._
 
   val m: Int = obj.length - 1
@@ -58,4 +58,5 @@ case class SDPAInstance(val sdp: SDP) extends TextInstance {
         }
       }
     }
+
 }

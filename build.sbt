@@ -55,7 +55,7 @@ lazy val matlab = (project in file("matlab"))
 lazy val mosek = (project in file("mosek"))
   .settings(moduleName := "symdpoly-mosek")
   .settings(symdpolySettings)
-  .dependsOn(core)
+  .dependsOn(core, examples)
 
 lazy val jOptimizer = (project in file("joptimizer"))
   .settings(moduleName := "symdpoly-joptimizer")

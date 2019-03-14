@@ -8,7 +8,7 @@ import scalin.immutable.{Mat, Vec}
 import spire.syntax.cfor._
 import scalin.immutable.dense._
 import scalin.syntax.all._
-import MosekInstance._
+import MosekFormat._
 
 case class ObjFCoordElement(j: PSDVariable, r: Int, c: Int, real: Double)
 case class ObjFCoord(elements: Seq[ObjFCoordElement]) {
@@ -35,7 +35,9 @@ case class PSDVar(elements: Seq[PSDVarElement]) {
 
 case class VarElement(cone: String, n: Int)
 case class Var(elements: Seq[VarElement]) {
+  /** Number of variables. */
   val n = elements.map(_.n).sum
+  /** Number of cones. */
   val k = elements.size
   def writeData(writer: Writer): Unit = {
     writer.append("VAR\n")
@@ -47,11 +49,12 @@ case class Var(elements: Seq[VarElement]) {
 }
 
 case class ConElement(cone: String, n: Int)
-
 case class Con(elements: Seq[ConElement]) {
+  val nCones: Int = elements.size
+  val totalDimension: Int = elements.map(_.n).sum
   def writeData(writer: Writer): Unit = {
     writer.append("CON\n")
-    writer.append(s"${elements.map(_.n).sum} ${elements.size}\n")
+    writer.append(s"$totalDimension $nCones\n")
     for ( ConElement(cone, n) <- elements )
       writer.append(s"$cone $n\n")
     writer.append("\n")
@@ -105,11 +108,11 @@ case class ObjBCoord(real: Double) {
     writer.append("\n")
   }
 }
-object MosekInstance {
+object MosekFormat {
   type ScalarConstraint = Int
   type PSDVariable = Int
   type ScalarVariable = Int
-  def apply(sdp: SDP): MosekInstance = {
+  def apply(sdp: SDP): MosekFormat = {
     val psdVar = sdp.blocks.map(block => PSDVarElement(block.size))
     val `var` = Seq(VarElement("F", sdp.eqA.nRows), VarElement("L+", sdp.ineqA.nRows)).filter(_.n > 0)
     val shifts = Seq(0, sdp.eqA.nRows)
@@ -143,10 +146,10 @@ object MosekInstance {
     val bCoord = for {
       i <- 1 until sdp.obj.length
       e = sdp.obj(i) if e != 0
-    } yield BCoordElement(i - 1, -e) // don't know why the sign change is needed
+    } yield BCoordElement(i - 1, -e)
     val con = Seq(ConElement("L=", sdp.obj.length - 1))
     val bObj = sdp.obj(0)
-    MosekInstance(sdp.direction.reverse,
+    MosekFormat(sdp.direction.reverse,
       PSDVar(psdVar),
       Var(`var`),
       Con(con),
@@ -182,17 +185,17 @@ object MosekInstance {
   * s.t. Xj >=sdp 0 and xineq >=lp 0
   * \sum_j Aj_i X_j + Aeq(:,1:)' xeq + Aineq(:,1:)' ineq = -b_i
   */
-case class MosekInstance(direction: Direction,
-                         psdVar: PSDVar,
-                         `var`: Var,
-                         con: Con,
-                         objFCoord: ObjFCoord,
-                         objACoord: ObjACoord,
-                         fCoord: FCoord,
-                         aCoord: ACoord,
-                         bCoord: BCoord,
-                         objBCoord: ObjBCoord
-                    ) extends TextInstance {
+case class MosekFormat(direction: Direction,
+                       psdVar: PSDVar,
+                       `var`: Var,
+                       con: Con,
+                       objFCoord: ObjFCoord,
+                       objACoord: ObjACoord,
+                       fCoord: FCoord,
+                       aCoord: ACoord,
+                       bCoord: BCoord,
+                       objBCoord: ObjBCoord
+                    ) extends TextFormat {
 
   def writeData(writer: Writer): Unit = {
     writer.append("VER\n")
@@ -217,7 +220,7 @@ case class MosekInstance(direction: Direction,
 
 }
 
-case class MosekInstance1(val sdp: SDP) extends TextInstance {
+case class MosekUnsupportedFormat(val sdp: SDP) extends TextFormat {
   import sdp._
 
   val n: Int = obj.length - 1

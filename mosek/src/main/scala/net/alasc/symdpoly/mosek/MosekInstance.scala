@@ -3,46 +3,81 @@ package mosek
 
 import scala.annotation.tailrec
 
-import spire.syntax.cfor.cforRange
+import spire.syntax.cfor._
 
-import scalin.immutable.Vec
+import scalin.Sparse
+import scalin.immutable.{Mat, Vec}
 import scalin.immutable.dense._
+import scalin.syntax.all._
 
-import net.alasc.symdpoly.solvers.MosekInstance1
-/*
-class RichMosekInstance(val instance: solvers.MosekInstance1) {
+import net.alasc.symdpoly.solvers._
 
-  import instance._
+class MosekInstance(val format: MosekFormat) {
 
   def populateTask(task: _root_.mosek.Task): Unit = {
-    /* Append 'NUMCON' empty constraints.
-         The constraints will initially have no bounds. */
-    task.appendcons(numcon)
-    /* Append 'NUMBARVAR' semidefinite variables. */
-    task.appendbarvars(dimbarvar)
-    /* Optionally add a constant term to the objective. */
-    task.putcfix(cfix)
+    import format._
 
-    locally {
-      val falpha = Array(1.0)
-      val idx = Array(1L)
-      task.appendsparsesymmat(dimbarvar(0), c.rows, c.cols, c.data, idx)
-      task.putbarcj(0, idx, falpha)
-    }
+    /** Constraints */
+    task.appendcons(con.totalDimension)
+    assert(con.elements.forall(_.cone == "L="))
 
-    locally {
-      val bkc = Array.fill(n)(_root_.mosek.boundkey.fx)
-      cforRange(0 until numcon) { i =>
-        task.putconbound(i, bkc(i), blc(i), buc(i))
+    /** Declare PSD variables */
+    task.appendbarvars(psdVar.elements.map(_.n).toArray)
+
+    /** Declare and constraint scalar variables in their respective cones. */
+    {
+      task.appendvars(`var`.n)
+      `var`.elements.foldLeft(0) {
+        case (shift, VarElement("F", n)) => shift + n
+        case (shift, VarElement("L+", n)) =>
+          cforRange(shift until shift + n) { j =>
+            val lower = 1
+            val finite = 1
+            task.chgvarbound(j, lower, finite, 0.0)
+          }
+          shift + n
+        case (shift, VarElement(cone, n)) => sys.error(s"Unsupported cone type $cone")
       }
     }
 
-    cforRange(0 until numcon) { i =>
-      val idx = Array(1L)
-      val falpha = Array(1.0)
-      task.appendsparsesymmat(dimbarvar(0), a(i).rows, a(i).cols, a(i).data, idx)
-      task.putbaraij(i, 0, idx, falpha)
+    /** Set objective */
+    {
+      task.putcfix(objBCoord.real)
+      // scalar part
+      for ( ObjACoordElement(j, cj) <- objACoord.elements )
+        task.putcj(j, cj)
+      // PSD part
+      val num = objFCoord.elements.size
+      val subj = objFCoord.elements.map(_.j).toArray
+      val subk = objFCoord.elements.map(_.r).toArray
+      val subl = objFCoord.elements.map(_.c).toArray
+      val valjkl = objFCoord.elements.map(_.real).toArray
+      task.putbarcblocktriplet(num, subj, subk, subl, valjkl)
     }
+
+    /** Set constraints */
+    {
+      cforRange(0 until con.totalDimension) { i =>
+        task.putconbound(i, _root_.mosek.boundkey.fx, 0.0, 0.0)
+      }
+      for ( BCoordElement(i, real) <- format.bCoord.elements ) {
+        val finite = 1
+        val lower = 1
+        val upper = 0
+        task.chgconbound(i, lower, finite, -real)
+        task.chgconbound(i, upper, finite, -real)
+      }
+      for ( ACoordElement(i, j, real) <- format.aCoord.elements )
+        task.putaij(i, j, real)
+      val num = fCoord.elements.size
+      val subi = fCoord.elements.map(_.i).toArray
+      val subj = fCoord.elements.map(_.j).toArray
+      val subk = fCoord.elements.map(_.r).toArray
+      val subl = fCoord.elements.map(_.c).toArray
+      val valijkl = fCoord.elements.map(_.real).toArray
+      task.putbarablocktriplet(num, subi, subj, subk, subl, valijkl)
+    }
+
   }
 
   def writeFile(fileName: String, tolRelGap: Double = 1e-9): Unit = {
@@ -89,6 +124,12 @@ class RichMosekInstance(val instance: solvers.MosekInstance1) {
 
       res = solsta(0) match {
         case Optimal | NearOptimal =>
+          val primalobj = new Array[Double](1)
+          val dualobj = new Array[Double](1)
+          task.getprimalobj(_root_.mosek.soltype.itr, primalobj)
+          task.getdualobj(_root_.mosek.soltype.itr, dualobj)
+          OptimumFound(Some(primalobj(0)), dualobj(0))
+            /*
           val barx = new Array[Double](lenbarvar(0))
           task.getbarxj(_root_.mosek.soltype.itr, /* Request the interior solution. */ 0, barx)
           val y = new Array[Double](n)
@@ -101,8 +142,7 @@ class RichMosekInstance(val instance: solvers.MosekInstance1) {
 
           @tailrec def iter(i: Int, acc: Double): Double =
             if (i == n) acc else iter(i + 1, acc + y(i) * blc(i))
-
-          OptimumFound(None, iter(0, cfix), Some(X), yvec)
+*/
         case DualInfeasCer | PrimInfeasCer | NearDualInfeasCer | NearPrimInfeasCer =>
           Failure("Primal or dual infeasibility certificate found.")
         case Unknown =>
@@ -114,4 +154,3 @@ class RichMosekInstance(val instance: solvers.MosekInstance1) {
     res
   }
 }
-*/

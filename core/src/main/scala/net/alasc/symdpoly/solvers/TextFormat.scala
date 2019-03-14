@@ -4,7 +4,7 @@ package solvers
 import java.io.{BufferedWriter, FileWriter, StringWriter, Writer}
 import resource._
 
-trait TextInstance {
+trait TextFormat {
   def writeData(writer: Writer): Unit
   def writeFile(filename: String): Unit = {
     val file = new java.io.File(filename)

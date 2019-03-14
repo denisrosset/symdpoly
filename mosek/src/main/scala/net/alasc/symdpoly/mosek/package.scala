@@ -1,9 +1,9 @@
 package net.alasc.symdpoly
 
-import net.alasc.symdpoly.solvers.{MosekInstance1}
+import solvers.MosekFormat
 
 package object mosek {
 
-  //implicit def RichMosekInstance(instance: MosekInstance1): RichMosekInstance = new RichMosekInstance(instance)
+  implicit def mosekInstance(format: MosekFormat): MosekInstance = new MosekInstance(format)
 
 }
