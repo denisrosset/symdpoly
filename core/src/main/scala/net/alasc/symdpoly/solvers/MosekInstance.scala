@@ -143,7 +143,7 @@ object MosekInstance {
     val bCoord = for {
       i <- 1 until sdp.obj.length
       e = sdp.obj(i) if e != 0
-    } yield BCoordElement(i - 1, e)
+    } yield BCoordElement(i - 1, -e) // don't know why the sign change is needed
     val con = Seq(ConElement("L=", sdp.obj.length - 1))
     val bObj = sdp.obj(0)
     MosekInstance(sdp.direction.reverse,
