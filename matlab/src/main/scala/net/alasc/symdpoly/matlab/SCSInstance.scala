@@ -22,6 +22,7 @@ class SCSMatlabFormat(val sdp: SDP) extends MatlabFormat {
     val n = block.size
     val compactSize = (n + 1)*n/2
     def index(r: Int, c: Int): Int = (n*(n+1)/2) - (n-c+1)*(n-c)/2 + r - c
+    val sqrt2 = spire.math.sqrt(2.0)
     val datab = for {
       i <- 0 until block.nEntries
       j = block.basisIndex(i) if j == 0
@@ -34,10 +35,10 @@ class SCSMatlabFormat(val sdp: SDP) extends MatlabFormat {
       j = block.basisIndex(i) if j > 0
       r = block.rowIndex(i)
       c = block.colIndex(i) if r >= c // only the lower triangle
-      e = block.coeffs(i)
-    } yield (index(r, c), j - 1, e)
+      e = if (r == c) block.coeffs(i) else block.coeffs(i) * sqrt2
+    } yield (index(r, c), j - 1, -e)
     // lower triangle
-    val matA = Mat.sparse[Double](compactSize, block.basisSize)(Vec(dataA.map(_._1): _*), Vec(dataA.map(_._2): _*), Vec(dataA.map(_._3): _*))
+    val matA = Mat.sparse[Double](compactSize, block.basisSize - 1)(Vec(dataA.map(_._1): _*), Vec(dataA.map(_._2): _*), Vec(dataA.map(_._3): _*))
     val vecA = Vec.fromMutable(compactSize, 0.0) { mut =>
       for ( (i, e) <- datab ) mut(i) := e
     }
@@ -64,11 +65,12 @@ class SCSMatlabFormat(val sdp: SDP) extends MatlabFormat {
     val (blocksA, blocksb) = sdp.blocks.map(convertBlock).unzip
     val matA = Matrix(blocksA.foldLeft(eqA vertcat ineqA) { case (prev, mat) => prev vertcat mat })
     val vecb = Vect.col(blocksb.foldLeft(eqb cat ineqb) { case (prev, vec) => prev cat vec })
-    val c = Vect.col(sdp.direction match {
-      case Direction.Minimize => sdp.obj(1 until sdp.obj.length)
-      case Direction.Maximize => -sdp.obj(1 until sdp.obj.length)
-    })
-    Struct("cones" -> k, "data" -> Struct("A" -> matA, "b" -> vecb, "c" -> c), "objShift" -> Scalar(sdp.obj(0)))
+    val sign = sdp.direction match {
+      case Direction.Minimize => 1.0
+      case Direction.Maximize => -1.0
+    }
+    val c = Vect.col(sdp.obj(1 until sdp.obj.length) * sign)
+    Struct("cones" -> k, "data" -> Struct("A" -> matA, "b" -> vecb, "c" -> c), "objShift" -> Scalar(sdp.obj(0)), "sign" -> Scalar(sign))
   }
 
 }
