@@ -136,6 +136,10 @@ object Sliwa {
     Seq(10, -3, -1, -3, 2, 1, -1, 1, 2, 0, -2, 2, -1, 3, -4, -1, 1, -2, 0, -1, -1, -2, 3, 1, 2, -4, -2)
   )
 
+  // bounds from https://journals.aps.org/pra/abstract/10.1103/PhysRevA.95.022111
+  // Almost-quantum correlations and their refinements in a tripartite Bell scenario
+  // James Vallins, Ana Belén Sainz, and Yeong-Cherng Liang
+  // Phys. Rev. A 95, 022111, 2017
   val bounds = Mat.rowMajor[Double](46, 14)(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     2, 2, 4, 4, 4, 4 , 2.8284, 2.8284, 2.8284, 2.0000, 2.8284, 2.8284, 2.8284, 2.0000,
     3, 2, 2.8284, 2.8284, 2.8284, 4, 2.0000, 2.8284, 2.8284, 2.0000, 2.0000, 2.8284, 2.8284, 2.0000,
