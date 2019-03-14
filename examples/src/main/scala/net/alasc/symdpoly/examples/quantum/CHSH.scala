@@ -85,6 +85,7 @@ object CHSHApp extends App {
   import CHSH._
   relaxation.toSDP.sdpa.writeFile("chsh.dat-s")
   relaxation.toSDP.mosek.writeFile("chsh.cbf")
+  relaxation.toSDP.scs.writeFile("chsh_scs.mat")
   //println(relaxation.gramMatrix.momentMatrix)
   //println(relaxation.jOptimizerInstance.solve())
   //relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")

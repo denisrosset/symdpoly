@@ -61,7 +61,6 @@ class CHSHAlgebraSuite extends CommonSuite {
   val gset: GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B))
 
   val L = Quotient.evaluator(Evaluation.real)
-  val gramMatrix = OldMomentMatrix[L.type, Quotient.type](L, gset)
 
   checkAll("quotient monoid", RingLaws[Mono[Quotient.type, Free.type]].multiplicativeMonoid)
   checkAll("quotient monoid involution", InvolutionLaws[Mono[Quotient.type, Free.type]].involutionMultiplicativeMonoid)

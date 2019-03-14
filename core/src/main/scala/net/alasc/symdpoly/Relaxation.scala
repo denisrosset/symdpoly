@@ -113,7 +113,7 @@ class Relaxation[
       c <- 0 until mat.nCols
       DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(Cyclo.one, mat(r, c))
     } yield BlockElement(dualIndex, r, c, realPart, complexPart)
-    SDP.Block(mat.nRows, nonZeroElements)
+    SDP.Block(mat.nRows, allMoments.length, nonZeroElements)
   }
 
   def expandLocalizingMatrix(mat: Mat[E#EvaluatedPolynomial]): SDP.Block = {
@@ -126,7 +126,7 @@ class Relaxation[
       coeff = poly.coeff(i)
       DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(coeff, mono)
     } yield BlockElement(dualIndex, r, c, realPart, complexPart)
-    SDP.Block(mat.nRows, nonZeroElements)
+    SDP.Block(mat.nRows, allMoments.length, nonZeroElements)
   }
 
   def expandRealPart(p: E#EvaluatedPolynomial): Vec[Double] = Vec.fromMutable(allMoments.length, 0.0) { vec =>

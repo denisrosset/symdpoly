@@ -71,7 +71,7 @@ class CHSHSDPSuite extends CommonSuite {
 
     //relaxation.mosekInstance.writeCBF("chsh.cbf")
 
-    val OptimumFound(_, ub, _, _) = relaxation.toSDP.jOptimizer.solve()
+    val OptimumFound(_, ub) = relaxation.toSDP.jOptimizer.solve()
 
     import spire.math.{abs, sqrt}
     val tol = 1e-9

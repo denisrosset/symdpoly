@@ -3,10 +3,10 @@ package net.alasc.symdpoly
 import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
 
 package object matlab {
-/*
-  implicit class MatlabRelaxation(val relaxation: OldRelaxation[_, _]) {
-    def scsInstance: SCSInstance = new SCSInstance(relaxation)
-    def sdpt3Instance: SDPT3Instance = new SDPT3Instance(relaxation)
+
+  implicit class MatlabSDP(val sdp: SDP) {
+    def scs: SCSMatlabFormat = new SCSMatlabFormat(sdp)
+    // TODO def sdpt3Instance: SDPT3Instance = new SDPT3Instance(relaxation)
     // TODO def sedumiInstance: SeDuMiInstance = new SeDuMiInstance(relaxation)
   }
 
@@ -21,5 +21,5 @@ package object matlab {
       }
     }
   }
-*/
+
 }

@@ -35,7 +35,7 @@ case class SDP(direction: Direction, obj: Vec[Double], blocks: Seq[SDP.Block], e
       c <- 0 until ineqA.nCols
       coeff = ineqA(r, c) if coeff != 0
     } yield (c, r, r, coeff)
-    val newBlock = SDP.Block(ineqA.nRows, entries.map(_._1).toArray, entries.map(_._2).toArray, entries.map(_._3).toArray, entries.map(_._4).toArray)
+    val newBlock = SDP.Block(ineqA.nRows, obj.length, entries.map(_._1).toArray, entries.map(_._2).toArray, entries.map(_._3).toArray, entries.map(_._4).toArray)
     SDP(direction, obj, blocks :+ newBlock, eqA, Mat.zeros[Double](0, obj.length))
   }
 
@@ -46,7 +46,7 @@ case class SDP(direction: Direction, obj: Vec[Double], blocks: Seq[SDP.Block], e
     val colIndex = (blocks zip shifts).toArray.flatMap { case (block, shift) => block.colIndex.map(_ + shift) }
     val coeffs = blocks.toArray.flatMap(_.coeffs)
     val size = blocks.map(_.size).reduce(_ + _)
-    val newBlock = SDP.Block(size, basisIndex, rowIndex, colIndex, coeffs)
+    val newBlock = SDP.Block(size, obj.length, basisIndex, rowIndex, colIndex, coeffs)
     SDP(direction, obj, blocks :+ newBlock, eqA, ineqA)
   }
 
@@ -58,15 +58,15 @@ case class SDP(direction: Direction, obj: Vec[Double], blocks: Seq[SDP.Block], e
 
 object SDP {
 
-  case class Block(size: Int, basisIndex: Array[Int], rowIndex: Array[Int], colIndex: Array[Int], coeffs: Array[Double]) {
+  case class Block(size: Int, basisSize: Int, basisIndex: Array[Int], rowIndex: Array[Int], colIndex: Array[Int], coeffs: Array[Double]) {
     def nEntries: Int = basisIndex.length
   }
 
   object Block {
-    def realBlock(size: Int, elements: Seq[BlockElement]): SDP.Block =
-      Block(size, elements.map(_.dualIndex).toArray, elements.map(_.r).toArray, elements.map(_.c).toArray, elements.map(_.realPart).toArray)
+    def realBlock(size: Int, basisSize: Int, elements: Seq[BlockElement]): SDP.Block =
+      Block(size, basisSize, elements.map(_.dualIndex).toArray, elements.map(_.r).toArray, elements.map(_.c).toArray, elements.map(_.realPart).toArray)
 
-    def complexBlock(size: Int, elements: Seq[BlockElement]): SDP.Block = {
+    def complexBlock(size: Int, basisSize: Int, elements: Seq[BlockElement]): SDP.Block = {
       def realPart(i: Int, r: Int, c: Int, a: Double) = Seq(
         BlockElement(i, r*2, c*2, a, 0),
         BlockElement(i, r*2+1, c*2+1, a, 0)
@@ -80,15 +80,18 @@ object SDP {
         case BlockElement(i, r, c, a, 0.0) => realPart(i, r, c, a)
         case BlockElement(i, r, c, a, b) => realPart(i, r, c, a) ++ imagPart(i, r, c, b)
       }
-      realBlock(size * 2, complexEncoding)
+      realBlock(size * 2, basisSize, complexEncoding)
     }
 
     /** Constructs a SDP block from a series of indices.
       *
       * Assumes that no two elements have the same (dualIndex, r, c) value.
       */
-    def apply(size: Int, elements: Seq[BlockElement]): Block =
-      if (elements.forall(_.complexPart == 0)) realBlock(size, elements) else complexBlock(size, elements)
+    def apply(size: Int, basisSize: Int, elements: Seq[BlockElement]): Block =
+      if (elements.forall(_.complexPart == 0))
+        realBlock(size, basisSize, elements)
+      else
+        complexBlock(size, basisSize, elements)
 
   }
 
