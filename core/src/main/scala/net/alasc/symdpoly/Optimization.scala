@@ -16,7 +16,7 @@ import spire.syntax.involution._
 import syntax.all._
 import scalin.syntax.all._
 import scalin.immutable.dense._
-import scala.collection.immutable.{SortedMap, SortedSet}
+import scala.collection.immutable.{HashSet, SortedMap, SortedSet}
 
 import spire.algebra.{Eq, Order, VectorSpace}
 import spire.math.Complex
@@ -50,8 +50,9 @@ class Relaxation[
   def E: E = valueOf[E]
 
   lazy val (allMoments: OrderedSet[E#EvaluatedMonomial], adjointMoment: Array[Int], allSelfAdjoint: Boolean) = {
-    val all: OrderedSet[E#EvaluatedMonomial] =
-      OrderedSet(E.one) union localizingMatrices.foldLeft(momentMatrix.allMoments) { case (s, lm) => s union lm.allMoments }
+    val all: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromUnique(
+      HashSet(E.one) union localizingMatrices.foldLeft(momentMatrix.allMoments) { case (s, lm) => s union lm.allMoments }
+    )
     val adj = Array.tabulate(all.length) { i =>
       val m = all(i)
       val madj = E.evaluatedMonoInvolution.adjoint(m)

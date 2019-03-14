@@ -48,6 +48,8 @@ abstract class Evaluator { self =>
 
   lazy val one: EvaluatedMonomial = apply(M.one)
 
+  def fromNormalForm(normalForm: Mono#Monomial): EvaluatedMono[self.type, Mono] = new EvaluatedMono[self.type, Mono](normalForm)
+
   def apply(mono: Mono#Monomial): EvaluatedMono[self.type, Mono] = {
     val candidates = equivalences.foldLeft(Set(mono)) { case (set, equivalence) => set.flatMap(m => equivalence(m)) }
     val canonicalCandidates = candidates.map(_.phaseCanonical)
@@ -106,7 +108,7 @@ abstract class Evaluator { self =>
   val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
   val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
   val evaluatedMonoInvolution: Involution[EvaluatedMonomial] = Invariant[Involution].imap(M.monoInvolution)(apply)(_.normalForm)
-  val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(apply)(_.normalForm)
+  val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(fromNormalForm)(_.normalForm)
   val evaluatedMonoClassTag: ClassTag[EvaluatedMonomial] = implicitly
 
   val evaluatedPolyInvolution: Involution[EvaluatedPolynomial] = Invariant[Involution].imap(M.polyInvolution)(apply)(_.normalForm)

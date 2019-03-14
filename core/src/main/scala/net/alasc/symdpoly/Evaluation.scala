@@ -1,10 +1,12 @@
 package net.alasc.symdpoly
 
+import scala.reflect.ClassTag
+
 import shapeless.Witness
 import spire.algebra.Action
 
-import net.alasc.finite.Grp
-import net.alasc.symdpoly.freebased.{CyclicEquivalence, MonoidDef, AdjointEquivalence, TransposeEquivalence}
+import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
+import net.alasc.symdpoly.freebased.{AdjointEquivalence, CyclicEquivalence, MonoidDef, TransposeEquivalence}
 import net.alasc.symdpoly.generic.{AdjointEquivalence, Equivalence, SymmetryEquivalence}
 
 object Evaluation {
@@ -14,7 +16,8 @@ object Evaluation {
 
   /** Equivalence under a group action. */
   def symmetric[
-    M <: generic.MonoidDef with Singleton:Witness.Aux, G
+    M <: generic.MonoidDef with Singleton:Witness.Aux,
+    G:ClassTag:FaithfulPermutationActionBuilder
   ](grp: Grp[G])(implicit action: Action[M#Monomial, G]): Equivalence[M] = SymmetryEquivalence[M, G](grp)
 
   /** Equivalence under cyclic permutation of operators selected by the given predicate. */

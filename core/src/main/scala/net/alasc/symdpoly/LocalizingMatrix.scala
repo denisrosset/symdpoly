@@ -1,12 +1,16 @@
 package net.alasc.symdpoly
 
+import scala.collection.immutable.HashSet
+
 import shapeless.Witness
 
 import scalin.immutable.Mat
+
 import syntax.phased._
 import spire.syntax.eq._
 import spire.syntax.involution._
 import spire.syntax.field._
+import scala.collection.compat._
 import net.alasc.symdpoly.util.OrderedSet
 import scalin.immutable.dense._
 
@@ -28,10 +32,8 @@ class LocalizingMatrix[
   /** The matrix of moments has shape size x size */
   def size: Int =  generatingMoments.length
 
-  def allMoments: OrderedSet[E#EvaluatedMonomial] =
-    OrderedSet.fromIterator(
-      MomentMatrix.matIterator(mat).flatMap(p => Iterator.tabulate(p.nTerms)(i => p.monomial(i).phaseCanonical).filterNot(_.isZero))
-    )
+  def allMoments: HashSet[E#EvaluatedMonomial] =
+      MomentMatrix.matIterator(mat).flatMap(p => Iterator.tabulate(p.nTerms)(i => p.monomial(i).phaseCanonical).filterNot(_.isZero)).to(HashSet)
 }
 
 object LocalizingMatrix {

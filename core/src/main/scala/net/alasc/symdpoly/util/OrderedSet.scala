@@ -61,8 +61,8 @@ object OrderedSet {
   def fromOrdered[A](seq: Seq[A]): OrderedSet[A] =
     new OrderedSet[A](seq.map(_.asInstanceOf[AnyRef]).toArray)
 
-  def fromUnique[A](seq: Seq[A])(implicit ord: Order[A]): OrderedSet[A] = {
-    val array = seq.map(_.asInstanceOf[AnyRef]).toArray
+  def fromUnique[A](iterable: Iterable[A])(implicit ord: Order[A]): OrderedSet[A] = {
+    val array = iterable.map(_.asInstanceOf[AnyRef]).toArray
     spire.math.Sorting.quickSort(array)(ord.asInstanceOf[Order[AnyRef]], implicitly)
     new OrderedSet[A](array)
   }

@@ -7,6 +7,7 @@ val alascVersion = "0.16.0.3"
 val attributesVersion = "0.30"
 val betterFilesVersion = "3.4.0"
 val catsVersion = "1.1.0"
+val fs2Version = "1.0.3"
 val disciplineVersion = "0.8"
 val fastParseVersion = "1.0.0"
 val jGraphTVersion = "1.2.0"
@@ -17,6 +18,7 @@ val metalVersion = "0.16.0.0"
 val progressBarVersion = "0.7.0"
 val scalaARMVersion = "2.0"
 val scalaCheckVersion = "1.13.5"
+val scalaCollectionCompatVersion = "0.2.2"
 val scalaTestVersion = "3.0.5"
 val scalinVersion = "0.16.0.0"
 val shapelessVersion = "2.3.3"
@@ -125,7 +127,9 @@ lazy val commonSettings = Seq(
     "org.typelevel" %% "cats-core" % catsVersion,
     "org.scala-metal" %% "metal-core" % metalVersion,
     "org.scala-metal" %% "metal-library" % metalVersion,
+    "org.scala-lang.modules" %% "scala-collection-compat" % scalaCollectionCompatVersion,
     "org.typelevel" %% "spire" % spireVersion,
+    "co.fs2" %% "fs2-core" % fs2Version,
     "net.alasc" %% "cyclo-core" % spireCycloVersion,
     "net.alasc" %% "alasc-core" % alascVersion,
     "net.alasc" %% "scalin-core" % scalinVersion,
