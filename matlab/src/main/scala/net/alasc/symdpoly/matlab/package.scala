@@ -3,7 +3,7 @@ package net.alasc.symdpoly
 import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
 
 package object matlab {
-
+/*
   implicit class MatlabRelaxation(val relaxation: OldRelaxation[_, _]) {
     def scsInstance: SCSInstance = new SCSInstance(relaxation)
     def sdpt3Instance: SDPT3Instance = new SDPT3Instance(relaxation)
@@ -21,5 +21,5 @@ package object matlab {
       }
     }
   }
-
+*/
 }

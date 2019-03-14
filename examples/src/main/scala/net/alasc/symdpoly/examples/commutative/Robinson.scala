@@ -83,7 +83,7 @@ object Robinson {
   val relaxationSym = problem.relaxation(generatingSet)
 */
   /** Non symmetric relaxation for comparison. */
-  val relaxationNoSym = problem.oldRelaxation(generatingSet)
+  val relaxationNoSym = problem.relaxation(generatingSet)
 
 }
 
@@ -94,5 +94,5 @@ object RobinsonApp extends App {
   relaxationSym.sedumiInstance.writeFile("robinson_sedumi.mat")
 */
   // We write the non symmetrized SDP
-  //relaxationNoSym.sedumiInstance.writeFile("robinson_sedumi_nosym.mat")
+//  relaxationNoSym.sedumiInstance.writeFile("robinson_sedumi_nosym.mat")
 }

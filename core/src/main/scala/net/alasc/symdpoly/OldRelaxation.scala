@@ -1,18 +1,6 @@
 package net.alasc.symdpoly
 
-import shapeless.Witness
-
-import cyclo.Cyclo
-import scalin.immutable.{Mat, Vec}
-
-import net.alasc.symdpoly.solvers.{MosekInstance, OldMosekInstance, OldSDPAInstance, SDPAInstance}
-import scalin.immutable.dense._
-
-import net.alasc.perms.default._
-import net.alasc.finite.Grp
-import net.alasc.symdpoly.generic.EvaluatedPoly
-import net.alasc.symdpoly.math.GenPerm
-
+/*
 /** Moment/SOS-based relaxation of a polynomial optimization problem.
   * @param problem       Problem to construct the relaxation for
   * @param generatingSet Set of monomials used to generate the moment matrix
@@ -74,7 +62,7 @@ case class OldRelaxation[
   def momentMatrixDescription: String = scalin.Printer.mat(momentMatrix.momentMatrix, Int.MaxValue, Int.MaxValue)
 
 }
-
+*/
 /*
 
 

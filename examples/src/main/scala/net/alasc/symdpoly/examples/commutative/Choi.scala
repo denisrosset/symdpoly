@@ -70,7 +70,7 @@ object Choi {
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
 
   /** Nonsymmetric relaxation. */
-  val relaxationNoSym = L(obj).maximize.oldRelaxation(generatingSet)
+  val relaxationNoSym = L(obj).maximize.relaxation(generatingSet)
 /*
   /** Symmetric relaxation. */
   val relaxationSym = Lsym(obj).maximize.relaxation(generatingSet)
@@ -81,7 +81,7 @@ object ChoiApp extends App {
 
   import Choi._
 
-  relaxationNoSym.mosekInstance.writeCBF("choi_nosym.cbf")
+  relaxationNoSym.toSDP.mosek.writeFile("choi_nosym.cbf")
 /*
   relaxationSym.mosekInstance.writeCBF("choi_sym.cbf")
 

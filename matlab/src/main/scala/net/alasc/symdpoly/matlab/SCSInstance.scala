@@ -5,9 +5,8 @@ import spire.syntax.cfor._
 
 import com.jmatio.io.MatFileWriter
 import com.jmatio.types.{MLArray, MLDouble, MLSparse, MLStructure}
-import net.alasc.symdpoly.solvers.{OldInstance}
 import syntax.phased._
-
+/*
 /** Data provided in the format of https://github.com/bodono/scs-matlab */
 class SCSInstance(val relaxation: OldRelaxation[_, _]) extends OldInstance {
   import SCSInstance.{SparseMatrix, SparseVector}
@@ -106,3 +105,5 @@ object SCSInstance {
   }
 
 }
+
+ */

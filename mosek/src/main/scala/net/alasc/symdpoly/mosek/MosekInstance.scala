@@ -8,9 +8,9 @@ import spire.syntax.cfor.cforRange
 import scalin.immutable.Vec
 import scalin.immutable.dense._
 
-import net.alasc.symdpoly.solvers.MosekInstance
-
-class RichMosekInstance(val instance: solvers.MosekInstance) {
+import net.alasc.symdpoly.solvers.MosekInstance1
+/*
+class RichMosekInstance(val instance: solvers.MosekInstance1) {
 
   import instance._
 
@@ -31,7 +31,7 @@ class RichMosekInstance(val instance: solvers.MosekInstance) {
     }
 
     locally {
-      val bkc = Array.fill(m)(_root_.mosek.boundkey.fx)
+      val bkc = Array.fill(n)(_root_.mosek.boundkey.fx)
       cforRange(0 until numcon) { i =>
         task.putconbound(i, bkc(i), blc(i), buc(i))
       }
@@ -91,16 +91,16 @@ class RichMosekInstance(val instance: solvers.MosekInstance) {
         case Optimal | NearOptimal =>
           val barx = new Array[Double](lenbarvar(0))
           task.getbarxj(_root_.mosek.soltype.itr, /* Request the interior solution. */ 0, barx)
-          val y = new Array[Double](m)
+          val y = new Array[Double](n)
           task.gety(_root_.mosek.soltype.itr, y)
-          val X = MosekInstance.fromLowerTriangularColStacked(d, Vec.fromSeq(barx))
-          val yvec = Vec.tabulate(m + 1) {
+          val X = MosekInstance1.fromLowerTriangularColStacked(d, Vec.fromSeq(barx))
+          val yvec = Vec.tabulate(n + 1) {
             case 0 => 1
             case i => y(i - 1)
           }
 
           @tailrec def iter(i: Int, acc: Double): Double =
-            if (i == m) acc else iter(i + 1, acc + y(i) * blc(i))
+            if (i == n) acc else iter(i + 1, acc + y(i) * blc(i))
 
           OptimumFound(None, iter(0, cfix), Some(X), yvec)
         case DualInfeasCer | PrimInfeasCer | NearDualInfeasCer | NearPrimInfeasCer =>
@@ -114,3 +114,4 @@ class RichMosekInstance(val instance: solvers.MosekInstance) {
     res
   }
 }
+*/

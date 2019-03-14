@@ -1,6 +1,6 @@
 package net.alasc.symdpoly
 package matlab
-
+/*
 import spire.syntax.cfor._
 
 import com.jmatio.io.MatFileWriter
@@ -124,3 +124,4 @@ object SDPT3Instance {
   }
 
 }
+*/

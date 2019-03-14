@@ -28,14 +28,7 @@ import net.alasc.symdpoly.SDP.Block
 import net.alasc.symdpoly.algebra.NiceVectorSpace
 import net.alasc.symdpoly.math.Phase
 
-
-/** Direction along which to optimize the objective: minimization or maximization. */
-sealed trait Direction
-
-object Direction {
-  case object Minimize extends Direction
-  case object Maximize extends Direction
-}
+case class BlockElement(dualIndex: Int, r: Int, c: Int, realPart: Double, complexPart: Double)
 
 class Relaxation[
   E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
@@ -48,6 +41,8 @@ class Relaxation[
   val localizingMatrices: Seq[LocalizingMatrix[E, M]]) {
 
   def E: E = valueOf[E]
+
+  case class DualTerm(dualIndex: Int, realPart: Double, imagPart: Double)
 
   lazy val (allMoments: OrderedSet[E#EvaluatedMonomial], adjointMoment: Array[Int], allSelfAdjoint: Boolean) = {
     val all: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromUnique(
@@ -86,37 +81,6 @@ class Relaxation[
     }
   }
 
-  case class BlockElement(dualIndex: Int, r: Int, c: Int, realPart: Double, complexPart: Double)
-
-  def realBlock(size: Int, elements: Seq[BlockElement]): SDP.Block =
-    Block(size, elements.map(_.dualIndex).toArray, elements.map(_.r).toArray, elements.map(_.c).toArray, elements.map(_.realPart).toArray)
-
-  def complexBlock(size: Int, elements: Seq[BlockElement]): SDP.Block = {
-    def realPart(i: Int, r: Int, c: Int, a: Double) = Seq(
-      BlockElement(i, r*2, c*2, a, 0),
-      BlockElement(i, r*2+1, c*2+1, a, 0)
-    )
-    def imagPart(i: Int, r: Int, c: Int, b: Double) = Seq(
-      BlockElement(i, r*2, c*2+1, -b, 0),
-      BlockElement(i, r*2+1, c*2, b, 0)
-    )
-    val complexEncoding = elements.flatMap {
-      case BlockElement(i, r, c, 0.0, b) => imagPart(i, r, c, b)
-      case BlockElement(i, r, c, a, 0.0) => realPart(i, r, c, a)
-      case BlockElement(i, r, c, a, b) => realPart(i, r, c, a) ++ imagPart(i, r, c, b)
-    }
-    realBlock(size * 2, complexEncoding)
-  }
-
-  /** Constructs a SDP block from a series of indices.
-    *
-    * Assumes that no two elements have the same (dualIndex, r, c) value.
-    */
-  def block(size: Int, elements: Seq[BlockElement]): SDP.Block =
-    if (elements.forall(_.complexPart == 0)) realBlock(size, elements) else complexBlock(size, elements)
-
-  case class DualTerm(dualIndex: Int, realPart: Double, imagPart: Double)
-
   def inDualVariables(c: Cyclo, mono: E#EvaluatedMonomial): Seq[DualTerm] = if (mono.isZero) Seq.empty else {
     val canonical = mono.phaseCanonical
     val coeff = if (c.isOne) phaseValue(mono.phaseOffset) else cycloValue(c * mono.phaseOffset.toCyclo)
@@ -149,7 +113,7 @@ class Relaxation[
       c <- 0 until mat.nCols
       DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(Cyclo.one, mat(r, c))
     } yield BlockElement(dualIndex, r, c, realPart, complexPart)
-    block(mat.nRows, nonZeroElements)
+    SDP.Block(mat.nRows, nonZeroElements)
   }
 
   def expandLocalizingMatrix(mat: Mat[E#EvaluatedPolynomial]): SDP.Block = {
@@ -162,7 +126,7 @@ class Relaxation[
       coeff = poly.coeff(i)
       DualTerm(dualIndex, realPart, complexPart) <- inDualVariables(coeff, mono)
     } yield BlockElement(dualIndex, r, c, realPart, complexPart)
-    block(mat.nRows, nonZeroElements)
+    SDP.Block(mat.nRows, nonZeroElements)
   }
 
   def expandRealPart(p: E#EvaluatedPolynomial): Vec[Double] = Vec.fromMutable(allMoments.length, 0.0) { vec =>
@@ -197,7 +161,7 @@ class Relaxation[
     optionExpand(realPart) ++ optionExpand(imagPart)
   }
 
-  def toSDP: SDP = {
+  lazy val toSDP: SDP = {
     val m = allMoments.length
     // convention for the mapping of variables
     // for a moment of index i in allMoments, we distinguish two cases depending on iadj = adjointMoment(i)
@@ -217,7 +181,7 @@ class Relaxation[
     val ineqVecs = scalarIneq.flatMap(expandLinear)
     val eqA = Mat.tabulate(eqVecs.size, m)( (r, c) => eqVecs(r)(c) )
     val ineqA = Mat.tabulate(eqVecs.size, m)( (r, c) => ineqVecs(r)(c) )
-    SDP(obj, blocks, eqA, ineqA)
+    SDP(direction, obj, blocks, eqA, ineqA)
   }
 
 }
@@ -280,9 +244,6 @@ case class Optimization[
 
   /** Constructs a moment-based/SOS relaxation. */
   def relaxation(generatingSet: GSet[M], optimize: Boolean = true): Relaxation[E, M] = Relaxation(this, generatingSet, optimize)
-
-  /** Constructs a moment-based/SOS relaxation. */
-  def oldRelaxation(generatingSet: GSet[M]): OldRelaxation[E, M] = OldRelaxation(this, generatingSet)
 
   def subjectTo(newConstraints: Constraint[E, M]*): Optimization[E, M] = {
     val newOperatorConstraints = newConstraints.collect {

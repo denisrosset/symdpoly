@@ -22,9 +22,9 @@ import scalin.immutable.dense._
   *   eqA * y == 0
   *   ineqA * y >= 0 (component-wise)
   */
-case class SDP(objToMaximize: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Double], ineqA: Mat[Double]) {
+case class SDP(direction: Direction, obj: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Double], ineqA: Mat[Double]) {
 
-  def convertEqualitiesToInequalities: SDP = SDP(objToMaximize, blocks, Mat.zeros[Double](0, objToMaximize.length), ineqA vertcat eqA vertcat (-eqA))
+  def convertEqualitiesToInequalities: SDP = SDP(direction, obj, blocks, Mat.zeros[Double](0, obj.length), ineqA vertcat eqA vertcat (-eqA))
 
   def convertInequalitiesToBlock: SDP = {
     val entries = for {
@@ -33,7 +33,7 @@ case class SDP(objToMaximize: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Doub
       coeff = ineqA(r, c) if coeff != 0
     } yield (c, r, r, coeff)
     val newBlock = SDP.Block(ineqA.nRows, entries.map(_._1).toArray, entries.map(_._2).toArray, entries.map(_._3).toArray, entries.map(_._4).toArray)
-    SDP(objToMaximize, blocks :+ newBlock, eqA, Mat.zeros[Double](0, objToMaximize.length))
+    SDP(direction, obj, blocks :+ newBlock, eqA, Mat.zeros[Double](0, obj.length))
   }
 
   def mergeBlocks: SDP = {
@@ -44,10 +44,12 @@ case class SDP(objToMaximize: Vec[Double], blocks: Seq[SDP.Block], eqA: Mat[Doub
     val coeffs = blocks.toArray.flatMap(_.coeffs)
     val size = blocks.map(_.size).reduce(_ + _)
     val newBlock = SDP.Block(size, basisIndex, rowIndex, colIndex, coeffs)
-    SDP(objToMaximize, blocks :+ newBlock, eqA, ineqA)
+    SDP(direction, obj, blocks :+ newBlock, eqA, ineqA)
   }
 
   def sdpa: solvers.SDPAInstance = solvers.SDPAInstance(this)
+
+  def mosek: solvers.MosekInstance = solvers.MosekInstance(this)
 
 }
 
@@ -55,6 +57,36 @@ object SDP {
 
   case class Block(size: Int, basisIndex: Array[Int], rowIndex: Array[Int], colIndex: Array[Int], coeffs: Array[Double]) {
     def nEntries: Int = basisIndex.length
+  }
+
+  object Block {
+    def realBlock(size: Int, elements: Seq[BlockElement]): SDP.Block =
+      Block(size, elements.map(_.dualIndex).toArray, elements.map(_.r).toArray, elements.map(_.c).toArray, elements.map(_.realPart).toArray)
+
+    def complexBlock(size: Int, elements: Seq[BlockElement]): SDP.Block = {
+      def realPart(i: Int, r: Int, c: Int, a: Double) = Seq(
+        BlockElement(i, r*2, c*2, a, 0),
+        BlockElement(i, r*2+1, c*2+1, a, 0)
+      )
+      def imagPart(i: Int, r: Int, c: Int, b: Double) = Seq(
+        BlockElement(i, r*2, c*2+1, -b, 0),
+        BlockElement(i, r*2+1, c*2, b, 0)
+      )
+      val complexEncoding = elements.flatMap {
+        case BlockElement(i, r, c, 0.0, b) => imagPart(i, r, c, b)
+        case BlockElement(i, r, c, a, 0.0) => realPart(i, r, c, a)
+        case BlockElement(i, r, c, a, b) => realPart(i, r, c, a) ++ imagPart(i, r, c, b)
+      }
+      realBlock(size * 2, complexEncoding)
+    }
+
+    /** Constructs a SDP block from a series of indices.
+      *
+      * Assumes that no two elements have the same (dualIndex, r, c) value.
+      */
+    def apply(size: Int, elements: Seq[BlockElement]): Block =
+      if (elements.forall(_.complexPart == 0)) realBlock(size, elements) else complexBlock(size, elements)
+
   }
 
 }
