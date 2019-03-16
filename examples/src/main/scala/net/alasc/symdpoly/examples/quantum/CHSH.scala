@@ -4,6 +4,7 @@ package examples.quantum
 import net.alasc.symdpoly.defaults._
 import net.alasc.symdpoly.joptimizer._
 import net.alasc.symdpoly.matlab._
+import net.alasc.symdpoly.sdp.Relaxation
 
 /** Computes the Tsirelson bound on the CHSH inequality, written using
   * correlators A(x) and B(y).

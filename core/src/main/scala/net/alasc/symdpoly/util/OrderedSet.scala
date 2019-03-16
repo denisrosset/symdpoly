@@ -45,6 +45,11 @@ class OrderedSet[A](private[this] val sortedArray: Array[AnyRef]) { lhs =>
   def union(rhs: OrderedSet[A])(implicit ord: Order[A]): OrderedSet[A] =
     OrderedSet.fromSortedSet(lhs.toSortedSet union rhs.toSortedSet)
 
+  def toIndexedSeq: IndexedSeq[A] = new IndexedSeq[A] {
+    def length: Int = lhs.length
+    def apply(idx: Int): A = lhs.apply(idx)
+  }
+
 }
 
 object OrderedSet {

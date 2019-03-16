@@ -2,9 +2,11 @@ package net.alasc.symdpoly
 
 import shapeless.Witness
 
+import net.alasc.symdpoly.evaluation.Evaluator
+
 /** Polynomial optimization problem. */
 case class Optimization[
-  E <: generic.Evaluator.Aux[M] with Singleton: Witness.Aux,
+  E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
 ](direction: Direction, objective: E#EvaluatedPolynomial, operatorConstraints: Seq[OperatorConstraint[M]] = Seq.empty, scalarConstraints: Seq[ScalarConstraint[E, M]] = Seq.empty) {
 

@@ -31,6 +31,8 @@ trait Morphism[S, T, F[_]] extends Function1[S, T] {
 
 object Morphism {
 
+  type GroupMorphism[S, T] = Morphism[S, T, Group]
+
   /** Constructs a morphism from a S => T function. */
   def apply[S, T, F[_]](f: S => T)(implicit S0: F[S], T0: F[T]): Morphism[S, T, F] = new Morphism[S, T, F] {
     def S: F[S] = S0
@@ -153,10 +155,11 @@ object MorphismFromGeneratorImages {
       val nPoints = combinedGrp.largestMovedPoint(combinedAction).getOrElse(-1) + 1
       assert(combinedGrp.pointwiseStabilizer(combinedAction, 0 until nPoints: _*).isTrivial,
         "The given images do not prescribe an homomorphism")
+      val generatorImagesMap: Map[S, T] = Map(source.generators zip images: _*)
       new Morphism[S, T, Group] {
         def S: Group[S] = implicitly
         def T: Group[T] = implicitly
-        def apply(s: S): T =  combinedGrp.findSameAction(combinedAction, s)(sAction, implicitly).get._2
+        def apply(s: S): T = generatorImagesMap.getOrElse(s, combinedGrp.findSameAction(combinedAction, s)(sAction, implicitly).get._2)
       }
     }
   }

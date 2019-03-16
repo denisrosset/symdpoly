@@ -6,9 +6,12 @@ import java.io.{BufferedWriter, FileWriter, PrintWriter, StringWriter, Writer}
 import scalin.Sparse
 import scalin.immutable.{Mat, Vec}
 import spire.syntax.cfor._
+
 import scalin.immutable.dense._
 import scalin.syntax.all._
+
 import MosekFormat._
+import net.alasc.symdpoly.sdp.{Block, Program}
 
 case class ObjFCoordElement(j: PSDVariable, r: Int, c: Int, real: Double)
 case class ObjFCoord(elements: Seq[ObjFCoordElement]) {
@@ -112,17 +115,17 @@ object MosekFormat {
   type ScalarConstraint = Int
   type PSDVariable = Int
   type ScalarVariable = Int
-  def apply(sdp: SDP): MosekFormat = {
-    val psdVar = sdp.blocks.map(block => PSDVarElement(block.size))
+  def apply(sdp: Program): MosekFormat = {
+    val psdVar = sdp.sdpCon.blocks.map(block => PSDVarElement(block.size))
     val `var` = Seq(VarElement("F", sdp.eqA.nRows), VarElement("L+", sdp.ineqA.nRows)).filter(_.n > 0)
     val shifts = Seq(0, sdp.eqA.nRows)
     val objFcoord = for {
-      (block, j) <- sdp.blocks.zipWithIndex
+      (block, j) <- sdp.sdpCon.blocks.zipWithIndex
       k <- 0 until block.nEntries
-      i = block.basisIndex(k) if i == 0
-      r = block.rowIndex(k)
-      c = block.colIndex(k) if r >= c
-      e = block.coeffs(k)
+      i = block.basisIndices(k) if i == 0
+      r = block.rowIndices(k)
+      c = block.colIndices(k) if r >= c
+      e = block.coefficients(k)
     } yield ObjFCoordElement(j, r, c, e)
     val objACoord = for {
       (mat, shift) <- Seq(sdp.eqA, sdp.ineqA) zip shifts
@@ -130,12 +133,12 @@ object MosekFormat {
       e = mat(r, 0) if e != 0
     } yield ObjACoordElement(r + shift, e)
     val fCoord = for {
-      (block, j) <- sdp.blocks.zipWithIndex
+      (block, j) <- sdp.sdpCon.blocks.zipWithIndex
       k <- 0 until block.nEntries
-      i = block.basisIndex(k) if i > 0
-      r = block.rowIndex(k)
-      c = block.colIndex(k) if r >= c
-      e = block.coeffs(k)
+      i = block.basisIndices(k) if i > 0
+      r = block.rowIndices(k)
+      c = block.colIndices(k) if r >= c
+      e = block.coefficients(k)
     } yield FCoordElement(i - 1, j, r, c, -e)
     val aCoord = for {
       (mat, shift) <- Seq(sdp.eqA, sdp.ineqA) zip shifts
@@ -220,7 +223,7 @@ case class MosekFormat(direction: Direction,
 
 }
 
-case class MosekUnsupportedFormat(val sdp: SDP) extends TextFormat {
+case class MosekUnsupportedFormat(val sdp: Program) extends TextFormat {
   import sdp._
 
   val n: Int = obj.length - 1
@@ -270,22 +273,22 @@ case class MosekUnsupportedFormat(val sdp: SDP) extends TextFormat {
 
   object PSDConstraints {
 
-    def apply(blocks: Seq[SDP.Block]): PSDConstraints = {
+    def apply(blocks: Seq[Block]): PSDConstraints = {
       val hCoord = for {
         (block, i) <- blocks.zipWithIndex
         e <- 0 until block.nEntries
-        j = block.basisIndex(e) if j > 0
-        r = block.rowIndex(e)
-        c = block.colIndex(e) if c <= r
-        real = block.coeffs(e)
+        j = block.basisIndices(e) if j > 0
+        r = block.rowIndices(e)
+        c = block.colIndices(e) if c <= r
+        real = block.coefficients(e)
       } yield HCoordElement(i, j, r, c, real)
       val dCoord = for {
         (block, i) <- blocks.zipWithIndex
         e <- 0 until block.nEntries
-        j = block.basisIndex(e) if j == 0
-        r = block.rowIndex(e)
-        c = block.colIndex(e) if c <= r
-        real= block.coeffs(e)
+        j = block.basisIndices(e) if j == 0
+        r = block.rowIndices(e)
+        c = block.colIndices(e) if c <= r
+        real= block.coefficients(e)
       } yield DCoordElement(i, r, c, real)
       PSDConstraints(blocks.map(_.size), hCoord, dCoord)
     }
@@ -366,10 +369,10 @@ case class MosekUnsupportedFormat(val sdp: SDP) extends TextFormat {
       }
       writer.append("\n")
     }
-    if (blocks.nonEmpty) {
-      val psd = PSDConstraints(blocks)
+    if (sdpCon.blocks.nonEmpty) {
+      val psd = PSDConstraints(sdpCon.blocks)
       writer.append("PSDCON\n")
-      writer.append(s"${blocks.size}\n")
+      writer.append(s"${sdpCon.blocks.size}\n")
       psd.sizes.foreach { size => writer.append(s"$size\n") }
       writer.append("\n")
       // G_i = sum_j H_ij x_j + D_i

@@ -6,7 +6,7 @@ import spire.math.Rational
 
 import cyclo.Cyclo
 
-import net.alasc.symdpoly.{ComparisonOp, Direction, ScalarConstraint, Optimization, generic, valueOf}
+import net.alasc.symdpoly.evaluation.Evaluator
 
 trait EvaluatedPolyLike[
   E <: Evaluator.Aux[M] with Singleton,

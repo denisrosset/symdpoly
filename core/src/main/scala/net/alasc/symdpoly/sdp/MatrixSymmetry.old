@@ -1,0 +1,62 @@
+
+object MatrixSymmetry {
+
+  /** Extract the matrix symmetries from equivalence relations of an evaluator. */
+  def fromEquivalences[
+    M <: generic.MonoidDef with Singleton:Witness.Aux
+  ](seq: Seq[generic.Equivalence[M]], generatingSet: OrderedSet[M#Monomial]): MatrixSymmetry[_] =
+      intersectionMonoid(generatingSet.length).combineAll(seq.collect {
+        case e: generic.SymmetryEquivalence[M, typeG] => fromEquivalence(e, generatingSet)
+      })
+
+  /** Extract the matrix symmetries from a symmetry equivalence relation. */
+  def fromEquivalence[
+    M <: generic.MonoidDef with Singleton:Witness.Aux,
+    G
+  ](e: generic.SymmetryEquivalence[M, G], generatingSet: OrderedSet[M#Monomial]): MatrixSymmetry[G] = {
+    val grp: Grp[G] = e.grp
+    import e.action
+    import grp.{equ, group}
+    val representation: Morphism[G, GenPerm, Group] = Morphism[G, GenPerm, Group](g => genPerm(generatingSet, g))
+    MatrixSymmetry(generatingSet.length, grp, representation)
+  }
+
+  /** Constructs a representation of trivial symmetries (i.e. no symmetries at all). */
+  def trivial(size: Int): MatrixSymmetry[_]= intersectionMonoid(size).empty
+
+  type GenMatrixSymmetry = MatrixSymmetry[X] forSome { type X }
+  def directSumMonoid: Monoid[GenMatrixSymmetry] = new Monoid[GenMatrixSymmetry] {
+    def empty: GenMatrixSymmetry = trivial(0)
+    def combine(x: GenMatrixSymmetry, y: GenMatrixSymmetry): GenMatrixSymmetry = {
+      val xp = x.onPermutationGroup
+      val yp = y.onPermutationGroup
+      val n = xp.n + yp.n
+      val xg = xp.grp.generators.map(g => (g, Perm.id))
+      val yg = yp.grp.generators.map(g => (Perm.id, g))
+      val grp = Grp.fromGeneratorsAndOrder(xg ++ yg, xp.grp.order * yp.grp.order)
+      val ximgs = xp.generatorImages
+      val cj = GenPerm(Perm.fromImages((xp.n until n) ++ (0 until xp.n)), Phases.empty)
+      val cjinv = cj.inverse
+      val yimgs = yp.generatorImages.map(g => (cj |+| g |+| cjinv))
+      val morphism = Morphism.fromGeneratorImages(grp, ximgs ++ yimgs)
+      MatrixSymmetry(n, grp, morphism)
+    }
+  }
+
+  def intersectionMonoid(n: Int): Monoid[MatrixSymmetry[_]] = new Monoid[MatrixSymmetry[_]] {
+    def empty: MatrixSymmetry[_] = MatrixSymmetry(n, Grp.trivial[Unit], Morphism[Unit, GenPerm, Group](x => GenPerm.id))
+    def combine(x: MatrixSymmetry[_], y: MatrixSymmetry[_]): MatrixSymmetry[_] =
+      if (x.grp.isTrivial) y
+      else if (y.grp.isTrivial) x
+      else {
+        val s1 = x.onPermutationGroup
+        val s2 = y.onPermutationGroup
+        val generators = s1.grp.generators.map(p => (p, Perm.id)) ++ s2.grp.generators.map(p => (Perm.id, p))
+        val images = s1.generatorImages ++ s2.generatorImages
+        val grp = Grp.fromGeneratorsAndOrder(generators, s1.grp.order * s2.grp.order)
+        val representation = Morphism.fromGeneratorImages(grp, images)
+        MatrixSymmetry(n, grp, representation)
+      }
+  }
+
+}

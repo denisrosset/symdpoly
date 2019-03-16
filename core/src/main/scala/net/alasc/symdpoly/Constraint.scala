@@ -3,9 +3,9 @@ package net.alasc.symdpoly
 import shapeless.Witness
 import spire.syntax.involution._
 import spire.syntax.eq._
-import net.alasc.symdpoly.generic.{EvaluatedPoly, Evaluator}
+import net.alasc.symdpoly.generic.EvaluatedPoly
 
-sealed trait Constraint[+E <: Evaluator.Aux[M] with Singleton, M <: generic.MonoidDef with Singleton]
+sealed trait Constraint[+E <: evaluation.Evaluator.Aux[M] with Singleton, M <: generic.MonoidDef with Singleton]
 
 final case class OperatorConstraint[
   M <: generic.MonoidDef with Singleton:Witness.Aux
@@ -19,7 +19,7 @@ final case class OperatorConstraint[
 }
 
 final case class ScalarConstraint[
-  E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
+  E <: evaluation.Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
 ](lhs: EvaluatedPoly[E, M], op: ComparisonOp, rhs: EvaluatedPoly[E, M]) extends Constraint[E, M] {
   def E: E = valueOf[E]

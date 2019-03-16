@@ -1,0 +1,58 @@
+  /*
+    def inPlaceNormalForm(word: MutableWord[Free], start: Int = 0): Boolean =
+    if (word.isZero) false else {
+      @tailrec def rec(i: Int, n: Int, modified: Boolean): Boolean =
+        if (i < 0)
+          rec(0, n, modified)
+        else if (i >= n - 1) {
+          word.length = n
+          modified
+        } else {
+          val tailSize = n - i - 2
+          val oi1 = word.indices(i)
+          val oi2 = word.indices(i + 1)
+          pairRules.rule(oi1, oi2) match {
+            case PairRules.RemoveBoth => // discard x_i and x_i+1
+              Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places the tail elements
+              rec(i - 1, n - 2, true) // go back one element to check for possible new substitutions
+            case PairRules.KeepFirst =>
+              Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize) // move back one place the tail elements
+              rec(i, n - 1, true)
+            case PairRules.Swap =>
+              word.swap(i, i + 1) // swap x_i and x_i+1
+              rec(i - 1, n, true) // go back one element to check for possible new substitutions
+            case PairRules.SetToZero =>
+              // the monomial was not zero before
+              word.setToZero()
+              true
+            case PairRules.Preserve => rec(i + 1, n, modified) // both elements are good, move to next
+            case PairRules.Custom =>
+              val result = pairRules.custom(Free.opFromIndex(oi1) -> Free.opFromIndex(oi2))
+              if (result.isZero) {
+                word.setToZero()
+                true
+              } else {
+                word *= result.phase // multiply phase
+                result.length match {
+                  case 0 => // as in PairRules.RemoveBoth
+                    Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places
+                    rec(i - 1, n - 2, true)
+                  case 1 =>
+                    Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize)
+                    word.indices(i) = result.data.indices(0)
+                    rec(i - 1, n - 1, true)
+                  case 2 =>
+                    word.indices(i) = result.data.indices(0)
+                    word.indices(i + 1) = result.data.indices(1)
+                    rec(i - 1, n, true)
+                  case _ =>
+                    throw new IllegalArgumentException(s"Rules cannot grow the word size")
+                }
+
+              }
+          }
+        }
+      rec(start, word.length, false)
+    }
+
+   */

@@ -13,7 +13,7 @@ import net.alasc.partitions.Partition
 import cyclo.Cyclo
 import spire.syntax.cfor._
 
-import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
+import net.alasc.symdpoly.math.{GenPerm, GrpMonomialRepresentation, Phase, PhasedInt}
 import metal.syntax._
 
 /** Configuration matrix that encodes a matrix invariant under a monomial group representation.
@@ -149,6 +149,11 @@ object Ptr {
 
 object Configuration {
 
+  /** Returns the configuration corresponding to matrices that are invariant under the given monomial representation. */
+  def fromGrpMonomialRepresentation[G](gm: GrpMonomialRepresentation[G]): Configuration =
+    Configuration(gm.n, gm.generatorImages)
+
+  /** Returns a trivial configuration, i.e. one where all matrix cells are independent. */
   def trivial(n: Int): Configuration = {
     val orbitStart = new Array[Int](n * n)
     val orbitNext = new Array[Int](n * n)

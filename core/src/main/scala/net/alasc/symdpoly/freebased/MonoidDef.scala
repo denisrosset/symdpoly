@@ -25,20 +25,25 @@ import cats.instances.option._
 
 import net.alasc.util._
 import net.alasc.algebra.PermutationAction
+import net.alasc.symdpoly.evaluation
+import net.alasc.symdpoly.evaluation.{AdjointEquivalence, Evaluator}
 import net.alasc.symdpoly.util.OrderedSet
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
   * this; then code can be reused between free monoids and their quotients.
   */
-abstract class MonoidDef extends generic.MonoidDef { self =>
+abstract class MonoidDef extends generic.MonoidDef {
+  self =>
 
   //region Members to implement
 
   /** Free monoid [[free.MonoidDef]] on which this monoid is based. */
-  type Free <: free.MonoidDef with Singleton { type Free = self.Free }
+  type Free <: free.MonoidDef with Singleton {type Free = self.Free}
+
   /** Free monoid instance. */
   def Free: Free
+
   /** Witness of the free monoid instance. */
   implicit def witnessFree: Witness.Aux[Free] = Free.witness
 
@@ -65,8 +70,11 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
   private[this] val monoInstances: Mono.FreeBasedMonoInstances[self.type, Free] = new Mono.FreeBasedMonoInstances[self.type, Free]
 
   def monoMultiplicativeBinoid: MultiplicativeBinoid[Monomial] = monoInstances
+
   def monoInvolution: Involution[Monomial] = monoInstances
+
   def monoOrder: Order[Monomial] = monoInstances
+
   val monoPhased: Phased[Monomial] = new Mono.FreeBasedMonoPhased
   val monoGenPermAction: Action[Monomial, GenPerm] = new Mono.FreeBasedMonoGenPermAction
   val monoClassTag: ClassTag[Monomial] = implicitly
@@ -87,14 +95,20 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
   // Polynomial typeclass instances
 
   private[this] val polyInstances: PolyInstances[self.type, Free] = new PolyInstances[self.type, Free]
+
   def polyAssociativeAlgebra: FieldAssociativeAlgebra[Polynomial, Cyclo] = polyInstances
+
   def polyInvolution: Involution[Polynomial] = polyInstances
+
   def polyEq: Eq[Polynomial] = polyInstances
+
   val polyGenPermAction: Action[Poly[self.type, Free], GenPerm] = new Poly.PolyGenPermAction
   val polyClassTag: ClassTag[Polynomial] = implicitly
 
   def constant(i: Int): Polynomial = polyAssociativeAlgebra.fromInt(i)
+
   def constant(r: Rational): Polynomial = polyAssociativeAlgebra.timesl(r, polyAssociativeAlgebra.one)
+
   def constant(c: Cyclo): Polynomial = polyAssociativeAlgebra.timesl(c, polyAssociativeAlgebra.one)
 
   //endregion
@@ -124,36 +138,6 @@ abstract class MonoidDef extends generic.MonoidDef { self =>
   def symmetryGroup: Grp[freebased.Permutation[self.type, Free]]
 
   //endregion
-
-  override def evaluator(equivalences0: generic.Equivalence[self.type]*): generic.Evaluator.Aux[self.type] = {
-    val transformed: Vector[Option[freebased.Equivalence[self.type, Free]]] = equivalences0.toVector.map {
-      case freeBased: freebased.Equivalence[self.type, Free] =>
-        Some(freeBased)
-      case adjoint: generic.AdjointEquivalence[self.type] =>
-        Some(new freebased.AdjointEquivalence[self.type, Free])
-      case symmetry: generic.SymmetryEquivalence[self.type, groupType] if symmetry.action.isInstanceOf[PermutationMonoAction[self.type, Free]] =>
-        val grp = symmetry.grp.asInstanceOf[Grp[freebased.Permutation[self.type, Free]]]
-        Some(new freebased.SymmetryEquivalence(grp))
-      case _ =>
-        None
-    }
-    val freeBasedEquivalences: Option[Vector[freebased.Equivalence[self.type, Free]]] = transformed.sequence
-    freeBasedEquivalences match {
-      case Some(freeBasedEqs) => new {
-        val equivalences: Seq[generic.Equivalence[self.type]] = freeBasedEqs
-        implicit val witnessMono: Witness.Aux[self.type] = self.witness
-      } with generic.Evaluator {
-        type Mono = self.type
-      }
-      case None => new {
-        val equivalences: Seq[generic.Equivalence[self.type]] = equivalences0
-        implicit val witnessMono: Witness.Aux[self.type] = self.witness
-      } with generic.Evaluator {
-        type Mono = self.type
-      }
-    }
-    // freebased.Evaluator[self.type, Free](equivalences)
-  }
 
 }
 

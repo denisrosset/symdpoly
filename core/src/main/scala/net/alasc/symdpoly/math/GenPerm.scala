@@ -1,4 +1,5 @@
-package net.alasc.symdpoly.math
+package net.alasc.symdpoly
+package math
 
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp, GrpGroup}
@@ -9,10 +10,24 @@ import spire.algebra._
 import spire.math.SafeLong
 import spire.syntax.eq._
 import scala.annotation.tailrec
+
+import spire.syntax.cfor._
+
+import syntax.phased._
+import spire.syntax.action._
+
 import scalin.immutable.csc._
+import spire.std.double._
+import spire.std.int._
+
 import scalin.immutable.{Mat, Vec}
+
 import net.alasc.syntax.all._
 import cyclo.Cyclo
+import scalin.Pivot
+
+import net.alasc.symdpoly.algebra.{Morphism, Phased}
+import net.alasc.symdpoly.util.OrderedSet
 
 /** A generalized permutation is an element of the generalized symmetric group, and combines
   * a permutation and a multiplication by a diagonal matrix whose entries are rational roots
@@ -71,11 +86,69 @@ case class GenPerm(val perm: Perm, val phases: Phases) { lhs =>
     GenPerm(Perm.fromImages(permImages), phases.truncate(n))
   }
 
-  def toMatrix(n: Int): Mat[Cyclo] = Mat.sparse(n, n)(Vec.tabulate(n)(identity), Vec.fromSeq(perm.images(n)), Vec.tabulate(n)(i => phases.phaseFor(perm.image(i))))
-
 }
 
 object GenPerm {
+
+  /** Computes the generalized permutation corresponding to the action of an element of type "G" on the domain "set".
+    *
+    * @param set Ordered set of domain elements, containing only canonical representatives
+    * @param g   Group element
+    */
+  def fromActionOnOrderedSet[A:Order:Phased, G](set: OrderedSet[A], g: G)(implicit action: Action[A, G]): GenPerm = {
+    import scala.collection.mutable.{HashMap => MMap}
+    val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
+    val n = set.length
+    val permImages = new Array[Int](n)
+    cforRange(0 until n) { i =>
+      val image = set(i) <|+| g
+      val canonical = image.phaseCanonical
+      val phase = image.phaseOffset
+      val permImage = set.indexOf(canonical)
+      permImages(i) = permImage
+      phaseMap(permImage) = phase
+    }
+    val perm = Perm.fromImages(permImages)
+    val phases = Phases(phaseMap.toVector: _*)
+    GenPerm(perm, phases)
+  }
+
+  /** Natural representation of complex generalized permutations. */
+  def naturalRepresentation(n: Int): Morphism[GenPerm, Mat[Cyclo], Group] = new Morphism[GenPerm, Mat[Cyclo], Group] {
+    import scalin.immutable.csc._
+    def S: Group[GenPerm] = implicitly
+    val T: Group[Mat[Cyclo]] = math.matGroup[Cyclo](n)
+    def apply(s: GenPerm): Mat[Cyclo] =
+      Mat.sparse(n, n)(Vec.tabulate(n)(identity), Vec.fromSeq(s.perm.images(n)), Vec.tabulate(n)(i => s.phases.phaseFor(s.perm.image(i))))
+  }
+
+  /** Natural real representation of generalized permutations with real phases. */
+  def restrictedRealNaturalRepresentation(n: Int): Morphism[GenPerm, Mat[Double], Group] = new Morphism[GenPerm, Mat[Double], Group] {
+    import scalin.immutable.csc._
+    def S: Group[GenPerm] = implicitly
+    val T: Group[Mat[Double]] = math.matGroup[Double](n)
+    def apply(s: GenPerm): Mat[Double] =
+        Mat.sparse(n, n)(Vec(s.perm.images(n): _*), Vec(0 until n: _*), Vec.tabulate(n)(i => s.phases.phaseFor(s.perm.image(i)).toInt))
+  }
+
+  /** Natural real representation of generalized permutation by encoding the complex coefficients into [real, -imag; imag, real] blocks. */
+  def realNaturalRepresentation(n: Int): Morphism[GenPerm, Mat[Double], Group] = new Morphism[GenPerm, Mat[Double], Group] {
+    import scalin.immutable.csc._
+    def S: Group[GenPerm] = implicitly
+    val T: Group[Mat[Double]] = math.matGroup[Double](2 * n)
+    def apply(s: GenPerm): Mat[Double] = {
+      val triplets = (0 until n * 2).flatMap { i =>
+        val r = s.perm.image(i)
+        val c = i
+        val e = phaseValue(s.phases.phaseFor(r))
+        Seq((r * 2, c * 2, e.real), (r * 2, c * 2 + 1, -e.imag),
+          (r * 2 + 1, c * 2, e.imag), (r * 2 + 1, c * 2 + 1, e.real)
+        ).filterNot(_._3 == 0)
+      }
+      val (rows, cols, coeffs) = triplets.unzip3
+      Mat.sparse(n * 2, n * 2)(Vec(rows: _*), Vec(cols: _*), Vec(coeffs: _*))
+    }
+  }
 
   /** Identity element. */
   val id: GenPerm = GenPerm(Perm.id, Phases.empty)

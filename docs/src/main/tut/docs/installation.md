@@ -23,11 +23,7 @@ Start with an empty folder, and add the following `build.sbt` file in it.
 ```scala
 resolvers += Resolver.bintrayRepo("denisrosset", "maven")
 
-libraryDependencies ++= Seq(
-  "net.alasc" %% "symdpoly-core"    % "{{site.symdpolyVersion}}",
-  "net.alasc" %% "symdpoly-joptimizer"    % "{{site.symdpolyVersion}}",
-  "net.alasc" %% "symdpoly-matlab"    % "{{site.symdpolyVersion}}"
-)
+libraryDependencies += "net.alasc" %% "symdpoly-core"    % "{{site.symdpolyVersion}}"
 ```
 
 Add now a single file `Test.scala` to your project:

@@ -11,12 +11,15 @@ import scala.util.hashing.MurmurHash3
   *
   * Encoding is as follows:
   *
-  * elements(0) = N is the number of elements
+  * encoding(0) = N is the number of elements
   * and for i = 0...N, we have
-  * elements(2*i + 1) the index
-  * elements(2*i + 2) the phase encoding
+  * encoding(2*i + 1) the index
+  * encoding(2*i + 2) the phase encoding
   */
-class Phases(val elements: Array[Int]) extends AnyVal { lhs =>
+class Phases(val encoding: Array[Int]) extends AnyVal { lhs =>
+
+  /** Returns all elements as a map from Int to Phase. */
+  def elements: Map[Int, Phase] = Map(Seq.tabulate(size)(i => (key(i), value(i))): _*)
 
   /** Returns the least common multiple of the phase denominators. */
   def commonRootOrder: Int =
@@ -52,22 +55,22 @@ class Phases(val elements: Array[Int]) extends AnyVal { lhs =>
   def hash: Int = {
     var h = MurmurHash3.arraySeed
     cforRange(0 until size) { i =>
-      h = MurmurHash3.mix(h, elements(2*i + 1))
-      h = MurmurHash3.mix(h, elements(2*i + 2))
+      h = MurmurHash3.mix(h, encoding(2*i + 1))
+      h = MurmurHash3.mix(h, encoding(2*i + 2))
     }
     MurmurHash3.finalizeHash(h, size)
   }
 
-  def size: Int = elements(0)
+  def size: Int = encoding(0)
   def isEmpty: Boolean = size == 0
   def key(i: Int): Int = {
     require(i >= 0 && i < size)
-    elements(2*i + 1)
+    encoding(2*i + 1)
   }
   def value(i: Int): Phase = new Phase(valueEncoding(i))
   def valueEncoding(i: Int): Int = {
     require(i >= 0 && i < size)
-    elements(2*i + 2)
+    encoding(2*i + 2)
   }
   def internal_===(rhs: Phases): Boolean = (lhs.size == rhs.size) && {
     @tailrec def check(i: Int): Boolean =
@@ -206,7 +209,7 @@ class Phases(val elements: Array[Int]) extends AnyVal { lhs =>
         }
       val newSize = findNewSize(0, n - 1)
       val newElements = new Array[Int](2*newSize + 1)
-      System.arraycopy(elements, 0, newElements, 0, 2*newSize + 1)
+      System.arraycopy(encoding, 0, newElements, 0, 2*newSize + 1)
       newElements(0) = newSize
       new Phases(newElements)
     }

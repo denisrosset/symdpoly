@@ -11,6 +11,7 @@ import spire.algebra._
 import spire.math.Rational
 
 import net.alasc.finite.{FaithfulActionBuilder, FaithfulPermutationActionBuilder, Grp}
+import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator}
 
 /** Describes a generic monomial monoid. */
 abstract class MonoidDef { self =>
@@ -101,9 +102,13 @@ abstract class MonoidDef { self =>
   /** Class tag for permutations. */
   def permutationClassTag: ClassTag[Permutation]
 
-  /** Default evaluator without additional equivalence relations. */
-  def evaluator(equivalences0: Equivalence[self.type]*): Evaluator.Aux[self.type] = new generic.Evaluator { evaluator =>
-    def equivalences: Seq[Equivalence[self.type]] = equivalences0
+  /** Constructs an evaluator over this monoid without enforced symmetries. */
+  def evaluator(equivalence: Equivalence[self.type]): Evaluator.Aux[self.type] = evaluator(equivalence, Grp.trivial[Permutation])
+
+  /** Constructs an evaluator over this monoid with the given symmetry enforced. */
+  def evaluator(equivalence0: Equivalence[self.type], symmetryGroup0: Grp[Permutation]): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
+    val equivalence: Equivalence[self.type] = equivalence0
+    val symmetryGroup: Grp[Permutation] = symmetryGroup0
     type Mono = self.type
     implicit val witnessMono: Witness.Aux[self.type] = self.witness
   }

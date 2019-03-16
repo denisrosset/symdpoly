@@ -1,5 +1,6 @@
 package net.alasc.symdpoly
 package quotient
+
 import net.alasc.algebra.PermutationAction
 import net.alasc.symdpoly.free.{MutablePoly, MutableWord}
 import spire.syntax.cfor._
@@ -8,7 +9,6 @@ import scala.annotation.tailrec
 import net.alasc.bsgs.UnorderedPartitionStabilizer
 import net.alasc.finite.Grp
 import net.alasc.partitions.Partition
-import net.alasc.symdpoly
 import net.alasc.symdpoly.math.{GenPerm, Phase}
 import net.alasc.util._
 import spire.syntax.eq._
@@ -16,12 +16,53 @@ import cats.instances.vector._
 import spire.syntax.group._
 import cats.instances.option._
 import cats.syntax.traverse._
-
+import syntax.phased._
 import net.alasc.symdpoly.util.{OrderedSet, SparseTrie}
 import shapeless.Witness
 import spire.util.Opt
-
+import spire.syntax.action._
+import net.alasc.util._
 import net.alasc.symdpoly.freebased.{Mono, Poly}
+import net.alasc.perms.default._
+
+class Symmetries[
+  M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoidDef.Aux[F] with Singleton
+] {
+
+  def M: M = valueOf[M]
+
+  def F: F = M.Free
+
+  implicit def witnessF: Witness.Aux[F] = M.witnessFree
+
+  val lhs = F.opIndexMap.elements.map(_.toMono) ++ M.rewritingRules.entries.map { case (key, _) => new Mono[F, F](key: MutableWord[F]) }
+  val orderedSet = symmetries.Orbit.allElements(lhs, F.symmetryGroup.generators)
+  val normalForms = orderedSet.toIndexedSeq.map(M.quotient(_))
+  val partition = Partition.fromSeq(normalForms)
+
+  /** Permutation action of free permutations on the set of monomials described by orderedSet. */
+  val action = new PermutationAction[freebased.Permutation[F, F]] {
+    def isFaithful: Boolean = true
+    def findMovedPoint(g: freebased.Permutation[F, F]): NNOption =
+      g.genPerm.largestMovedPoint.mapInt( i => orderedSet.indexOf(F.opIndexMap.elements(i).toMono)*M.cyclotomicOrder)
+    def movedPointsUpperBound(g: freebased.Permutation[F, F]): NNOption = NNSome(orderedSet.length * M.cyclotomicOrder - 1)
+    def actl(g: freebased.Permutation[F, F], i: Int): Int = actr(i, g.inverse)
+    def actr(i: Int, g: freebased.Permutation[F, F]): Int = {
+      val preimage = orderedSet(i / M.cyclotomicOrder) <* Phase(i % M.cyclotomicOrder, M.cyclotomicOrder)
+      val image = preimage <|+| g
+      orderedSet.indexOf(image.phaseCanonical) * M.cyclotomicOrder + image.phaseOffset.numeratorIn(M.cyclotomicOrder)
+    }
+  }
+
+  def isGroupCompatible(grp: Grp[F#Permutation]): Boolean = grp.generators.forall(UnorderedPartitionStabilizer.partitionInvariantUnder(partition, action, _))
+
+  def compatibleSubgroup(grp: Grp[F#Permutation]): Grp[M#Permutation] = {
+    val subgroup: Grp[F#Permutation] = if (isGroupCompatible(grp)) grp else grp.unorderedPartitionStabilizer(action, partition)
+    M.groupInQuotientNC(subgroup)
+  }
+
+}
 
 /** Base class for quotient monoids. */
 abstract class MonoidDef extends freebased.MonoidDef {
@@ -33,60 +74,16 @@ abstract class MonoidDef extends freebased.MonoidDef {
 
   def maximalLhsLength: Int
 
-  /** Helper to describe the symmetries that are compatible with the quotient monoid. */
-  object Symmetries {
-
-    private[this] val m = Free.cyclotomicOrder
-    private[this] val n = Free.nOperators
-    private[this] val phases: Vector[Phase] = Vector.tabulate(m)(k => Phase(k, m))
-    private[this] def op(i: Int): Free#Op = Free.opFromIndex(i)
-    private[this] def monoFromOpIndex(i: Int): Mono[Free, Free] = Mono(op(i))
-    // TODO: support more complicated rewriting rules
-
-    /** Ordered set of all monomials of degree <= 2, with all possible phases. */
-    private[this] val monoSet: OrderedSet[Mono[Free, Free]] = {
-      val monos1: Vector[Mono[Free, Free]] = Vector.tabulate(n)(i => monoFromOpIndex(i))
-      val monos2: Vector[Mono[Free, Free]] = Vector.tabulate(n, n)((i, j) => Mono(op(i), op(j)) ).flatten
-      val monos: Vector[Mono[Free, Free]] = Vector(Mono.one[Free, Free]) ++ (monos1 ++ monos2).flatMap(m => phases.map(p => m * p))
-      OrderedSet.fromUnique(monos)
-    }
-
-    /** Permutation action of free permutations on the set of monomials described by monoSet . */
-    val action = new PermutationAction[freebased.Permutation[Free, Free]] {
-      def isFaithful: Boolean = true
-      def findMovedPoint(g: freebased.Permutation[Free, Free]): NNOption = g.genPerm.largestMovedPoint match {
-        case NNOption(i) => NNSome(monoSet.indexOf(monoFromOpIndex(i)))
-        case _ => NNNone
-      }
-      def movedPointsUpperBound(g: freebased.Permutation[Free, Free]): NNOption = NNSome(monoSet.length - 1)
-      def actl(g: freebased.Permutation[Free, Free], i: Int): Int = actr(i, g.inverse)
-      def actr(i: Int, g: freebased.Permutation[Free, Free]): Int = monoSet.indexOf(Free.monoGenPermAction.actr(monoSet(i), g.genPerm)) // TODO: replace
-    }
-
-    /** Partition given by equivalent monomials in monoSet. */
-    val partition = {
-      val normalForms = monoSet.iterator.map(monoidDef.quotient(_)).toVector
-      Partition.fromSeq(normalForms)
-    }
-
-  }
+  private[this] lazy val symmetries: Symmetries[this.type, Free] = new Symmetries[this.type, Free]
 
   /** Returns the subgroup of a group of permutations on the free variables, such that it is the maximal subgroup
     * compatible with the quotient structure. */
-  def groupInQuotient(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] = {
-    import net.alasc.perms.default._
-    grp.generators.toVector.map(quotient).sequence match {
-      case Some(mappedGenerators) => Grp.fromGeneratorsAndOrder(mappedGenerators, grp.order)
-      case None => groupInQuotient(grp.unorderedPartitionStabilizer(Symmetries.action, Symmetries.partition))
-    }
-  }
+  def groupInQuotient(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] = symmetries.compatibleSubgroup(grp)
 
   /** Translates a group acting on the free variables into a group acting on the equivalence classes on the quotient
     * monoid, assuming that the group is compatible without verification. */
-  def groupInQuotientNC(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] = {
-    import net.alasc.perms.default._
+  def groupInQuotientNC(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] =
     Grp.fromGeneratorsAndOrder(grp.generators.map(quotientNC), grp.order)
-  }
 
   /** Symmetry group that preserves the quotient structure, with elements that act by permuting operator variables,
     * possibly applying a phase. */
@@ -100,10 +97,10 @@ abstract class MonoidDef extends freebased.MonoidDef {
   /** Returns the permutation of the quotient monoid equivalence classes that correspond to the given free permutation
     * when it is compatible, or returns None otherwise.
     */
-  def quotient(permutation: Free#Permutation): Option[freebased.Permutation[monoidDef.type, Free]] =
-    if (UnorderedPartitionStabilizer.partitionInvariantUnder(Symmetries.partition, Symmetries.action, permutation))
-      Some(new freebased.Permutation[monoidDef.type, Free](permutation.genPerm))
-    else None
+  def quotient(permutation: Free#Permutation): Option[freebased.Permutation[monoidDef.type, Free]] = {
+    import symmetries.{partition, action}
+    if (UnorderedPartitionStabilizer.partitionInvariantUnder(partition, action, permutation)) Some(quotientNC(permutation)) else None
+  }
 
   /** Returns the representative class of the given free monomial. */
   def quotient(word: Mono[Free, Free]): Monomial = {
@@ -155,64 +152,6 @@ abstract class MonoidDef extends freebased.MonoidDef {
       rec(0, false)
     }
 
-  /*
-    def inPlaceNormalForm(word: MutableWord[Free], start: Int = 0): Boolean =
-    if (word.isZero) false else {
-      @tailrec def rec(i: Int, n: Int, modified: Boolean): Boolean =
-        if (i < 0)
-          rec(0, n, modified)
-        else if (i >= n - 1) {
-          word.length = n
-          modified
-        } else {
-          val tailSize = n - i - 2
-          val oi1 = word.indices(i)
-          val oi2 = word.indices(i + 1)
-          pairRules.rule(oi1, oi2) match {
-            case PairRules.RemoveBoth => // discard x_i and x_i+1
-              Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places the tail elements
-              rec(i - 1, n - 2, true) // go back one element to check for possible new substitutions
-            case PairRules.KeepFirst =>
-              Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize) // move back one place the tail elements
-              rec(i, n - 1, true)
-            case PairRules.Swap =>
-              word.swap(i, i + 1) // swap x_i and x_i+1
-              rec(i - 1, n, true) // go back one element to check for possible new substitutions
-            case PairRules.SetToZero =>
-              // the monomial was not zero before
-              word.setToZero()
-              true
-            case PairRules.Preserve => rec(i + 1, n, modified) // both elements are good, move to next
-            case PairRules.Custom =>
-              val result = pairRules.custom(Free.opFromIndex(oi1) -> Free.opFromIndex(oi2))
-              if (result.isZero) {
-                word.setToZero()
-                true
-              } else {
-                word *= result.phase // multiply phase
-                result.length match {
-                  case 0 => // as in PairRules.RemoveBoth
-                    Array.copy(word.indices, i + 2, word.indices, i, tailSize) // move back two places
-                    rec(i - 1, n - 2, true)
-                  case 1 =>
-                    Array.copy(word.indices, i + 2, word.indices, i + 1, tailSize)
-                    word.indices(i) = result.data.indices(0)
-                    rec(i - 1, n - 1, true)
-                  case 2 =>
-                    word.indices(i) = result.data.indices(0)
-                    word.indices(i + 1) = result.data.indices(1)
-                    rec(i - 1, n, true)
-                  case _ =>
-                    throw new IllegalArgumentException(s"Rules cannot grow the word size")
-                }
-
-              }
-          }
-        }
-      rec(start, word.length, false)
-    }
-
-   */
 }
 
 object MonoidDef {

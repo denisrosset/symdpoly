@@ -2,6 +2,7 @@ package net.alasc.symdpoly.examples.quantum
 
 import net.alasc.symdpoly._
 import net.alasc.symdpoly.defaults._
+import net.alasc.symdpoly.sdp.Relaxation
 
 /** The I3322 inequality in the scenario with two parties, three measurement settings and binary outcomes. */
 object I3322 {
@@ -80,5 +81,6 @@ object I3322App extends App {
     val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
     relaxation.toSDP.mosek.writeFile(s"i3322_$level.cbf")
     relaxation.toSDP.sdpa.writeFile(s"i3322_$level.dat-s")
+    relaxation.toSDP.scs.writeFile(s"i3322_${level}_scs.mat")
   }
 }
