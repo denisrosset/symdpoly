@@ -63,6 +63,8 @@ case class Program(direction: Direction, obj: Vec[Double], sdpCon: SDPConstraint
 
   def scs: matlab.SCSMatlabFormat = matlab.SCSMatlabFormat(this)
 
+  def sedumi: matlab.SedumiMatlabFormat = matlab.SedumiMatlabFormat(this)
+
   def jOptimizer: joptimizer.JOptimizerInstance = joptimizer.JOptimizerInstance(this)
 
 }
