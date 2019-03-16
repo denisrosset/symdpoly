@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html"><span class="name">root</span></a>
+        <a title="This is the API documentation for the SymDPoly polynomial optimization framework." href="../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <p class="shortcomment cmt">This is the API documentation for the SymDPoly polynomial optimization framework.</p><div class="fullcomment"><div class="comment cmt"><h4> SymDPoly </h4><p>This is the API documentation for the SymDPoly polynomial optimization framework.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.net" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="net"></a><a id="net:net"></a>
       <span class="permalink">
@@ -134,25 +134,37 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
+                        <a class="object" href="InjectiveMorphism$.html" title=""></a>
+                        <a class="trait" href="InjectiveMorphism.html" title=""></a>
+                        <a href="InjectiveMorphism.html" title="">InjectiveMorphism</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="Isomorphism$.html" title=""></a>
+                        <a class="trait" href="Isomorphism.html" title=""></a>
+                        <a href="Isomorphism.html" title="">Isomorphism</a>
+                      </li><li class="current-entities indented4">
                         <a class="object" href="Morphism$.html" title=""></a>
                         <a class="trait" href="Morphism.html" title="Describes a map S =&gt; T that preserves the algebraic structure F[_]"></a>
                         <a href="Morphism.html" title="Describes a map S =&gt; T that preserves the algebraic structure F[_]">Morphism</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="MorphismFromGeneratorImages$.html" title=""></a>
-                        <a class="trait" href="MorphismFromGeneratorImages.html" title=""></a>
-                        <a href="MorphismFromGeneratorImages.html" title="">MorphismFromGeneratorImages</a>
+                        <a class="trait" href="MorphismFromGeneratorImages.html" title="Describes the ability to construct a morphism from images of the generators."></a>
+                        <a href="MorphismFromGeneratorImages.html" title="Describes the ability to construct a morphism from images of the generators.">MorphismFromGeneratorImages</a>
                       </li><li class="current-entities indented4">
-                        <span class="separator"></span>
+                        <a class="object" href="MultiplicativeBinoid$.html" title=""></a>
                         <a class="trait" href="MultiplicativeBinoid.html" title="Describes a multiplicative monoid that has a absorbing/zero element."></a>
                         <a href="MultiplicativeBinoid.html" title="Describes a multiplicative monoid that has a absorbing/zero element.">MultiplicativeBinoid</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="NiceVectorSpace$.html" title=""></a>
+                        <a class="trait" href="NiceVectorSpace.html" title="A nice vector space:"></a>
+                        <a href="NiceVectorSpace.html" title="A nice vector space:">NiceVectorSpace</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="Phased$.html" title=""></a>
                         <a class="trait" href="" title="Describes an element with a phase."></a>
                         <a href="" title="Describes an element with a phase.">Phased</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="SurjectiveMorphism$.html" title=""></a>
-                        <a class="trait" href="SurjectiveMorphism.html" title=""></a>
-                        <a href="SurjectiveMorphism.html" title="">SurjectiveMorphism</a>
+                        <a class="trait" href="SurjectiveMorphism.html" title="Describes a morphism S =&gt; T that is also surjective, i.e."></a>
+                        <a href="SurjectiveMorphism.html" title="Describes a morphism S =&gt; T that is also surjective, i.e.">SurjectiveMorphism</a>
                       </li>
               </ul>
             </div>
@@ -178,7 +190,7 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Phased</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="spire.algebra.MultiplicativeAction">MultiplicativeAction</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a>]</span>
+        <span class="name">Phased</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="spire.algebra.MultiplicativeAction">MultiplicativeAction</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a>]</span>
       </span>
       </h4>
 
@@ -186,21 +198,21 @@
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Describes an element with a phase.
 Each element a \in A is associated to an equivalence class (up to phase) written
 [a] = {a &lt;* phase | phase \in AllPhases }.</p><p>Then phaseCanonical(a) returns a canonical representative of the equivalence class [a],
-and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such that</p><p>a === phaseCanonical(a) &lt;* phaseOffset(a)</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/algebra/Phased.scala" target="_blank">Phased.scala</a></dd></dl><div class="toggleContainer block">
+and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such that</p><p>a === phaseCanonical(a) &lt;* phaseOffset(a)</p><p>When Involution[A] exists, we must have a.adjoint.phaseCanonical === a.phaseCanonical.adjoint.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/algebra/Phased.scala" target="_blank">Phased.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="spire.algebra.MultiplicativeAction">MultiplicativeAction</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="spire.algebra.MultiplicativeAction">MultiplicativeAction</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a>], <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">
               Known Subclasses
             </span>
-            <div class="subClasses hiddenContent"><a href="../generic/FreeBasedMono$$MonoPhased.html" class="extype" name="net.alasc.symdpoly.generic.FreeBasedMono.MonoPhased">MonoPhased</a></div>
+            <div class="subClasses hiddenContent"><a href="../freebased/Mono$$FreeBasedMonoPhased.html" class="extype" name="net.alasc.symdpoly.freebased.Mono.FreeBasedMonoPhased">FreeBasedMonoPhased</a></div>
           </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
                 <span class="toggle diagram-link">
                   Type Hierarchy
                 </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 177.00 155.00" height="155pt" width="177pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 151)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-151 173,-151 173,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this trait" id="graph1_0"><g id="a_this trait|graph1_0"><a xlink:title="net.alasc.symdpoly.algebra.Phased (this trait)" xlink:href="#inheritance-diagram"><path d="M119.6667,-86C119.6667,-86 49.3333,-86 49.3333,-86 45.1667,-86 41,-81.8333 41,-77.6667 41,-77.6667 41,-69.3333 41,-69.3333 41,-65.1667 45.1667,-61 49.3333,-61 49.3333,-61 119.6667,-61 119.6667,-61 123.8333,-61 128,-65.1667 128,-69.3333 128,-69.3333 128,-77.6667 128,-77.6667 128,-81.8333 123.8333,-86 119.6667,-86" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-80.5" x="51.5" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-71.1" x="72.5" text-anchor="start">Phased[A]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="net.alasc.symdpoly.generic.FreeBasedMono.MonoPhased" xlink:href="../generic/FreeBasedMono$$MonoPhased.html#inheritance-diagram"><path d="M136.6667,-25C136.6667,-25 32.3333,-25 32.3333,-25 28.1667,-25 24,-20.8333 24,-16.6667 24,-16.6667 24,-8.3333 24,-8.3333 24,-4.1667 28.1667,0 32.3333,0 32.3333,0 136.6667,0 136.6667,0 140.8333,0 145,-4.1667 145,-8.3333 145,-8.3333 145,-16.6667 145,-16.6667 145,-20.8333 140.8333,-25 136.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="34.5" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="55.5" text-anchor="start">MonoPhased[M, F]</text></a></g></g><!-- node0&#45;&gt;node1 --><g class="edge inheritance" id="graph1_0_1"><g id="a_inheritance|graph1_0_1"><a xlink:title="MonoPhased[M, F] is a subtype of Phased[A]"><path d="M84.5,-53.7386C84.5,-44.3393 84.5,-33.3803 84.5,-25.123" stroke="#d4d4d4" fill="none"></path><polygon points="82.0501,-53.8607 84.5,-60.8608 86.9501,-53.8608 82.0501,-53.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node trait" id="graph1_2"><g id="a_trait|graph1_2"><a xlink:title="spire.algebra.MultiplicativeAction"><path d="M160.6667,-147C160.6667,-147 8.3333,-147 8.3333,-147 4.1667,-147 0,-142.8333 0,-138.6667 0,-138.6667 0,-130.3333 0,-130.3333 0,-126.1667 4.1667,-122 8.3333,-122 8.3333,-122 160.6667,-122 160.6667,-122 164.8333,-122 169,-126.1667 169,-130.3333 169,-130.3333 169,-138.6667 169,-138.6667 169,-142.8333 164.8333,-147 160.6667,-147" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-141.5" x="10.5" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-132.1" x="31.5" text-anchor="start">MultiplicativeAction[A, Phase]</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="Phased[A] is a subtype of MultiplicativeAction[A, Phase]"><path d="M84.5,-114.7386C84.5,-105.3393 84.5,-94.3803 84.5,-86.123" stroke="#d4d4d4" fill="none"></path><polygon points="82.0501,-114.8607 84.5,-121.8608 86.9501,-114.8608 82.0501,-114.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 177.00 155.00" height="155pt" width="177pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 151)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-151 173,-151 173,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this trait" id="graph1_0"><g id="a_this trait|graph1_0"><a xlink:title="net.alasc.symdpoly.algebra.Phased (this trait)" xlink:href="#inheritance-diagram"><path d="M119.6667,-86C119.6667,-86 49.3333,-86 49.3333,-86 45.1667,-86 41,-81.8333 41,-77.6667 41,-77.6667 41,-69.3333 41,-69.3333 41,-65.1667 45.1667,-61 49.3333,-61 49.3333,-61 119.6667,-61 119.6667,-61 123.8333,-61 128,-65.1667 128,-69.3333 128,-69.3333 128,-77.6667 128,-77.6667 128,-81.8333 123.8333,-86 119.6667,-86" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-80.5" x="51.5" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-71.1" x="72.5" text-anchor="start">Phased[A]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="net.alasc.symdpoly.freebased.Mono.FreeBasedMonoPhased" xlink:href="../freebased/Mono$$FreeBasedMonoPhased.html#inheritance-diagram"><path d="M158.6667,-25C158.6667,-25 10.3333,-25 10.3333,-25 6.1667,-25 2,-20.8333 2,-16.6667 2,-16.6667 2,-8.3333 2,-8.3333 2,-4.1667 6.1667,0 10.3333,0 10.3333,0 158.6667,0 158.6667,0 162.8333,0 167,-4.1667 167,-8.3333 167,-8.3333 167,-16.6667 167,-16.6667 167,-20.8333 162.8333,-25 158.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="12.5" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="33.5" text-anchor="start">FreeBasedMonoPhased[M, F]</text></a></g></g><!-- node0&#45;&gt;node1 --><g class="edge inheritance" id="graph1_0_1"><g id="a_inheritance|graph1_0_1"><a xlink:title="FreeBasedMonoPhased[M, F] is a subtype of Phased[A]"><path d="M84.5,-53.7386C84.5,-44.3393 84.5,-33.3803 84.5,-25.123" stroke="#d4d4d4" fill="none"></path><polygon points="82.0501,-53.8607 84.5,-60.8608 86.9501,-53.8608 82.0501,-53.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node trait" id="graph1_2"><g id="a_trait|graph1_2"><a xlink:title="spire.algebra.MultiplicativeAction"><path d="M160.6667,-147C160.6667,-147 8.3333,-147 8.3333,-147 4.1667,-147 0,-142.8333 0,-138.6667 0,-138.6667 0,-130.3333 0,-130.3333 0,-126.1667 4.1667,-122 8.3333,-122 8.3333,-122 160.6667,-122 160.6667,-122 164.8333,-122 169,-126.1667 169,-130.3333 169,-130.3333 169,-138.6667 169,-138.6667 169,-142.8333 164.8333,-147 160.6667,-147" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-141.5" x="10.5" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-132.1" x="31.5" text-anchor="start">MultiplicativeAction[A, Phase]</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="Phased[A] is a subtype of MultiplicativeAction[A, Phase]"><path d="M84.5,-114.7386C84.5,-105.3393 84.5,-94.3803 84.5,-86.123" stroke="#d4d4d4" fill="none"></path><polygon points="82.0501,-114.8607 84.5,-121.8608 86.9501,-114.8608 82.0501,-114.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
                 <div id="diagram-controls" class="hiddenContent">
                   <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
                   <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
@@ -267,7 +279,7 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">gtimesl</span><span class="params">(<span name="g">g: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>, <span name="p">p: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>
+        <span class="name">gtimesl</span><span class="params">(<span name="g">g: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>, <span name="p">p: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MultiplicativeAction</dd></dl></div>
@@ -283,7 +295,7 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">gtimesr</span><span class="params">(<span name="p">p: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>, <span name="g">g: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>
+        <span class="name">gtimesr</span><span class="params">(<span name="p">p: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>, <span name="g">g: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MultiplicativeAction</dd></dl></div>
@@ -302,11 +314,11 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="name">phaseCanonical</span><span class="params">(<span name="a">a: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Canonical element in the equivalence class of elements under phase action.</p>
     </li><li name="net.alasc.symdpoly.algebra.Phased#phaseOffset" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="phaseOffset(a:A):net.alasc.symdpoly.Phase"></a><a id="phaseOffset(A):Phase"></a>
+      <a id="phaseOffset(a:A):net.alasc.symdpoly.math.Phase"></a><a id="phaseOffset(A):Phase"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/algebra/Phased.html#phaseOffset(a:A):net.alasc.symdpoly.Phase" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/algebra/Phased.html#phaseOffset(a:A):net.alasc.symdpoly.math.Phase" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -315,10 +327,10 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">phaseOffset</span><span class="params">(<span name="a">a: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>)</span><span class="result">: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>
+        <span class="name">phaseOffset</span><span class="params">(<span name="a">a: <span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span></span>)</span><span class="result">: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Phase offset of an element with respect to its canonical representative.</p>
     </li></ol>
             </div>
 
@@ -401,7 +413,7 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -425,7 +437,7 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -533,7 +545,7 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">multiplicative</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a>]</span>
+        <span class="name">multiplicative</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MultiplicativeAction</dd></dl></div>
@@ -549,7 +561,7 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -702,9 +714,9 @@ and phaseOffset(a) returns the phase of a relative to phaseCanonical(a) such tha
 
         <div id="inheritedMembers">
         <div class="parent" name="spire.algebra.MultiplicativeAction">
-              <h3>Inherited from <span class="extype" name="spire.algebra.MultiplicativeAction">MultiplicativeAction</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a>]</h3>
+              <h3>Inherited from <span class="extype" name="spire.algebra.MultiplicativeAction">MultiplicativeAction</span>[<span class="extype" name="net.alasc.symdpoly.algebra.Phased.A">A</span>, <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a>]</h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
             </div>

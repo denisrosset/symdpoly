@@ -2,79 +2,28 @@
 
 <p>Again, we work with the CHSH relaxation.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">net.alasc.symdpoly.examples.CHSH</span>
-<span class="k">import</span> <span class="nn">net.alasc.symdpoly.examples.CHSH</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">net.alasc.symdpoly.examples.quantum.CHSH</span>
+<span class="k">import</span> <span class="nn">net.alasc.symdpoly.examples.quantum.CHSH</span>
 
 <span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">relaxation</span> <span class="k">=</span> <span class="nc">CHSH</span><span class="o">.</span><span class="n">relaxation</span>
-<span class="n">relaxation</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.Relaxation</span><span class="o">[</span><span class="kt">net.alasc.symdpoly.examples.CHSH.Lsym.</span><span class="k">type</span>,<span class="kt">net.alasc.symdpoly.quotient.MonoidDef.&lt;refinement&gt;.</span><span class="k">type</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Relaxation</span><span class="o">(</span><span class="nc">Maximization</span><span class="o">(</span><span class="mi">4</span> <span class="n">L</span><span class="o">([</span><span class="kt">A</span><span class="o">(</span><span class="err">0</span><span class="o">)</span> <span class="kt">B</span><span class="o">(</span><span class="err">0</span><span class="o">)])),</span><span class="nc">Quotient</span><span class="o">([</span><span class="err">1</span>,<span class="kt">A</span>,<span class="kt">B</span><span class="o">]))</span>
-</code></pre></div></div>
-
-<p>Note that this CHSH example includes all relabelings of parties/inputs/outputs.</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="nc">CHSH</span><span class="o">.</span><span class="n">swapParties</span>
-<span class="n">res0</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.generic.FreeBasedPermutation</span><span class="o">[</span><span class="kt">net.alasc.symdpoly.examples.CHSH.Free.</span><span class="k">type</span>,<span class="kt">net.alasc.symdpoly.examples.CHSH.Free.</span><span class="k">type</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span><span class="n">A</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">A</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="n">B</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">B</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">(</span><span class="mi">1</span><span class="o">)}</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">CHSH</span><span class="o">.</span><span class="n">inputSwapA</span>
-<span class="n">res1</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.generic.FreeBasedPermutation</span><span class="o">[</span><span class="kt">net.alasc.symdpoly.examples.CHSH.Free.</span><span class="k">type</span>,<span class="kt">net.alasc.symdpoly.examples.CHSH.Free.</span><span class="k">type</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span><span class="n">A</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="n">A</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="o">(</span><span class="mi">0</span><span class="o">)}</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">CHSH</span><span class="o">.</span><span class="n">outputSwapA0</span>
-<span class="n">res2</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.generic.FreeBasedPermutation</span><span class="o">[</span><span class="kt">net.alasc.symdpoly.examples.CHSH.Free.</span><span class="k">type</span>,<span class="kt">net.alasc.symdpoly.examples.CHSH.Free.</span><span class="k">type</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span><span class="n">A</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">-</span> <span class="n">A</span><span class="o">(</span><span class="mi">0</span><span class="o">)}</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">CHSH</span><span class="o">.</span><span class="n">ambientGroup</span><span class="o">.</span><span class="n">order</span>
-<span class="n">res3</span><span class="k">:</span> <span class="kt">spire.math.SafeLong</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">relaxation</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.Relaxation</span><span class="o">[</span><span class="kt">net.alasc.symdpoly.evaluation.Evaluator.&lt;refinement&gt;.</span><span class="k">type</span>,<span class="kt">net.alasc.symdpoly.examples.quantum.CHSH.Lsym.Mono</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Moment</span> <span class="n">relaxation</span> <span class="k">with</span> <span class="mi">1</span> <span class="n">monomials</span><span class="o">,</span> <span class="n">a</span> <span class="n">moment</span> <span class="n">matrix</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">5</span> <span class="n">x</span> <span class="mi">5</span><span class="o">,</span> <span class="n">and</span> <span class="mi">0</span> <span class="n">localizing</span> <span class="n">matrix</span><span class="o">/</span><span class="n">ces</span>
 </code></pre></div></div>
 
 <h2 id="exploring-the-monomial-matrix-structure">Exploring the monomial matrix structure</h2>
 
-<p>The <code class="highlighter-rouge">momentMatrixDescription</code> method returns a user-friendly text description of the moment matrix.</p>
+<p>To explore the moment matrix, inspect:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">relaxation</span><span class="o">.</span><span class="n">momentMatrixDescription</span>
-<span class="n">res4</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-<span class="s">"  L([1])          L([0])            L([0])          L([0])            L([0])
-  L([0])          L([1])            L([0])  L([A(0) B(0)])    L([A(0) B(0)])
-  L([0])          L([0])            L([1])  L([A(0) B(0)])  L([- A(0) B(0)])
-  L([0])  L([A(0) B(0)])    L([A(0) B(0)])          L([1])            L([0])
-  L([0])  L([A(0) B(0)])  L([- A(0) B(0)])          L([0])            L([1])"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">relaxation</span><span class="o">.</span><span class="n">momentMatrix</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.MomentMatrix</span><span class="o">[</span><span class="kt">net.alasc.symdpoly.evaluation.Evaluator.&lt;refinement&gt;.</span><span class="k">type</span>,<span class="kt">net.alasc.symdpoly.examples.quantum.CHSH.Lsym.Mono</span><span class="o">]</span> <span class="k">=</span> <span class="n">net</span><span class="o">.</span><span class="n">alasc</span><span class="o">.</span><span class="n">symdpoly</span><span class="o">.</span><span class="nc">MomentMatrix</span><span class="k">@</span><span class="mf">764d</span><span class="mi">2</span><span class="n">bed</span>
 </code></pre></div></div>
 
 <p>Note that the monomials are included into brackets, as they represent equivalence classes of monomials in the quotient algebra.</p>
 
-<p>This description works only for smaller moment matrices. We now see how to get more compact descriptions.</p>
+<p>This description works only for smaller moment matrices.</p>
 
-<p>First, the method <code class="highlighter-rouge">canonicalMonomials</code> returns a list of the monomials present. The first element of each row is the monomial index, followed by the canonical representative of that monomial under the symmetry group and the quotient algebra rewriting rules. Then, after the colon <code class="highlighter-rouge">:</code>, the orbit of (quotient) monomials under the symmetry group. The symmetry group can flip the sign of monomials, thus some elements on the right of <code class="highlighter-rouge">:</code> can be preceded by a phase.</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">relaxation</span><span class="o">.</span><span class="n">canonicalMonomialsDescription</span><span class="o">(</span><span class="nc">CHSH</span><span class="o">.</span><span class="n">symGroup</span><span class="o">)</span>
-<span class="n">res5</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-<span class="mi">0</span> <span class="o">[</span><span class="err">1</span><span class="o">]</span><span class="k">:</span> <span class="err">[1]</span>
-<span class="err">1</span> <span class="err">[</span><span class="kt">A</span><span class="o">(</span><span class="err">0</span><span class="o">)</span> <span class="kt">B</span><span class="o">(</span><span class="err">0</span><span class="o">)</span><span class="err">]</span><span class="kt">:</span> <span class="err">[</span><span class="kt">A</span><span class="o">(</span><span class="err">0</span><span class="o">)</span> <span class="kt">B</span><span class="o">(</span><span class="err">0</span><span class="o">)</span><span class="err">]</span>
-</code></pre></div></div>
-<p>The moment matrix is then described using that list. The first line provides the size of the moment matrix, following by the number of unique monomials.
-Then, the matrix of monomials indices.</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">relaxation</span><span class="o">.</span><span class="n">momentIndexMatrixDescription</span>
-<span class="n">res6</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-<span class="mi">5</span> <span class="mi">2</span>
-<span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
-<span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
-<span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span>
-<span class="o">-</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
-<span class="o">-</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span>
-</code></pre></div></div>
-<p>Note that monomial indexing is <code class="highlighter-rouge">0</code>-based, and that <code class="highlighter-rouge">-1</code> represents a cell of the moment matrix always equal to <code class="highlighter-rouge">0</code>.
-Those monomials can acquire a phase, either during rewriting or due to the action of the symmetry group. Phases are provided by another matrix:</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">relaxation</span><span class="o">.</span><span class="n">phaseMatrixDescription</span>
-<span class="n">res7</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-<span class="mi">5</span>
-<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
-<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
-<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
-<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
-<span class="mi">1</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
-</code></pre></div></div>
-
-<h2 id="writing-to-files">Writing to files</h2>
-
-<p>To write any of the above to a file, use:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">scala</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">nsc</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="nc">File</span><span class="o">(</span><span class="s">"matrix.txt"</span><span class="o">).</span><span class="n">writeAll</span><span class="o">(</span><span class="n">relaxation</span><span class="o">.</span><span class="n">momentMatrixDescription</span><span class="o">)</span>
+<p>The method <code class="highlighter-rouge">allMoments</code> returns a list of the monomials present.</p>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">relaxation</span><span class="o">.</span><span class="n">allMoments</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.util.OrderedSet</span><span class="o">[</span><span class="kt">net.alasc.symdpoly.examples.quantum.CHSH.Lsym.EvaluatedMonomial</span><span class="o">]</span> <span class="k">=</span> <span class="nc">OrderSet</span><span class="o">(</span><span class="n">L</span><span class="o">([</span><span class="err">1</span><span class="o">]),</span> <span class="n">L</span><span class="o">([</span><span class="kt">A</span><span class="o">(</span><span class="err">0</span><span class="o">)</span> <span class="kt">B</span><span class="o">(</span><span class="err">0</span><span class="o">)]))</span>
 </code></pre></div></div>
 </section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/symdpoly/highlight/highlight.pack.js"></script><script>hljs.configure({
 languages:['scala','java','bash']

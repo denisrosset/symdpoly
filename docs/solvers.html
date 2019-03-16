@@ -2,71 +2,62 @@
 
 <p>As Scala is a relatively niche programming language in the physics community, we expect our users to use <strong>SymDPoly</strong> as a domain-specific tool (where Scala shines as a domain-specific language with notation close to the mathematical notation), and immediately export the data after the processing is done. Thus <strong>SymDPoly</strong> can output the problem data in a variety of formats.</p>
 
-<p>In the following, we assume that the variable <code class="highlighter-rouge">relaxation</code> contains the SDP relaxation.</p>
+<p>In the following, we assume that the variable <code class="highlighter-rouge">program</code> contains the conic linear program corresponding to the current moment-based relaxation.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">relaxation</span> <span class="k">=</span> <span class="n">net</span><span class="o">.</span><span class="n">alasc</span><span class="o">.</span><span class="n">symdpoly</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="nc">CHSH</span><span class="o">.</span><span class="n">relaxation</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">program</span> <span class="k">=</span> <span class="n">net</span><span class="o">.</span><span class="n">alasc</span><span class="o">.</span><span class="n">symdpoly</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">quantum</span><span class="o">.</span><span class="nc">CHSH</span><span class="o">.</span><span class="n">relaxation</span><span class="o">.</span><span class="n">program</span>
 </code></pre></div></div>
 
 <h2 id="solver-input-data-text-based-formats">Solver input data: text-based formats</h2>
 
 <ul>
-  <li>Mosek input file in the <a href="https://docs.mosek.com/8.1/toolbox/cbf-format.html#doc-shared-cbfformat">Conic Benchmark Format</a>. Use:</li>
+  <li>Mosek input file in the <a href="https://docs.mosek.com/8.1/toolbox/cbf-format.html#doc-shared-cbfformat">Conic Benchmark Format</a>, which is a text based format. Use:</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">relaxation</span><span class="o">.</span><span class="n">mosekInstance</span><span class="o">.</span><span class="n">writeCBF</span><span class="o">(</span><span class="s">"chsh_mosek.cbf"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">.</span><span class="n">mosek</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_mosek.cbf"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <ul>
-  <li>Sparse <a href="http://sdpa.sourceforge.net/">SDPA</a> input file. Use:</li>
+  <li>Sparse <a href="http://sdpa.sourceforge.net/">SDPA</a> input file (text based format again). Use:</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">relaxation</span><span class="o">.</span><span class="n">sdpaInstance</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_sdpa.dat-s"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">.</span><span class="n">sdpa</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_sdpa.dat-s"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h2 id="solver-input-data-mat-file-based-formats">Solver input data: MAT file-based formats</h2>
 
-<p>These require the <code class="highlighter-rouge">symdpoly-matlab</code> module, and the following import:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">net.alasc.symdpoly.matlab._</span>
-</code></pre></div></div>
-
-<p>Then we can export the problem in the formats below.</p>
+<p>Those solvers need to be called from Matlab. For those, <strong>SymDPoly</strong> saves <code class="highlighter-rouge">.mat</code> files containing the argument values needed to call the main solver function.</p>
 
 <ul>
   <li><a href="https://github.com/cvxgrp/scs">SCS</a>, using the <a href="https://github.com/bodono/scs-matlab">SCS-matlab</a> interface.</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">relaxation</span><span class="o">.</span><span class="n">scsInstance</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_scs.mat"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">.</span><span class="n">scs</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_scs.mat"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <ul>
   <li>SDPT3 format file, which can be used either with <a href="http://www.math.nus.edu.sg/~mattohkc/sdpt3.html">SDPT3</a>, <a href="http://www.math.nus.edu.sg/~mattohkc/SDPNAL.html">SDPNAL</a> (untested) or <a href="http://www.math.nus.edu.sg/~mattohkc/SDPNALplus.html">SDPNAL+</a>.</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">relaxation</span><span class="o">.</span><span class="n">sdpt3Instance</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_sdpt3.mat"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">.</span><span class="n">sdpt3</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_sdpt3.mat"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <ul>
-  <li><a href="http://sedumi.ie.lehigh.edu/">SeDuMi</a> format file.</li>
+  <li><a href="http://sedumi.ie.lehigh.edu/">SeDuMi</a> format file; note that the SeDuMi file format contains information about the symmetries of the semidefinite constraints.</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">relaxation</span><span class="o">.</span><span class="n">sedumiInstance</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_sedumi.mat"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">.</span><span class="n">sedumi</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_sedumi.mat"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h2 id="java-native-solver">Java native solver</h2>
 
-<p>For test purposes, <strong>SymDPoly</strong> can interface with the <a href="http://www.joptimizer.com/">JOptimizer</a> package, able to solve semidefinite programs using a Barrier Method. For that, add the <code class="highlighter-rouge">symdpoly-joptimizer</code> package to your <code class="highlighter-rouge">build.sbt</code> and run:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">net.alasc.symdpoly.joptimizer._</span>
-<span class="n">relaxation</span><span class="o">.</span><span class="n">jOptimizerInstance</span><span class="o">.</span><span class="n">solve</span><span class="o">()</span>
-</code></pre></div></div>
+<p><strong>SymDPoly</strong> can interface with the <a href="http://www.joptimizer.com/">JOptimizer</a> package, able to solve semidefinite programs using a Barrier Method. Use with toy problems only.</p>
 
 <h2 id="running-mosek-directly-native-problem-formats">Running Mosek directly (native problem formats)</h2>
 
 <p>You want to run the Mosek solver directly, without writing intermediate files, or write problems in the <a href="https://docs.mosek.com/8.1/toolbox/task-format.html#doc-shared-taskformat">Task Format</a> or <a href="https://docs.mosek.com/8.1/toolbox/json-format.html#doc-shared-jtaskformat">JSON Format</a> formats.</p>
 
 <p>For that, you need to interface Mosek with the Java Virtual Machine. First, import the <code class="highlighter-rouge">symdpoly-mosek</code> module in your <code class="highlighter-rouge">build.sbt</code> file.</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-mosek"</span>    <span class="o">%</span> <span class="s">"0.2"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-mosek"</span>    <span class="o">%</span> <span class="s">"0.3"</span>
 </code></pre></div></div>
 
 <p>Then, add a <code class="highlighter-rouge">lib</code> subfolder at the root of your project, which contains the JAR files and shared libraries of <code class="highlighter-rouge">mosek/8/tools/platform/XXX/bin</code> from your Mosek installation.</p>
@@ -78,17 +69,12 @@
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">net.alasc.symdpoly.mosek._</span>
 <span class="k">import</span> <span class="nn">net.alasc.symdpoly.mosek._</span>
 
-<span class="n">scala</span><span class="o">&gt;</span> <span class="n">relaxation</span><span class="o">.</span><span class="n">mosekInstance</span><span class="o">.</span><span class="n">solve</span><span class="o">()</span>
-<span class="n">res6</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.Solution</span> <span class="o">=</span>
-<span class="nc">OptimumFound</span><span class="o">(</span><span class="nc">None</span><span class="o">,</span><span class="mf">2.8284271246376127</span><span class="o">,</span><span class="nc">Some</span><span class="o">(</span>  <span class="mf">9.160945277112534E-10</span>                     <span class="mf">0.0</span><span class="o">...</span> <span class="o">(</span><span class="mi">5</span> <span class="n">total</span><span class="o">)</span>
-                    <span class="mf">0.0</span>       <span class="mf">0.707106781387514</span><span class="o">...</span>
-                    <span class="mf">0.0</span>  <span class="o">-</span><span class="mf">5.718158864695119E-15</span><span class="o">...</span>
-                    <span class="mf">0.0</span>     <span class="o">-</span><span class="mf">0.4999999999346838</span><span class="o">...</span>
-                    <span class="mf">0.0</span>      <span class="o">-</span><span class="mf">0.499999999934692</span><span class="o">...),</span><span class="nc">Vec</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">0.7071067811594032</span><span class="o">))</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">program</span><span class="o">.</span><span class="n">nativeMosek</span><span class="o">.</span><span class="n">solve</span><span class="o">()</span>
+<span class="n">res5</span><span class="k">:</span> <span class="kt">net.alasc.symdpoly.Solution</span> <span class="o">=</span> <span class="nc">OptimumFound</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="mf">2.8284271264661847</span><span class="o">),</span><span class="mf">2.8284271246376127</span><span class="o">)</span>
 </code></pre></div></div>
 <p>to run Mosek directly, and</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">relaxation</span><span class="o">.</span><span class="n">mosekInstance</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_mosek.task"</span><span class="o">)</span>
-<span class="n">relaxation</span><span class="o">.</span><span class="n">mosekInstance</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_mosek.jtask"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">program</span><span class="o">.</span><span class="n">nativeMosek</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_mosek.task"</span><span class="o">)</span>
+<span class="n">program</span><span class="o">.</span><span class="n">nativeMosek</span><span class="o">.</span><span class="n">writeFile</span><span class="o">(</span><span class="s">"chsh_mosek.jtask"</span><span class="o">)</span>
 </code></pre></div></div>
 <p>to write files in any of the Mosek supported formats.</p>
 </section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/symdpoly/highlight/highlight.pack.js"></script><script>hljs.configure({

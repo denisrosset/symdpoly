@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html"><span class="name">root</span></a>
+        <a title="This is the API documentation for the SymDPoly polynomial optimization framework." href="../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <p class="shortcomment cmt">This is the API documentation for the SymDPoly polynomial optimization framework.</p><div class="fullcomment"><div class="comment cmt"><h4> SymDPoly </h4><p>This is the API documentation for the SymDPoly polynomial optimization framework.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.net" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="net"></a><a id="net:net"></a>
       <span class="permalink">
@@ -134,10 +134,6 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <a class="object" href="IndexMap$.html" title=""></a>
-                        <a class="class" href="IndexMap.html" title=""></a>
-                        <a href="IndexMap.html" title="">IndexMap</a>
-                      </li><li class="current-entities indented4">
                         <a class="object" href="MonoidDef$.html" title=""></a>
                         <a class="class" href="MonoidDef.html" title="Base class for a generalized free monoid."></a>
                         <a href="MonoidDef.html" title="Base class for a generalized free monoid.">MonoidDef</a>
@@ -147,16 +143,12 @@
                         <a href="MutablePoly.html" title="">MutablePoly</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="MutableWord$.html" title=""></a>
-                        <a class="class" href="" title="A mutable word in a graded, pointed monoid."></a>
-                        <a href="" title="A mutable word in a graded, pointed monoid.">MutableWord</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
-                        <a class="class" href="MutableWordOrder.html" title=""></a>
-                        <a href="MutableWordOrder.html" title="">MutableWordOrder</a>
+                        <a class="class" href="" title="A mutable word in a free monoid."></a>
+                        <a href="" title="A mutable word in a free monoid.">MutableWord</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="Slice$.html" title=""></a>
-                        <a class="trait" href="Slice.html" title=""></a>
-                        <a href="Slice.html" title="">Slice</a>
+                        <a class="trait" href="Slice.html" title="Describes a slice of an index of an object with indices, such as a family of operator variables."></a>
+                        <a href="Slice.html" title="Describes a slice of an index of an object with indices, such as a family of operator variables.">Slice</a>
                       </li>
               </ul>
             </div>
@@ -182,17 +174,17 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">MutableWord</span><span class="tparams">[<span name="F">F &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">MutableWord</span><span class="tparams">[<span name="F">F &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A mutable word in a graded, pointed monoid.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A mutable word in a free monoid. The word can be made immutable when all required transformations have been realized.
 </p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/free/MutableWord.scala" target="_blank">MutableWord.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
                 <span class="toggle diagram-link">
                   Type Hierarchy
@@ -249,9 +241,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="net.alasc.symdpoly.free.MutableWord#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(phase:net.alasc.symdpoly.Phase,length:Int,indices:Array[Int],mutable:Boolean)(implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="&lt;init&gt;:MutableWord[F]"></a>
+      <a id="&lt;init&gt;(phase:net.alasc.symdpoly.math.Phase,length:Int,indices:Array[Int],mutable:Boolean)(implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="&lt;init&gt;:MutableWord[F]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#&lt;init&gt;(phase:net.alasc.symdpoly.Phase,length:Int,indices:Array[Int],mutable:Boolean)(implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#&lt;init&gt;(phase:net.alasc.symdpoly.math.Phase,length:Int,indices:Array[Int],mutable:Boolean)(implicitwF:shapeless.Witness.Aux[F]):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -260,10 +252,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">MutableWord</span><span class="params">(<span name="phase">phase: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>, <span name="length">length: <span class="extype" name="scala.Int">Int</span></span>, <span name="indices">indices: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="mutable">mutable: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wF">wF: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span>
+        <span class="name">MutableWord</span><span class="params">(<span name="phase">phase: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>, <span name="length">length: <span class="extype" name="scala.Int">Int</span></span>, <span name="indices">indices: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="mutable">mutable: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wF">wF: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">phase</dt><dd class="cmt"><p>The phase exp(2*pi*grade*i/M.grade)</p></dd><dt class="param">length</dt><dd class="cmt"><p>Length of the word; special convention: length = -1 for the zero word, in which case phase = Phase.one</p></dd><dt class="param">indices</dt><dd class="cmt"><p>Indices of the word letters</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">phase</dt><dd class="cmt"><p>The phase exp(2*pi*grade*i/M.grade)</p></dd><dt class="param">length</dt><dd class="cmt"><p>Length of the word; special convention: length = -1 for the zero word, in which case phase = Phase.one</p></dd><dt class="param">indices</dt><dd class="cmt"><p>Indices of the word letters</p></dd><dt class="param">mutable</dt><dd class="cmt"><p>Whether the word is mutable.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -321,7 +313,7 @@
         <span title="gt4s: $times$eq" class="name">*=</span><span class="params">(<span name="rhs">rhs: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Multiplies this mutable word by the given word.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#*=" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="*=(rhs:F#Op):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="*=(F.Op):MutableWord[F]"></a>
       <span class="permalink">
@@ -337,11 +329,11 @@
         <span title="gt4s: $times$eq" class="name">*=</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">F.Op</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Multiplies this mutable word by the given operator variable.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#*=" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="*=(rhs:net.alasc.symdpoly.Phase):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="*=(Phase):MutableWord[F]"></a>
+      <a id="*=(rhs:net.alasc.symdpoly.math.Phase):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="*=(Phase):MutableWord[F]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#*=(rhs:net.alasc.symdpoly.Phase):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#*=(rhs:net.alasc.symdpoly.math.Phase):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -350,10 +342,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times$eq" class="name">*=</span><span class="params">(<span name="rhs">rhs: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
+        <span title="gt4s: $times$eq" class="name">*=</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Multiplies this mutable word by the given phase.</p>
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
@@ -401,23 +393,7 @@
         <span class="name">apply</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">F.Op</span></span>
       </span>
       
-      
-    </li><li name="net.alasc.symdpoly.free.MutableWord#applyGenPermAction" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="applyGenPermAction(rhs:net.alasc.symdpoly.math.GenPerm):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="applyGenPermAction(GenPerm):MutableWord[F]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#applyGenPermAction(rhs:net.alasc.symdpoly.math.GenPerm):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">applyGenPermAction</span><span class="params">(<span name="rhs">rhs: <a href="../math/GenPerm.html" class="extype" name="net.alasc.symdpoly.math.GenPerm">GenPerm</a></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
-      </span>
-      
-      
+      <p class="shortcomment cmt">Returns the i-th letter of this word.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -449,8 +425,8 @@
         <span class="name">check</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      
-    </li><li name="net.alasc.symdpoly.free.MutableWord#checkMutable" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Check class invariants</p>
+    </li><li name="net.alasc.symdpoly.free.MutableWord#checkMutable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="checkMutable():Unit"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#checkMutable():Unit" title="Permalink">
@@ -465,7 +441,7 @@
         <span class="name">checkMutable</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Asserts that this <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a> is mutable.</p><div class="fullcomment"><div class="comment cmt"><p>Asserts that this <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a> is mutable. Called before mutable operations are performed.</p></div></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -478,7 +454,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -505,7 +481,7 @@
         <span class="name">compareTo</span><span class="params">(<span name="rhs">rhs: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Total order on words with a phase; the words are compared first, and then the phases.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#compareToIgnoringPhase" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="compareToIgnoringPhase(rhs:net.alasc.symdpoly.free.MutableWord[F]):Int"></a><a id="compareToIgnoringPhase(MutableWord[F]):Int"></a>
       <span class="permalink">
@@ -521,7 +497,7 @@
         <span class="name">compareToIgnoringPhase</span><span class="params">(<span name="rhs">rhs: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Total order on words, phase being ignored.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#computeHash" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="computeHash:Int"></a>
       <span class="permalink">
@@ -553,7 +529,7 @@
         <span class="name">ensureLength</span><span class="params">(<span name="newMaxLength">newMaxLength: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Reserves size in the mutable indices array.</p>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -566,7 +542,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -608,7 +584,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MutableWord#flipSign" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="net.alasc.symdpoly.free.MutableWord#flipSign" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="flipSign():net.alasc.symdpoly.free.MutableWord[F]"></a><a id="flipSign():MutableWord[F]"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#flipSign():net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
@@ -623,7 +599,7 @@
         <span class="name">flipSign</span><span class="params">()</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Flips the phase, i.e.</p><div class="fullcomment"><div class="comment cmt"><p>Flips the phase, i.e. sets phase -&gt; -phase on this mutable word.</p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -690,7 +666,7 @@
         <span class="name">immutableHash</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Cached hashCode as it is used repeatedly in polynomial computations.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#inPlaceAdjoint" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="inPlaceAdjoint():net.alasc.symdpoly.free.MutableWord[F]"></a><a id="inPlaceAdjoint():MutableWord[F]"></a>
       <span class="permalink">
@@ -706,7 +682,23 @@
         <span class="name">inPlaceAdjoint</span><span class="params">()</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
+      <p class="shortcomment cmt">Sets this word to its adjoint.</p>
+    </li><li name="net.alasc.symdpoly.free.MutableWord#inPlaceGenPermAction" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="inPlaceGenPermAction(rhs:net.alasc.symdpoly.math.GenPerm):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="inPlaceGenPermAction(GenPerm):MutableWord[F]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#inPlaceGenPermAction(rhs:net.alasc.symdpoly.math.GenPerm):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">inPlaceGenPermAction</span><span class="params">(<span name="rhs">rhs: <a href="../math/GenPerm.html" class="extype" name="net.alasc.symdpoly.math.GenPerm">GenPerm</a></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
+      </span>
       
+      <p class="shortcomment cmt">Applies the given generalized permutation to this word in place.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#indices" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="indices:Array[Int]"></a>
       <span class="permalink">
@@ -723,6 +715,24 @@
       </span>
       
       
+    </li><li name="net.alasc.symdpoly.free.MutableWord#insert" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="insert(i:Int,toInsert:net.alasc.symdpoly.free.MutableWord[F]):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="insert(Int,MutableWord[F]):MutableWord[F]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#insert(i:Int,toInsert:net.alasc.symdpoly.free.MutableWord[F]):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">insert</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="toInsert">toInsert: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Inserts the given word at the specified position i.</p><div class="fullcomment"><div class="comment cmt"><p>Inserts the given word at the specified position i.</p><p>If the inserted word has a phase, the lhs word phase is multiplied by it.
+If the inserted word is zero, the lhs word is set to zero.
+</p></div></div>
     </li><li name="net.alasc.symdpoly.free.MutableWord#isEmpty" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="isEmpty:Boolean"></a>
       <span class="permalink">
@@ -738,7 +748,7 @@
         <span class="name">isEmpty</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">True if the length of this word is zero letters (and the zero word is not considered empty).</p>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -819,7 +829,7 @@
       </span>
       
       
-    </li><li name="net.alasc.symdpoly.free.MutableWord#multiplyBySignOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="net.alasc.symdpoly.free.MutableWord#multiplyBySignOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="multiplyBySignOf(rhs:Int):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="multiplyBySignOf(Int):MutableWord[F]"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#multiplyBySignOf(rhs:Int):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
@@ -834,7 +844,7 @@
         <span class="name">multiplyBySignOf</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Multiplies the phase of this word by the sign of the given integer.</p><div class="fullcomment"><div class="comment cmt"><p>Multiplies the phase of this word by the sign of the given integer. When rhs = 0, sets this word to the zero word.</p></div></div>
     </li><li name="net.alasc.symdpoly.free.MutableWord#mutable" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="mutable:Boolean"></a>
       <span class="permalink">
@@ -866,7 +876,7 @@
         <span class="name">mutableCopy</span><span class="params">(<span name="newReservedLength">newReservedLength: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Returns a mutable copy of this word with the given reserved size in the created word.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#mutableCopy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="mutableCopy():net.alasc.symdpoly.free.MutableWord[F]"></a><a id="mutableCopy():MutableWord[F]"></a>
       <span class="permalink">
@@ -882,7 +892,7 @@
         <span class="name">mutableCopy</span><span class="params">()</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Returns a mutable copy of this word.</p>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -895,7 +905,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -938,9 +948,9 @@
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MutableWord#phase" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="phase:net.alasc.symdpoly.Phase"></a><a id="phase:Phase"></a>
+      <a id="phase:net.alasc.symdpoly.math.Phase"></a><a id="phase:Phase"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#phase:net.alasc.symdpoly.Phase" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#phase:net.alasc.symdpoly.math.Phase" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -949,10 +959,60 @@
         <span class="kind">var</span>
       </span>
       <span class="symbol">
-        <span class="name">phase</span><span class="result">: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>
+        <span class="name">phase</span><span class="result">: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>
       </span>
       
       
+    </li><li name="net.alasc.symdpoly.free.MutableWord#remove" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="remove(i:Int):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="remove(Int):MutableWord[F]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#remove(i:Int):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">remove</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Removes an operator variable at the specified position, shifting the position of the variables after it, and
+updating the mutable word length.</p>
+    </li><li name="net.alasc.symdpoly.free.MutableWord#removeRange" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="removeRange(from:Int,until:Int):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="removeRange(Int,Int):MutableWord[F]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#removeRange(from:Int,until:Int):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">removeRange</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Removes the letters in the range [from, until[, until not included.</p>
+    </li><li name="net.alasc.symdpoly.free.MutableWord#replaceRange" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="replaceRange(from:Int,until:Int,replaceBy:net.alasc.symdpoly.free.MutableWord[F]):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="replaceRange(Int,Int,MutableWord[F]):MutableWord[F]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#replaceRange(from:Int,until:Int,replaceBy:net.alasc.symdpoly.free.MutableWord[F]):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">replaceRange</span><span class="params">(<span name="from">from: <span class="extype" name="scala.Int">Int</span></span>, <span name="until">until: <span class="extype" name="scala.Int">Int</span></span>, <span name="replaceBy">replaceBy: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Replaces the range [from, until[ by the given word.</p><div class="fullcomment"><div class="comment cmt"><p>Replaces the range [from, until[ by the given word.</p><p>Is equivalent to removeRange(from, until) followed by insert(from, replaceBy).
+</p></div></div>
     </li><li name="net.alasc.symdpoly.free.MutableWord#reservedSize" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="reservedSize:Int"></a>
       <span class="permalink">
@@ -984,11 +1044,11 @@
         <span class="name">setImmutable</span><span class="params">()</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Makes a <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a> immutable, so it can be stored as an immutable object.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#setPhase" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="setPhase(newPhase:net.alasc.symdpoly.Phase):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="setPhase(Phase):MutableWord[F]"></a>
+      <a id="setPhase(newPhase:net.alasc.symdpoly.math.Phase):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="setPhase(Phase):MutableWord[F]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#setPhase(newPhase:net.alasc.symdpoly.Phase):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MutableWord.html#setPhase(newPhase:net.alasc.symdpoly.math.Phase):net.alasc.symdpoly.free.MutableWord[F]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -997,10 +1057,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">setPhase</span><span class="params">(<span name="newPhase">newPhase: <a href="../Phase.html" class="extype" name="net.alasc.symdpoly.Phase">Phase</a></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
+        <span class="name">setPhase</span><span class="params">(<span name="newPhase">newPhase: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Sets the phase of this mutable word.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#setToContentOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="setToContentOf(rhs:net.alasc.symdpoly.free.MutableWord[F]):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="setToContentOf(MutableWord[F]):MutableWord[F]"></a>
       <span class="permalink">
@@ -1016,7 +1076,7 @@
         <span class="name">setToContentOf</span><span class="params">(<span name="rhs">rhs: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Sets the contents of this <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a> to the contents of the given word.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#setToZero" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="setToZero():net.alasc.symdpoly.free.MutableWord[F]"></a><a id="setToZero():MutableWord[F]"></a>
       <span class="permalink">
@@ -1032,7 +1092,7 @@
         <span class="name">setToZero</span><span class="params">()</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Sets this mutable word to the zero monomial.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#swap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="swap(i:Int,j:Int):net.alasc.symdpoly.free.MutableWord[F]"></a><a id="swap(Int,Int):MutableWord[F]"></a>
       <span class="permalink">
@@ -1048,7 +1108,7 @@
         <span class="name">swap</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="j">j: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.free.MutableWord">MutableWord</a>[<span class="extype" name="net.alasc.symdpoly.free.MutableWord.F">F</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Swaps letters at the i-th and j-th position in this mutable word.</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -1096,7 +1156,7 @@
         <span class="name">update</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="index">index: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Updates the operator variable at the position i by the operator variable with given index.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#update" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="update(i:Int,op:F#Op):Unit"></a><a id="update(Int,F.Op):Unit"></a>
       <span class="permalink">
@@ -1112,7 +1172,7 @@
         <span class="name">update</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="op">op: <span class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">F.Op</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Updates the operator variable at the position i.</p>
     </li><li name="net.alasc.symdpoly.free.MutableWord#wF" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="wF:shapeless.Witness.Aux[F]"></a><a id="wF:Aux[F]"></a>
       <span class="permalink">
@@ -1224,7 +1284,7 @@
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
             </div>

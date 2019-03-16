@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../../../../index.html"><span class="name">root</span></a>
+        <a title="This is the API documentation for the SymDPoly polynomial optimization framework." href="../../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <p class="shortcomment cmt">This is the API documentation for the SymDPoly polynomial optimization framework.</p><div class="fullcomment"><div class="comment cmt"><h4> SymDPoly </h4><p>This is the API documentation for the SymDPoly polynomial optimization framework.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.net" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="net"></a><a id="net:net"></a>
       <span class="permalink">
@@ -134,9 +134,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef" visbl="pub" class="indented5 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="MonoidDefextendsFreeBasedMonoidDef"></a><a id="MonoidDef:MonoidDef"></a>
+      <a id="MonoidDefextendsMonoidDef"></a><a id="MonoidDef:MonoidDef"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/index.html#MonoidDefextendsFreeBasedMonoidDef" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/index.html#MonoidDefextendsMonoidDef" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -145,57 +145,65 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Base class for a generalized free monoid." href="MonoidDef.html"><span class="name">MonoidDef</span></a><span class="result"> extends <a href="../generic/FreeBasedMonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.FreeBasedMonoidDef">FreeBasedMonoidDef</a></span>
+        <a title="Base class for a generalized free monoid." href="MonoidDef.html"><span class="name">MonoidDef</span></a><span class="result"> extends <a href="../freebased/MonoidDef.html" class="extype" name="net.alasc.symdpoly.freebased.MonoidDef">freebased.MonoidDef</a></span>
       </span>
       
       <p class="shortcomment cmt">Base class for a generalized free monoid.</p><div class="fullcomment"><div class="comment cmt"><p>Base class for a generalized free monoid.</p><p>This class must be used as follows.</p><p>- Declare inner case classes extending Op for each type of operator involved in the ring.
 - Call declare for each operator with the relevant range of indices.
-- Implement the abstract method &quot;adjoint&quot;.
+- Implement the abstract method &quot;adjoint&quot; for non hermitian operators.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly.free">free</a></dd></dl></div>
     </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="MonoidDef$HermitianOp.html" title=""></a>
-                        <a href="MonoidDef$HermitianOp.html" title="">HermitianOp</a>
+                        <a class="class" href="MonoidDef$HermitianOp.html" title="Abstract base class for Hermitian operator variables: implement a no op adjoint operation."></a>
+                        <a href="MonoidDef$HermitianOp.html" title="Abstract base class for Hermitian operator variables: implement a no op adjoint operation.">HermitianOp</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="MonoidDef$HermitianType1.html" title=""></a>
-                        <a href="MonoidDef$HermitianType1.html" title="">HermitianType1</a>
+                        <a class="class" href="MonoidDef$HermitianOpFamily1.html" title="Base class for the companion object of a family of operators with one index."></a>
+                        <a href="MonoidDef$HermitianOpFamily1.html" title="Base class for the companion object of a family of operators with one index.">HermitianOpFamily1</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="MonoidDef$HermitianType2.html" title=""></a>
-                        <a href="MonoidDef$HermitianType2.html" title="">HermitianType2</a>
+                        <a class="class" href="MonoidDef$HermitianOpFamily2.html" title="Base class for the companion object of a family of Hermitian operators with two indices."></a>
+                        <a href="MonoidDef$HermitianOpFamily2.html" title="Base class for the companion object of a family of Hermitian operators with two indices.">HermitianOpFamily2</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="MonoidDef$HermitianType3.html" title=""></a>
-                        <a href="MonoidDef$HermitianType3.html" title="">HermitianType3</a>
+                        <a class="class" href="MonoidDef$HermitianOpFamily3.html" title="Base class for the companion object of a family of Hermitian operators with three indices."></a>
+                        <a href="MonoidDef$HermitianOpFamily3.html" title="Base class for the companion object of a family of Hermitian operators with three indices.">HermitianOpFamily3</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="MonoidDef$NonHermitianType1.html" title=""></a>
-                        <a href="MonoidDef$NonHermitianType1.html" title="">NonHermitianType1</a>
+                        <a class="class" href="MonoidDef$HermitianSingleOp.html" title="Base class for a singleton family containing one Hermitian operator."></a>
+                        <a href="MonoidDef$HermitianSingleOp.html" title="Base class for a singleton family containing one Hermitian operator.">HermitianSingleOp</a>
                       </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="MonoidDef$NonHermitianType2.html" title=""></a>
-                        <a href="MonoidDef$NonHermitianType2.html" title="">NonHermitianType2</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="MonoidDef$NonHermitianType3.html" title=""></a>
-                        <a href="MonoidDef$NonHermitianType3.html" title="">NonHermitianType3</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="MonoidDef$Op.html" title="Base class for operator variables."></a>
-                        <a href="MonoidDef$Op.html" title="Base class for operator variables.">Op</a>
+                        <a class="object" href="MonoidDef$Op$.html" title=""></a>
+                        <a class="class" href="MonoidDef$Op.html" title="Abstract base class for operator variables."></a>
+                        <a href="MonoidDef$Op.html" title="Abstract base class for operator variables.">Op</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="" title=""></a>
-                        <a class="trait" href="MonoidDef$OpEnum.html" title=""></a>
-                        <a href="MonoidDef$OpEnum.html" title="">OpEnum</a>
+                        <a class="trait" href="MonoidDef$OpEnum.html" title="A collection of operator variables; more general than a family as it can describe slices, i.e."></a>
+                        <a href="MonoidDef$OpEnum.html" title="A collection of operator variables; more general than a family as it can describe slices, i.e.">OpEnum</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="MonoidDef$OpType.html" title=""></a>
-                        <a href="MonoidDef$OpType.html" title="">OpType</a>
+                        <a class="trait" href="MonoidDef$OpFamily.html" title="Base trait for a family of operators, regrouping for example a sequence of operators indexed by 1, 2 or 3 integers."></a>
+                        <a href="MonoidDef$OpFamily.html" title="Base trait for a family of operators, regrouping for example a sequence of operators indexed by 1, 2 or 3 integers.">OpFamily</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="MonoidDef$OpFamily1.html" title="Base class for the companion object of a family of Hermitian operators with one index."></a>
+                        <a href="MonoidDef$OpFamily1.html" title="Base class for the companion object of a family of Hermitian operators with one index.">OpFamily1</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="MonoidDef$OpFamily2.html" title="Base class for the companion object of a family of operators with two indices."></a>
+                        <a href="MonoidDef$OpFamily2.html" title="Base class for the companion object of a family of operators with two indices.">OpFamily2</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="MonoidDef$OpFamily3.html" title="Base class for the companion object of a family of operators with three indices."></a>
+                        <a href="MonoidDef$OpFamily3.html" title="Base class for the companion object of a family of operators with three indices.">OpFamily3</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="object" href="../freebased/MonoidDef$Permutation$.html" title=""></a>
+                        <a href="../freebased/MonoidDef$Permutation$.html" title="">Permutation</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="MonoidDef$PhasedOp$.html" title=""></a>
-                        <a class="class" href="MonoidDef$PhasedOp.html" title=""></a>
-                        <a href="MonoidDef$PhasedOp.html" title="">PhasedOp</a>
+                        <a class="class" href="MonoidDef$PhasedOp.html" title="An operator variable in this free monoid along with a phase."></a>
+                        <a href="MonoidDef$PhasedOp.html" title="An operator variable in this free monoid along with a phase.">PhasedOp</a>
                       </li>
               </ul>
             </div>
@@ -230,7 +238,7 @@
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -359,7 +367,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -383,7 +391,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -437,10 +445,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromSeq</span><span class="params">(<span name="name0">name0: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="seq">seq: <span class="extype" name="scala.Seq">Seq</span>[<a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>]</span>)</span><span class="result">: <a href="MonoidDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.OpEnum">OpEnum</a></span>
+        <span class="name">fromSeq</span><span class="params">(<span name="name0">name0: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="seq">seq: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>]</span>)</span><span class="result">: <a href="MonoidDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.OpEnum">OpEnum</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Constructs a collection of operators from a sequence and a name.</p>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -507,7 +515,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -660,7 +668,7 @@
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
             </div>
