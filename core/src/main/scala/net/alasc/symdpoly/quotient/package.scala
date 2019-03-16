@@ -1,12 +1,13 @@
 package net.alasc.symdpoly
 
-import net.alasc.symdpoly.generic.FreeBasedMono
 import shapeless.Witness
 import spire.syntax.eq._
 
+import net.alasc.symdpoly.freebased.Mono
+
 package object quotient {
 
-  type Rules[F <: free.MonoidDef.Aux[F] with Singleton] = Seq[(FreeBasedMono[F, F], FreeBasedMono[F, F])]
+  type Rules[F <: free.MonoidDef.Aux[F] with Singleton] = Seq[(Mono[F, F], Mono[F, F])]
 
   def pairs[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](rules: PairSubstitutions[F]): Rules[F] = for {
     op1 <- valueOf[F].opIndexMap.elements
@@ -25,6 +26,6 @@ package object quotient {
   } yield (lhs -> rhs)
 
 
-  def rules[F <: free.MonoidDef.Aux[F] with Singleton](pairs: (FreeBasedMono[F, F], FreeBasedMono[F, F])*): Rules[F] = pairs
+  def rules[F <: free.MonoidDef.Aux[F] with Singleton](pairs: (Mono[F, F], Mono[F, F])*): Rules[F] = pairs
 
 }

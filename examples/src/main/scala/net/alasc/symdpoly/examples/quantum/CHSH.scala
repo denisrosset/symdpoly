@@ -65,10 +65,10 @@ object CHSH {
   val L = Quotient.evaluator(evaluation.real)
 
   /** Problem symmetry group. */
-  val symmetryGroup = feasibilityGroup.leavesInvariant(L(bellOperator))
-/*
+  val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
+
   /** Monomial evaluator invariant under the problem symmetry group. */
-  val Lsym = L.symmetric(symmetryGroup)
+  val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
 
   /** Relaxation with all monomials of maximal degree 1. */
   val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
@@ -77,16 +77,24 @@ object CHSH {
   val problem = Lsym(bellOperator).maximize
 
   /** Relaxation. */
-  val relaxation = problem.relaxation(generatingSet)*/
+  val relaxation = problem.relaxation(generatingSet)
+
+  /** Automatic symmetrization. */
+  val relaxationAuto = L(bellOperator).maximize.symmetrize().relaxation(generatingSet)
 
 }
 
 object CHSHApp extends App {
   import CHSH._
-  /*
-  println(relaxation.gramMatrix.momentMatrix)
-  println(relaxation.jOptimizerInstance.solve())
-  relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
-  relaxation.mosekInstance.writeCBF("chsh.cbf")
-   */
+  println("The manual symmetrization gives")
+  println(relaxation)
+  println(relaxation.program.jOptimizer.solve())
+  println("while the automatic symmetrization gives")
+  println(relaxationAuto)
+  println(relaxationAuto.program.jOptimizer.solve())
+  relaxation.program.sdpa.writeFile("chsh.dat-s")
+  relaxation.program.mosek.writeFile("chsh.cbf")
+  relaxation.program.scs.writeFile("chsh_scs.mat")
+  relaxation.program.sedumi.writeFile("chsh_sedumi.mat")
+  relaxation.program.sdpt3.writeFile("chsh_sdpt3.mat")
 }

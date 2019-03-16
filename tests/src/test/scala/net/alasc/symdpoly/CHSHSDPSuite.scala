@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 
 import joptimizer._
 import defaults._
+import net.alasc.symdpoly.util.OrderedSet
 
 class CHSHSDPSuite extends CommonSuite {
 
@@ -50,20 +51,22 @@ class CHSHSDPSuite extends CommonSuite {
 
     assert(feasibilityGroup === quotientGroup)
 
-    val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
+    val generatingSet = Quotient.quotient(GSet.onePlus(A, B).pow(3))
 
     val L = Quotient.evaluator(evaluation.real)
 
-    val symmetryGroup = feasibilityGroup.leavesInvariant(L(bellOperator))
+    val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
 
-    val Lsym = Quotient.evaluator(evaluation.real, evaluation.symmetric(symmetryGroup))
+    val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
 
     val problem = Lsym(bellOperator).maximize
 
     val relaxation = problem.relaxation(generatingSet)
     import net.alasc.symdpoly.matlab._
 
-    val OptimumFound(_, ub, _, _) = relaxation.jOptimizerInstance.solve()
+    //relaxation.mosekInstance.writeCBF("chsh.cbf")
+
+    val OptimumFound(_, ub) = relaxation.program.jOptimizer.solve()
 
     import spire.math.{abs, sqrt}
     val tol = 1e-9

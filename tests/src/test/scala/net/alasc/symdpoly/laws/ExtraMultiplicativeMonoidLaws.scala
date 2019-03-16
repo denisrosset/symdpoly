@@ -11,7 +11,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.typelevel.discipline.{Laws, Predicate}
 
 object ExtraMultiplicativeMonoidLaws {
-  def apply[A:Eq:Arbitrary](implicit _pred: Predicate[A]) = new ExtraMultiplicativeMonoidLaws[A] {
+  def apply[A:Eq:Arbitrary](implicit _pred: Predicate[A]): ExtraMultiplicativeMonoidLaws[A] = new ExtraMultiplicativeMonoidLaws[A] {
     def Equ = Eq[A]
     def Arb = implicitly[Arbitrary[A]]
     def pred = _pred

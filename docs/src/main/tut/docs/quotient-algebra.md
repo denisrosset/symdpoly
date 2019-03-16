@@ -5,9 +5,7 @@ title: "Details: quotient algebra"
 
 # {{page.title}}
 
-Many equivalence relations can be handled directly at the level of monomials. Thus, the most efficient way of representing equality constraints is to provide a confluent rewriting system over a free monoid. These are the simplified equivalent of [Groebner bases](https://en.wikipedia.org/wiki/Gr%C3%B6bner_basis) for polynomials. While the rewriting system provided by the user has to be confluent for **SymDPoly** to work correctly, we do not verify that property; accordingly, we do not require the user to specify the monomial ordering by which the confluence property can be verified. However, we require that this ordering is graded: substitutions cannot increase the degree of monomials.
-
-As rules with a left hand side of degree one can be handled by variable substitution at the level of the free monoid, the simplest nontrivial rules for quotient monoids have degree two. Interestingly, most problems in quantum information only require those simplest rules.
+Many equivalence relations can be handled directly at the level of monomials. Thus, the most efficient way of representing equality constraints is to provide a confluent rewriting system over a free monoid. These are the simplified equivalent of [Groebner bases](https://en.wikipedia.org/wiki/Gr%C3%B6bner_basis) for polynomials. While the rewriting system provided by the user has to be confluent for **SymDPoly** to work correctly, we do not verify that property; accordingly, we do not require the user to specify the monomial ordering by which the confluence property can be verified. Additionally, we require that this ordering is graded: substitutions cannot increase the degree of monomials.
 
 ## CHSH
 For the CHSH example involving measurements with outcomes `+1`, `-1`, we have the following rules: the operators square to the identity, and the operators for different parties commute. This translates to:

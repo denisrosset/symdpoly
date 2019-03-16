@@ -6,10 +6,16 @@ import net.alasc.algebra.PermutationAction
 import net.alasc.finite.FaithfulPermutationActionBuilder
 import net.alasc.perms.Perm
 import net.alasc.util.NNOption
-import spire.algebra.{Action, Eq, Field, VectorSpace}
+import spire.algebra._
 import spire.math.SafeLong
 
 trait InvariantInstances {
+
+  implicit val symdpolyInvariantForInvolution: Invariant[Involution] = new Invariant[Involution] {
+    def imap[A, B](fa: Involution[A])(f1: A => B)(f2: B => A): Involution[B] = new Involution[B] {
+      def adjoint(b: B): B = f1(fa.adjoint(f2(b)))
+    }
+  }
 
   implicit val symdpolyContravariantForPermutationAction: Contravariant[PermutationAction] = new Contravariant[PermutationAction] {
     def contramap[A, B](fa: PermutationAction[A])(f: B => A): PermutationAction[B] = new PermutationAction[B] {
@@ -33,6 +39,13 @@ trait InvariantInstances {
       def movedPointsUpperBound(g: B): NNOption = fa.movedPointsUpperBound(f(g))
       def actr(p: Int, g: B): Int = fa.actr(p, f(g))
       def actl(g: B, p: Int): Int = fa.actl(f(g), p)
+    }
+  }
+
+  implicit def symdpolyContravariantForAction[P]: Contravariant[Lambda[G => Action[P, G]]] = new Contravariant[Lambda[G => Action[P, G]]] {
+    def contramap[A, B](fa: Action[P, A])(f: B => A): Action[P, B] = new Action[P, B] {
+      def actr(p: P, b: B): P = fa.actr(p, f(b))
+      def actl(b: B, p: P): P = fa.actl(f(b), p)
     }
   }
 

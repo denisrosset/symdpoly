@@ -2,9 +2,10 @@ package net.alasc.symdpoly
 package math
 
 import cyclo.Cyclo
+
 import org.scalacheck.{Arbitrary, Gen}
 import org.typelevel.discipline.Predicate
-import spire.algebra.{Eq, Involution, MultiplicativeAbGroup}
+import spire.algebra.{Eq, Involution, MultiplicativeAbGroup, Order}
 
 /** Represents a root of unity exp(2*pi*k/n), where k = 0, ..., n - 1.
   *
@@ -20,6 +21,7 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
   def isMinusOne: Boolean = (k == 1) && (n == 2)
   def isI: Boolean = (k == 1) && (n == 4)
   def isMinusI: Boolean = (k == 3) && (n == 4)
+  def isReal: Boolean = isOne || isMinusOne
   def toInt: Int =
     if (isOne) 1
     else if (isMinusOne) -1
@@ -67,6 +69,13 @@ class Phase(val encoding: Int) extends AnyVal { lhs =>
       java.lang.Long.compare(lhs.k * (lcm / lhs.n), rhs.k * (lcm / rhs.n)).signum
     }
   def toCyclo: Cyclo = Cyclo.e(n).pow(k)
+
+  /** Returns the floating point value of this phase when it is real (either -1 or 1), or NaN when it is complex. */
+  def toDouble: Double =
+    if (isOne) 1.0
+    else if (isMinusOne) -1.0
+    else Double.NaN
+
 }
 
 object Phase {
@@ -97,7 +106,7 @@ object Phase {
   }
 
   private[this] val instance = new PhaseInstances
-  implicit def equ: Eq[Phase] = instance
+  implicit def order: Order[Phase] = instance
   implicit def multiplicativeAbGroup: MultiplicativeAbGroup[Phase] = instance
   implicit def involution: Involution[Phase] = instance
 
@@ -110,13 +119,14 @@ object Phase {
   implicit def nonZero: Predicate[Phase] = Predicate(x => true)
   implicit val arb: Arbitrary[Phase] = Arbitrary(gen)
 
-  private[this] final class PhaseInstances extends Eq[Phase] with MultiplicativeAbGroup[Phase] with Involution[Phase] {
+  private[this] final class PhaseInstances extends Order[Phase] with MultiplicativeAbGroup[Phase] with Involution[Phase] {
     def div(x: Phase, y: Phase): Phase = x / y
     override def reciprocal(x: Phase): Phase = x.reciprocal
     def one: Phase = Phase(0, 1)
     def times(x: Phase, y: Phase): Phase = x * y
     def adjoint(x: Phase): Phase = x.adjoint
-    def eqv(x: Phase, y: Phase): Boolean = x.encoding == y.encoding
+    override def eqv(x: Phase, y: Phase): Boolean = x.encoding == y.encoding
+    def compare(x: Phase, y: Phase): Int = x.compareTo(y)
   }
 
 }

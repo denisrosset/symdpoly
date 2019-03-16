@@ -1,46 +1,62 @@
 package net.alasc.symdpoly
 
-import net.alasc.finite.Grp
-import net.alasc.symdpoly.generic.FreeBasedMonoidDef
-import net.alasc.symdpoly.generic.FreeBasedPermutation.FreeBasedPermutationMonoAction
+import cats.Contravariant
 import shapeless.Witness
-import spire.algebra.Action
+import shapeless.Witness.Aux
+
+import net.alasc.algebra.PermutationAction
+import net.alasc.finite.Grp
+import net.alasc.partitions.Partition
+import net.alasc.symdpoly.evaluation.internal.{AdjointEquivalence, ComposedEquivalence, CyclicEquivalence, TransposeEquivalence, TransposesEquivalence}
+import instances.invariant._
+import net.alasc.perms.default._
+import net.alasc.perms.Perm
 
 package object evaluation {
 
-  /** Equivalence under the adjoint operation. */
-  def real[M <: generic.MonoidDef with Singleton:Witness.Aux]: Equivalence[M] = valueOf[M] match {
-    case freeBased: FreeBasedMonoidDef.Aux[free] with Singleton => // recover the underlying type
-      val equiv = new FullAdjointEquivalence[freeBased.type, free]()(freeBased.witness)
-      equiv.asInstanceOf[Equivalence[M]] // escape hatch, we know that freeBased.type == M
-    case _ => new AdjointEquivalence[M]
+  /** Boolean function on operator variables. */
+  trait OpPredicate[F <: free.MonoidDef with Singleton] {
+    def apply(op: F#Op): Boolean
   }
 
-  /** Equivalence under a group action. */
-  def symmetric[
-    M <: generic.MonoidDef with Singleton:Witness.Aux,
-    G
-  ](grp: Grp[G])(implicit action: Action[M#Monomial, G]): Equivalence[M] = {
-    def generic: Equivalence[M] = new SymmetryEquivalence[M, G](grp)
-    valueOf[M] match {
-      case freeBasedMonoid: FreeBasedMonoidDef.Aux[free] => action match {
-        case freeBasedAction: FreeBasedPermutationMonoAction[freeBasedMonoid.type, free] => generic
-        case _ => generic
-      }
-      case _ => generic
-    }
+  trait OpGroup[F <: free.MonoidDef with Singleton] {
+    def apply(op: F#Op): Option[Int]
   }
+
+  /** Returns a trivial equivalence relation, where the equivalence class of m is Set(m). */
+  def trivial[M <: generic.MonoidDef with Singleton: Witness.Aux]: Equivalence[M] = new Equivalence[M] {
+    def witnessM: Aux[M] = implicitly
+    def apply(mono: M#Monomial): Set[M#Monomial] = Set(mono)
+    def compatibleSubgroup(grp: Grp[M#Permutation]): Grp[M#Permutation] = grp
+    def isSelfAdjoint: Boolean = false
+  }
+
+  /** Equivalence under the adjoint operation. */
+  def real[M <: generic.MonoidDef with Singleton : Witness.Aux]: Equivalence[M] = AdjointEquivalence[M]()
+
+  def compose[M <: generic.MonoidDef with Singleton : Witness.Aux](equivalences: Equivalence[M]*): Equivalence[M] =
+    equivalences match {
+      case Seq() => trivial
+      case Seq(e) => e
+      case seq => ComposedEquivalence(seq)
+    }
 
   /** Equivalence under cyclic permutation of operators selected by the given predicate. */
   def cyclic[
-    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
+    M <: freebased.MonoidDef.Aux[F] with Singleton : Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](predicate: OpPredicate[F]): Equivalence[M] = new CyclicEquivalence[M, F](predicate)
+  ](predicate: OpPredicate[F]): Equivalence[M] = CyclicEquivalence[M, F](predicate)
 
   /** Equivalence under transposition of the operators selected by the given predicate. */
   def transpose[
-    M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux,
+    M <: freebased.MonoidDef.Aux[F] with Singleton : Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](predicate: OpPredicate[F]): Equivalence[M] = new TransposeEquivalence[M, F](predicate)
+  ](predicate: OpPredicate[F]): Equivalence[M] = TransposeEquivalence[M, F](predicate)
+
+  /** Equivalence under transposition of the groups of operators specified by the given group predicate */
+  def transposes[
+    M <: freebased.MonoidDef.Aux[F] with Singleton : Witness.Aux,
+    F <: free.MonoidDef.Aux[F] with Singleton : Witness.Aux
+  ](groups: OpGroup[F]): Equivalence[M] = TransposesEquivalence[M, F](groups)
 
 }

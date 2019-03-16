@@ -1,0 +1,34 @@
+  /*
+  def spliceGenPerm(x: GenPerm, start: Int, size: Int): GenPerm = {
+    val perm = Perm.fromImageFun(size, i => x.perm.image(i + start) - start))
+    val phases = Phases(x.phases.elements.toSeq.collect {
+      case (i, phase) if i >= start && i < start + size => (i - start, phase)
+    }: _*)
+    GenPerm(perm, phases)
+  }
+
+  def concatGenPerm(x: GenPerm, xs: Int, y: GenPerm, ys: Int): GenPerm = {
+    val perm = Perm.fromImages(x.perm.images(xs) ++ y.perm.images(ys).map(_ + xs))
+    val phases = Phases(x.phases.elements.toSeq ++ y.phases.elements.toSeq.map { case (k, v) => (k + xs, v) }: _*)
+    GenPerm(perm, phases)
+  }
+   */
+
+/*
+  def matDirectSumMonoid[A:AdditiveMonoid:Sparse]: Monoid[Mat[A]] = new Monoid[Mat[A]] {
+    def empty: Mat[A] = scalin.immutable.dense.matEngine[A].zeros(0, 0)
+    def combine(x0: Mat[A], y0: Mat[A]): Mat[A] = (x0, y0) match {
+      case (x: MatAST, y: MatAST) => MatAST.BlkDiag(x.blocks ++ y.blocks).asInstanceOf[Mat[A]]
+      case (x: scalin.immutable.CSCMat[A], y: scalin.immutable.CSCMat[A]) =>
+        val newColPtrs = x.colPtrs.dropRight(1) ++ y.colPtrs.map(_ + x.data.length)
+        val newRowIndices = x.rowIndices ++ y.rowIndices.map(_ + x.nRows)
+        val newData = x.data ++ y.data
+        new scalin.immutable.CSCMat[A](x.nRows + y.nRows, x.nCols + y.nCols, newData, newColPtrs, newRowIndices)
+      case (x, y) =>
+        import scalin.immutable.dense._
+        Mat.rowMajor(2, 2)(
+          x, Mat.zeros[A](x.nRows, y.nCols),
+          Mat.zeros[A](y.nRows, x.nCols), y
+        ).flatten
+    }
+  }*/

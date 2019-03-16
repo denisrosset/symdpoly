@@ -2,13 +2,13 @@ package net.alasc.symdpoly
 
 import cyclo.Cyclo
 import org.typelevel.discipline.Predicate
-import spire.laws.{InvolutionLaws, RingLaws}
+import spire.laws.{GroupLaws, InvolutionLaws, RingLaws}
 import defaults._
-import net.alasc.symdpoly.laws.ExtraMultiplicativeMonoidLaws
+import net.alasc.symdpoly.laws.{ExtraMultiplicativeMonoidLaws, PhasedLaws}
 import spire.math.Rational
-import net.alasc.symdpoly.evaluation.Evaluator
-import net.alasc.symdpoly.generic.{FreeBasedMono, FreeBasedPoly}
+import net.alasc.symdpoly.freebased.{Mono, Poly}
 import net.alasc.symdpoly.math.Phase
+import org.scalacheck.Arbitrary
 
 class CHSHAlgebraSuite extends CommonSuite {
 
@@ -45,13 +45,13 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   val CHSH = A(0)*B(0) + B(1)*A(0) + A(1)*B(0) - A(1)*B(1)
 
-  checkAll("free monoid", RingLaws[FreeBasedMono.Free[Free.type]].multiplicativeMonoid)
-  checkAll("free monoid involution", InvolutionLaws[FreeBasedMono.Free[Free.type]].involutionMultiplicativeMonoid)
-  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono.Free[Free.type]].multiplicativeBinoid)
+  checkAll("free monoid", RingLaws[Mono.Free[Free.type]].multiplicativeMonoid)
+  checkAll("free monoid involution", InvolutionLaws[Mono.Free[Free.type]].involutionMultiplicativeMonoid)
+  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[Mono.Free[Free.type]].multiplicativeBinoid)
 
   val Quotient = Free.quotientMonoid(quotient.pairs {
-    case (A(x1), A(x2)) if x1 == x2 => FreeBasedMono.one
-    case (B(y1), B(y2)) if y1 == y2 => FreeBasedMono.one
+    case (A(x1), A(x2)) if x1 == x2 => Mono.one
+    case (B(y1), B(y2)) if y1 == y2 => Mono.one
     case (B(y), A(x)) => A(x) * B(y)
     case (op1, op2) => op1 * op2
   })
@@ -60,18 +60,19 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   val gset: GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B))
 
-  val L: Evaluator[Quotient.type] = Quotient.evaluator(evaluation.real)
-  val gramMatrix = GramMatrix[L.type, Quotient.type](L, gset)
+  val L = Quotient.evaluator(evaluation.real)
 
-  checkAll("quotient monoid", RingLaws[FreeBasedMono[Quotient.type, Free.type]].multiplicativeMonoid)
-  checkAll("quotient monoid involution", InvolutionLaws[FreeBasedMono[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
-  checkAll("quotient binoid", ExtraMultiplicativeMonoidLaws[FreeBasedMono[Quotient.type, Free.type]].multiplicativeBinoid)
+  checkAll("quotient monoid", RingLaws[Mono[Quotient.type, Free.type]].multiplicativeMonoid)
+  checkAll("quotient monoid involution", InvolutionLaws[Mono[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
+  checkAll("quotient binoid", ExtraMultiplicativeMonoidLaws[Mono[Quotient.type, Free.type]].multiplicativeBinoid)
+  val groupLaws = GroupLaws[Phase](implicitly, Arbitrary(Phase.genForDenominator(Free.cyclotomicOrder)))
+  checkAll("quotient phased", PhasedLaws[Mono[Quotient.type, Free.type]](implicitly, implicitly, groupLaws).phasedInvolution)
 
   import cyclo.Cyclos.arbCyclo
   implicit val cycloPred: Predicate[Cyclo] = { (c: Cyclo) => !c.isZero}
-  checkAll("nc poly ring", spire.laws.RingLaws[FreeBasedPoly[Quotient.type, Free.type]].ring)
-  checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[FreeBasedPoly[Quotient.type, Free.type], Cyclo].vectorSpace)
-  checkAll("nc ring involution", spire.laws.InvolutionLaws[FreeBasedPoly[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
+  checkAll("nc poly ring", spire.laws.RingLaws[Poly[Quotient.type, Free.type]].ring)
+  checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[Poly[Quotient.type, Free.type], Cyclo].vectorSpace)
+  checkAll("nc ring involution", spire.laws.InvolutionLaws[Poly[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
 
   test("Sign interpretation") {
     val e1 = A(1) - A(0) - A(0)

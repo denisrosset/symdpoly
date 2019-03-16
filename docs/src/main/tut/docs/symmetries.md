@@ -37,22 +37,22 @@ Note the minus sign in `outputSwapA0`, which multiplies the phase of `A(0)` by `
 
 ## Ambient group
 
-The *ambient group* of a quotient monoid/algebra is a symmetry group whose action is compatible with the equivalence classes: it contains permutations `g` of the operators such that `g(quotient(monomial)) = quotient(g(monomial))`, and then the action of equivalency classes of the quotient is well defined.
+The *feasibility group* of a quotient monoid/algebra is a symmetry group whose action is compatible with the equivalence classes: it contains permutations `g` of the operators such that `g(quotient(monomial)) = quotient(g(monomial))`, and then the action of equivalency classes of the quotient is well defined.
 
-The ambient group can be defined from a permutation group on the free monoid. When using `groupInQuotient`, we check compatibility of the generators with the quotient structure: if some generators are incompatible, we look for the subgroup that preserves the quotient structure. The `groupInQuotientNC` method is unsafe and disables this check: you can use it when performance becomes critical and you have already proved that the given group preserves the quotient structure.
+The feasibility group can be defined from a permutation group on the free monoid. When using `groupInQuotient`, we check compatibility of the generators with the quotient structure: if some generators are incompatible, we look for the subgroup that preserves the quotient structure. The `groupInQuotientNC` method is unsafe and disables this check: you can use it when performance becomes critical and you have already proved that the given group preserves the quotient structure.
 
-Note that the ambient group can automatically be computed by calling `Quotient.symmetryGroup`.
+Note that the feasibility group can automatically be computed by calling `Quotient.symmetryGroup`.
 ```tut
-val ambientGroup = Quotient.groupInQuotient(Grp(swapParties, inputSwapA, outputSwapA0))
-val ambientGroup1 = Quotient.groupInQuotientNC(Grp(swapParties, inputSwapA, outputSwapA0))
-val ambientGroup2 = Quotient.symmetryGroup
+val feasibilityGroup = Quotient.groupInQuotient(Grp(swapParties, inputSwapA, outputSwapA0))
+val feasibilityGroup1 = Quotient.groupInQuotientNC(Grp(swapParties, inputSwapA, outputSwapA0))
+val feasibilityGroup2 = Quotient.symmetryGroup
 ```
 
-Using the algorithms of Alasc, the group order is readily computed, as well as a small set of generators:
+Using the algorithms of [Alasc](https://github.com/denisrosset/alasc), the group order is readily computed, as well as a small set of generators:
 
 ```tut
-ambientGroup.order
-ambientGroup1.order
-ambientGroup2.order
-ambientGroup.smallGeneratingSet
+feasibilityGroup.order
+feasibilityGroup1.order
+feasibilityGroup2.order
+feasibilityGroup.smallGeneratingSet
 ```

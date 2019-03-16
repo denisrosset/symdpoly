@@ -3,25 +3,24 @@ package evaluation
 
 import scala.annotation.tailrec
 
+import cats.instances.eq.catsContravariantMonoidalForEq
+import cats.instances.order.catsContravariantMonoidalForOrder
 import cats.{Contravariant, Invariant}
 import shapeless.Witness
-import spire.algebra.{Action, Eq, Order, VectorSpace}
+import spire.ClassTag
+import spire.algebra._
 import spire.syntax.action._
-
+import spire.math.Rational
+import spire.syntax.std.seq._
+import instances.invariant._
 import cyclo.Cyclo
 
+import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
+import net.alasc.perms.default._
 import net.alasc.symdpoly.algebra.Phased
-import net.alasc.symdpoly.generic
-import cats.instances.order.catsContravariantMonoidalForOrder
-import cats.instances.eq.catsContravariantMonoidalForEq
-import spire.math.Rational
-
-import net.alasc.finite.Grp
-import spire.util.Opt
-import spire.syntax.std.seq._
-
-import syntax.all._
-import instances.all._
+import net.alasc.symdpoly.generic.{EvaluatedMono, EvaluatedPoly}
+import net.alasc.symdpoly.math.GrpDecomposition
+import net.alasc.symdpoly.{freebased, generic, valueOf}
 
 /** Describes a quotient vector space defined on a polynomial ring.
   *
@@ -29,35 +28,66 @@ import instances.all._
   * preserve the polynomial structure.
   *
   */
-abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux] { self =>
+abstract class Evaluator { self =>
 
-  def equivalences: Seq[Equivalence[M]]
+  //region Members to implement in concrete instances
 
-  def M: M = valueOf[M]
-  val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
+  def equivalence: Equivalence[Mono]
+  def symmetryGroup: Grp[Mono#Permutation]
+  lazy val symmetryGroupDecomposition: GrpDecomposition[Mono#Permutation] = GrpDecomposition(symmetryGroup)
 
-  type ScratchPad
-  def makeScratchPad: ScratchPad
+  type Mono <: generic.MonoidDef with Singleton
 
-  // optimization: set to true if apply(a) == apply(a.adjoint)
-  def isSelfAdjoint: Boolean = ??? // TODO equivalences.exists(e => e.isInstanceOf[AdjointEquivalence[_]] || e.isInstanceOf[AdjointFreeBasedEquivalence[_, _]])
+  //endregion
+
+  implicit def witnessMono: Witness.Aux[Mono]
+  implicit val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
+  def M: Mono = valueOf[Mono]
+
+  def isSelfAdjoint: Boolean = equivalence.isSelfAdjoint
+
+  /** Returns the subgroup of grp that is compatible with this evaluator, in the sense that
+    * for all monomials m1 and m2 of type Mono#Monomial, and all g of type M#Permutation, we have
+    * L(m1) == L(m2) if and only if L(m1 <|+| g) == L(m2 <|+| g)
+    */
+  def compatibleSubgroup(grp: Grp[Mono#Permutation]): Grp[Mono#Permutation] = grp intersect (symmetryGroup union equivalence.compatibleSubgroup(grp))
 
   //region Evaluated monomials
 
-  type EvaluatedMonomial = EvaluatedMono[self.type, M]
+  type EvaluatedMonomial = EvaluatedMono[self.type, Mono]
 
-  def apply(mono: M#Monomial): EvaluatedMono[self.type, M] = apply(mono, makeScratchPad)
-  def apply(mono: M#Monomial, pad: ScratchPad): EvaluatedMono[self.type, M]
+  lazy val zero: EvaluatedMonomial = apply(M.zero)
+
+  lazy val one: EvaluatedMonomial = apply(M.one)
+
+  def fromNormalForm(normalForm: Mono#Monomial): EvaluatedMono[self.type, Mono] = new EvaluatedMono[self.type, Mono](normalForm)
+
+  def apply(mono: Mono#Monomial): EvaluatedMono[self.type, Mono] = {
+    val equivalentUnderSymmetry = symmetryGroupDecomposition.transversals.foldLeft(Set(mono)) {
+      case (set, transversal) => for ( m <- set ; g <- transversal ) yield m <|+| g
+    }
+    val candidates = equivalentUnderSymmetry.flatMap( equivalence.apply(_) )
+    val canonicalCandidates = candidates.map(M.monoPhased.phaseCanonical)
+    if (canonicalCandidates.size != candidates.size)
+      new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
+    else
+      new EvaluatedMono[self.type, Mono](candidates.qmin(M.monoOrder))
+  }
 
   //endregion
 
   //region Evaluated polynomials
 
-  type EvaluatedPolynomial = EvaluatedPoly[self.type, M]
+  type EvaluatedPolynomial = EvaluatedPoly[self.type, Mono]
 
-  def apply(poly: M#Polynomial)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M] = apply(poly, makeScratchPad)
-
-  def apply(poly: M#Polynomial, pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M]
+  def apply(poly: Mono#Polynomial)(implicit d: DummyImplicit): EvaluatedPoly[self.type, Mono] = {
+    @tailrec def iter(i: Int, acc: Mono#Polynomial): Mono#Polynomial =
+      if (i == poly.nTerms) acc else {
+        val newTerm = M.polyAssociativeAlgebra.timesl(poly.coeff(i), M.monomialToPolynomial(apply(poly.monomial(i)).normalForm))
+        iter(i + 1, M.polyAssociativeAlgebra.plus(acc, newTerm))
+      }
+    new EvaluatedPoly[self.type, Mono](iter(0, M.polyAssociativeAlgebra.zero))
+  }
 
   /** Construct a constant evaluated polynomial from the given constant. */
   def constant(i: Int): EvaluatedPolynomial = apply(M.constant(i))
@@ -70,47 +100,40 @@ abstract class Evaluator[M <: generic.MonoidDef with Singleton: Witness.Aux] { s
 
   //endregion
 
-  type Permutation = M#Permutation
-
   //region Typeclasses
 
-  val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, M](M.monoMultiplicativeBinoid.zero)
-  val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
-  val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(apply(_, makeScratchPad))(_.normalForm)
-  val evaluatedPolyEq: Eq[EvaluatedPolynomial] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
-  val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPolynomial, Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply(_, makeScratchPad))(_.normalForm)
+  lazy val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
+  lazy val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
+  lazy val evaluatedMonoInvolution: Involution[EvaluatedMonomial] = Invariant[Involution].imap(M.monoInvolution)(apply)(_.normalForm)
+  lazy val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(fromNormalForm)(_.normalForm)
+  lazy val evaluatedMonoClassTag: ClassTag[EvaluatedMonomial] = implicitly
 
-  def evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation]
+  lazy val evaluatedPolyInvolution: Involution[EvaluatedPolynomial] = Invariant[Involution].imap(M.polyInvolution)(apply)(_.normalForm)
+  lazy val evaluatedPolyEq: Eq[EvaluatedPolynomial] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
+  lazy val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPolynomial, Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply)(_.normalForm)
+  lazy val evaluatedPolyClassTag: ClassTag[EvaluatedPolynomial] = implicitly
+
+  lazy val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Mono#Permutation] = new Action[EvaluatedMonomial, Mono#Permutation] {
+    def actr(p: EvaluatedMonomial, g: Mono#Permutation): EvaluatedMonomial = apply(M.permutationMonoAction.actr(p.normalForm, g))
+    def actl(g: Mono#Permutation, p: EvaluatedMonomial): EvaluatedMonomial = apply(M.permutationMonoAction.actl(g, p.normalForm))
+  }
 
   //endregion
 }
 
-case class GenericEvaluator[M <: generic.MonoidDef with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends Evaluator[M] { self =>
+object Evaluator {
+  
+  type Aux[M <: generic.MonoidDef with Singleton] = Evaluator { type Mono = M }
 
-  val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Permutation] = {
-    val action: Action[M#Monomial, Permutation] = (M: M).permutationMonoAction
-    Invariant[Lambda[P => Action[P, Permutation]]].imap[M#Monomial, EvaluatedMono[self.type, M]](action)(m => apply(m))(_.normalForm)
-  }
-
-  type ScratchPad = Unit
-  def makeScratchPad: Unit = ()
-
-  def apply(mono: M#Monomial, pad: ScratchPad): EvaluatedMono[self.type, M] = {
-    val candidates = equivalences.foldLeft(Set(mono)) { case (set, equivalence) => set.flatMap(m => equivalence(m)) }
-    val grouped = candidates.groupBy(M.monoPhased.phaseCanonical)
-    if (grouped.values.exists(_.size > 1))
-      new EvaluatedMono[self.type, M](M.monoMultiplicativeBinoid.zero)
-    else
-      new EvaluatedMono[self.type, M](candidates.qmin(M.monoOrder))
-  }
-
-  def apply(poly: M#Polynomial, pad: ScratchPad)(implicit d: DummyImplicit): EvaluatedPoly[self.type, M] = {
-    @tailrec def iter(i: Int, acc: M#Polynomial): M#Polynomial =
-      if (i == poly.nTerms) acc else {
-        val newTerm = M.polyAssociativeAlgebra.timesl(poly.coeff(i), M.monomialToPolynomial(apply(poly.monomial(i), pad).normalForm))
-        iter(i + 1, M.polyAssociativeAlgebra.plus(acc, newTerm))
-      }
-    new EvaluatedPoly[self.type, M](iter(0, M.polyAssociativeAlgebra.zero))
-  }
+  /*
+  implicit def evaluatedMonoInvolution[E <: Evaluator with Singleton: Witness.Aux]: Involution[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoInvolution
+  implicit def evaluatedMonoOrder[E <: Evaluator with Singleton: Witness.Aux]: Order[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoOrder
+  implicit def evaluatedMonoPhased[E <: Evaluator with Singleton: Witness.Aux]: Phased[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoPhased
+  implicit def evaluatedMonoClassTag[E <: Evaluator with Singleton: Witness.Aux]: ClassTag[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoClassTag
+   */
+  implicit def evaluatedPolyVectorSpace[E <: Evaluator with Singleton: Witness.Aux]: VectorSpace[E#EvaluatedPolynomial, Cyclo] = valueOf[E].evaluatedPolyVectorSpace
+  implicit def evaluatedPolyInvolution[E <: Evaluator with Singleton: Witness.Aux]: Involution[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyInvolution
+  implicit def evaluatedPolyEq[E <: Evaluator with Singleton: Witness.Aux]: Eq[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyEq
+  implicit def evaluatedPolyClassTag[E <: Evaluator with Singleton: Witness.Aux]: ClassTag[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyClassTag
 
 }

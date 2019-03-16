@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 package examples.quantum
 
 import defaults._
+import joptimizer._
 
 /** Facet inequalities in the scenario with three parties and binary inputs/outputs.
   *
@@ -69,12 +70,15 @@ object Sliwa {
     case op => op
   }
 
-  /** Group that preserves the quotient monoid structure. */
-  val feasibilityGroup = Quotient.groupInQuotient(Grp(pT, pC, iA, oA0))
 
   /** Default evaluator. */
   val L = Quotient.evaluator(evaluation.real)
 
+  /** Group that preserves the problem structure. */
+  val feasibilityGroup = Quotient.groupInQuotient(Grp(pT, pC, iA, oA0))
+
+  println("Feasilibility group")
+  println(feasibilityGroup)
   def npaLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B, C).pow(l))
 
   def localLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A).pow(l) * GSet.onePlus(B).pow(l) * GSet.onePlus(C).pow(l))
@@ -134,6 +138,58 @@ object Sliwa {
     Seq(10, -3, -1, -3, 2, 1, -1, 1, 2, 0, -2, 2, -1, 3, -4, -1, 1, -2, 0, -1, -1, -2, 3, 1, 2, -4, -2)
   )
 
+  // bounds from https://journals.aps.org/pra/abstract/10.1103/PhysRevA.95.022111
+  // Almost-quantum correlations and their refinements in a tripartite Bell scenario
+  // James Vallins, Ana Belén Sainz, and Yeong-Cherng Liang
+  // Phys. Rev. A 95, 022111, 2017
+  val bounds = Mat.rowMajor[Double](46, 14)(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    2, 2, 4, 4, 4, 4 , 2.8284, 2.8284, 2.8284, 2.0000, 2.8284, 2.8284, 2.8284, 2.0000,
+    3, 2, 2.8284, 2.8284, 2.8284, 4, 2.0000, 2.8284, 2.8284, 2.0000, 2.0000, 2.8284, 2.8284, 2.0000,
+    4, 2, 3.6569, 3.6569, 3.6569, 6, 3.6569, 2, 2, 2, 3.6569, 2, 2, 2,
+    5, 3, 4.8885, 4.8885, 4.8885, 7, 4.6569, 4.6569, 4.6569, 3.2097, 4.6569, 4.6569, 4.6569, 3.0187,
+    6, 3, 4.6569, 4.6569, 4.6617, 7, 4.6569, 4.6569, 3.0000, 3.0000, 4.6569 , 4.6569, 3.0000, 3.0000,
+    7, 4, 20.0/3, 6.6667, 6.6667, 10, 5.6569, 5.6569, 5.6569, 4.0000, 5.6569, 5.6569, 5.6569, 4.0000,
+    8, 4, 6.6667, 6.6667, 6.6667, 8, 5.6569, 5.6569, 5.6569, 4.0000, 5.6569 , 5.6569, 5.6569, 4.0000,
+    9, 4, 5.6569, 5.6569, 5.6569, 8, 5.6569, 4.0000, 5.6569, 4.0000, 5.6569 , 4.0000, 5.6569, 4.0000,
+    10, 4, 4, 4, 5.3211, 20.0/3, 4, 4, 4, 4, 4, 4, 4, 4,
+    11, 4, 5.6569, 5.6569, 5.6569, 8, 4.0000, 4.0000, 5.6569, 4.0000, 4.0000 , 4.0000, 5.6569, 4.0000,
+    12, 4, 5.6569, 5.6569, 5.6569, 8, 4.3695, 4.3695, 5.6569, 4.2830, 4.0085 , 4.0088, 5.6569, 4.0007,
+    13, 4, 5.6569, 5.6569, 5.6569, 8, 5.6569, 4.0000, 5.6569, 4.0000, 5.6569 , 4.0000, 5.6569, 4.0000,
+    14, 4, 5.6569, 5.6569, 5.6569, 8, 4.0000, 4.0000, 5.6569, 4.0000, 4.0000 , 4.0000, 5.6569, 4.0000,
+    15, 4, 6.0000, 6.0000, 6.0000, 8, 5.6569, 4.4517, 5.6569, 4.2243, 5.6569, 4.0095, 5.6569, 4.0000,
+    16, 4, 6.1289, 6.1289 , 6.1289, 8, 5.6569, 5.6569, 5.6569, 4.0000, 5.6568 , 5.6569, 5.6569, 4.0000,
+    17, 4, 5.6569, 5.6569, 5.6569, 8, 4.0000, 5.6569, 5.6569, 4.0000, 4.0000, 5.6569, 5.6569, 4.0000,
+    18, 4, 5.7538, 5.7538, 5.7538, 8, 5.6569, 4.3130, 4.3130, 4.2247, 5.6569 , 4.0000 , 4.0000, 4.0000,
+    19, 4, 5.7829, 5.7829, 5.7829, 8, 5.6569, 5.6569, 4.3063, 4.1865, 5.6569 , 5.6569 , 4.0000, 4.0000,
+    20, 4, 6.4853, 6.4853, 6.4853 , 10, 6.4853, 4.5000, 4.6903, 4.1328 , 6.4853, 4.5000, 4.6847, 4.0000,
+    21, 4, 5.9555, 5.9555, 5.9555, 60.0/7, 5.6569, 5.6569, 5.6569, 4.1749, 5.6569, 5.6569, 5.6569, 4.0000,
+    22, 4, 6.1980, 6.1980, 6.1980, 8, 5.6569, 5.6569, 5.6569, 4.2748, 5.6569 , 5.6569, 5.6569, 4.0000,
+    23, 4, 4.6847, 4.7754, 5.2939, 8, 4.5000, 4.5000, 4.6847, 4.1135, 4.5000 , 4.5000, 4.6847, 4.0000,
+    24, 5, 7.9401, 7.9401, 7.9401, 31.0/3, 6.6569, 6.6569, 6.6569, 5.2372, 6.6569 , 6.6569, 6.6569, 5.0000,
+    25, 5, 6.8243, 6.8243, 6.8415, 31.0/3 , 6.6569, 6.6569, 6.4272, 5.1652, 6.6569 , 6.6569, 6.4272, 5.0000,
+    26, 5, 7.9282, 7.9282, 7.9282, 31.0/3, 6.4272, 6.4272, 6.4272, 5.1819, 6.4272 , 6.4272, 6.4272, 5.0000,
+    27, 5, 6.9547, 6.9547, 6.9588, 31.0/3, 6.4272, 6.6569, 6.6569, 5.1808, 6.4272, 6.6569, 6.6569, 5.0000,
+    28, 6, 9.9098, 9.9098, 9.9098, 14, 9.3137, 7.4272, 7.4272, 6.2123, 9.3137 , 7.4272, 7.4272, 6.0000,
+    29, 6, 9.3137, 9.3137, 9.3137, 14, 9.3137, 7.4272, 7.4272, 6.1624, 9.3137 , 7.4272, 7.4272, 6.0000,
+    30, 6, 9.3137, 9.3137, 9.3137, 14, 9.3137, 7.4272, 7.4272, 6.1723, 9.3137 , 7.4272, 7.4272, 6.0000,
+    31, 6, 7.8043, 7.8043, 7.9226, 12, 7.6569, 7.4272, 7.4272, 6.1866, 7.6569, 7.4272, 7.4272, 6.0000,
+    32, 6, 8.1516, 8.1516, 8.1754, 12, 7.6569, 7.6569, 7.4272, 6.2086, 7.6569, 7.6569, 7.4272, 6.0000,
+    33, 6, 9.7899, 9.7899, 9.7899, 12, 7.6569, 7.6569, 7.6569, 6.3217, 7.6569, 7.6569, 7.6569, 6.0000,
+    34, 6, 8.2515, 8.2515, 8.2723, 12, 7.6569, 7.4272, 7.4272, 6.2444, 7.6569 , 7.4272, 7.4272, 6.0000,
+    35, 6, 7.8553, 7.8553, 8.0776 , 12, 7.4272, 7.4272, 7.4272, 6.1794, 7.4272, 7.4272, 7.4272, 6.0000,
+    36, 6, 9.4614, 9.4614, 9.4614, 14, 9.3137, 7.4272, 7.4272, 6.1904, 9.3137, 7.4272, 7.4272, 6.0000,
+    37, 6, 9.3137, 9.3137, 9.3137, 14, 9.3137, 7.4272, 7.4272, 6.1817, 9.3137 , 7.4272, 7.4272, 6.0000,
+    38, 6, 9.3137, 9.3137, 9.3137, 14, 9.3137, 7.4272, 7.4272, 6.1627, 9.3137 , 7.4272, 7.4272, 6.0000,
+    39, 6, 9.3253, 9.3253, 9.3253, 12, 7.6569, 7.6569, 7.6569, 6.4378, 7.6569, 7.6569, 7.6569, 6.0000,
+    40, 6, 8.1298, 8.1298, 8.1458, 12, 7.4272, 7.6569, 7.4272, 6.2677, 7.4272 , 7.6569, 7.4272, 6.0000,
+    41, 7, 10.3677, 10.3735, 10.3769, 15, 10.3137, 10.3137, 8.4272, 7.2012, 10.3137, 10.3137, 8.4272, 7.0000,
+    42, 8, 13.0470, 13.0470, 13.0470 , 16, 10.9852, 10.9852, 11.3137, 8.2933, 10.9852, 10.9852, 11.3137, 8.0000,
+    43, 8, 11.3137, 11.3137, 11.3137, 16, 10.9852, 9.4272, 11.3137, 8.2481, 10.9852 , 9.4272, 11.3137, 8.0000,
+    44, 8, 12.9706, 12.9706, 12.9706, 20, 12.9706, 9.3693, 9.3693, 8.2812, 12.9706, 9.3693, 9.3693, 8.0000,
+    45, 8, 12.9706, 12.9706, 12.9706, 20, 12.9706, 9.3693, 9.3693, 8.2675, 12.9706 , 9.3693, 9.3693, 8.0000,
+    46, 10, 12.9852, 12.9852, 13.2668, 62.0/3, 12.8543, 12.8543, 12.9852, 10.4006, 12.8543, 12.8543, 12.9852 , 10.0000
+  )
+
 }
 
 object SliwaApp extends App {
@@ -145,20 +201,24 @@ object SliwaApp extends App {
   expressions.zipWithIndex.foreach { case (coefficients, index0) =>
     val index1 = index0 + 1
     println(s"Working on inequality #$index1")
-    val expression = (coefficients zip listOfMonomials).foldLeft(Quotient.polyAssociativeAlgebra.zero) {
+    val expression = (coefficients.tail zip listOfMonomials.tail).foldLeft(Quotient.polyAssociativeAlgebra.zero) {
       case (acc, (coeff, mono)) => acc + mono * coeff
     }
     println(s"Expression: $expression")
     val obj = -expression
-    val symmetryGroup = feasibilityGroup.leavesInvariant(L(obj))
+    val symmetryGroup = obj.invariantSubgroupOf(feasibilityGroup)
     println(s"Symmetry group order: ${symmetryGroup.order}")
-    /*
-    val Lsym = L.symmetric(symmetryGroup)
+    val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
     val problem = Lsym(obj).maximize
     val relaxation = problem.relaxation(generatingSet)
-    println(s"Number of unique monomials: ${relaxation.gramMatrix.nUniqueMonomials}")
-    relaxation.mosekInstance.writeCBF(s"sliwa_$index1.cbf")
-     */
+    relaxation.program.mosek.writeFile(s"sliwa_$index1.cbf")
+    println(s"Number of unique monomials: ${relaxation.allMoments.length}")
+    val OptimumFound(_, opt) = relaxation.program.jOptimizer.solve(1e-6)
+    val optPaper = bounds(index0, 3)
+    println(s"JOptimizer bound: $opt to compare with the bound given in the literature $optPaper")
+    val tol = 1e-3
+    assert(spire.math.abs(opt - optPaper) < tol)
+    println("")
   }
 
 }

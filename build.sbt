@@ -7,6 +7,7 @@ val alascVersion = "0.16.0.3"
 val attributesVersion = "0.30"
 val betterFilesVersion = "3.4.0"
 val catsVersion = "1.1.0"
+val fs2Version = "1.0.3"
 val disciplineVersion = "0.8"
 val fastParseVersion = "1.0.0"
 val jGraphTVersion = "1.2.0"
@@ -17,6 +18,7 @@ val metalVersion = "0.16.0.0"
 val progressBarVersion = "0.7.0"
 val scalaARMVersion = "2.0"
 val scalaCheckVersion = "1.13.5"
+val scalaCollectionCompatVersion = "0.2.2"
 val scalaTestVersion = "3.0.5"
 val scalinVersion = "0.16.0.0"
 val shapelessVersion = "2.3.3"
@@ -28,8 +30,8 @@ lazy val symdpoly = (project in file("."))
   .settings(moduleName := "symdpoly")
   .settings(symdpolySettings)
   .settings(noPublishSettings)
-  .aggregate(core, mosek, jOptimizer, matlab, examples, tests)
-  .dependsOn(core, mosek, jOptimizer, matlab, examples, tests)
+  .aggregate(core, mosek, examples, tests)
+  .dependsOn(core, mosek, examples, tests)
 
 lazy val docs = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
@@ -38,41 +40,29 @@ lazy val docs = (project in file("docs"))
   .settings(symdpolySettings)
   .settings(noPublishSettings)
   .settings(docSettings)
-  .dependsOn(core, mosek, jOptimizer, matlab, examples, tests)
+  .dependsOn(core, mosek, examples, tests)
 
 lazy val core = (project in file("core"))
   .settings(moduleName := "symdpoly-core")
   .settings(symdpolySettings)
 
-lazy val matlab = (project in file("matlab"))
-  .settings(moduleName := "symdpoly-matlab")
-  .settings(symdpolySettings)
-  .settings(matlabSettings)
-  .dependsOn(core)
-
 lazy val mosek = (project in file("mosek"))
   .settings(moduleName := "symdpoly-mosek")
   .settings(symdpolySettings)
-  .dependsOn(core)
-
-lazy val jOptimizer = (project in file("joptimizer"))
-  .settings(moduleName := "symdpoly-joptimizer")
-  .settings(symdpolySettings)
-  .settings(jOptimizerSettings)
-  .dependsOn(core)
+  .dependsOn(core, examples)
 
 lazy val tests = (project in file("tests"))
   .settings(moduleName := "symdpoly-tests")
   .settings(symdpolySettings)
   .settings(testsSettings)
-  .dependsOn(core, jOptimizer, matlab)
+  .dependsOn(core)
 
 lazy val examples = (project in file("examples"))
   .settings(moduleName := "symdpoly-examples")
   .settings(noPublishSettings)
   .settings(symdpolySettings)
   .settings(testsSettings)
-  .dependsOn(core, jOptimizer, matlab)
+  .dependsOn(core)
 
 lazy val symdpolySettings = buildSettings ++ commonSettings ++ publishSettings
 
@@ -80,18 +70,6 @@ lazy val buildSettings = Seq(
   name := "symdpoly",
   organization := "net.alasc",
   scalaVersion := scala212Version
-)
-
-lazy val matlabSettings = Seq(
-  libraryDependencies ++= Seq(
-    "com.diffplug.matsim" % "matfilerw" % matFileRWVersion,
-  )
-)
-
-lazy val jOptimizerSettings = Seq(
-  libraryDependencies ++= Seq(
-    "com.joptimizer" % "joptimizer" % jOptimizerVersion
-  )
 )
 
 lazy val testsSettings = Seq(
@@ -125,13 +103,17 @@ lazy val commonSettings = Seq(
     "org.typelevel" %% "cats-core" % catsVersion,
     "org.scala-metal" %% "metal-core" % metalVersion,
     "org.scala-metal" %% "metal-library" % metalVersion,
+    "org.scala-lang.modules" %% "scala-collection-compat" % scalaCollectionCompatVersion,
     "org.typelevel" %% "spire" % spireVersion,
+    "co.fs2" %% "fs2-core" % fs2Version,
     "net.alasc" %% "cyclo-core" % spireCycloVersion,
     "net.alasc" %% "alasc-core" % alascVersion,
     "net.alasc" %% "scalin-core" % scalinVersion,
     "com.chuusai" %% "shapeless" % shapelessVersion,
     "com.lihaoyi" %% "sourcecode" % sourcecodeVersion,
-    "com.jsuereth" %% "scala-arm" % scalaARMVersion
+    "com.jsuereth" %% "scala-arm" % scalaARMVersion,
+    "com.joptimizer" % "joptimizer" % jOptimizerVersion,
+    "com.diffplug.matsim" % "matfilerw" % matFileRWVersion,
   ),
   scalacOptions in (Compile, console) ~= {_.filterNot("-Ywarn-unused-import" == _)},
   scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value
@@ -173,7 +155,7 @@ lazy val docsMappingsAPIDir = settingKey[String]("Name of subdirectory in site t
 def docsSourcesAndProjects(sv: String): (Boolean, Seq[ProjectReference]) =
   CrossVersion.partialVersion(sv) match {
     case Some((2, 10)) => (false, Nil)
-    case _ => (true, Seq(core, matlab, jOptimizer, mosek))
+    case _ => (true, Seq(core, mosek))
   }
 
 lazy val docSettings = Seq(
@@ -207,6 +189,10 @@ lazy val docSettings = Seq(
   unidocProjectFilter in (ScalaUnidoc, unidoc) :=
     inProjects(docsSourcesAndProjects(scalaVersion.value)._2:_*),
   docsMappingsAPIDir := "api",
+  scalacOptions in (Compile, doc) ++= Seq(
+//    "-doc-source-url", s"https://github.com/slick/slick/blob/${Docs.versionTag(version.value)}/slick/src/main€{FILE_PATH}.scala",
+    "-doc-root-content", "scaladoc-root.txt"
+  ),
   addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), docsMappingsAPIDir),
   ghpagesNoJekyll := false,
   fork := true,

@@ -23,11 +23,7 @@ Start with an empty folder, and add the following `build.sbt` file in it.
 ```scala
 resolvers += Resolver.bintrayRepo("denisrosset", "maven")
 
-libraryDependencies ++= Seq(
-  "net.alasc" %% "symdpoly-core"    % "{{site.symdpolyVersion}}",
-  "net.alasc" %% "symdpoly-joptimizer"    % "{{site.symdpolyVersion}}",
-  "net.alasc" %% "symdpoly-matlab"    % "{{site.symdpolyVersion}}"
-)
+libraryDependencies += "net.alasc" %% "symdpoly-core"    % "{{site.symdpolyVersion}}"
 ```
 
 Add now a single file `Test.scala` to your project:
@@ -36,7 +32,7 @@ import net.alasc.symdpoly._
 import net.alasc.symdpoly.defaults._
 
 object Test extends App {
-  print(examples.CHSH.relaxation.sdpaInstance.data)
+  print(examples.quantum.CHSH.relaxation.program.sdpa.data)
 }
 ```
 
@@ -73,5 +69,5 @@ Thus the example above would be presented:
 import net.alasc.symdpoly._;
 import net.alasc.symdpoly.defaults._;
 
-examples.quantum.CHSH.relaxation.sdpaInstance.data
+examples.quantum.CHSH.relaxation.program.sdpa.data
 ```

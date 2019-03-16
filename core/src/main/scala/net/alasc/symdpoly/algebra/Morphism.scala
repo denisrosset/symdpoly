@@ -1,12 +1,12 @@
 package net.alasc.symdpoly
 package algebra
 
+import cats.arrow.Compose
 import net.alasc.algebra.PermutationAction
 import net.alasc.attributes.Attributable
 import net.alasc.finite._
 import spire.syntax.group._
 import spire.algebra.{Eq, Group}
-
 import net.alasc.perms.default._
 import net.alasc.std.product._
 import spire.std.tuples._
@@ -14,12 +14,12 @@ import instances.invariant._
 import net.alasc.syntax.all._
 import net.alasc.util.NNOption
 import shapeless.Witness
+
 import scala.annotation.tailrec
 import scala.reflect.ClassTag
-
 import cats.{Contravariant, Invariant, InvariantMonoidal}
+import net.alasc.bsgs.{Chain, GrpChain, Node}
 import spire.math.SafeLong
-
 import net.alasc.perms.Perm
 
 /** Describes a map S => T that preserves the algebraic structure F[_] */
@@ -30,6 +30,8 @@ trait Morphism[S, T, F[_]] extends Function1[S, T] {
 }
 
 object Morphism {
+
+  type GroupMorphism[S, T] = Morphism[S, T, Group]
 
   /** Constructs a morphism from a S => T function. */
   def apply[S, T, F[_]](f: S => T)(implicit S0: F[S], T0: F[T]): Morphism[S, T, F] = new Morphism[S, T, F] {
@@ -48,9 +50,52 @@ object Morphism {
     /** Returns the image of a net.alasc.finite.Grp under a group morphism. */
     def grpImage(source: Grp[S])(implicit equ: Eq[T], group: Group[T], grpGroup: GrpGroup[T]): Grp[T] = {
       val imageGenerators = source.generators.map(morphism).filterNot(_.isEmpty)
-      grpGroup.fromGenerators(imageGenerators)
+      morphism match {
+        case inj: InjectiveMorphism[S, T, Group] => grpGroup.fromGeneratorsAndOrder(imageGenerators, source.order)
+        case _ => Grp(imageGenerators: _*)
+      }
     }
 
+  }
+
+  protected def faithfulPermutationActionFromGrp[G](grp: Grp[G]): Option[PermutationAction[G]] = grp match {
+    case grpChain: GrpChain[G, a1] if grpChain.action.isFaithful => Some(grpChain.action)
+    case grpChain: GrpChain[G, a1] => grpChain.kernel match {
+      case node: Node[G, a2] if node.action.isFaithful => Some(node.action)
+      case _ => None
+    }
+    case _ => None
+  }
+
+  def niceMonomorphism[G](grp: Grp[G])(implicit ev: FaithfulPermutationActionBuilder[G]): Morphism[G, Perm, Group] = {
+    val action: PermutationAction[G] = faithfulPermutationActionFromGrp(grp).getOrElse(ev(grp))
+    new Morphism[G, Perm, Group] {
+      def S: Group[G] = grp.group
+      def T: Group[Perm] = Perm.algebra
+      def apply(g: G): Perm = action.toPerm(g)
+    }
+  }
+
+  implicit def compose[F[_]]: Compose[Lambda[(S, T) => Morphism[S, T, F]]] =
+    new Compose[Lambda[(S, T) => Morphism[S, T, F]]] {
+      def compose[A, B, C](f: Morphism[B, C, F], g: Morphism[A, B, F]): Morphism[A, C, F] = new Morphism[A, C, F] {
+        def S: F[A] = g.S
+        def T: F[C] = f.T
+        def apply(a: A): C = f(g(a))
+      }
+    }
+
+}
+
+trait InjectiveMorphism[S, T, F[_]] extends Morphism[S, T, F]
+
+object InjectiveMorphism {
+
+  /** Constructs an injective morphism from a S => T function. */
+  def apply[S, T, F[_]](f: S => T)(implicit S0: F[S], T0: F[T]): InjectiveMorphism[S, T, F] = new InjectiveMorphism[S, T, F] {
+    def S: F[S] = S0
+    def T: F[T] = T0
+    def apply(s: S): T = f(s)
   }
 
 }
@@ -65,6 +110,21 @@ object SurjectiveMorphism {
   /** Constructs a surjective morphism from a pair of functions S => T and T => S,
     * such that their composition T => S => T is the identity. */
   def apply[S, T, F[_]](image: S => T)(preimage: T => S)(implicit S0: F[S], T0: F[T]): SurjectiveMorphism[S, T, F] = new SurjectiveMorphism[S, T, F] {
+    def S: F[S] = S0
+    def T: F[T] = T0
+    def apply(s: S): T = image(s)
+    def preimageRepresentative(t: T): S = preimage(t)
+  }
+
+}
+
+trait Isomorphism[S, T, F[_]] extends InjectiveMorphism[S, T, F] with SurjectiveMorphism[S, T, F]
+
+object Isomorphism {
+
+  /** Constructs an isomorphism from a pair of functions S => T and T => S,
+    * such that their composition T => S => T is the identity. */
+  def apply[S, T, F[_]](image: S => T)(preimage: T => S)(implicit S0: F[S], T0: F[T]): Isomorphism[S, T, F] = new Isomorphism[S, T, F] {
     def S: F[S] = S0
     def T: F[T] = T0
     def apply(s: S): T = image(s)
@@ -95,10 +155,11 @@ object MorphismFromGeneratorImages {
       val nPoints = combinedGrp.largestMovedPoint(combinedAction).getOrElse(-1) + 1
       assert(combinedGrp.pointwiseStabilizer(combinedAction, 0 until nPoints: _*).isTrivial,
         "The given images do not prescribe an homomorphism")
+      val generatorImagesMap: Map[S, T] = Map(source.generators zip images: _*)
       new Morphism[S, T, Group] {
         def S: Group[S] = implicitly
         def T: Group[T] = implicitly
-        def apply(s: S): T =  combinedGrp.findSameAction(combinedAction, s)(sAction, implicitly).get._2
+        def apply(s: S): T = generatorImagesMap.getOrElse(s, combinedGrp.findSameAction(combinedAction, s)(sAction, implicitly).get._2)
       }
     }
   }

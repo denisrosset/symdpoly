@@ -42,10 +42,20 @@ class OrderedSet[A](private[this] val sortedArray: Array[AnyRef]) { lhs =>
   def diff(rhs: OrderedSet[A])(implicit ord: Order[A]): OrderedSet[A] =
     OrderedSet.fromSortedSet(lhs.toSortedSet diff rhs.toSortedSet)
 
+  def union(rhs: OrderedSet[A])(implicit ord: Order[A]): OrderedSet[A] =
+    OrderedSet.fromSortedSet(lhs.toSortedSet union rhs.toSortedSet)
+
+  def toIndexedSeq: IndexedSeq[A] = new IndexedSeq[A] {
+    def length: Int = lhs.length
+    def apply(idx: Int): A = lhs.apply(idx)
+  }
+
 }
 
 object OrderedSet {
   import spire.compat._
+
+  def empty[A]: OrderedSet[A] = new OrderedSet[A](Array.empty[AnyRef])
 
   def fromIterator[A:Order](iterator: Iterator[A]): OrderedSet[A] =
     fromSortedSet(iterator.to[SortedSet])
@@ -53,12 +63,11 @@ object OrderedSet {
   def apply[A:Order](elements: A*): OrderedSet[A] =
     fromSortedSet(elements.to[SortedSet])
 
-
   def fromOrdered[A](seq: Seq[A]): OrderedSet[A] =
     new OrderedSet[A](seq.map(_.asInstanceOf[AnyRef]).toArray)
 
-  def fromUnique[A](seq: Seq[A])(implicit ord: Order[A]): OrderedSet[A] = {
-    val array = seq.map(_.asInstanceOf[AnyRef]).toArray
+  def fromUnique[A](iterable: Iterable[A])(implicit ord: Order[A]): OrderedSet[A] = {
+    val array = iterable.map(_.asInstanceOf[AnyRef]).toArray
     spire.math.Sorting.quickSort(array)(ord.asInstanceOf[Order[AnyRef]], implicitly)
     new OrderedSet[A](array)
   }
