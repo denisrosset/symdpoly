@@ -46,7 +46,7 @@ class Relaxation[
   val scalarEq: Seq[EvaluatedPoly[E, M]],
   val scalarIneq: Seq[EvaluatedPoly[E, M]]) {
 
-  override def toString: String = s"Moment relaxation with ${allMoments.length} monomials, a moment matrix of size ${momentMatrix.size} x ${momentMatrix.size}, and ${localizingMatrices.size} localizing matrix/ces"
+  override def toString: String = s"Moment relaxation with ${allMoments.length-1} monomials, a moment matrix of size ${momentMatrix.size} x ${momentMatrix.size}, and ${localizingMatrices.size} localizing matrix/ces"
 
   def E: E = valueOf[E]
 
