@@ -46,8 +46,9 @@ class Relaxation[
   val scalarEq: Seq[EvaluatedPoly[E, M]],
   val scalarIneq: Seq[EvaluatedPoly[E, M]]) {
 
-  def E: E = valueOf[E]
+  override def toString: String = s"Moment relaxation with ${allMoments.length} monomials, a moment matrix of size ${momentMatrix.size} x ${momentMatrix.size}, and ${localizingMatrices.size} localizing matrix/ces"
 
+  def E: E = valueOf[E]
 
   lazy val (allMoments: OrderedSet[E#EvaluatedMonomial], adjointMoment: Array[Int], allSelfAdjoint: Boolean) = {
     val all: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromUnique(

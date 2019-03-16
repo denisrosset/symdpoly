@@ -77,17 +77,24 @@ object CHSH {
   val problem = Lsym(bellOperator).maximize
 
   /** Relaxation. */
-  val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet)
+  val relaxation = problem.relaxation(generatingSet)
+
+  /** Automatic symmetrization. */
+  val relaxationAuto = L(bellOperator).maximize.symmetrize.relaxation(generatingSet)
 
 }
 
 object CHSHApp extends App {
   import CHSH._
+  println("The manual symmetrization gives")
+  println(relaxation)
+  println(relaxation.jOptimizerInstance.solve())
+  println("while the automatic symmetrization gives")
+  println(relaxationAuto)
+  println(relaxationAuto.jOptimizerInstance.solve())
   relaxation.program.sdpa.writeFile("chsh.dat-s")
   relaxation.program.mosek.writeFile("chsh.cbf")
   relaxation.program.scs.writeFile("chsh_scs.mat")
-  //println(relaxation.gramMatrix.momentMatrix)
-  //println(relaxation.jOptimizerInstance.solve())
-  //relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")
-  //relaxation.mosekInstance.writeCBF("chsh.cbf")
+  relaxation.program.sedumi.writeFile("chsh_sedumi.mat")
+  relaxation.program.sdpt3.writeFile("chsh_sdpt3.mat")
 }
