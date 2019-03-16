@@ -48,10 +48,10 @@ object Robinson {
   val obj = -f
 
   /** Evaluation of polynomials over real variables. */
-  val L = Quotient.evaluator(Evaluation.real)
+  val L = Quotient.evaluator(evaluation.real)
 
   /** Symmetry group that leaves the objective invariant. */
-  val group = L(obj).invariantSubgroupOf(L.symmetryGroup)
+  val group = L(obj).invariantSubgroupOf(Quotient.symmetryGroup)
 
   /** First group generator given in the paper, page 109 */
   val d = Free.permutation {
@@ -66,7 +66,7 @@ object Robinson {
   }
 
   /** We verify that we recover the group described in the paper. */
-  assert(group === L.groupInEvaluatorNC(Quotient.groupInQuotientNC(Grp(d, s))))
+  assert(group === Quotient.groupInQuotientNC(Grp(d, s)))
 
   /** Optimization problem. */
   val problem: Optimization[L.type, Quotient.type] = L(obj).maximize

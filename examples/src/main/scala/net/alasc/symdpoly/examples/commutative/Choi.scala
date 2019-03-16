@@ -50,13 +50,13 @@ object Choi {
   val obj = Quotient.quotient(-B*S)
 
   /** Default evaluator. */
-  val L = Quotient.evaluator(Evaluation.real)
+  val L = Quotient.evaluator(evaluation.real)
 
   /** Group that preserves the quotient structure. */
   val feasibilityGroup = Quotient.symmetryGroup
 
   /** Group that preserves optimality. */
-  val symmetryGroup = L(obj).invariantSubgroupOf(L.groupInEvaluator(feasibilityGroup))
+  val symmetryGroup = L(obj).invariantSubgroupOf(feasibilityGroup)
 
   /*
   /** Evaluator with equivalence under symmetries. */
@@ -81,7 +81,7 @@ object ChoiApp extends App {
 
   import Choi._
 
-  relaxationNoSym.toSDP.mosek.writeFile("choi_nosym.cbf")
+  relaxationNoSym.program.mosek.writeFile("choi_nosym.cbf")
 /*
   relaxationSym.mosekInstance.writeCBF("choi_sym.cbf")
 

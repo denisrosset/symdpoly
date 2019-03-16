@@ -18,7 +18,7 @@ case class SDPAFormat(val sdp: Program) extends TextFormat {
         case (Direction.Minimize, 0) =>
         case (Direction.Maximize, 0) =>
           writer.append(s"* SDPA solves a minimization dual problem, while we express a maximization problem.\n")
-          writer.append(s"* The real objective is thus -obj_SPDA_value.")
+          writer.append(s"* The real objective is thus -obj_SPDA_value.\n")
         case (Direction.Maximize, cte) =>
           writer.append(s"* SDPA solves a minimization dual problem, while we express a maximization problem.\n")
           writer.append(s"* Constant terms are not supported by SDPA, but the original objective has constant term cte = ${cte}.\n")

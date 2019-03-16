@@ -53,16 +53,11 @@ class CHSHSDPSuite extends CommonSuite {
 
     val generatingSet = Quotient.quotient(GSet.onePlus(A, B).pow(3))
 
-    val L = Quotient.evaluator(Evaluation.real)
+    val L = Quotient.evaluator(evaluation.real)
 
     val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
 
-    val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
-
-    val mm = MomentMatrix[Lsym.type, Quotient.type](generatingSet.toOrderedSet, true)
-    val mm1 = MomentMatrix[Lsym.type, Quotient.type](generatingSet.toOrderedSet, false)
-
-    assert(mm.mat == mm1.mat)
+    val Lsym = Quotient.evaluator(evaluation.real, symmetryGroup)
 
     val problem = Lsym(bellOperator).maximize
 
@@ -71,7 +66,7 @@ class CHSHSDPSuite extends CommonSuite {
 
     //relaxation.mosekInstance.writeCBF("chsh.cbf")
 
-    val OptimumFound(_, ub) = relaxation.toSDP.jOptimizer.solve()
+    val OptimumFound(_, ub) = relaxation.program.jOptimizer.solve()
 
     import spire.math.{abs, sqrt}
     val tol = 1e-9

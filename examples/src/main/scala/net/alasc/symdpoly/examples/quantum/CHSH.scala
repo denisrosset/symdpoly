@@ -4,7 +4,6 @@ package examples.quantum
 import net.alasc.symdpoly.defaults._
 import net.alasc.symdpoly.joptimizer._
 import net.alasc.symdpoly.matlab._
-import net.alasc.symdpoly.sdp.Relaxation
 
 /** Computes the Tsirelson bound on the CHSH inequality, written using
   * correlators A(x) and B(y).
@@ -63,13 +62,13 @@ object CHSH {
   val bellOperator = Quotient.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
 
   /** Default evaluator. */
-  val L = Quotient.evaluator(Evaluation.real)
+  val L = Quotient.evaluator(evaluation.real)
 
   /** Problem symmetry group. */
   val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
 
   /** Monomial evaluator invariant under the problem symmetry group. */
-  val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
+  val Lsym = Quotient.evaluator(evaluation.real, symmetryGroup)
 
   /** Relaxation with all monomials of maximal degree 1. */
   val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
@@ -84,9 +83,9 @@ object CHSH {
 
 object CHSHApp extends App {
   import CHSH._
-  relaxation.toSDP.sdpa.writeFile("chsh.dat-s")
-  relaxation.toSDP.mosek.writeFile("chsh.cbf")
-  relaxation.toSDP.scs.writeFile("chsh_scs.mat")
+  relaxation.program.sdpa.writeFile("chsh.dat-s")
+  relaxation.program.mosek.writeFile("chsh.cbf")
+  relaxation.program.scs.writeFile("chsh_scs.mat")
   //println(relaxation.gramMatrix.momentMatrix)
   //println(relaxation.jOptimizerInstance.solve())
   //relaxation.sedumiInstance.writeFile("chsh_sedumi.mat")

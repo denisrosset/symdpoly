@@ -67,7 +67,7 @@ abstract class Evaluator { self =>
       case (set, transversal) => for ( m <- set ; g <- transversal ) yield m <|+| g
     }
     val candidates = equivalentUnderSymmetry.flatMap( equivalence.apply(_) )
-    val canonicalCandidates = candidates.map(_.phaseCanonical)
+    val canonicalCandidates = candidates.map(M.monoPhased.phaseCanonical)
     if (canonicalCandidates.size != candidates.size)
       new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
     else
@@ -102,18 +102,18 @@ abstract class Evaluator { self =>
 
   //region Typeclasses
 
-  val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
-  val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
-  val evaluatedMonoInvolution: Involution[EvaluatedMonomial] = Invariant[Involution].imap(M.monoInvolution)(apply)(_.normalForm)
-  val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(fromNormalForm)(_.normalForm)
-  val evaluatedMonoClassTag: ClassTag[EvaluatedMonomial] = implicitly
+  lazy val evaluatedMonoZero: EvaluatedMonomial = new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
+  lazy val evaluatedMonoOrder: Order[EvaluatedMonomial] = Contravariant[Order].contramap(M.monoOrder)(em => em.normalForm)
+  lazy val evaluatedMonoInvolution: Involution[EvaluatedMonomial] = Invariant[Involution].imap(M.monoInvolution)(apply)(_.normalForm)
+  lazy val evaluatedMonoPhased: Phased[EvaluatedMonomial] = Invariant[Phased].imap(M.monoPhased)(fromNormalForm)(_.normalForm)
+  lazy val evaluatedMonoClassTag: ClassTag[EvaluatedMonomial] = implicitly
 
-  val evaluatedPolyInvolution: Involution[EvaluatedPolynomial] = Invariant[Involution].imap(M.polyInvolution)(apply)(_.normalForm)
-  val evaluatedPolyEq: Eq[EvaluatedPolynomial] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
-  val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPolynomial, Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply)(_.normalForm)
-  val evaluatedPolyClassTag: ClassTag[EvaluatedPolynomial] = implicitly
+  lazy val evaluatedPolyInvolution: Involution[EvaluatedPolynomial] = Invariant[Involution].imap(M.polyInvolution)(apply)(_.normalForm)
+  lazy val evaluatedPolyEq: Eq[EvaluatedPolynomial] = Contravariant[Eq].contramap(M.polyEq)(ep => ep.normalForm)
+  lazy val evaluatedPolyVectorSpace: VectorSpace[EvaluatedPolynomial, Cyclo] = Invariant[Lambda[V => VectorSpace[V, Cyclo]]].imap(M.polyAssociativeAlgebra)(apply)(_.normalForm)
+  lazy val evaluatedPolyClassTag: ClassTag[EvaluatedPolynomial] = implicitly
 
-  val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Mono#Permutation] = new Action[EvaluatedMonomial, Mono#Permutation] {
+  lazy val evaluatedMonoPermutationAction: Action[EvaluatedMonomial, Mono#Permutation] = new Action[EvaluatedMonomial, Mono#Permutation] {
     def actr(p: EvaluatedMonomial, g: Mono#Permutation): EvaluatedMonomial = apply(M.permutationMonoAction.actr(p.normalForm, g))
     def actl(g: Mono#Permutation, p: EvaluatedMonomial): EvaluatedMonomial = apply(M.permutationMonoAction.actl(g, p.normalForm))
   }

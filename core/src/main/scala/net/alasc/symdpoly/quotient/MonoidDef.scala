@@ -37,8 +37,8 @@ class Symmetries[
   implicit def witnessF: Witness.Aux[F] = M.witnessFree
 
   val lhs = F.opIndexMap.elements.map(_.toMono) ++ M.rewritingRules.entries.map { case (key, _) => new Mono[F, F](key: MutableWord[F]) }
-  val orderedSet = symmetries.Orbit.allElements(lhs, F.symmetryGroup.generators)
-  val normalForms = orderedSet.toIndexedSeq.map(M.quotient(_))
+  val orderedSet = symmetries.Orbit.allElements(lhs, F.symmetryGroup.generators, F.monoPhased.phaseCanonical)
+  val normalForms = orderedSet.toIndexedSeq.flatMap(m => (0 until M.cyclotomicOrder).map(num => m <* Phase(num, M.cyclotomicOrder))).map(M.quotient(_))
   val partition = Partition.fromSeq(normalForms)
 
   /** Permutation action of free permutations on the set of monomials described by orderedSet. */
@@ -78,7 +78,10 @@ abstract class MonoidDef extends freebased.MonoidDef {
 
   /** Returns the subgroup of a group of permutations on the free variables, such that it is the maximal subgroup
     * compatible with the quotient structure. */
-  def groupInQuotient(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] = symmetries.compatibleSubgroup(grp)
+  def groupInQuotient(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] = {
+    val s = symmetries
+    s.compatibleSubgroup(grp)
+  }
 
   /** Translates a group acting on the free variables into a group acting on the equivalence classes on the quotient
     * monoid, assuming that the group is compatible without verification. */

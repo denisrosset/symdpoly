@@ -2,7 +2,6 @@ package net.alasc.symdpoly.examples.quantum
 
 import net.alasc.symdpoly._
 import net.alasc.symdpoly.defaults._
-import net.alasc.symdpoly.sdp.Relaxation
 
 /** The I3322 inequality in the scenario with two parties, three measurement settings and binary outcomes. */
 object I3322 {
@@ -59,7 +58,7 @@ object I3322 {
 
   def generatingSet(npaLevel: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B)).pow(npaLevel)
 
-  val L = Quotient.evaluator(Evaluation.real)
+  val L = Quotient.evaluator(evaluation.real)
 
   val bellOperator = Quotient.quotient(
     A(2) * B(1) + A(1) * B(2) - A(1) * B(1) - A(0) * B(2) - A(2) * B(0) - A(1) * B(0) - A(0) * B(1) - A(0) * B(0)
@@ -68,7 +67,7 @@ object I3322 {
 
   val feasGrp = Quotient.symmetryGroup
   val symGrp = bellOperator.invariantSubgroupOf(feasGrp)
-  val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symGrp))
+  val Lsym = Quotient.evaluator(evaluation.real, symGrp)
   val problem = Lsym(bellOperator).maximize
 }
 
@@ -76,11 +75,12 @@ object I3322 {
 object I3322App extends App {
 
   import I3322._
-  for (level <- 2 to 5) {
+  for (level <- 1 to 5) {
     println(level)
     val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
-    relaxation.toSDP.mosek.writeFile(s"i3322_$level.cbf")
-    relaxation.toSDP.sdpa.writeFile(s"i3322_$level.dat-s")
-    relaxation.toSDP.scs.writeFile(s"i3322_${level}_scs.mat")
+    relaxation.program.mosek.writeFile(s"i3322_$level.cbf")
+    relaxation.program.sdpa.writeFile(s"i3322_$level.dat-s")
+    if (level < 5) // TODO: bring back SCS save when sparse matrix concatenation is faster
+      relaxation.program.scs.writeFile(s"i3322_${level}_scs.mat")
   }
 }

@@ -63,7 +63,7 @@ final class EvaluatedPoly[
     }*/
 
   def invariantSubgroupOf(grp: Grp[M#Permutation]): Grp[M#Permutation] =
-    symmetries.invariantSubgroupOf[E#EvaluatedMonomial, M#Permutation]((0 until nTerms).map(monomial), (x: EvaluatedMono[E, M]) => coeff(x), grp, M.cyclotomicOrder)
+    symmetries.invariantSubgroupOf[E#EvaluatedMonomial, M#Permutation]((0 until nTerms).map(monomial), (x: EvaluatedMono[E, M]) => coeff(x), E.compatibleSubgroup(grp), M.cyclotomicOrder)
 
   /** Expands this evaluated polynomial in the given SDP relaxation.
     *

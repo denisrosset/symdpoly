@@ -72,11 +72,13 @@ object Sliwa {
 
 
   /** Default evaluator. */
-  val L = Quotient.evaluator(Evaluation.real)
+  val L = Quotient.evaluator(evaluation.real)
 
   /** Group that preserves the problem structure. */
   val feasibilityGroup = Quotient.groupInQuotient(Grp(pT, pC, iA, oA0))
 
+  println("Feasilibility group")
+  println(feasibilityGroup)
   def npaLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B, C).pow(l))
 
   def localLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A).pow(l) * GSet.onePlus(B).pow(l) * GSet.onePlus(C).pow(l))
@@ -206,16 +208,17 @@ object SliwaApp extends App {
     val obj = -expression
     val symmetryGroup = obj.invariantSubgroupOf(feasibilityGroup)
     println(s"Symmetry group order: ${symmetryGroup.order}")
-    val Lsym = Quotient.evaluator(Evaluation.real, Evaluation.symmetric(symmetryGroup))
+    val Lsym = Quotient.evaluator(evaluation.real, symmetryGroup)
     val problem = Lsym(obj).maximize
     val relaxation = problem.relaxation(generatingSet)
+    relaxation.program.mosek.writeFile(s"sliwa_$index1.cbf")
     println(s"Number of unique monomials: ${relaxation.allMoments.length}")
-    val OptimumFound(_, opt) = relaxation.toSDP.jOptimizer.solve(1e-6)
+    val OptimumFound(_, opt) = relaxation.program.jOptimizer.solve(1e-6)
     val optPaper = bounds(index0, 3)
-    println(opt -> optPaper)
+    println(s"JOptimizer bound: $opt to compare with the bound given in the literature $optPaper")
     val tol = 1e-3
     assert(spire.math.abs(opt - optPaper) < tol)
-    //relaxation.mosekInstance.writeCBF(s"sliwa_$index1.cbf")
+    println("")
   }
 
 }
