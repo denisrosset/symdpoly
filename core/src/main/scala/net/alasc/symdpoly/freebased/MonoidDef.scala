@@ -26,7 +26,7 @@ import cats.instances.option._
 import net.alasc.util._
 import net.alasc.algebra.PermutationAction
 import net.alasc.symdpoly.evaluation
-import net.alasc.symdpoly.evaluation.{AdjointEquivalence, Evaluator}
+import net.alasc.symdpoly.evaluation.Evaluator
 import net.alasc.symdpoly.util.OrderedSet
 
 /** Monoid whose elements are represented by normal forms in a free monoid.

@@ -1,12 +1,13 @@
 package net.alasc.symdpoly
-package freebased
+package evaluation
+package internal
 
 import scala.annotation.tailrec
 
 import shapeless.Witness
 
-/*
-final class TransposeEquivalence[
+
+final case class TransposeEquivalence[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
 ](val predicate: OpPredicate[F])(implicit val witnessM: Witness.Aux[M]) extends PredicateEquivalence[M, F] {
@@ -43,11 +44,6 @@ final class TransposeEquivalence[
       if (iter(0, mono.length - 1, false)) 2 else 1
     }
 
-}
+  def isSelfAdjoint: Boolean = false
 
-final class TransposeEquivalences[
-  M <: freebased.MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
-](val predicates: OpPredicate[F])(implicit val witnessM: Witness.Aux[M]) extends PredicateEquivalence[M, F] {
 }
-*/

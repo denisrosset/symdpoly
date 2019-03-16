@@ -1,14 +1,12 @@
 package net.alasc.symdpoly
-package freebased
-/*
+package evaluation
+package internal
+
 import scala.annotation.tailrec
 
 import shapeless.Witness
 
-import net.alasc.symdpoly.Evaluation.OpPredicate
-import net.alasc.symdpoly.{free, generic}
-
-final class CyclicEquivalence[
+final case class CyclicEquivalence[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
 ](val predicate: OpPredicate[F])(implicit val witnessM: Witness.Aux[M]) extends PredicateEquivalence[M, F] {
@@ -40,5 +38,6 @@ final class CyclicEquivalence[
     iterate(first, second, 0)
   }
 
+  def isSelfAdjoint: Boolean = false
+
 }
-*/

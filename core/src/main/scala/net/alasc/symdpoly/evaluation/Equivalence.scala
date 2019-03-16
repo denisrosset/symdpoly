@@ -3,10 +3,11 @@ package net.alasc.symdpoly.evaluation
 import shapeless.Witness
 
 import net.alasc.finite.Grp
+import net.alasc.symdpoly.evaluation.internal.ComposedEquivalence
 import net.alasc.symdpoly.{generic, valueOf}
 
 /** An equivalence relation on monomials. */
-trait Equivalence[M <: generic.MonoidDef with Singleton] {
+trait Equivalence[M <: generic.MonoidDef with Singleton] { self =>
 
   implicit def witnessM: Witness.Aux[M]
   def M: M = valueOf[M]
@@ -27,5 +28,17 @@ trait Equivalence[M <: generic.MonoidDef with Singleton] {
 
   /** Returns whether m.adjoint is equivalent to m for all m of type M#Monomial. */
   def isSelfAdjoint: Boolean
+
+  def andThen(next: Equivalence[M]): Equivalence[M] = {
+    val before = self match {
+      case ComposedEquivalence(seq) => seq
+      case e => Seq(e)
+    }
+    val after = next match {
+      case ComposedEquivalence(seq) => seq
+      case e => Seq(e)
+    }
+    ComposedEquivalence(before ++ after)
+  }
 
 }
