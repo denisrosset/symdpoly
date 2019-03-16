@@ -57,7 +57,7 @@ class CHSHSDPSuite extends CommonSuite {
 
     val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
 
-    val Lsym = Quotient.evaluator(evaluation.real, symmetryGroup)
+    val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
 
     val problem = Lsym(bellOperator).maximize
 
