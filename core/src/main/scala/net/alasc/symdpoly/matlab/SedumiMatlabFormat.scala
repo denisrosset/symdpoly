@@ -27,14 +27,14 @@ import net.alasc.symdpoly.sdp.{Block, Program, RepMat}
 /** Export interface for the Sedumi solver
   *
   * We write the problem as
-  *
+  * {{{
   * maximize b * y
   *
   * A' y + s = c
   * s in K*
-  *
+  * 
   * => c - A' y in K*
-  *
+  * }}}
   */
 case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
 

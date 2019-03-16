@@ -23,13 +23,13 @@ import net.alasc.symdpoly.sdp.{Block, Program}
   * https://github.com/cvxgrp/scs for the internal details.
   *
   * We write the problem as
-  *
+  * {{{
   * minimize c'x
   * Ax + s = b
   * s in K
   *
   * => b - Ax in K
-  *
+  * }}}
   * but our problem formulation is written as Ax + b in K, so a sign change is required
   * for the matrix A.
   *

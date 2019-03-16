@@ -8,7 +8,6 @@ import shapeless.Witness
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.Grp
 import net.alasc.partitions.Partition
-import net.alasc.symdpoly.evaluation.internal.{AdjointEquivalence, ComposedEquivalence, CyclicEquivalence, TransposeEquivalence}
 import instances.invariant._
 import net.alasc.perms.default._
 import net.alasc.perms.Perm

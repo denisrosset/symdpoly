@@ -103,14 +103,15 @@ abstract class MonoidDef { self =>
   def permutationClassTag: ClassTag[Permutation]
 
   /** Constructs an evaluator over this monoid without enforced symmetries. */
-  def evaluator(equivalence: Equivalence[self.type]): Evaluator.Aux[self.type] = evaluator(equivalence, Grp.trivial[Permutation])
+  def evaluator(equivalences: Equivalence[self.type]*): Evaluator.Aux[self.type] =
+    symmetricEvaluator(Grp.trivial[Permutation], equivalences: _*)
 
   /** Constructs an evaluator over this monoid with the given symmetry enforced. */
-  def evaluator(equivalence0: Equivalence[self.type], symmetryGroup0: Grp[Permutation]): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
-    val equivalence: Equivalence[self.type] = equivalence0
+  def symmetricEvaluator(symmetryGroup0: Grp[Permutation], equivalences: Equivalence[self.type]*): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
+    val equivalence: Equivalence[self.type] = evaluation.compose(equivalences: _*)
     val symmetryGroup: Grp[Permutation] = symmetryGroup0
     type Mono = self.type
-    implicit val witnessMono: Witness.Aux[self.type] = self.witness
+    val witnessMono: Witness.Aux[self.type] = self.witness
   }
 
 }

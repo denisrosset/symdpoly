@@ -68,7 +68,7 @@ object CHSH {
   val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
 
   /** Monomial evaluator invariant under the problem symmetry group. */
-  val Lsym = Quotient.evaluator(evaluation.real, symmetryGroup)
+  val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
 
   /** Relaxation with all monomials of maximal degree 1. */
   val generatingSet = Quotient.quotient(GSet.onePlus(A, B))

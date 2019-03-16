@@ -39,24 +39,18 @@ val Quotient = Free.quotientMonoid(quotient.pairs {
   case (op1, op2)                 => op1 * op2
 })
 
-val swapParties = Free.permutation {
-  case A(i) => B(i)
-  case B(i) => A(i)
-}
-
-val group = Grp(swapParties)
-
 val chsh = Quotient.quotient(A(0) * B(0) + A(0) * B(1) + A(1) * B(0) - A(1) * B(1))
 
 val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
-val L = Quotient.evaluator.real.symmetric(Quotient.groupInQuotient(group))
+val L = Quotient.evaluator(evaluation.real)
 
-val relaxation = L(chsh).maximize.relaxation(generatingSet)
+val relaxation = L(chsh).maximize.symmetrize().relaxation(generatingSet)
+
 ```
 We then solve:
 ```tut
-relaxation.jOptimizerInstance.solve()
+relaxation.program.jOptimizer.solve()
 ```
 
 ## How to start a SymDPoly project
@@ -65,14 +59,12 @@ See the [**Installation guide**](docs/installation.html).
 
 ## Work in progress
 
-**SymDPoly** is a work-in-progress. While the underlying framework handles unrestricted polynomial optimization problems, its interface is currently limited to a subset of problems.
+**SymDPoly** is a work-in-progress. We have support in the code for the following features, but they are considered untested/experimental.
 
-1. It does not handle linear equality constraints.
-2. It does not handle operator semidefinite constraints.
-3. It does not handle scalar inequality constraints.
-4. Only real semidefinite formulations can be outputted, as per the formats of the solvers currently on the market.
-
-In particular, the limitations 3. and 4. are easy to remove. The limitations 1. and 2. require specific handling with respect to the symmetries and are currently under active investigation.
+1. Equality constraints.
+2. Operator semidefinite constraints.
+3. Scalar inequality constraints.
+4. Problems with complex SDP relaxations.
 
 ## Why SymDPoly?
 
@@ -106,7 +98,7 @@ resolvers += Resolver.bintrayRepo("denisrosset", "maven")
 libraryDependencies += "net.alasc" %% "symdpoly-core"    % "{{site.symdpolyVersion}}"
 ```
 
-You may want to add the `symdpoly-joptimizer` module if you want to perform SDP computations in native Java (e.g. for testing), `symdpoly-matlab` to export data files for Matlab-based SDP solvers, and `symdpoly-mosek` for advanced Mosek integration.
+You may want to add the `symdpoly-mosek` module for advanced Mosek integration, if you have access to the Mosek binaries.
 
 When integrating SymDPoly with other Scala libraries, note that it is based on the Spire library [spire](https://github.com/non/spire) version {{site.spireVersion}}, which in turn depends on [cats-kernel](https://typelevel.org/cats).
 
@@ -124,4 +116,4 @@ Feedback and suggestions are always welcome. We ask participants to follow the g
 
 ## License
 
-SymDPoly is (C) 2018 Denis Rosset and licensed under the [GNU Affero General Public License version 3 or any later version](https://github.com/denisrosset/symdpoly/LICENSE.md).
+SymDPoly is (C) 2018-2019 Denis Rosset and licensed under the [GNU Affero General Public License version 3 or any later version](https://github.com/denisrosset/symdpoly/LICENSE.md).

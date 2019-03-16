@@ -21,7 +21,7 @@ case class Optimization[
     */
   def forceSymmetrizeNC(grp: Grp[M#Permutation]): Optimization[_, M] = {
     val unionGrp = E.symmetryGroup union grp
-    val E1 = M.evaluator(E.equivalence, unionGrp)
+    val E1 = M.symmetricEvaluator(unionGrp, E.equivalence)
     val objective1 = E1(objective.normalForm)
     val scalarConstraints1 = scalarConstraints.map {
       case ScalarConstraint(lhs, op, rhs) => ScalarConstraint(E1(lhs.normalForm), op, E1(rhs.normalForm))
@@ -38,7 +38,7 @@ case class Optimization[
     *                                   and the evaluation structure, i.e. we have
     *                                   L([f1]) = L([f2]) if and only if L([f1 <|+| g]) = L([f2 <|+| g])
     *                                   where f1, f2 are monomials in the free monoid, and g is a permutation
-    * @returns the symmetrized optimization problem
+    * @return the symmetrized optimization problem
     */
   def symmetrize(quotientFeasibilityGroup: Option[Grp[M#Permutation]] = None,
                  evaluationFeasibilityGroup: Option[Grp[M#Permutation]] = None): Optimization[_, M] = // TODO: support constraints
@@ -56,7 +56,7 @@ case class Optimization[
   def M: M = valueOf[M]
 
   /** Constructs a moment-based/SOS relaxation. */
-  def relaxation(generatingSet: GSet[M], optimize: Boolean = true): Relaxation[E, M] = Relaxation(this, generatingSet, optimize)
+  def relaxation(generatingSet: GSet[M]): Relaxation[E, M] = Relaxation(this, generatingSet)
 
   def subjectTo(newConstraints: Constraint[E, M]*): Optimization[E, M] = {
     val newOperatorConstraints = newConstraints.collect {

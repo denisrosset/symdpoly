@@ -175,7 +175,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
 
   /** Base trait for a family of operators, regrouping for example a sequence of operators indexed by 1, 2 or 3 integers.
     *
-    * Usually implemented with the [[SingleOp]], [[HermitianOp]], [[OpFamily1]], [[HermitianOpFamily1]], ...
+    * Usually implemented with the [[HermitianOp]], [[OpFamily1]], [[HermitianOpFamily1]], ...
     * subclasses.
     */
   trait OpFamily extends OpEnum {

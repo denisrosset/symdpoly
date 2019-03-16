@@ -10,9 +10,12 @@ import scalin.immutable.{Mat, Vec}
 import scalin.immutable.dense._
 import scalin.syntax.all._
 
+import net.alasc.symdpoly.sdp.Program
 import net.alasc.symdpoly.solvers._
 
-class MosekInstance(val format: MosekFormat) {
+class NativeMosekInstance(val program: Program) {
+
+  val format = program.mosek
 
   def populateTask(task: _root_.mosek.Task): Unit = {
     import format._
@@ -153,4 +156,5 @@ class MosekInstance(val format: MosekFormat) {
     }
     res
   }
+
 }

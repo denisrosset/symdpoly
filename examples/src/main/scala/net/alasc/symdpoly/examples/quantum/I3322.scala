@@ -67,7 +67,7 @@ object I3322 {
 
   val feasGrp = Quotient.symmetryGroup
   val symGrp = bellOperator.invariantSubgroupOf(feasGrp)
-  val Lsym = Quotient.evaluator(evaluation.real, symGrp)
+  val Lsym = Quotient.symmetricEvaluator(symGrp, evaluation.real)
   val problem = Lsym(bellOperator).maximize
 }
 

@@ -2,6 +2,7 @@ package net.alasc.symdpoly
 
 import cats.Contravariant
 import shapeless.Witness
+import shapeless.Witness.Aux
 
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.Grp
@@ -22,12 +23,23 @@ package object evaluation {
     def apply(op: F#Op): Option[Int]
   }
 
+  /** Returns a trivial equivalence relation, where the equivalence class of m is Set(m). */
+  def trivial[M <: generic.MonoidDef with Singleton: Witness.Aux]: Equivalence[M] = new Equivalence[M] {
+    def witnessM: Aux[M] = implicitly
+    def apply(mono: M#Monomial): Set[M#Monomial] = Set(mono)
+    def compatibleSubgroup(grp: Grp[M#Permutation]): Grp[M#Permutation] = grp
+    def isSelfAdjoint: Boolean = false
+  }
 
   /** Equivalence under the adjoint operation. */
   def real[M <: generic.MonoidDef with Singleton : Witness.Aux]: Equivalence[M] = AdjointEquivalence[M]()
 
   def compose[M <: generic.MonoidDef with Singleton : Witness.Aux](equivalences: Equivalence[M]*): Equivalence[M] =
-    ComposedEquivalence(equivalences)
+    equivalences match {
+      case Seq() => trivial
+      case Seq(e) => e
+      case seq => ComposedEquivalence(seq)
+    }
 
   /** Equivalence under cyclic permutation of operators selected by the given predicate. */
   def cyclic[

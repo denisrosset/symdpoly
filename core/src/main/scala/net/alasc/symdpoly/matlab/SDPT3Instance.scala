@@ -16,14 +16,14 @@ import spire.std.int._
   * For the data format, see http://www.math.nus.edu.sg/~mattohkc/sdpt3/guide4-0-draft.pdf
   *
   * We write the problem in the dual form
-  *
+  * {{{
   * maximize b' y
   *
   * A y + z = c
   * z in K
   *
   * => c - A in K
-  *
+  * }}}
   * Note: we do not support yet inequality or equality constraints.
   */
 case class SDPT3MatlabFormat(val program: Program) extends MatlabFormat {

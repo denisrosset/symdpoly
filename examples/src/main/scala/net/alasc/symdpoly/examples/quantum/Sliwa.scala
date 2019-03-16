@@ -208,7 +208,7 @@ object SliwaApp extends App {
     val obj = -expression
     val symmetryGroup = obj.invariantSubgroupOf(feasibilityGroup)
     println(s"Symmetry group order: ${symmetryGroup.order}")
-    val Lsym = Quotient.evaluator(evaluation.real, symmetryGroup)
+    val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
     val problem = Lsym(obj).maximize
     val relaxation = problem.relaxation(generatingSet)
     relaxation.program.mosek.writeFile(s"sliwa_$index1.cbf")

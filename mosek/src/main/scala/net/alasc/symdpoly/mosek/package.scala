@@ -1,9 +1,12 @@
 package net.alasc.symdpoly
 
+import net.alasc.symdpoly.sdp.Program
 import solvers.MosekFormat
 
 package object mosek {
 
-  implicit def mosekInstance(format: MosekFormat): MosekInstance = new MosekInstance(format)
+  implicit class MosekProgram(val program: Program) {
+    def nativeMosek: NativeMosekInstance = new NativeMosekInstance(program)
+  }
 
 }

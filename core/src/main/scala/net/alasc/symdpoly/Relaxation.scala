@@ -35,6 +35,7 @@ import net.alasc.symdpoly.math.{GenPerm, GrpMonomialRepresentation, Phase}
 import sdp._
 import net.alasc.perms.default._
 
+/** Moment-based relaxation of a noncommutative polynomial optimization problem. */
 class Relaxation[
   E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
@@ -97,10 +98,14 @@ class Relaxation[
 
 object Relaxation {
 
+  /** Constructs a relaxation for the given optimization problem using the given generating set of monomials
+    *
+    * Currently, the construction of equality / inequality constraints / localizing matrices is very crude.
+    */
   def apply[
     E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](optimization: Optimization[E, M], gSet: GSet[M], optimize: Boolean): Relaxation[E, M] = {
+  ](optimization: Optimization[E, M], gSet: GSet[M]): Relaxation[E, M] = {
     import optimization.{direction, objective}
     def E: E = valueOf[E]
     def M: M = valueOf[M]
