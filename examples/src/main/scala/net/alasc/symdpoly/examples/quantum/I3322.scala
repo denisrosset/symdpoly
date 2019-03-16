@@ -84,6 +84,7 @@ object I3322App extends App {
       // TODO: bring back SCS save when sparse matrix concatenation is faster
       relaxation.program.scs.writeFile(s"i3322_${level}_scs.mat")
       relaxation.program.sedumi.writeFile(s"i3322_${level}_sedumi.mat")
+      relaxation.program.sdpt3.writeFile(s"i3322_${level}_sdpt3.mat")
     }
   }
 }

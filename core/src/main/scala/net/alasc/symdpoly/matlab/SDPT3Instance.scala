@@ -1,127 +1,79 @@
 package net.alasc.symdpoly
 package matlab
-/*
+
 import spire.syntax.cfor._
 
-import com.jmatio.io.MatFileWriter
-import com.jmatio.types._
-import net.alasc.symdpoly.solvers.{OldInstance}
-import net.alasc.symdpoly.{OldMomentMatrix, OldRelaxation}
+import scalin.immutable.{Mat, Vec}
+
+import net.alasc.symdpoly.sdp.{Block, Program}
 import syntax.phased._
+import scalin.immutable.csc._
+import spire.std.double._
+import spire.std.int._
 
-class SDPT3Instance(val relaxation: OldRelaxation[_, _]) extends OldInstance {
+/** Export interface for the SDPT3 solver (same format is used in the SDPNAL family)
+  *
+  * For the data format, see http://www.math.nus.edu.sg/~mattohkc/sdpt3/guide4-0-draft.pdf
+  *
+  * We write the problem in the dual form
+  *
+  * maximize b' y
+  *
+  * A y + z = c
+  * z in K
+  *
+  * => c - A in K
+  *
+  * Note: we do not support yet inequality or equality constraints.
+  */
+case class SDPT3MatlabFormat(val program: Program) extends MatlabFormat {
+  require(program.sdpCon.blocks.size == 1)
+  val m: Int = program.obj.length - 1 // number of dual variables
+  val nBlocks: Int = program.sdpCon.blocks.size
 
-  import SDPT3Instance.{SparseMatrix, SparseVector}
-  import relaxation.{momentMatrix, objectiveVector}
-  import momentMatrix.{matrixSize => d}
-  // TODO require(gramMatrix.momentSet(0).isOne, "Error: empty/one monomial not part of the relaxation")
-  val m: Int = momentMatrix.nUniqueMonomials - 1 // number of dual variables
-  val n: Int = d * (d + 1) / 2
+  val objShift = program.obj(0) // constant in objective not supported
 
-  val objShift = realCycloToDouble(objectiveVector(0)) // constant in objective not supported
+  val objFactor = if (program.direction == Direction.Maximize) 1.0 else -1.0
+  val b = Vect.col(program.obj(1 until program.obj.length)*objFactor)
 
-  val b = Array.tabulate(m)(i => realCycloToDouble(objectiveVector(i + 1)))
+  def sparseMatrix(nRows: Int, nCols: Int, data: Seq[(Int, Int, Double)]): Mat[Double] =
+    Mat.sparse(nRows, nCols)(Vec(data.map(_._1):_*), Vec(data.map(_._2):_*), Vec(data.map(_._3): _*))
 
-  val C = SparseMatrix.forMoment(momentMatrix, 0, 1.0)
-
-  def aMatrix: SparseMatrix = {
-    val columns = Array.tabulate(m)(c => SparseVector.forMoment(momentMatrix, c + 1, -1.0))
-    val rows = columns.flatMap(_.indices)
-    val cols = columns.zipWithIndex.flatMap { case (col, c) => Array.fill(col.nEntries)(c) }
-    val data = columns.flatMap(_.data)
-    SparseMatrix(rows, cols, data, n, m)
-  }
-
-  val a = aMatrix
-
-  case class Block(kind: String, dim: Int)
-  val blocks = Array(Block("s", d))
-
-
-  def writeFile(fileName: String): Unit = {
-    val file = new java.io.File(fileName)
-    val mlBlocks = new MLCell("blk", Array(1, 2))
-    mlBlocks.set(new MLChar(null, blocks(0).kind), 0, 0)
-    mlBlocks.set(new MLDouble(null, Array(blocks(0).dim.toDouble), 1), 0, 1)
-    val mlAt = new MLCell("At", Array(1, 1))
-    val mlAt0 = new MLSparse("At", Array(n, m), 0, a.nEntries)
-    cforRange(0 until a.nEntries) { i =>
-      mlAt0.set(a.data(i), a.rows(i), a.cols(i))
-    }
-    mlAt.set(mlAt0, 0, 0)
-    val mlb = new MLDouble("b", b, m)
-    val mlC = new MLCell("C", Array(1, 1))
-    val mlC0 = new MLSparse("C", Array(d, d), 0, C.nEntries)
-    cforRange(0 until C.nEntries) { i =>
-      mlC0.set(C.data(i), C.rows(i), C.cols(i))
-    }
-    mlC.set(mlC0, 0, 0)
-    val mlObjShift = new MLDouble("objShift", Array(objShift), 1)
-    val list = new java.util.ArrayList[MLArray]()
-    list.add(mlAt)
-    list.add(mlb)
-    list.add(mlC)
-    list.add(mlObjShift)
-    list.add(mlBlocks)
-    new MatFileWriter(file, list)
-  }
-
-}
-
-object SDPT3Instance {
-
-  case class SparseVector(indices: Array[Int], data: Array[Double], length: Int) {
-    def nEntries: Int = indices.length
-  }
-
-  object SparseVector {
+  def convertBlock(block: Block): (Matrix, Matrix) = {
+    val d: Int = block.size
+    val n: Int = d * (d + 1) / 2
     val sqrt2 = spire.math.sqrt(2.0)
-    def forMoment(gramMatrix: OldMomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseVector = {
-      import gramMatrix.{matrixSize => d}
-      val indices = metal.mutable.Buffer.empty[Int]
-      val data = metal.mutable.Buffer.empty[Double]
-      var index = 0
-      cforRange(0 until d) { c =>
-        cforRange(0 to c) { r =>
-          // matlab has row-major indexing (not that it counts for symmetric matrices...)
-          if (gramMatrix.momentIndex(r, c) == momentIndex) {
-            indices += index
-            if (r == c)
-              data += gramMatrix.phase(r, c).toInt.toDouble * factor
-            else
-              data += gramMatrix.phase(r, c).toInt.toDouble * factor * sqrt2
-          }
-          index += 1
-        }
-      }
-      SparseVector(indices.toArray, data.toArray, d*(d + 1)/2)
-    }
+    // the columns of A represent the SDP constraint, the rows the variables
+    val matA = sparseMatrix(n, m, for {
+      i <- 0 until block.nEntries
+      j = block.basisIndices(i) if j > 0
+      r = block.rowIndices(i) // upper triangle
+      c = block.colIndices(i) if c >= r
+      e = if (r == c) block.coefficients(i) else block.coefficients(i) * sqrt2
+    } yield (r + c * (c + 1)/2, j - 1, -e))
+    val matC = sparseMatrix(d, d, for {
+      i <- 0 until block.nEntries
+      j = block.basisIndices(i) if j == 0
+      r = block.rowIndices(i)
+      c = block.colIndices(i)
+      e = if (r == c) block.coefficients(i) else block.coefficients(i) * sqrt2
+    } yield (r, c, e))
+    (Matrix(matA), Matrix(matC))
   }
 
-  case class SparseMatrix(rows: Array[Int], cols: Array[Int], data: Array[Double], nRows: Int, nCols: Int) {
-    def nEntries: Int = rows.length
-    override def toString:String = s"SparseMatrix(${rows.toSeq}, ${cols.toSeq}, ${data.toSeq}, $nRows, $nCols)"
-  }
+  val (matAseq, matCseq) = program.sdpCon.blocks.map(convertBlock).unzip
 
-  object SparseMatrix {
-    def forMoment(gramMatrix: OldMomentMatrix[_, _], momentIndex: Int, factor: Double = 1.0): SparseMatrix = {
-      import gramMatrix.{matrixSize => d}
-      val rows = metal.mutable.Buffer.empty[Int]
-      val cols = metal.mutable.Buffer.empty[Int]
-      val data = metal.mutable.Buffer.empty[Double]
-      cforRange(0 until d) { r =>
-        cforRange(0 until d) { c =>
-          // matlab has row-major indexing (not that it counts for symmetric matrices...)
-          if (gramMatrix.momentIndex(r, c) == momentIndex) {
-            rows += r
-            cols += c
-            data += gramMatrix.phase(r, c).toInt.toDouble * factor
-          }
-        }
-      }
-      SparseMatrix(rows.toArray, cols.toArray, data.toArray, d, d)
-    }
-  }
+  import scalin.immutable.dense._
+  val blk = CellArray(Mat.rowMajor(program.sdpCon.blocks.size, 2)(
+    program.sdpCon.blocks.flatMap(block => Seq(MatlabChar("s"), Scalar(block.size))): _*
+  ))
 
+  def data: Struct =
+    Struct("At" -> CellArray(Mat.rowMajor(nBlocks, 1)(matAseq: _*)),
+      "b" -> b,
+      "C" -> CellArray(Mat.rowMajor(nBlocks, 1)(matCseq: _*)),
+      "blk" -> blk,
+      "objShift" -> Scalar(objShift),
+      "objFactor" -> Scalar(objFactor)
+    )
 }
-*/

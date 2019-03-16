@@ -41,9 +41,8 @@ case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
   def convertBlock(block: Block): (Mat[Double], Vec[Double]) = {
     import scalin.immutable.csc._
     val n = block.size
-
     def index(r: Int, c: Int): Int = c * n + r // col major storage
-    val datab = for {
+    val datac = for {
       i <- 0 until block.nEntries
       j = block.basisIndices(i) if j == 0
       r = block.rowIndices(i)
@@ -58,11 +57,11 @@ case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
       e = block.coefficients(i)
     } yield (j - 1, index(r, c), -e) // note the transpose here, basis index is the row index
     // and there is a sign change
-    val matA = Mat.sparse[Double](n * n, block.basisSize - 1)(Vec(dataA.map(_._1): _*), Vec(dataA.map(_._2): _*), Vec(dataA.map(_._3): _*))
-    val vecA = Vec.fromMutable(n * n, 0.0) { mut =>
-      for ((i, e) <- datab) mut(i) := e
+    val matA = Mat.sparse[Double](block.basisSize - 1, n * n)(Vec(dataA.map(_._1): _*), Vec(dataA.map(_._2): _*), Vec(dataA.map(_._3): _*))
+    val vecc = Vec.fromMutable(n * n, 0.0) { mut =>
+      for ((i, e) <- datac) mut(i) := e
     }
-    (matA, vecA)
+    (matA, vecc)
   }
 
   def data: Struct = {
@@ -70,20 +69,20 @@ case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
       "f" -> Scalar(program.eqA.nRows), "l" -> Scalar(program.ineqA.nRows),
       "q" -> Vect.emptyRow, "r" -> Vect.emptyRow,
       "s" -> Vect.row(program.sdpCon.blocks.map(_.size.toDouble)))
-    val eqb = program.eqA(::, 0)
-    val ineqb = program.ineqA(::, 0)
+    val eqc = program.eqA(::, 0)
+    val ineqc = program.ineqA(::, 0)
     val eqA = -program.eqA(::, 1 until program.eqA.nCols).t
     val ineqA = -program.ineqA(::, 1 until program.ineqA.nCols).t
     val (blocksA, blocksb) = program.sdpCon.blocks.map(convertBlock).unzip
     val matA = Matrix(Seq[Mat[Double]](Seq(eqA, ineqA) ++ blocksA: _*).reduce(_ horzcat _))
-    val vecb = Vect.col(Seq[Vec[Double]](Seq(eqb, ineqb) ++ blocksb: _*).reduce(_ cat _))
+    val vecc = Vect.col(Seq[Vec[Double]](Seq(eqc, ineqc) ++ blocksb: _*).reduce(_ cat _))
     val sign = program.direction match {
       case Direction.Minimize => -1.0
       case Direction.Maximize => 1.0
     }
-    val c = Vect.col(program.obj(1 until program.obj.length) * sign)
+    val vecb = Vect.col(program.obj(1 until program.obj.length) * sign)
     if (program.sdpCon.symmetryGroup.isTrivial)
-      Struct("K" -> k, "A" -> matA, "b" -> vecb, "c" -> c, "objShift" -> Scalar(program.obj(0)), "objFactor" -> Scalar(sign))
+      Struct("K" -> k, "A" -> matA, "b" -> vecb, "c" -> vecc, "objShift" -> Scalar(program.obj(0)), "objFactor" -> Scalar(sign))
     else {
       val permSize = program.sdpCon.symmetryGroup.largestMovedPoint.getOrElse(-1) + 1
       // we use the right action convention, while the Sedumi extended file format uses left action, so we need to invert the permutations,
@@ -94,7 +93,7 @@ case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
       import scalin.immutable.dense._
       val g = CellArray(Mat.rowMajor(1, nGenerators)(permGenerators: _*))
       val rho = CellArray(Mat.rowMajor(1, nGenerators)(generatorImages.map(Matrix):_*))
-      Struct("K" -> k, "A" -> matA, "b" -> vecb, "c" -> c, "objShift" -> Scalar(program.obj(0)), "objFactor" -> Scalar(sign), "G" -> g, "rho" -> rho)
+      Struct("K" -> k, "A" -> matA, "b" -> vecb, "c" -> vecc, "objShift" -> Scalar(program.obj(0)), "objFactor" -> Scalar(sign), "G" -> g, "rho" -> rho)
     }
   }
 

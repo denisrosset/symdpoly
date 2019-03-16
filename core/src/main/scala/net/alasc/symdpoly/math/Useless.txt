@@ -12,22 +12,6 @@
     val phases = Phases(x.phases.elements.toSeq ++ y.phases.elements.toSeq.map { case (k, v) => (k + xs, v) }: _*)
     GenPerm(perm, phases)
   }
-
-  /** Describes the concatenation of blocks by writing their direct sum. */
-  def directSum(sdp: Program): Semigroup[Block] = new Semigroup[Block] {
-    def combine(x: Block, y: Block): Block = (x.hasComplexEncoding, y.hasComplexEncoding) match {
-      case (false, true) => combine(x.forceComplexEncoding, y)
-      case (true, false) => combine(x, y.forceComplexEncoding)
-      case (true, true) | (false, false) =>
-        val size = x.size + y.size
-        val basisIndices = x.basisIndices ++ y.basisIndices
-        val rowIndices = x.rowIndices ++ y.rowIndices.map(_ + x.size)
-        val colIndices = x.colIndices ++ y.colIndices.map(_ + x.size)
-        val coefficients = x.coefficients ++ y.coefficients
-        val symmetry = MatrixSymmetry.directSumMonoid.combine(x.symmetry, y.symmetry)
-        Block(size, sdp.nY, x.hasComplexEncoding, basisIndices, rowIndices, colIndices, coefficients, symmetry)
-    }
-  }
    */
 
 /*

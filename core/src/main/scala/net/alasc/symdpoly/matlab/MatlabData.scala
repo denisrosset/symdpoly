@@ -26,6 +26,10 @@ sealed trait MatlabData {
 
 }
 
+case class MatlabChar(string: String) extends MatlabData {
+  def data(name: Option[String]): MLArray = new MLChar(name.getOrElse(null), string)
+}
+
 case class Struct(elements: (String, MatlabData)*) extends MatlabData {
 
   def data(name: Option[String]): MLArray = {
