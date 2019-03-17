@@ -1,10 +1,9 @@
 package net.alasc.symdpoly
 package matlab
 
+import net.alasc.symdpoly.joptimizer.JOptimizerInstance
 import spire.syntax.cfor._
-
 import scalin.immutable.{Mat, Vec}
-
 import net.alasc.symdpoly.sdp.{Block, Program}
 import syntax.phased._
 import scalin.immutable.csc._
@@ -24,9 +23,9 @@ import spire.std.int._
   *
   * => c - A in K
   * }}}
-  * Note: we do not support yet inequality or equality constraints.
+  *
   */
-case class SDPT3MatlabFormat(val program: Program) extends MatlabFormat {
+class SDPT3MatlabFormat(val program: Program) extends MatlabFormat {
   require(program.sdpCon.blocks.size == 1)
   val m: Int = program.obj.length - 1 // number of dual variables
   val nBlocks: Int = program.sdpCon.blocks.size
@@ -76,4 +75,16 @@ case class SDPT3MatlabFormat(val program: Program) extends MatlabFormat {
       "objShift" -> Scalar(objShift),
       "objFactor" -> Scalar(objFactor)
     )
+}
+
+object SDPT3MatlabFormat {
+
+  //  TODO: we do not support yet multiple blocks, inequality or equality constraints
+  //        with the proper SDPT3 encoding.
+  def apply(program: Program): SDPT3MatlabFormat =
+    if (program.eqA.nRows > 0) SDPT3MatlabFormat(program.convertEqualitiesToInequalities)
+    else if (program.ineqA.nRows > 0) SDPT3MatlabFormat(program.convertInequalitiesToBlock)
+    else if (program.sdpCon.blocks.size > 1) SDPT3MatlabFormat(program.mergeBlocks)
+    else new SDPT3MatlabFormat(program)
+
 }

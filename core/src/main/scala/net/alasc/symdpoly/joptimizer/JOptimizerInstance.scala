@@ -15,6 +15,7 @@ import com.joptimizer.optimizers.{BarrierMethod, OptimizationRequest}
 import net.alasc.symdpoly.sdp.Program
 import net.alasc.symdpoly.{OptimumFound, Solution}
 
+/** Interface to the pure Java JOptimizer solver */
 case class JOptimizerInstance(val program: Program) {
   import program._
 
@@ -60,4 +61,5 @@ case class JOptimizerInstance(val program: Program) {
       val value = -iter(0, 0.0) * sgn
       OptimumFound(None, value) // sol
     }
+
 }
