@@ -2,15 +2,13 @@ package net.alasc.symdpoly
 package mosek
 
 import scala.annotation.tailrec
-
 import spire.syntax.cfor._
-
 import scalin.Sparse
 import scalin.immutable.{Mat, Vec}
 import scalin.immutable.dense._
 import scalin.syntax.all._
-
 import net.alasc.symdpoly.sdp.Program
+import net.alasc.symdpoly.solvers.MosekFormat.{ACoordElement, BCoordElement, ObjACoordElement, VarElement}
 import net.alasc.symdpoly.solvers._
 
 class NativeMosekInstance(val program: Program) {

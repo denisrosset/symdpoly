@@ -13,105 +13,106 @@ import scalin.syntax.all._
 import MosekFormat._
 import net.alasc.symdpoly.sdp.{Block, Program}
 
-case class ObjFCoordElement(j: PSDVariable, r: Int, c: Int, real: Double)
-case class ObjFCoord(elements: Seq[ObjFCoordElement]) {
-  def writeData(writer: Writer): Unit = {
-    writer.append("OBJFCOORD\n")
-    writer.append(s"${elements.size}\n")
-    for ( ObjFCoordElement(j, r, c, real) <- elements)
-      writer.append(s"$j $r $c $real\n")
-    writer.append("\n")
-  }
-}
-
-case class PSDVarElement(n: Int)
-case class PSDVar(elements: Seq[PSDVarElement]) {
-  val N: Int = elements.length
-  def writeData(writer: Writer): Unit = {
-    writer.append("PSDVAR\n")
-    writer.append(s"$N\n")
-    for ( PSDVarElement(n) <- elements )
-      writer.append(s"$n\n")
-    writer.append("\n")
-  }
-}
-
-case class VarElement(cone: String, n: Int)
-case class Var(elements: Seq[VarElement]) {
-  /** Number of variables. */
-  val n = elements.map(_.n).sum
-  /** Number of cones. */
-  val k = elements.size
-  def writeData(writer: Writer): Unit = {
-    writer.append("VAR\n")
-    writer.append(s"$n $k\n")
-    for ( VarElement(cone, nCone) <- elements )
-      writer.append(s"$cone $nCone\n")
-    writer.append("\n")
-  }
-}
-
-case class ConElement(cone: String, n: Int)
-case class Con(elements: Seq[ConElement]) {
-  val nCones: Int = elements.size
-  val totalDimension: Int = elements.map(_.n).sum
-  def writeData(writer: Writer): Unit = {
-    writer.append("CON\n")
-    writer.append(s"$totalDimension $nCones\n")
-    for ( ConElement(cone, n) <- elements )
-      writer.append(s"$cone $n\n")
-    writer.append("\n")
-  }
-}
-
-case class ObjACoordElement(j: ScalarVariable, real: Double)
-case class ObjACoord(elements: Seq[ObjACoordElement]) {
-  def writeData(writer: Writer): Unit = {
-    writer.append("OBJACOORD\n")
-    writer.append(s"${elements.size}\n")
-    for ( ObjACoordElement(j, real) <- elements )
-      writer.append(s"$j $real\n")
-    writer.append("\n")
-  }
-}
-case class FCoordElement(i: ScalarConstraint, j: PSDVariable, r: Int, c: Int, real: Double)
-case class FCoord(elements: Seq[FCoordElement]) {
-  def writeData(writer: Writer): Unit = {
-    writer.append("FCOORD\n")
-    writer.append(s"${elements.size}\n")
-    for (FCoordElement(i, j, r, c, real) <- elements)
-      writer.append(s"$i $j $r $c $real\n")
-    writer.append("\n")
-  }
-}
-case class ACoordElement(i: ScalarConstraint, j: ScalarVariable, real: Double)
-case class ACoord(elements: Seq[ACoordElement]) {
-  def writeData(writer: Writer): Unit = {
-    writer.append("ACOORD\n")
-    writer.append(s"${elements.size}\n")
-    for (ACoordElement(i, j, real) <- elements)
-      writer.append(s"$i $j $real\n")
-    writer.append("\n")
-  }
-}
-case class BCoordElement(i: ScalarConstraint, real: Double)
-case class BCoord(elements: Seq[BCoordElement]) {
-  def writeData(writer: Writer): Unit = {
-    writer.append("BCOORD\n")
-    writer.append(s"${elements.size}\n")
-    for (BCoordElement(i, real) <- elements)
-      writer.append(s"$i $real\n")
-    writer.append("\n")
-  }
-}
-case class ObjBCoord(real: Double) {
-  def writeData(writer: Writer): Unit = {
-    writer.append("OBJBCOORD\n")
-    writer.append(s"$real\n")
-    writer.append("\n")
-  }
-}
 object MosekFormat {
+  case class ObjFCoordElement(j: PSDVariable, r: Int, c: Int, real: Double)
+  case class ObjFCoord(elements: Seq[ObjFCoordElement]) {
+    def writeData(writer: Writer): Unit = {
+      writer.append("OBJFCOORD\n")
+      writer.append(s"${elements.size}\n")
+      for ( ObjFCoordElement(j, r, c, real) <- elements)
+        writer.append(s"$j $r $c $real\n")
+      writer.append("\n")
+    }
+  }
+
+  case class PSDVarElement(n: Int)
+  case class PSDVar(elements: Seq[PSDVarElement]) {
+    val N: Int = elements.length
+    def writeData(writer: Writer): Unit = {
+      writer.append("PSDVAR\n")
+      writer.append(s"$N\n")
+      for ( PSDVarElement(n) <- elements )
+        writer.append(s"$n\n")
+      writer.append("\n")
+    }
+  }
+
+  case class VarElement(cone: String, n: Int)
+  case class Var(elements: Seq[VarElement]) {
+    /** Number of variables. */
+    val n = elements.map(_.n).sum
+    /** Number of cones. */
+    val k = elements.size
+    def writeData(writer: Writer): Unit = {
+      writer.append("VAR\n")
+      writer.append(s"$n $k\n")
+      for ( VarElement(cone, nCone) <- elements )
+        writer.append(s"$cone $nCone\n")
+      writer.append("\n")
+    }
+  }
+
+  case class ConElement(cone: String, n: Int)
+  case class Con(elements: Seq[ConElement]) {
+    val nCones: Int = elements.size
+    val totalDimension: Int = elements.map(_.n).sum
+    def writeData(writer: Writer): Unit = {
+      writer.append("CON\n")
+      writer.append(s"$totalDimension $nCones\n")
+      for ( ConElement(cone, n) <- elements )
+        writer.append(s"$cone $n\n")
+      writer.append("\n")
+    }
+  }
+
+  case class ObjACoordElement(j: ScalarVariable, real: Double)
+  case class ObjACoord(elements: Seq[ObjACoordElement]) {
+    def writeData(writer: Writer): Unit = {
+      writer.append("OBJACOORD\n")
+      writer.append(s"${elements.size}\n")
+      for ( ObjACoordElement(j, real) <- elements )
+        writer.append(s"$j $real\n")
+      writer.append("\n")
+    }
+  }
+  case class FCoordElement(i: ScalarConstraint, j: PSDVariable, r: Int, c: Int, real: Double)
+  case class FCoord(elements: Seq[FCoordElement]) {
+    def writeData(writer: Writer): Unit = {
+      writer.append("FCOORD\n")
+      writer.append(s"${elements.size}\n")
+      for (FCoordElement(i, j, r, c, real) <- elements)
+        writer.append(s"$i $j $r $c $real\n")
+      writer.append("\n")
+    }
+  }
+  case class ACoordElement(i: ScalarConstraint, j: ScalarVariable, real: Double)
+  case class ACoord(elements: Seq[ACoordElement]) {
+    def writeData(writer: Writer): Unit = {
+      writer.append("ACOORD\n")
+      writer.append(s"${elements.size}\n")
+      for (ACoordElement(i, j, real) <- elements)
+        writer.append(s"$i $j $real\n")
+      writer.append("\n")
+    }
+  }
+  case class BCoordElement(i: ScalarConstraint, real: Double)
+  case class BCoord(elements: Seq[BCoordElement]) {
+    def writeData(writer: Writer): Unit = {
+      writer.append("BCOORD\n")
+      writer.append(s"${elements.size}\n")
+      for (BCoordElement(i, real) <- elements)
+        writer.append(s"$i $real\n")
+      writer.append("\n")
+    }
+  }
+  case class ObjBCoord(real: Double) {
+    def writeData(writer: Writer): Unit = {
+      writer.append("OBJBCOORD\n")
+      writer.append(s"$real\n")
+      writer.append("\n")
+    }
+  }
+
   type ScalarConstraint = Int
   type PSDVariable = Int
   type ScalarVariable = Int
@@ -164,6 +165,7 @@ object MosekFormat {
       ObjBCoord(bObj)
     )
   }
+
 }
 
 /** Support for export to Mosek CBF file format
@@ -192,12 +194,12 @@ case class MosekFormat(direction: Direction,
                        psdVar: PSDVar,
                        `var`: Var,
                        con: Con,
-                       objFCoord: ObjFCoord,
-                       objACoord: ObjACoord,
-                       fCoord: FCoord,
-                       aCoord: ACoord,
-                       bCoord: BCoord,
-                       objBCoord: ObjBCoord
+                       objFCoord: MosekFormat.ObjFCoord,
+                       objACoord: MosekFormat.ObjACoord,
+                       fCoord: MosekFormat.FCoord,
+                       aCoord: MosekFormat.ACoord,
+                       bCoord: MosekFormat.BCoord,
+                       objBCoord: MosekFormat.ObjBCoord
                     ) extends TextFormat {
 
   def writeData(writer: Writer): Unit = {
