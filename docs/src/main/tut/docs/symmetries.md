@@ -35,7 +35,7 @@ val outputSwapA0 = Free.permutation {
 
 Note the minus sign in `outputSwapA0`, which multiplies the phase of `A(0)` by `-1`: and beware that the allowed phases are the roots of unity with a denominator dividing the `cyclotomicOrder` parameter of the free monoid.
 
-## Ambient group
+## Feasibility group
 
 The *feasibility group* of a quotient monoid/algebra is a symmetry group whose action is compatible with the equivalence classes: it contains permutations `g` of the operators such that `g(quotient(monomial)) = quotient(g(monomial))`, and then the action of equivalency classes of the quotient is well defined.
 

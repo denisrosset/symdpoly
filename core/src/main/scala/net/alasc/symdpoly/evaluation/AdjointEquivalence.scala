@@ -1,10 +1,8 @@
-package net.alasc.symdpoly.evaluation.internal
-
-import shapeless.Witness
+package net.alasc.symdpoly.evaluation
 
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.Equivalence
 import net.alasc.symdpoly.generic
+import shapeless.Witness
 
 /** Equivalence under the adjoint operation. */
 final case class AdjointEquivalence[M <: generic.MonoidDef with Singleton]()(implicit val witnessM: Witness.Aux[M]) extends Equivalence[M] {

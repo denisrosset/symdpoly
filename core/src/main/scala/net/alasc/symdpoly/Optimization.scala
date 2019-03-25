@@ -19,7 +19,7 @@ case class Optimization[
     *
     * No consistency checks are performed, use with caution.
     */
-  def forceSymmetrizeNC(grp: Grp[M#Permutation]): Optimization[_, M] = {
+  def forceSymmetrizeNC(grp: Grp[M#Permutation]): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = {
     val unionGrp = E.symmetryGroup union grp
     val E1 = M.symmetricEvaluator(unionGrp, E.equivalence)
     val objective1 = E1(objective.normalForm)
@@ -41,7 +41,7 @@ case class Optimization[
     * @return the symmetrized optimization problem
     */
   def symmetrize(quotientFeasibilityGroup: Option[Grp[M#Permutation]] = None,
-                 evaluationFeasibilityGroup: Option[Grp[M#Permutation]] = None): Optimization[_, M] = // TODO: support constraints
+                 evaluationFeasibilityGroup: Option[Grp[M#Permutation]] = None): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = // TODO: support constraints
     if (operatorConstraints.isEmpty && scalarConstraints.isEmpty) {
       val feasGrp = (quotientFeasibilityGroup, evaluationFeasibilityGroup) match {
         case (_, Some(efg)) => efg

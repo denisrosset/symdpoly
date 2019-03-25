@@ -1,14 +1,11 @@
 package net.alasc.symdpoly
-package matlab
+package solvers
 
-import net.alasc.symdpoly.joptimizer.JOptimizerInstance
-import spire.syntax.cfor._
-import scalin.immutable.{Mat, Vec}
-import net.alasc.symdpoly.sdp.{Block, Program}
-import syntax.phased._
+import matlab._
+import sdp.{Block, Program}
 import scalin.immutable.csc._
+import scalin.immutable.{Mat, Vec}
 import spire.std.double._
-import spire.std.int._
 
 /** Export interface for the SDPT3 solver (same format is used in the SDPNAL family)
   *

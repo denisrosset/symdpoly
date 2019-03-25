@@ -106,7 +106,7 @@ class NativeMosekInstance(val program: Program) {
     } {
       task.putdouparam(_root_.mosek.dparam.intpnt_co_tol_rel_gap, tolRelGap)
       task.set_Stream(_root_.mosek.streamtype.log, new _root_.mosek.Stream {
-        def stream(msg: String): Unit = System.out.print(msg)
+        def stream(msg: String): Unit = () //System.out.print(msg)
       })
       populateTask(task)
       task.optimize

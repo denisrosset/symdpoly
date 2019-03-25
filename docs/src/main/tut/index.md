@@ -20,7 +20,7 @@ An evaluation of the Tsirelson's bound for the CHSH inequality can be done in a 
 
 First, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We import the operator types `A` and `B` in global scope.
 ```tut:silent
-import net.alasc.symdpoly._; import defaults._; import net.alasc.symdpoly.joptimizer._
+import net.alasc.symdpoly._; import defaults._
 
 object Free extends free.MonoidDef(cyclotomicOrder = 2) { // allows signed monomials
   case class A(x: Int) extends HermitianOp

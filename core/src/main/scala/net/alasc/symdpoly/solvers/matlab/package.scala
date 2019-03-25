@@ -1,8 +1,10 @@
 package net.alasc.symdpoly
+package solvers
 
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
 import net.alasc.symdpoly.sdp.Program
+import net.alasc.symdpoly.solvers.matlab._
 
 package object matlab {
 

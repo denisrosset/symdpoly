@@ -1,21 +1,13 @@
 package net.alasc.symdpoly
-package matlab
+package solvers
 
-import java.util.{ArrayList => JavaArrayList, Collection => JavaCollection}
-
-import spire.syntax.cfor._
-
+import matlab.{MatlabFormat, Matrix, Scalar, Struct, Vect}
+import net.alasc.symdpoly.sdp.{Block, Program}
 import scalin.immutable.{Mat, Vec}
-
-import com.jmatio.io.MatFileWriter
-import com.jmatio.types.{MLArray, MLCell, MLChar, MLDouble, MLSparse, MLStructure}
-import syntax.phased._
+import scalin.immutable.csc._
 import spire.std.double._
 import spire.std.int._
-
 import scalin.syntax.all._
-
-import net.alasc.symdpoly.sdp.{Block, Program}
 
 /** Export interface for the SCS solver
   *
@@ -37,7 +29,6 @@ import net.alasc.symdpoly.sdp.{Block, Program}
 case class SCSMatlabFormat(val sdp: Program) extends MatlabFormat {
 
   def convertBlock(block: Block): (Mat[Double], Vec[Double]) = {
-    import scalin.immutable.csc._
     val n = block.size
     val compactSize = (n + 1)*n/2
     def index(r: Int, c: Int): Int = (n*(n+1)/2) - (n-c+1)*(n-c)/2 + r - c

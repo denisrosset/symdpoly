@@ -3,7 +3,7 @@ package net.alasc.symdpoly
 import shapeless.Witness
 import spire.syntax.involution._
 import spire.syntax.eq._
-import net.alasc.symdpoly.generic.EvaluatedPoly
+import generic.EvaluatedPoly
 
 sealed trait Constraint[+E <: evaluation.Evaluator.Aux[M] with Singleton, M <: generic.MonoidDef with Singleton]
 

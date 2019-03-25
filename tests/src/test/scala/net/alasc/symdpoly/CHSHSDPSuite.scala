@@ -1,6 +1,6 @@
 package net.alasc.symdpoly
 
-import joptimizer._
+
 import defaults._
 import net.alasc.symdpoly.util.OrderedSet
 
@@ -62,7 +62,7 @@ class CHSHSDPSuite extends CommonSuite {
     val problem = Lsym(bellOperator).maximize
 
     val relaxation = problem.relaxation(generatingSet)
-    import net.alasc.symdpoly.matlab._
+    import net.alasc.symdpoly.solvers.matlab._
 
     //relaxation.mosekInstance.writeCBF("chsh.cbf")
 

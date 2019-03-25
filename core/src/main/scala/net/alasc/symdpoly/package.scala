@@ -15,6 +15,24 @@ import spire.math.Complex
 import net.alasc.symdpoly.math.Phase
 import net.alasc.symdpoly.util.MemoMap
 
+/** SymDPoly contains different packages.
+  *
+  * - Monomial monoids and associated polynomial rings are defined in the
+  *   [[net.alasc.symdpoly.generic `generic`]], [[net.alasc.symdpoly.free `free`]],
+  *   [[net.alasc.symdpoly.freebased `free based`]] and [[net.alasc.symdpoly.quotient `quotient`]]
+  *   packages.
+  *
+  * - The evaluation of monomials into moments is performed through [[net.alasc.symdpoly.evaluation `evaluation`]].
+  *
+  * - Additional algebraic structures are defined in [[net.alasc.symdpoly.algebra `algebra`]], with syntax in
+  *   [[net.alasc.symdpoly.syntax `syntax`]].
+  *
+  * - The packages [[net.alasc.symdpoly.sdp `sdp`]] and [[net.alasc.symdpoly.solvers `solvers`]] respectively
+  *   define floating point representations of conic linear programs and interface the supported solvers.
+  *
+  * To obtain a good set of default types, values, syntax enrichments and instances,
+  * simply import `net.alasc.symdpoly.defaults._` in your code.
+  */
 package object symdpoly {
 
   def trivialAction[A]: Action[A, Unit] = new Action[A, Unit] {

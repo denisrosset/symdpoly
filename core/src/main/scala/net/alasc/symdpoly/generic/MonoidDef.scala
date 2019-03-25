@@ -10,7 +10,7 @@ import shapeless.Witness
 import spire.algebra._
 import spire.math.Rational
 
-import net.alasc.finite.{FaithfulActionBuilder, FaithfulPermutationActionBuilder, Grp}
+import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator}
 
 /** Describes a generic monomial monoid. */
@@ -103,12 +103,19 @@ abstract class MonoidDef { self =>
   def permutationClassTag: ClassTag[Permutation]
 
   /** Constructs an evaluator over this monoid without enforced symmetries. */
-  def evaluator(equivalences: Equivalence[self.type]*): Evaluator.Aux[self.type] =
-    symmetricEvaluator(Grp.trivial[Permutation], equivalences: _*)
+  def evaluator(equivalence: Equivalence[self.type]): Evaluator.Aux[self.type] =
+    symmetricEvaluator(Grp.trivial[Permutation], equivalence)
 
-  /** Constructs an evaluator over this monoid with the given symmetry enforced. */
-  def symmetricEvaluator(symmetryGroup0: Grp[Permutation], equivalences: Equivalence[self.type]*): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
-    val equivalence: Equivalence[self.type] = evaluation.compose(equivalences: _*)
+  /** Construct an evaluator over this monoid without enforced symmetries nor equivalence relation. */
+  def evaluator(): Evaluator.Aux[self.type] = evaluator(net.alasc.symdpoly.evaluation.trivial[self.type])
+
+  /** Constructs an evaluator over this monoid with the given symmetry enforced but no equivalence relation. */
+  def symmetricEvaluator(symmetryGroup: Grp[Permutation]): Evaluator.Aux[self.type] =
+    symmetricEvaluator(symmetryGroup, net.alasc.symdpoly.evaluation.trivial[self.type])
+
+    /** Constructs an evaluator over this monoid with the given symmetry enforced. */
+  def symmetricEvaluator(symmetryGroup0: Grp[Permutation], equivalence0: Equivalence[self.type]): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
+    val equivalence: Equivalence[self.type] = equivalence0
     val symmetryGroup: Grp[Permutation] = symmetryGroup0
     type Mono = self.type
     val witnessMono: Witness.Aux[self.type] = self.witness

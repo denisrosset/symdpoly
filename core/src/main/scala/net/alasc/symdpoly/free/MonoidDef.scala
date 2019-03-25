@@ -38,9 +38,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   //region Implementation of the (trivial) [[FreeBasedMonoidDef]] elements.
 
   type Free = monoidDef.type
+
   def Free: Free = this
 
   def quotient(word: Mono[Free, Free]): Monomial = word
+
   def quotient(poly: Poly[Free, Free]): Poly[Free, Free] = poly
 
   def inPlaceNormalForm(word: MutableWord[Free], start: Int): Boolean = false // normal form reduction is a no op
@@ -95,18 +97,25 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     *
     * Instance types must be declared in this monoid [[operators]] sequence before using them in monomials/polynomials.
     */
-  abstract class Op extends Product with MonoLike[Free, Free] with PolyLike[Free, Free] { lhs =>
+  abstract class Op extends Product with MonoLike[Free, Free] with PolyLike[Free, Free] {
+    lhs =>
     def wM: Witness.Aux[Free] = witnessFree
+
     def index: Int = indexFromOp(this)
 
     def toMono: Mono[Free, Free] = Mono.fromOp(lhs)
+
     def toPoly: Poly[Free, Free] = freebased.Poly(lhs.toMono)
+
     def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
+
     def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
+
     def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
 
     // Returns PhasedOp
     def unary_- : PhasedOp = lhs * Phase.minusOne
+
     def *(rhs: Phase): PhasedOp = PhasedOp(rhs, lhs)
 
     /** Method that, for each operator in this ring, returns its adjoint.
@@ -122,24 +131,34 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   }
 
   /** Abstract base class for Hermitian operator variables: implement a no op adjoint operation. */
-  abstract class HermitianOp extends Op { selfOp =>
+  abstract class HermitianOp extends Op {
+    selfOp =>
     def adjoint: Op = selfOp
   }
 
   /** An operator variable in this free monoid along with a phase. */
-  case class PhasedOp(phase: Phase, op: Op) extends MonoLike[Free, Free] with PolyLike[Free, Free] { lhs =>
+  case class PhasedOp(phase: Phase, op: Op) extends MonoLike[Free, Free] with PolyLike[Free, Free] {
+    lhs =>
     override def toString: String = Mono[Free](phase, op).toString
+
     def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
+
     def toMono: Mono[Free, Free] = Mono(lhs)
+
     def unary_- : PhasedOp = PhasedOp(-phase, op)
+
     def *(newPhase: Phase): PhasedOp = PhasedOp(phase * newPhase, op)
+
     def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
+
     def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
+
     def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
   }
 
   object PhasedOp {
     implicit def fromOp(op: Op): PhasedOp = PhasedOp(Phase.one, op)
+
     implicit val phasedOpOrder: Order[PhasedOp] = new Order[PhasedOp] {
       def compare(x: PhasedOp, y: PhasedOp): Int = Op.opOrder.compare(x.op, y.op) match {
         case 0 => Phase.order.compare(x.phase, y.phase)
@@ -148,6 +167,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     }
     implicit val phasedOpGenPermAction: Action[PhasedOp, GenPerm] = new Action[PhasedOp, GenPerm] {
       def actl(g: GenPerm, p: PhasedOp): PhasedOp = actr(p, g.inverse)
+
       def actr(p: PhasedOp, g: GenPerm): PhasedOp = {
         val PhasedOp(phase, op) = p
         val PhasedInt(newPhase, newIndex) = g.image(PhasedInt(phase, indexFromOp(op)))
@@ -160,15 +180,24 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     * of family elements.
     */
   sealed trait OpEnum {
+    lhs =>
     def name: String
+
     def allInstances: Seq[Op]
+
+    def ++(rhs: OpEnum): OpEnum = {
+      import spire.compat._
+      val unique = (lhs.allInstances.toSet union rhs.allInstances.toSet).toSeq.sorted
+      OpEnum.fromSeq(s"$lhs ++ $rhs", unique)
+    }
   }
 
   object OpEnum {
-    /** Constructs a collection of operators from a sequence and a name. */
+    /** Constructs a collection of operators from a set of operators and a name. */
     def fromSeq(name0: String, seq: Seq[Op]): OpEnum =
       new OpEnum {
         def name: String = name0
+
         def allInstances: Seq[Op] = seq
       }
   }
@@ -180,10 +209,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     */
   trait OpFamily extends OpEnum {
     /** Name of this operator family. */
-    def name: String = allInstances match {
-      case Seq(hd, _*) => hd.productPrefix
+    def name: String = allInstances.headOption match {
+      case Some(op) => op.productPrefix
       case _ => "{}"
     }
+
     /** Enumeration of all operators in this family of operators. Is provided automatically by the helper subclasses. */
     def allInstances: Seq[Op]
   }
@@ -196,7 +226,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     *
     * Used to instantiate single operator variables using the syntax
     *
-    *   case object X extends HermitianOp
+    * case object X extends HermitianOp
     *
     * In that case, we do not distinguish between an operator instance and its family.
     */
@@ -207,7 +237,9 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   /** Base class for the companion object of a family of Hermitian operators with one index. */
   protected abstract class OpFamily1(iSeq: Seq[Int]) extends OpFamily {
     val allInstances: Seq[Op] = for (i <- iSeq; a <- Seq(false, true)) yield apply(i, a)
+
     def apply(i: Int, adjoint: Boolean): Op
+
     protected def instances(si: Slice): Seq[Op] = for (i <- iSeq if si.contains(i); a <- booleans) yield apply(i, a)
 
     /** Returns the subset of operators in this family corresponding to the given slice. See [[Slice]]. */
@@ -217,7 +249,9 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   /** Base class for the companion object of a family of operators with one index. */
   protected abstract class HermitianOpFamily1(iSeq: Seq[Int]) extends OpFamily {
     val allInstances: Seq[Op] = iSeq.map(apply)
+
     def apply(i: Int): Op
+
     protected def instances(si: Slice): Seq[Op] = for (i <- iSeq if si.contains(i)) yield apply(i)
 
     /** Returns the subset of operators in this family corresponding to the given slice. See [[Slice]]. */
@@ -227,8 +261,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   /** Base class for the companion object of a family of operators with two indices. */
   protected abstract class OpFamily2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpFamily {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
+
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); a <- Seq(false, true)) yield apply(i, j, a)
+
     def apply(i: Int, j: Int, adjoint: Boolean): Op
+
     protected def instances(si: Slice, sj: Slice): Seq[Op] =
       for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j); a <- booleans) yield apply(i, j, a)
 
@@ -239,8 +276,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   /** Base class for the companion object of a family of Hermitian operators with two indices. */
   protected abstract class HermitianOpFamily2(iSeq: Seq[Int], jSeq: Int => Seq[Int]) extends OpFamily {
     def this(iSeq: Seq[Int], jSeq: Seq[Int]) = this(iSeq, i => jSeq)
+
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i)) yield apply(i, j)
+
     def apply(i: Int, j: Int): Op
+
     protected def instances(si: Slice, sj: Slice): Seq[Op] =
       for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j)) yield apply(i, j)
 
@@ -251,8 +291,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   /** Base class for the companion object of a family of operators with three indices. */
   protected abstract class OpFamily3(iSeq: Seq[Int], jSeq: Int => Seq[Int], kSeq: (Int, Int) => Seq[Int]) extends OpFamily {
     def this(iSeq: Seq[Int], jSeq: Seq[Int], kSeq: Seq[Int]) = this(iSeq, i => jSeq, (i, j) => kSeq)
+
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); k <- kSeq(i, j); a <- Seq(false, true)) yield apply(i, j, k, a)
+
     def apply(i: Int, j: Int, k: Int, adjoint: Boolean): Op
+
     protected def instances(si: Slice, sj: Slice, sk: Slice): Seq[Op] =
       for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j); k <- kSeq(i, j) if sk.contains(k); a <- booleans) yield apply(i, j, k, a)
 
@@ -263,8 +306,11 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   /** Base class for the companion object of a family of Hermitian operators with three indices. */
   protected abstract class HermitianOpFamily3(iSeq: Seq[Int], jSeq: Int => Seq[Int], kSeq: (Int, Int) => Seq[Int]) extends OpFamily {
     def this(iSeq: Seq[Int], jSeq: Seq[Int], kSeq: Seq[Int]) = this(iSeq, i => jSeq, (i, j) => kSeq)
+
     val allInstances: Seq[Op] = for (i <- iSeq; j <- jSeq(i); k <- kSeq(i, j)) yield apply(i, j, k)
+
     def apply(i: Int, j: Int, k: Int): Op
+
     protected def instances(si: Slice, sj: Slice, sk: Slice): Seq[Op] =
       for (i <- iSeq if si.contains(i); j <- jSeq(i) if sj.contains(j); k <- kSeq(i, j) if sk.contains(k)) yield apply(i, j, k)
 
@@ -300,13 +346,20 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     *
     * @param rules Rewriting rules given as sequences of pairs (lhs -> rhs) describing substitutions.
     */
-  def quotientMonoid(rules: QuotientRules[monoidDef.type]*): QuotientMonoidDef.Aux[monoidDef.type] = new QuotientMonoidDef {
-    val allRules: Seq[(MutableWord[monoidDef.type], MutableWord[monoidDef.type])] = rules.flatMap(_.map { case (k, v) => (k.data, v.data) })
-    type Free = monoidDef.type
-    def Free: Free = monoidDef
-    val rewritingRules: SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]] =
-      SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]](allRules: _*)
-    val maximalLhsLength: Int = allRules.foldLeft(0) { case (mx, (lhs, rhs)) => spire.math.max(mx, lhs.length) }
+  def quotientMonoid(rules: QuotientRules[monoidDef.type]*): QuotientMonoidDef.Aux[monoidDef.type] = {
+    val allRules = rules.flatMap(_.map { case (k, v) => (k.data, v.data) })
+    val rewritingRules0 = SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]](allRules: _*)
+    val maximalLhsLength0: Int = allRules.foldLeft(0) { case (mx, (lhs, rhs)) => spire.math.max(mx, lhs.length) }
+
+    new QuotientMonoidDef {
+      type Free = monoidDef.type
+
+      def Free: Free = monoidDef
+
+      val rewritingRules: SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]] =
+        rewritingRules0
+      val maximalLhsLength: Int = maximalLhsLength0
+    }
   }
 
   //endregion

@@ -1,19 +1,15 @@
-package net.alasc.symdpoly.evaluation
+package net.alasc.symdpoly
+package evaluation
 
+import cats.Contravariant
 import shapeless.Witness
-
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.evaluation.internal.ComposedEquivalence
-import net.alasc.symdpoly.{generic, valueOf}
+import instances.all._
+import net.alasc.algebra.PermutationAction
+import net.alasc.perms.Perm
 
 /** An equivalence relation on monomials. */
-trait Equivalence[M <: generic.MonoidDef with Singleton] { self =>
-
-  implicit def witnessM: Witness.Aux[M]
-  def M: M = valueOf[M]
-
-  /** Returns the set of monomials equivalent to the given monomial. */
-  def apply(mono: M#Monomial): Set[M#Monomial]
+trait Equivalence[M <: generic.MonoidDef with Singleton] extends Component[M] { self =>
 
   /** Returns whether the given group is compatible with this equivalence relation. */
   def isCompatibleGroup(grp: Grp[M#Permutation]): Boolean = grp === compatibleSubgroup(grp)
@@ -25,20 +21,5 @@ trait Equivalence[M <: generic.MonoidDef with Singleton] { self =>
     * where ~ is described by this equivalence relation.
     */
   def compatibleSubgroup(grp: Grp[M#Permutation]): Grp[M#Permutation]
-
-  /** Returns whether m.adjoint is equivalent to m for all m of type M#Monomial. */
-  def isSelfAdjoint: Boolean
-
-  def andThen(next: Equivalence[M]): Equivalence[M] = {
-    val before = self match {
-      case ComposedEquivalence(seq) => seq
-      case e => Seq(e)
-    }
-    val after = next match {
-      case ComposedEquivalence(seq) => seq
-      case e => Seq(e)
-    }
-    ComposedEquivalence(before ++ after)
-  }
 
 }

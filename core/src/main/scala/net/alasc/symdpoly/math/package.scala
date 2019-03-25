@@ -9,6 +9,7 @@ import scalin.algos.Inverse
 import scalin.immutable.{Mat, MatEngine}
 import spire.std.double._
 
+/** Various data types used in mathematical computations. */
 package object math {
 
   implicit val doublePivot: Pivot[Double] = Pivot.double(1e-12)

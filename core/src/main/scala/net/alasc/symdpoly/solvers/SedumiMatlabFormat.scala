@@ -1,28 +1,13 @@
 package net.alasc.symdpoly
-package matlab
+package solvers
 
-import spire.math.Complex
-import spire.syntax.cfor._
-
-import com.jmatio.io.MatFileWriter
-import com.jmatio.types._
-import cyclo.Cyclo
-
-import net.alasc.finite.FaithfulPermutationActionBuilder
-import net.alasc.perms.Perm
-import net.alasc.symdpoly.math.GenPerm
-import net.alasc.syntax.all._
+import net.alasc.symdpoly.solvers.matlab._
+import net.alasc.symdpoly.sdp.{Block, Program}
 import scalin.immutable.{Mat, Vec}
 import scalin.immutable.csc._
 import spire.std.double._
 import spire.std.int._
-
-import net.alasc.algebra.PermutationAction
-import syntax.phased._
 import scalin.syntax.all._
-
-import net.alasc.symdpoly.sdp.{Block, Program, RepMat}
-
 
 /** Export interface for the Sedumi solver
   *
@@ -32,14 +17,13 @@ import net.alasc.symdpoly.sdp.{Block, Program, RepMat}
   *
   * A' y + s = c
   * s in K*
-  * 
+  *
   * => c - A' y in K*
   * }}}
   */
 case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
 
   def convertBlock(block: Block): (Mat[Double], Vec[Double]) = {
-    import scalin.immutable.csc._
     val n = block.size
     def index(r: Int, c: Int): Int = c * n + r // col major storage
     val datac = for {

@@ -63,10 +63,10 @@ abstract class Evaluator { self =>
   def fromNormalForm(normalForm: Mono#Monomial): EvaluatedMono[self.type, Mono] = new EvaluatedMono[self.type, Mono](normalForm)
 
   def apply(mono: Mono#Monomial): EvaluatedMono[self.type, Mono] = {
-    val equivalentUnderSymmetry = symmetryGroupDecomposition.transversals.foldLeft(Set(mono)) {
+    val equivalentUnderSymmetry: Set[Mono#Monomial] = symmetryGroupDecomposition.transversals.foldLeft(Set(mono)) {
       case (set, transversal) => for ( m <- set ; g <- transversal ) yield m <|+| g
     }
-    val candidates = equivalentUnderSymmetry.flatMap( equivalence.apply(_) )
+    val candidates = equivalentUnderSymmetry.flatMap( equivalence.apply(_: Mono#Monomial) )
     val canonicalCandidates = candidates.map(M.monoPhased.phaseCanonical)
     if (canonicalCandidates.size != candidates.size)
       new EvaluatedMono[self.type, Mono](M.monoMultiplicativeBinoid.zero)
@@ -125,12 +125,13 @@ object Evaluator {
   
   type Aux[M <: generic.MonoidDef with Singleton] = Evaluator { type Mono = M }
 
-  /*
+  /* TODO: remove
   implicit def evaluatedMonoInvolution[E <: Evaluator with Singleton: Witness.Aux]: Involution[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoInvolution
   implicit def evaluatedMonoOrder[E <: Evaluator with Singleton: Witness.Aux]: Order[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoOrder
   implicit def evaluatedMonoPhased[E <: Evaluator with Singleton: Witness.Aux]: Phased[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoPhased
   implicit def evaluatedMonoClassTag[E <: Evaluator with Singleton: Witness.Aux]: ClassTag[E#EvaluatedMonomial] = valueOf[E].evaluatedMonoClassTag
    */
+
   implicit def evaluatedPolyVectorSpace[E <: Evaluator with Singleton: Witness.Aux]: VectorSpace[E#EvaluatedPolynomial, Cyclo] = valueOf[E].evaluatedPolyVectorSpace
   implicit def evaluatedPolyInvolution[E <: Evaluator with Singleton: Witness.Aux]: Involution[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyInvolution
   implicit def evaluatedPolyEq[E <: Evaluator with Singleton: Witness.Aux]: Eq[E#EvaluatedPolynomial] = valueOf[E].evaluatedPolyEq

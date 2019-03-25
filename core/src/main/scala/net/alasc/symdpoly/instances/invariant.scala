@@ -17,9 +17,34 @@ trait InvariantInstances {
     }
   }
 
+  val ContravariantForFaithfulPermutationAction: Contravariant[PermutationAction] = new Contravariant[PermutationAction] {
+    def contramap[A, B](fa: PermutationAction[A])(f: B => A): PermutationAction[B] = new PermutationAction[B] {
+      def isFaithful: Boolean = true
+      override def movesAnyPoint(g: B): Boolean = fa.movesAnyPoint(f(g))
+      override def movesPoint(g: B, i: Int): Boolean = fa.movesPoint(f(g), i)
+      override def nMovedPoints(g: B): Int = fa.nMovedPoints(f(g))
+      override def movedPoints(g: B): Set[Int] = fa.movedPoints(f(g))
+      override def largestMovedPoint(g: B): NNOption = fa.largestMovedPoint(f(g))
+      override def smallestMovedPoint(g: B): NNOption = fa.smallestMovedPoint(f(g))
+      override def signPerm(g: B): Int = fa.signPerm(f(g))
+      override def cycleStructure(g: B): Map[Int, Int] = fa.cycleStructure(f(g))
+      override def permutationOrder(g: B): SafeLong = fa.permutationOrder(f(g))
+      override def orbit(g: B, i: Int): Set[Int] = fa.orbit(f(g), i)
+      override def images(g: B, n: Int): Seq[Int] = fa.images(f(g), n)
+      override def toPerm(g: B): Perm = fa.toPerm(f(g))
+      override def hasSameAction[Q](g: B, q: Q)(implicit Q: PermutationAction[Q]): Boolean = fa.hasSameAction(f(g), q)
+      override def smallestMovedPoint(generators: Iterable[B]): NNOption = fa.smallestMovedPoint(generators.map(f))
+      override def largestMovedPoint(generators: Iterable[B]): NNOption = fa.largestMovedPoint(generators.map(f))
+      def findMovedPoint(g: B): NNOption = fa.findMovedPoint(f(g))
+      def movedPointsUpperBound(g: B): NNOption = fa.movedPointsUpperBound(f(g))
+      def actr(p: Int, g: B): Int = fa.actr(p, f(g))
+      def actl(g: B, p: Int): Int = fa.actl(f(g), p)
+    }
+  }
+
   implicit val symdpolyContravariantForPermutationAction: Contravariant[PermutationAction] = new Contravariant[PermutationAction] {
     def contramap[A, B](fa: PermutationAction[A])(f: B => A): PermutationAction[B] = new PermutationAction[B] {
-      def isFaithful: Boolean = fa.isFaithful
+      def isFaithful: Boolean = false
       override def movesAnyPoint(g: B): Boolean = fa.movesAnyPoint(f(g))
       override def movesPoint(g: B, i: Int): Boolean = fa.movesPoint(f(g), i)
       override def nMovedPoints(g: B): Int = fa.nMovedPoints(f(g))
