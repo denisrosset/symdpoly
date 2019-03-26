@@ -54,14 +54,14 @@ lazy val mosek = (project in file("mosek"))
 lazy val tests = (project in file("tests"))
   .settings(moduleName := "symdpoly-tests")
   .settings(symdpolySettings)
+  .settings(noPublishSettings)
   .settings(testsSettings)
-  .dependsOn(core)
+  .dependsOn(core, examples)
 
 lazy val examples = (project in file("examples"))
   .settings(moduleName := "symdpoly-examples")
   .settings(noPublishSettings)
   .settings(symdpolySettings)
-  .settings(testsSettings)
   .dependsOn(core)
 
 lazy val symdpolySettings = buildSettings ++ commonSettings ++ publishSettings

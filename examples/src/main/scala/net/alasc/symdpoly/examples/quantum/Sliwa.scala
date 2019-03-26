@@ -211,11 +211,11 @@ class SliwaInequality(val index0: Int) {
       case (acc, (coeff, mono)) => acc + mono * coeff
     }
 
-  def localBound: Double = bounds(index0, 1)
-  def quantumBound: Double = bounds(index0, 2)
-  def almostQuantumBound: Double = bounds(index0, 3)
-  def npaLevel2Bound: Double = bounds(index0, 4)
-  def nonSignalingBound: Double = bounds(index0, 5)
+  def local: Double = bounds(index0, 1)
+  def quantum: Double = bounds(index0, 2)
+  def almostQuantum: Double = bounds(index0, 3)
+  def npaLevel2: Double = bounds(index0, 4)
+  def nonSignaling: Double = bounds(index0, 5)
   def almostQuantumTA: Double = bounds(index0, 6)
   def almostQuantumTB: Double = bounds(index0, 7)
   def almostQuantumTC: Double = bounds(index0, 8)
@@ -229,4 +229,31 @@ class SliwaInequality(val index0: Int) {
 object SliwaInequality {
   def fromIndex0(index0: Int): SliwaInequality = new SliwaInequality(index0)
   def fromIndex1(index1: Int): SliwaInequality = fromIndex0(index1 - 1)
+}
+
+object SliwaPPT extends App {
+  import Sliwa._
+
+  val generatingSet = localLevel(1)
+  //  println(localLevel(6).toSortedSet.size)
+  val index0 = 43
+  val sliwa = SliwaInequality.fromIndex0(index0)
+  val expression = sliwa.expression
+  //println(sliwa.expression)
+  val obj = -expression
+  val symmetryGroup = obj.invariantSubgroupOf(feasibilityGroup)
+  val generator = symmetryGroup.generators.head
+  //println(symmetryGroup.order)
+  println(generator)
+  val LptAsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.partialTransposes[Quotient.type, Free.type](Free.A, Free.B ++ Free.C)(Quotient.witness))
+  import spire.compat._
+  val elements = for {
+    a <- Quotient.quotient(GSet.onePlus(Free.A).pow(2)).toSortedSet.toSeq
+    bc <- Quotient.quotient(GSet.onePlus(Free.B, Free.C).pow(2)).toSortedSet.toSeq
+    set = Set(a * bc, a.adjoint * bc, a * bc.adjoint, a.adjoint * bc.adjoint).flatMap(x => Set(x, x <|+| generator))
+    can = set.map(_.phaseCanonical)
+    res = if (can.size != set.size) Quotient.zero else set.minBy(_.phaseCanonical)
+  } yield (LptAsym(a * bc).normalForm == res)
+  elements.foreach(println)
+
 }
