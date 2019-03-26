@@ -49,7 +49,7 @@ lazy val core = (project in file("core"))
 lazy val mosek = (project in file("mosek"))
   .settings(moduleName := "symdpoly-mosek")
   .settings(symdpolySettings)
-  .dependsOn(core, examples)
+  .dependsOn(core, examples, tests % "compile->compile;test->test")
 
 lazy val tests = (project in file("tests"))
   .settings(moduleName := "symdpoly-tests")

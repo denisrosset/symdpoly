@@ -178,26 +178,6 @@ object Sliwa {
     case op => op
   }
 
-  val iC = Free.permutation {
-    case C(z) => C(1 - z)
-    case op => op
-  }
-
-  val oC0 = Free.permutation {
-    case C(z) if z == 0 => -C(z)
-    case op => op
-  }
-
-  val iB = Free.permutation {
-    case B(y) => B(1 - y)
-    case op => op
-  }
-
-  val oB0 = Free.permutation {
-    case B(y) if y == 0 => -B(y)
-    case op => op
-  }
-
   /** Default evaluator. */
   val L = Quotient.evaluator(evaluation.real)
   /** Evaluator for states with positive partial transpose. */
@@ -207,7 +187,7 @@ object Sliwa {
   val LptAll = Quotient.evaluator(evaluation.partialTransposes[Quotient.type, Free.type](Free.A, Free.B, Free.C)(Quotient.witness))
 
   /** Group that preserves the problem structure. */
-  val feasibilityGroup = Quotient.groupInQuotient(Grp(iA, oA0, iB, oB0, iC, oC0))
+  val feasibilityGroup = Quotient.groupInQuotient(Grp(iA, oA0, pT, pC))
 
   def npaLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B, C).pow(l))
 

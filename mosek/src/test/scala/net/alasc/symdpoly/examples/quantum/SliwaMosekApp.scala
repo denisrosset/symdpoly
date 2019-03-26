@@ -1,9 +1,44 @@
 package net.alasc.symdpoly
 package examples.quantum
 
+import net.alasc.finite.Grp
 import net.alasc.symdpoly.evaluation.Evaluator
 import shapeless.Witness
 import spire.syntax.cfor._
+import net.alasc.perms.default._
+
+class CHSHSDPSuite extends CommonSuite {
+
+object SliwaTest extends App {
+  import Sliwa._
+
+  val generatingSet = localLevel(1)
+  //  println(localLevel(6).toSortedSet.size)
+  val tol = 1e-3
+  val index0 = 43
+  val sliwa = SliwaInequality.fromIndex0(index0)
+  println(s"Working on inequality #${index0+1}")
+  val expression = sliwa.expression
+  println(s"Expression: $expression")
+  val obj = -expression
+  val symmetryGroup = obj.invariantSubgroupOf(feasibilityGroup)
+  println(s"Symmetry group order: ${symmetryGroup.order}")
+  println(symmetryGroup.generators)
+
+  val LptAsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.partialTransposes[Quotient.type, Free.type](Free.A, Free.B ++ Free.C)(Quotient.witness))
+
+  val problem = LptA(obj).maximize
+  val relaxation = problem.relaxation(generatingSet)
+  val problemSym = LptAsym(obj).maximize
+  val relaxationSym = problemSym.relaxation(generatingSet)
+  import net.alasc.symdpoly.mosek._
+  val OptimumFound(_, opt) = relaxation.program.nativeMosek.solve()
+  val OptimumFound(_, optSym) = relaxationSym.program.nativeMosek.solve()
+  val optPaper = sliwa.almostQuantumTA
+  println(s"$index0: $opt $optSym $optPaper")
+
+}
+/*
 
 object SliwaMosekApp extends App {
 
@@ -45,3 +80,4 @@ object SliwaMosekApp extends App {
   }
 
 }
+*/
