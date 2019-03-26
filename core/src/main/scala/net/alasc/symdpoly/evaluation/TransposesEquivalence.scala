@@ -19,7 +19,7 @@ final class TransposesEquivalence[
   F <: free.MonoidDef.Aux[F] with Singleton
 ](groupIndex: Array[Int])(implicit val witnessM: Witness.Aux[M]) extends Equivalence[M] with FreeBasedComponent[M, F] {
 
-  val components = groupIndex.toSet.filterNot(_ == -1).map { g =>
+  val components = groupIndex.distinct.toSeq.filterNot(_ == -1).map { g =>
     Component.transpose((op: F#Op) => groupIndex(F.indexFromOp(op)) == g)
   }
 
