@@ -21,11 +21,13 @@ abstract class InPlaceComponent[
     inPlace(mut) match {
       case 1 => Set(mono0)
       case n =>
+        M.inPlaceNormalForm(mut)
         val mono1 = new Mono[M, F](mut.setImmutable())
         if (n == 2) Set(mono0, mono1) else
           Set(mono0) ++ Range(2, n).scanLeft(mono1) { case (prev, i) =>
             val current = prev.data.mutableCopy
             inPlace(current)
+            M.inPlaceNormalForm(current)
             new Mono[M, F](current.setImmutable())
           }
     }
