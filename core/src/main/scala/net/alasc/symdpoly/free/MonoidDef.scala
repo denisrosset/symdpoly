@@ -353,9 +353,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
 
     new QuotientMonoidDef {
       type Free = monoidDef.type
-
       def Free: Free = monoidDef
-
       val rewritingRules: SparseTrie[MutableWord[monoidDef.type], MutableWord[monoidDef.type]] =
         rewritingRules0
       val maximalLhsLength: Int = maximalLhsLength0
