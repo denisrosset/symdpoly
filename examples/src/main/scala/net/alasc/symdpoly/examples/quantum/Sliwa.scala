@@ -257,3 +257,14 @@ object SliwaPPT extends App {
   elements.foreach(println)
 
 }
+
+object Sliwa12PPT extends App {
+  import Sliwa._
+
+  val generatingSet = localLevel(6)
+  val sliwa = SliwaInequality.fromIndex1(12)
+  val problem = LptAll(sliwa.expression).maximize.symmetrize()
+  val relaxation = problem.relaxation(generatingSet)
+  relaxation.program.mosek.writeFile("sliwa12_ppt.cbf")
+
+}
