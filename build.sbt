@@ -49,19 +49,19 @@ lazy val core = (project in file("core"))
 lazy val mosek = (project in file("mosek"))
   .settings(moduleName := "symdpoly-mosek")
   .settings(symdpolySettings)
-  .dependsOn(core, examples)
+  .dependsOn(core, examples, tests % "compile->compile;test->test")
 
 lazy val tests = (project in file("tests"))
   .settings(moduleName := "symdpoly-tests")
   .settings(symdpolySettings)
+  .settings(noPublishSettings)
   .settings(testsSettings)
-  .dependsOn(core)
+  .dependsOn(core, examples)
 
 lazy val examples = (project in file("examples"))
   .settings(moduleName := "symdpoly-examples")
   .settings(noPublishSettings)
   .settings(symdpolySettings)
-  .settings(testsSettings)
   .dependsOn(core)
 
 lazy val symdpolySettings = buildSettings ++ commonSettings ++ publishSettings
@@ -165,7 +165,7 @@ lazy val docSettings = Seq(
   micrositeHighlightTheme := "atom-one-light",
   micrositeHomepage := "http://denisrosset.github.io/symdpoly",
   micrositeBaseUrl := "symdpoly",
-  micrositeDocumentationUrl := "/symdpoly/api/net/alasc/symdpoly/index.html",
+  micrositeDocumentationUrl := "/symdpoly/api",
   micrositeDocumentationLabelDescription := "API Documentation",
   micrositeGithubOwner := "denisrosset",
   micrositeGithubRepo := "symdpoly",

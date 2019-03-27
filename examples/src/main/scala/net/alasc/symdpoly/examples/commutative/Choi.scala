@@ -3,7 +3,7 @@ package examples
 package commutative
 
 import net.alasc.symdpoly.defaults._
-import net.alasc.symdpoly.matlab._
+import net.alasc.symdpoly.solvers.matlab._
 
 /** Example of a form published by Choi and Lam in
   *

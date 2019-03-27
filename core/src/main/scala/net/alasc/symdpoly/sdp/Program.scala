@@ -4,17 +4,16 @@ package sdp
 import spire.algebra.{Group, Monoid, Semigroup}
 import spire.random.Size
 import spire.syntax.cfor._
-
 import scalin.immutable.{Mat, MatEngine, Vec}
 import spire.std.double._
-
 import scalin.Sparse
 import scalin.immutable.dense._
-
 import net.alasc.finite.Grp
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.algebra.Morphism
 import net.alasc.symdpoly.math.{GenPerm, Phase, Phases}
+import net.alasc.symdpoly.solvers
+import net.alasc.symdpoly.solvers.{JOptimizerInstance, MosekFormat, SCSMatlabFormat, SDPAFormat, SDPT3MatlabFormat, SedumiMatlabFormat}
 import net.alasc.syntax.all._
 
 /** Description of an semidefinite program extended dual.
@@ -57,17 +56,16 @@ case class Program(direction: Direction, obj: Vec[Double], sdpCon: SDPConstraint
 
   def mergeBlocks: Program = Program(direction, obj, sdpCon.mergeBlocks, eqA, ineqA)
 
-  def sdpa: solvers.SDPAFormat = solvers.SDPAFormat(this)
+  def sdpa: SDPAFormat = SDPAFormat(this)
 
-  def mosek: solvers.MosekFormat = solvers.MosekFormat(this)
+  def mosek: MosekFormat = MosekFormat(this)
 
-  def scs: matlab.SCSMatlabFormat = matlab.SCSMatlabFormat(this)
+  def scs: SCSMatlabFormat = SCSMatlabFormat(this)
 
-  def sedumi: matlab.SedumiMatlabFormat = matlab.SedumiMatlabFormat(this)
+  def sedumi: SedumiMatlabFormat = SedumiMatlabFormat(this)
 
-  def sdpt3: matlab.SDPT3MatlabFormat = matlab.SDPT3MatlabFormat(this)
+  def sdpt3: SDPT3MatlabFormat = SDPT3MatlabFormat(this)
 
-  def jOptimizer: joptimizer.JOptimizerInstance = joptimizer.JOptimizerInstance(this)
+  def jOptimizer: JOptimizerInstance = JOptimizerInstance(this)
 
 }
-

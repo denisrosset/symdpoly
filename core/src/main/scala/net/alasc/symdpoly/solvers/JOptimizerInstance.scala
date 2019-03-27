@@ -1,21 +1,17 @@
 package net.alasc.symdpoly
-package joptimizer
-
-import java.io.Writer
-
-import scala.annotation.tailrec
-
-import spire.syntax.cfor.cforRange
-
-import scalin.immutable.Vec
-import scalin.immutable.dense._
+package solvers
 
 import com.joptimizer.functions.{LinearMultivariateRealFunction, SDPLogarithmicBarrier}
 import com.joptimizer.optimizers.{BarrierMethod, OptimizationRequest}
 import net.alasc.symdpoly.sdp.Program
-import net.alasc.symdpoly.{OptimumFound, Solution}
+import scalin.immutable.Vec
+import spire.syntax.cfor._
+import scalin.immutable.dense._
+import scala.annotation.tailrec
 
+/** Interface to the pure Java JOptimizer solver */
 case class JOptimizerInstance(val program: Program) {
+
   import program._
 
   val m: Int = obj.length - 1
@@ -25,7 +21,6 @@ case class JOptimizerInstance(val program: Program) {
     else if (ineqA.nRows > 0) JOptimizerInstance(program.convertInequalitiesToBlock).solve(tol)
     else if (program.sdpCon.blocks.size > 1) JOptimizerInstance(program.mergeBlocks).solve(tol)
     else {
-      import scala.collection.JavaConverters._
       val block = program.sdpCon.blocks(0)
       val matrices = Array.fill(obj.length, block.size, block.size)(0.0)
       cforRange(0 until block.nEntries) { i =>
@@ -60,4 +55,5 @@ case class JOptimizerInstance(val program: Program) {
       val value = -iter(0, 0.0) * sgn
       OptimumFound(None, value) // sol
     }
+
 }

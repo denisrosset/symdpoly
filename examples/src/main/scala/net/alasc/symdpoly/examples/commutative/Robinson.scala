@@ -3,7 +3,7 @@ package examples
 package commutative
 
 import defaults._
-import net.alasc.symdpoly.matlab._
+import net.alasc.symdpoly.solvers.matlab._
 
 /** Example of a form due to Robinson, published in
   *

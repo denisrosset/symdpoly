@@ -2,8 +2,7 @@ package net.alasc.symdpoly
 package examples.quantum
 
 import net.alasc.symdpoly.defaults._
-import net.alasc.symdpoly.joptimizer._
-import net.alasc.symdpoly.matlab._
+import net.alasc.symdpoly.evaluation.Evaluator
 
 /** Computes the Tsirelson bound on the CHSH inequality, written using
   * correlators A(x) and B(y).
@@ -29,72 +28,76 @@ object CHSH {
     * - A(x) and B(y) commute
     * - A(x)*A(x) = B(y)*B(y) = 1
     */
-  val Quotient = Free.quotientMonoid(quotient.pairs {
+  val Quantum = Free.quotientMonoid(quotient.pairs {
     case (A(x1), A(x2)) if x1 == x2 => Free.one
     case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (B(y), A(x)) => A(x) * B(y)
     case (op1, op2) => op1 * op2
   })
 
-  /** Symmetry group generator: permutation of parties. */
-  val swapParties = Free.permutation {
-    case A(i) => B(i)
-    case B(i) => A(i)
-  }
-
-  /** Symmetry group generator: permutation of Alice's inputs. */
-  val inputSwapA = Free.permutation {
-    case A(0) => A(1)
-    case A(1) => A(0)
-    case op => op
-  }
-
-  /** Symmetry group generator: permutation of Alice's outputs for x = 0. */
-  val outputSwapA0 = Free.permutation {
-    case A(0) => -A(0)
-    case op => op
-  }
-
-  /** Group that preserves the quotient structure. */
-  val feasibilityGroup = Quotient.groupInQuotient(Grp(swapParties, inputSwapA, outputSwapA0))
+  /** Quotient monoid, with the following rules:
+    *
+    * - all variables commute
+    * - A(x)*A(x) = B(y)*B(y) = 1
+    */
+  val Classical = Free.quotientMonoid(
+    quotient.commutative,
+    quotient.rules(A(0)*A(0) -> Free.one, A(1)*A(1) -> Free.one, B(0)*B(0) -> Free.one, B(1)*B(1) -> Free.one)
+  )
 
   /** CHSH expression. */
-  val bellOperator = Quotient.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
+  val chsh = A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1)
 
-  /** Default evaluator. */
-  val L = Quotient.evaluator(evaluation.real)
+  def bellOperator(M: quotient.MonoidDef.Aux[Free.type]): M.Polynomial =
+    M.quotient(chsh)
 
-  /** Problem symmetry group. */
-  val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
+  type RelaxationM[M <: generic.MonoidDef with Singleton] = Relaxation[_ <: Evaluator.Aux[M] with Singleton, M]
+  type ProblemM[M <: generic.MonoidDef with Singleton] = Optimization[_ <: Evaluator.Aux[M] with Singleton, M]
 
-  /** Monomial evaluator invariant under the problem symmetry group. */
-  val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
+  def relaxation(M: quotient.MonoidDef.Aux[Free.type])(generatingSet: GSet[M.type]): (RelaxationM[M.type], RelaxationM[M.type]) = {
+    /** Default evaluator. */
+    val L = M.evaluator(evaluation.real)
 
-  /** Relaxation with all monomials of maximal degree 1. */
-  val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
+    /** Relaxation with all monomials of given local Level. */
+//    val generatingSet = M.quotient(freeGeneratingSet)
 
-  /** Maximization problem. */
-  val problem = Lsym(bellOperator).maximize
+    /** Maximization problem. */
+    val problem = L(bellOperator(M)).maximize
 
-  /** Relaxation. */
-  val relaxation = problem.relaxation(generatingSet)
+    /** Relaxation. */
+    val relaxation: RelaxationM[M.type] = problem.relaxation(generatingSet)
 
-  /** Automatic symmetrization. */
-  val relaxationAuto = L(bellOperator).maximize.symmetrize().relaxation(generatingSet)
+    /** Automatic symmetrization. */
+    val problemAuto: ProblemM[M.type] = problem.symmetrize()
+
+    val relaxationAuto = problemAuto.relaxation(generatingSet)
+
+    (relaxation, relaxationAuto)
+  }
 
 }
 
 object CHSHApp extends App {
   import CHSH._
-  println("The manual symmetrization gives")
-  println(relaxation)
-  println(relaxation.program.jOptimizer.solve())
-  println("while the automatic symmetrization gives")
-  println(relaxationAuto)
-  println(relaxationAuto.program.jOptimizer.solve())
-  relaxation.program.sdpa.writeFile("chsh.dat-s")
-  relaxation.program.mosek.writeFile("chsh.cbf")
-  relaxation.program.scs.writeFile("chsh_scs.mat")
-  relaxation.program.sedumi.writeFile("chsh_sedumi.mat")
-  relaxation.program.sdpt3.writeFile("chsh_sdpt3.mat")
+  import Free.{A, B}
+  val (classical, classicalAuto) = relaxation(Classical)(Classical.quotient(GSet.onePlus(A) * GSet.onePlus(B)))
+  println("Classical case")
+  println("==============")
+  // Optimization disabled as KKT conditions fail in JOptimizer
+  //  println("The non symmetrized problem gives (classical)")
+  //  println(classical)
+  //  println(classical.program.jOptimizer.solve())
+  println("The automatic symmetrization gives (classical)")
+  println(classicalAuto)
+  println(classicalAuto.program.jOptimizer.solve())
+
+  val (quantum, quantumAuto) = relaxation(Quantum)(Quantum.quotient(GSet.onePlus(A, B)))
+  println("Quantum case")
+  println("============")
+  println("The non symmetrized problem gives (quantum)")
+  println(quantum)
+  println(quantum.program.jOptimizer.solve())
+  println("while the automatic symmetrization gives (quantum)")
+  println(quantumAuto)
+  println(quantumAuto.program.jOptimizer.solve())
 }

@@ -1,4 +1,5 @@
 package net.alasc.symdpoly
+package solvers
 package matlab
 
 import java.util.{ArrayList => JavaArrayList, Collection => JavaCollection}

@@ -1,16 +1,15 @@
 package net.alasc.symdpoly
 package evaluation
-package internal
+package components
 
 import scala.annotation.tailrec
 
 import shapeless.Witness
 
-
-final case class TransposeEquivalence[
+final case class TransposeComponent[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-](val predicate: OpPredicate[F])(implicit val witnessM: Witness.Aux[M]) extends PredicateEquivalence[M, F] {
+](val predicate: OpPredicate[F])(implicit val witnessM: Witness.Aux[M]) extends PredicateComponent[M, F] {
 
   /** Performs the in place partial transpose of the group of operators selected by the given predicate.
     *

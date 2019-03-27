@@ -20,6 +20,7 @@ import net.alasc.symdpoly.math.Phase
 import net.alasc.util._
 import syntax.phased._
 
+/** Helpers to deal with symmetry computations. */
 package object symmetries {
 
   /** Computes the subgroup of "grp" that leaves an element of a vector space over Cyclo invariant.
