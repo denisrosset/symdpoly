@@ -276,10 +276,10 @@ object Configuration {
 
         if (isZero) { // if zero, set the orbit to zero and iterate
           setOrbitToZero(r, c)
-          identifyNextOrbit(nOrbits, r + 1, 0)
+          identifyNextOrbit(nOrbits, r + 1, c)
         } else { // if nonzero, add the orbit start, increment the orbit number and iterate
           orbitStart += encode(r, c)
-          identifyNextOrbit(nOrbits + 1, r + 1, 0)
+          identifyNextOrbit(nOrbits + 1, r + 1, c)
         }
       }
     // launch the main loop
