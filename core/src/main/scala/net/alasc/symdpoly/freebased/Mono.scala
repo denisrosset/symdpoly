@@ -34,7 +34,7 @@ class Mono[
   override def toString: String = if (M eq F) data.toString else s"[$data]"
 
   override def equals(any: Any): Boolean = any match {
-    case rhs: Mono[M, F] if (lhs.M eq rhs.M) && (lhs.F eq rhs.F) => lhs.data == rhs.data
+    case rhs: Mono[M, F] if (lhs.M eq rhs.M) && (lhs.F eq rhs.F) => (lhs.data.immutableHash == rhs.data.immutableHash) && lhs.data == rhs.data
     case _ => false
   }
 
