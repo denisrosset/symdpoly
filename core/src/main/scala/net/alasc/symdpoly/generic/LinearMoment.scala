@@ -50,17 +50,15 @@ final class LinearMoment[
 
   def coeff(mono: SingleMoment[E, M]): Cyclo = normalForm.coeff(mono.normalForm)
 
-  /*
-  def vecOverOrderedSet(orderedSet: OrderedSet[EvaluatedMono[E, M]])(implicit V: VecEngine[Cyclo]): Vec[Cyclo] =
+  def vectorOverOrderedSet(orderedSet: OrderedSet[SingleMoment[E, M]])(implicit V: VecEngine[Cyclo]): Vec[Cyclo] =
     V.fromMutable(orderedSet.length, Cyclo.zero) { vec =>
-      implicit def monoOrder: Order[EvaluatedMono[E, M]] = valueOf[E].evaluatedMonoOrder
       cforRange(0 until nTerms) { i =>
         val m = monomial(i)
         val c = coeff(i)
         val j = orderedSet.indexOf(m)
         if (j == -1) sys.error(s"Monomial $m not present in the moment set ${orderedSet}.") else { vec(j) := vec(j) + c }
       }
-    }*/
+    }
 
   def invariantSubgroupOf(grp: Grp[M#PermutationType]): Grp[M#PermutationType] =
     symmetries.invariantSubgroupOf[E#SingleMomentType, M#PermutationType]((0 until nTerms).map(monomial), (x: SingleMoment[E, M]) => coeff(x), E.compatibleSubgroup(grp), M.cyclotomicOrder)

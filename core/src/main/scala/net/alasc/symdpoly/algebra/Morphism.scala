@@ -146,7 +146,7 @@ object MorphismFromGeneratorImages {
   implicit def forFaithfulPermutationAction[S:Eq:FaithfulPermutationActionBuilder:Group, T:Eq:FaithfulPermutationActionBuilder:Group]: MorphismFromGeneratorImages[S, T] =
     new MorphismFromGeneratorImages[S, T] {
     def apply(source: Grp[S], images: Seq[T]): Morphism[S, T, Group] = {
-      import net.alasc.perms.default._ // TODO: parameterize
+      import net.alasc.perms.default._
       val sourceGenerators = source.generators
       val targetGenerators = images.filterNot(_.isEmpty)
       val sAction: PermutationAction[S] = FaithfulPermutationActionBuilder[S].apply(sourceGenerators)
