@@ -78,10 +78,10 @@ object Robinson {
 */
   /** Relaxation with all monomials of maximal degree 3. */
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
-/*
+
   /** Symmetric relaxation. */
-  val relaxationSym = problem.relaxation(generatingSet)
-*/
+  val relaxationSym = problem.symmetrize().relaxation(generatingSet)
+
   /** Non symmetric relaxation for comparison. */
   val relaxationNoSym = problem.relaxation(generatingSet)
 
@@ -89,10 +89,10 @@ object Robinson {
 
 object RobinsonApp extends App {
   import Robinson._
-/*
-  // We write the symmetrized SDP
-  relaxationSym.sedumiInstance.writeFile("robinson_sedumi.mat")
-*/
-  // We write the non symmetrized SDP
-//  relaxationNoSym.sedumiInstance.writeFile("robinson_sedumi_nosym.mat")
+
+   // We write the symmetrized SDP
+  relaxationSym.program.sedumi.writeFile("robinson_sedumi_sym.mat")
+   // We write the non symmetrized SDP
+  relaxationNoSym.program.sedumi.writeFile("robinson_sedumi_nosym.mat")
+
 }
