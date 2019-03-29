@@ -5,7 +5,7 @@ import java.io.{BufferedWriter, FileWriter, StringWriter, Writer}
 import net.alasc.symdpoly.ComparisonOp.{EQ, GE, LE}
 import shapeless.Witness
 
-import net.alasc.symdpoly.generic.{EvaluatedMono, EvaluatedPoly}
+import net.alasc.symdpoly.generic.{SingleMoment, LinearMoment}
 import net.alasc.symdpoly.util.{MemoMap, OrderedSet}
 import scalin.immutable.{Mat, Vec, VecEngine}
 import spire.syntax.cfor._
@@ -40,19 +40,19 @@ class Relaxation[
   E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
 ](val direction: Direction,
-  val objective: EvaluatedPoly[E, M],
+  val objective: LinearMoment[E, M],
   val momentMatrix: MomentMatrix[E, M],
-  val momentMatrixSymmetry: GrpMonomialRepresentation[M#Permutation],
+  val momentMatrixSymmetry: GrpMonomialRepresentation[M#PermutationType],
   val localizingMatrices: Seq[LocalizingMatrix[E, M]],
-  val scalarEq: Seq[EvaluatedPoly[E, M]],
-  val scalarIneq: Seq[EvaluatedPoly[E, M]]) {
+  val scalarEq: Seq[LinearMoment[E, M]],
+  val scalarIneq: Seq[LinearMoment[E, M]]) {
 
   override def toString: String = s"Moment relaxation with ${allMoments.length-1} monomials, a moment matrix of size ${momentMatrix.size} x ${momentMatrix.size}, and ${localizingMatrices.size} localizing matrix/ces"
 
   def E: E = valueOf[E]
 
-  lazy val (allMoments: OrderedSet[E#EvaluatedMonomial], adjointMoment: Array[Int], allSelfAdjoint: Boolean) = {
-    val all: OrderedSet[E#EvaluatedMonomial] = OrderedSet.fromUnique(
+  lazy val (allMoments: OrderedSet[E#SingleMomentType], adjointMoment: Array[Int], allSelfAdjoint: Boolean) = {
+    val all: OrderedSet[E#SingleMomentType] = OrderedSet.fromUnique(
       HashSet(E.one) union localizingMatrices.foldLeft(momentMatrix.allMoments) { case (s, lm) => s union lm.allMoments }
     )
     val adj = Array.tabulate(all.length) { i =>
@@ -111,10 +111,10 @@ object Relaxation {
     def M: M = valueOf[M]
     val generatingSet = gSet.toOrderedSet
     val degree = generatingSet.iterator.map(_.degree).max
-    val compatible = symmetries.Orbit.compatibleSubgroup[M#Monomial, M#Permutation](generatingSet.toIndexedSeq, E.symmetryGroup, M.monoPhased.phaseCanonical)
+    val compatible = symmetries.Orbit.compatibleSubgroup[M#MonoType, M#PermutationType](generatingSet.toIndexedSeq, E.symmetryGroup, M.monoPhased.phaseCanonical)
     val symmetry = GrpMonomialRepresentation.fromActionOnOrderedSet(generatingSet, compatible)
     val momentMatrix = MomentMatrix[E, M](generatingSet, symmetry)
-    def filterGeneratingSet(maxDegree: Int): OrderedSet[M#Monomial] =
+    def filterGeneratingSet(maxDegree: Int): OrderedSet[M#MonoType] =
       OrderedSet.fromSortedSet(
         generatingSet.toSortedSet.filter(_.degree <= maxDegree)
       )
@@ -126,20 +126,20 @@ object Relaxation {
         val p = lhs - rhs
         LocalizingMatrix(p, filterGeneratingSet(degree - p.degree/2))
     }
-    val scalarEqFromOp: Seq[E#EvaluatedPolynomial] = optimization.operatorConstraints.collect {
+    val scalarEqFromOp: Seq[E#LinearMomentType] = optimization.operatorConstraints.collect {
       case OperatorConstraint(lhs, EQ, rhs) => lhs - rhs
     }.flatMap { p =>
       val gs = filterGeneratingSet(degree - p.degree/2)
       for {
         r <- gs.iterator
         c <- gs.iterator
-        res: M#Polynomial = r.adjoint.toPoly * p * c.toPoly
+        res: M#PolyType = r.adjoint.toPoly * p * c.toPoly
       } yield E(res)
     }
-    val scalarEq: Seq[E#EvaluatedPolynomial] = scalarEqFromOp ++ optimization.scalarConstraints.collect {
+    val scalarEq: Seq[E#LinearMomentType] = scalarEqFromOp ++ optimization.scalarConstraints.collect {
       case ScalarConstraint(lhs, EQ, rhs) => lhs - rhs
     }
-    val scalarIneq: Seq[E#EvaluatedPolynomial] = optimization.scalarConstraints.collect {
+    val scalarIneq: Seq[E#LinearMomentType] = optimization.scalarConstraints.collect {
       case ScalarConstraint(lhs, LE, rhs) => rhs - lhs
       case ScalarConstraint(lhs, GE, rhs) => lhs - rhs
     }

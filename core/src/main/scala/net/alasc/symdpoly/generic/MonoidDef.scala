@@ -28,95 +28,95 @@ abstract class MonoidDef { self =>
   // Monomials
 
   /** Element of this monoid. */
-  type Monomial <: generic.Mono[self.type] // monoid element
+  type MonoType <: generic.Mono[self.type] // monoid element
 
   /** Zero monomial, which is an absorbing element of this monoid. */
-  def zero: Monomial
+  def zero: MonoType
   /** Identity element of this monoid. */
-  def one: Monomial
+  def one: MonoType
 
   /** Multiplicative binoid typeclass. */
-  def monoMultiplicativeBinoid: MultiplicativeBinoid[Monomial]
+  def monoMultiplicativeBinoid: MultiplicativeBinoid[MonoType]
 
   /** Involution typeclass describing the Hermitian adjoint operation. */
-  def monoInvolution: Involution[Monomial]
+  def monoInvolution: Involution[MonoType]
 
   /** Typeclass describing the total order for monomials. */
-  def monoOrder: Order[Monomial]
+  def monoOrder: Order[MonoType]
 
   /** Typeclass describing the action of a phase on monomials. */
-  def monoPhased: Phased[Monomial]
+  def monoPhased: Phased[MonoType]
 
   /** Classtag for monomials. */
-  def monoClassTag: ClassTag[Monomial]
+  def monoClassTag: ClassTag[MonoType]
 
   // Polynomials
 
   /** Element of the polynomial ring constructed as a linear space on this monoid. */
-  type Polynomial <: Poly[self.type]
+  type PolyType <: Poly[self.type]
 
   /** Associative algebra structure on the polynomials. */
-  def polyAssociativeAlgebra: FieldAssociativeAlgebra[Polynomial, Cyclo]
+  def polyAssociativeAlgebra: FieldAssociativeAlgebra[PolyType, Cyclo]
 
   /** Involution typeclass describing the Hermitian adjoint operation on polynomials. */
-  def polyInvolution: Involution[Polynomial]
+  def polyInvolution: Involution[PolyType]
 
   /** Polynomial equality. */
-  def polyEq: Eq[Polynomial]
+  def polyEq: Eq[PolyType]
 
   /** Classtag for polynomials. */
-  def polyClassTag: ClassTag[Polynomial]
+  def polyClassTag: ClassTag[PolyType]
 
   /** Construct a constant polynomial from the given constant. */
-  def constant(i: Int): Polynomial
+  def constant(i: Int): PolyType
 
   /** Construct a constant polynomial from the given constant. */
-  def constant(r: Rational): Polynomial
+  def constant(r: Rational): PolyType
 
   /** Construct a constant polynomial from the given constant. */
-  def constant(c: Cyclo): Polynomial
+  def constant(c: Cyclo): PolyType
 
   /** Converts a monomial to single term polynomial. */
-  def monomialToPolynomial(m: Monomial): Polynomial
+  def monomialToPolynomial(m: MonoType): PolyType
 
   // Permutations
 
   /** Permutation acting on the monomials/monoid elements. */
-  type Permutation <: generic.Permutation[self.type]
+  type PermutationType <: generic.Permutation[self.type]
 
   /** Symmetry group of this monoid. */
-  def symmetryGroup: Grp[Permutation]
+  def symmetryGroup: Grp[PermutationType]
 
   /** Permutations form a group. */
-  def permutationGroup: Group[Permutation]
+  def permutationGroup: Group[PermutationType]
 
   /** Permutation equality. */
-  def permutationEq: Eq[Permutation]
+  def permutationEq: Eq[PermutationType]
 
   /** Faithful permutation action builder. */
-  def permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[Permutation]
+  def permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[PermutationType]
 
   /** Action of permutations on the monomials. */
-  def permutationMonoAction: Action[Monomial, Permutation]
+  def permutationMonoAction: Action[MonoType, PermutationType]
 
   /** Class tag for permutations. */
-  def permutationClassTag: ClassTag[Permutation]
+  def permutationClassTag: ClassTag[PermutationType]
 
   /** Constructs an evaluator over this monoid without enforced symmetries. */
   def evaluator(equivalence: Equivalence[self.type]): Evaluator.Aux[self.type] =
-    symmetricEvaluator(Grp.trivial[Permutation], equivalence)
+    symmetricEvaluator(Grp.trivial[PermutationType], equivalence)
 
   /** Construct an evaluator over this monoid without enforced symmetries nor equivalence relation. */
   def evaluator(): Evaluator.Aux[self.type] = evaluator(net.alasc.symdpoly.evaluation.trivial[self.type])
 
   /** Constructs an evaluator over this monoid with the given symmetry enforced but no equivalence relation. */
-  def symmetricEvaluator(symmetryGroup: Grp[Permutation]): Evaluator.Aux[self.type] =
+  def symmetricEvaluator(symmetryGroup: Grp[PermutationType]): Evaluator.Aux[self.type] =
     symmetricEvaluator(symmetryGroup, net.alasc.symdpoly.evaluation.trivial[self.type])
 
     /** Constructs an evaluator over this monoid with the given symmetry enforced. */
-  def symmetricEvaluator(symmetryGroup0: Grp[Permutation], equivalence0: Equivalence[self.type]): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
+  def symmetricEvaluator(symmetryGroup0: Grp[PermutationType], equivalence0: Equivalence[self.type]): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
     val equivalence: Equivalence[self.type] = equivalence0
-    val symmetryGroup: Grp[Permutation] = symmetryGroup0
+    val symmetryGroup: Grp[PermutationType] = symmetryGroup0
     type Mono = self.type
     val witnessMono: Witness.Aux[self.type] = self.witness
   }
@@ -125,21 +125,21 @@ abstract class MonoidDef { self =>
 
 object MonoidDef {
 
-  implicit def monoMultiplicativeBinoid[M <: generic.MonoidDef with Singleton:Witness.Aux]: MultiplicativeBinoid[M#Monomial] = valueOf[M].monoMultiplicativeBinoid
-  implicit def monoInvolution[M <: generic.MonoidDef with Singleton:Witness.Aux]: Involution[M#Monomial] = valueOf[M].monoInvolution
-  implicit def monoOrder[M <: generic.MonoidDef with Singleton:Witness.Aux]: Order[M#Monomial] = valueOf[M].monoOrder
-  implicit def monoPhased[M <: generic.MonoidDef with Singleton:Witness.Aux]: Phased[M#Monomial] = valueOf[M].monoPhased
-  implicit def monoClassTag[M <: generic.MonoidDef with Singleton:Witness.Aux]: ClassTag[M#Monomial] = valueOf[M].monoClassTag
+  implicit def monoMultiplicativeBinoid[M <: generic.MonoidDef with Singleton:Witness.Aux]: MultiplicativeBinoid[M#MonoType] = valueOf[M].monoMultiplicativeBinoid
+  implicit def monoInvolution[M <: generic.MonoidDef with Singleton:Witness.Aux]: Involution[M#MonoType] = valueOf[M].monoInvolution
+  implicit def monoOrder[M <: generic.MonoidDef with Singleton:Witness.Aux]: Order[M#MonoType] = valueOf[M].monoOrder
+  implicit def monoPhased[M <: generic.MonoidDef with Singleton:Witness.Aux]: Phased[M#MonoType] = valueOf[M].monoPhased
+  implicit def monoClassTag[M <: generic.MonoidDef with Singleton:Witness.Aux]: ClassTag[M#MonoType] = valueOf[M].monoClassTag
 
-  implicit def polyAssociativeAlgebra[M <: generic.MonoidDef with Singleton:Witness.Aux]: FieldAssociativeAlgebra[M#Polynomial, Cyclo] = valueOf[M].polyAssociativeAlgebra
-  implicit def polyInvolution[M <: generic.MonoidDef with Singleton:Witness.Aux]: Involution[M#Polynomial] = valueOf[M].polyInvolution
-  implicit def polyEq[M <: generic.MonoidDef with Singleton:Witness.Aux]: Eq[M#Polynomial] = valueOf[M].polyEq
-  implicit def polyClassTag[M <: generic.MonoidDef with Singleton:Witness.Aux]: ClassTag[M#Polynomial] = valueOf[M].polyClassTag
+  implicit def polyAssociativeAlgebra[M <: generic.MonoidDef with Singleton:Witness.Aux]: FieldAssociativeAlgebra[M#PolyType, Cyclo] = valueOf[M].polyAssociativeAlgebra
+  implicit def polyInvolution[M <: generic.MonoidDef with Singleton:Witness.Aux]: Involution[M#PolyType] = valueOf[M].polyInvolution
+  implicit def polyEq[M <: generic.MonoidDef with Singleton:Witness.Aux]: Eq[M#PolyType] = valueOf[M].polyEq
+  implicit def polyClassTag[M <: generic.MonoidDef with Singleton:Witness.Aux]: ClassTag[M#PolyType] = valueOf[M].polyClassTag
 
-  implicit def permutationGroup[M <: generic.MonoidDef with Singleton:Witness.Aux]: Group[M#Permutation] = valueOf[M].permutationGroup
-  implicit def permutationEq[M <: generic.MonoidDef with Singleton:Witness.Aux]: Eq[M#Permutation] = valueOf[M].permutationEq
-  implicit def permutationFaithfulPermutationActionBuilder[M <: generic.MonoidDef with Singleton:Witness.Aux]: FaithfulPermutationActionBuilder[M#Permutation] = valueOf[M].permutationFaithfulPermutationActionBuilder
-  implicit def permutationMonoAction[M <: generic.MonoidDef with Singleton:Witness.Aux]: Action[M#Monomial, M#Permutation] = valueOf[M].permutationMonoAction
-  implicit def permutationClassTag[M <: generic.MonoidDef with Singleton:Witness.Aux]: ClassTag[M#Permutation] = valueOf[M].permutationClassTag
+  implicit def permutationGroup[M <: generic.MonoidDef with Singleton:Witness.Aux]: Group[M#PermutationType] = valueOf[M].permutationGroup
+  implicit def permutationEq[M <: generic.MonoidDef with Singleton:Witness.Aux]: Eq[M#PermutationType] = valueOf[M].permutationEq
+  implicit def permutationFaithfulPermutationActionBuilder[M <: generic.MonoidDef with Singleton:Witness.Aux]: FaithfulPermutationActionBuilder[M#PermutationType] = valueOf[M].permutationFaithfulPermutationActionBuilder
+  implicit def permutationMonoAction[M <: generic.MonoidDef with Singleton:Witness.Aux]: Action[M#MonoType, M#PermutationType] = valueOf[M].permutationMonoAction
+  implicit def permutationClassTag[M <: generic.MonoidDef with Singleton:Witness.Aux]: ClassTag[M#PermutationType] = valueOf[M].permutationClassTag
 
 }

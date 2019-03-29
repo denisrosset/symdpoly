@@ -34,7 +34,7 @@ package object evaluation {
   def symmetryPreserving[
     M <: freebased.MonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](permutationCompatible: M#Permutation => Boolean,
+  ](permutationCompatible: M#PermutationType => Boolean,
     components: FreeBasedComponent[M, F]*): Equivalence[M] =
     symmetryPreserving[M, F](permutationCompatible, true2 _, components: _*)
 
@@ -55,7 +55,7 @@ package object evaluation {
   def symmetryPreserving[
     M <: freebased.MonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](permutationCompatible: M#Permutation => Boolean,
+  ](permutationCompatible: M#PermutationType => Boolean,
     actionCompatible: (F#Op, F#Op) => Boolean,
     components: FreeBasedComponent[M, F]*): Equivalence[M] = new ComponentEquivalence[M, F](components, permutationCompatible, actionCompatible)
 

@@ -19,7 +19,7 @@ import net.alasc.symdpoly.util.OrderedSet
 import syntax.phased._
 import net.alasc.perms.default._
 
-abstract class Poly[M <: generic.MonoidDef with Singleton:Witness.Aux] { lhs: M#Polynomial =>
+abstract class Poly[M <: generic.MonoidDef with Singleton:Witness.Aux] { lhs: M#PolyType =>
 
   def M: M = valueOf[M]
 
@@ -27,20 +27,20 @@ abstract class Poly[M <: generic.MonoidDef with Singleton:Witness.Aux] { lhs: M#
 
   def degree: Int = Iterator.tabulate(nTerms)(monomial(_).degree).max
   def nTerms: Int
-  def monomial(i: Int): M#Monomial
+  def monomial(i: Int): M#MonoType
   def coeff(i: Int): Cyclo
-  def coeff(mono: M#Monomial): Cyclo
+  def coeff(mono: M#MonoType): Cyclo
   def string(leftBracket: String = "", rightBracket: String = ""): String
 
-  def *(rhs: Int): M#Polynomial
-  def *(rhs: Rational): M#Polynomial
-  def *(rhs: Cyclo): M#Polynomial
+  def *(rhs: Int): M#PolyType
+  def *(rhs: Rational): M#PolyType
+  def *(rhs: Cyclo): M#PolyType
 
-  def /(rhs: Int): M#Polynomial
-  def /(rhs: Rational): M#Polynomial
-  def /(rhs: Cyclo): M#Polynomial
+  def /(rhs: Int): M#PolyType
+  def /(rhs: Rational): M#PolyType
+  def /(rhs: Cyclo): M#PolyType
 
-  def invariantSubgroupOf(grp: Grp[M#Permutation]): Grp[M#Permutation] =
-    symmetries.invariantSubgroupOf((0 until nTerms).map(monomial), (x: M#Monomial) => coeff(x), grp, M.cyclotomicOrder)
+  def invariantSubgroupOf(grp: Grp[M#PermutationType]): Grp[M#PermutationType] =
+    symmetries.invariantSubgroupOf((0 until nTerms).map(monomial), (x: M#MonoType) => coeff(x), grp, M.cyclotomicOrder)
 
 }

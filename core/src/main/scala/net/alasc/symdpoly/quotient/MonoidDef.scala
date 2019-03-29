@@ -55,10 +55,10 @@ class Symmetries[
     }
   }
 
-  def isGroupCompatible(grp: Grp[F#Permutation]): Boolean = grp.generators.forall(UnorderedPartitionStabilizer.partitionInvariantUnder(partition, action, _))
+  def isGroupCompatible(grp: Grp[F#PermutationType]): Boolean = grp.generators.forall(UnorderedPartitionStabilizer.partitionInvariantUnder(partition, action, _))
 
-  def compatibleSubgroup(grp: Grp[F#Permutation]): Grp[M#Permutation] = {
-    val subgroup: Grp[F#Permutation] = if (isGroupCompatible(grp)) grp else grp.unorderedPartitionStabilizer(action, partition)
+  def compatibleSubgroup(grp: Grp[F#PermutationType]): Grp[M#PermutationType] = {
+    val subgroup: Grp[F#PermutationType] = if (isGroupCompatible(grp)) grp else grp.unorderedPartitionStabilizer(action, partition)
     M.groupInQuotientNC(subgroup)
   }
 
@@ -78,35 +78,35 @@ abstract class MonoidDef extends freebased.MonoidDef {
 
   /** Returns the subgroup of a group of permutations on the free variables, such that it is the maximal subgroup
     * compatible with the quotient structure. */
-  def groupInQuotient(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] = {
+  def groupInQuotient(grp: Grp[freebased.Permutation[Free, Free]]): Grp[PermutationType] = {
     val s = symmetries
     s.compatibleSubgroup(grp)
   }
 
   /** Translates a group acting on the free variables into a group acting on the equivalence classes on the quotient
     * monoid, assuming that the group is compatible without verification. */
-  def groupInQuotientNC(grp: Grp[freebased.Permutation[Free, Free]]): Grp[Permutation] =
+  def groupInQuotientNC(grp: Grp[freebased.Permutation[Free, Free]]): Grp[PermutationType] =
     Grp.fromGeneratorsAndOrder(grp.generators.map(quotientNC), grp.order)
 
   /** Symmetry group that preserves the quotient structure, with elements that act by permuting operator variables,
     * possibly applying a phase. */
-  lazy val symmetryGroup: Grp[Permutation] = groupInQuotient(Free.symmetryGroup)
+  lazy val symmetryGroup: Grp[PermutationType] = groupInQuotient(Free.symmetryGroup)
 
   /** Returns the permutation of the quotient monoid equivalence classes that correspond to the free permutation given,
     * without performing sanity checks. */
-  def quotientNC(permutation: Free#Permutation): freebased.Permutation[monoidDef.type, Free] =
+  def quotientNC(permutation: Free#PermutationType): freebased.Permutation[monoidDef.type, Free] =
     new freebased.Permutation[monoidDef.type, Free](permutation.genPerm)
 
   /** Returns the permutation of the quotient monoid equivalence classes that correspond to the given free permutation
     * when it is compatible, or returns None otherwise.
     */
-  def quotient(permutation: Free#Permutation): Option[freebased.Permutation[monoidDef.type, Free]] = {
+  def quotient(permutation: Free#PermutationType): Option[freebased.Permutation[monoidDef.type, Free]] = {
     import symmetries.{partition, action}
     if (UnorderedPartitionStabilizer.partitionInvariantUnder(partition, action, permutation)) Some(quotientNC(permutation)) else None
   }
 
   /** Returns the representative class of the given free monomial. */
-  def quotient(word: Mono[Free, Free]): Monomial = {
+  def quotient(word: Mono[Free, Free]): MonoType = {
     val res = word.data.mutableCopy()
     inPlaceNormalForm(res)
     new Mono[monoidDef.type, Free](res.setImmutable())

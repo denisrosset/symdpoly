@@ -8,28 +8,28 @@ import cyclo.Cyclo
 
 import net.alasc.symdpoly.evaluation.Evaluator
 
-trait EvaluatedPolyLike[
+trait LinearMomentLike[
   E <: Evaluator.Aux[M] with Singleton,
   M <: generic.MonoidDef with Singleton
 ] { lhs =>
 
-  def toPoly: EvaluatedPoly[E, M]
+  def toPoly: LinearMoment[E, M]
 
-  def <=!(rhs: EvaluatedPolyLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] =
+  def <=!(rhs: LinearMomentLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] =
     ScalarConstraint(lhs.toPoly, ComparisonOp.LE, rhs.toPoly)
 
   def <=!(rhs: Int)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] = lhs <=! valueOf[E].constant(rhs)
   def <=!(rhs: Rational)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] = lhs <=! valueOf[E].constant(rhs)
   def <=!(rhs: Cyclo)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] = lhs <=! valueOf[E].constant(rhs)
 
-  def >=!(rhs: EvaluatedPolyLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] =
+  def >=!(rhs: LinearMomentLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] =
     ScalarConstraint(lhs.toPoly, ComparisonOp.GE, rhs.toPoly)
 
   def >=!(rhs: Int)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] = lhs >=! valueOf[E].constant(rhs)
   def >=!(rhs: Rational)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] = lhs >=! valueOf[E].constant(rhs)
   def >=!(rhs: Cyclo)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] = lhs >=! valueOf[E].constant(rhs)
 
-  def =!(rhs: EvaluatedPolyLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] =
+  def =!(rhs: LinearMomentLike[E, M])(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] =
     ScalarConstraint(lhs.toPoly, ComparisonOp.EQ, rhs.toPoly)
 
   def =!(rhs: Int)(implicit E: Witness.Aux[E], M: Witness.Aux[M]): ScalarConstraint[E, M] = lhs =! valueOf[E].constant(rhs)

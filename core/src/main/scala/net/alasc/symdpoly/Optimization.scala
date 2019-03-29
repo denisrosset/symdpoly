@@ -11,7 +11,7 @@ case class Optimization[
   E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
 ](direction: Direction,
-  objective: E#EvaluatedPolynomial,
+  objective: E#LinearMomentType,
   operatorConstraints: Seq[OperatorConstraint[M]] = Seq.empty,
   scalarConstraints: Seq[ScalarConstraint[E, M]] = Seq.empty) {
 
@@ -19,7 +19,7 @@ case class Optimization[
     *
     * No consistency checks are performed, use with caution.
     */
-  def forceSymmetrizeNC(grp: Grp[M#Permutation]): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = {
+  def forceSymmetrizeNC(grp: Grp[M#PermutationType]): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = {
     val unionGrp = E.symmetryGroup union grp
     val E1 = M.symmetricEvaluator(unionGrp, E.equivalence)
     val objective1 = E1(objective.normalForm)
@@ -40,8 +40,8 @@ case class Optimization[
     *                                   where f1, f2 are monomials in the free monoid, and g is a permutation
     * @return the symmetrized optimization problem
     */
-  def symmetrize(quotientFeasibilityGroup: Option[Grp[M#Permutation]] = None,
-                 evaluationFeasibilityGroup: Option[Grp[M#Permutation]] = None): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = // TODO: support constraints
+  def symmetrize(quotientFeasibilityGroup: Option[Grp[M#PermutationType]] = None,
+                 evaluationFeasibilityGroup: Option[Grp[M#PermutationType]] = None): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = // TODO: support constraints
     if (operatorConstraints.isEmpty && scalarConstraints.isEmpty) {
       val feasGrp = (quotientFeasibilityGroup, evaluationFeasibilityGroup) match {
         case (_, Some(efg)) => efg

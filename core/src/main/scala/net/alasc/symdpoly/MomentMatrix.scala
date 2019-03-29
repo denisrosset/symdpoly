@@ -38,14 +38,14 @@ import net.alasc.symdpoly.symmetries.Configuration
 class MomentMatrix[
   E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
-](val generatingMoments: OrderedSet[M#Monomial], val mat: Mat[E#EvaluatedMonomial]) {
+](val generatingMoments: OrderedSet[M#MonoType], val mat: Mat[E#SingleMomentType]) {
   def E: E = valueOf[E]
   def M: M = valueOf[M]
 
   /** The matrix of moments has shape size x size */
   def size: Int =  generatingMoments.length
 
-  def allMoments: HashSet[E#EvaluatedMonomial] = MomentMatrix.matIterator(mat).map(_.phaseCanonical).filterNot(_.isZero).to[HashSet]
+  def allMoments: HashSet[E#SingleMomentType] = MomentMatrix.matIterator(mat).map(_.phaseCanonical).filterNot(_.isZero).to[HashSet]
 
   def expandIn(relaxation: Relaxation[E, M]): (Block, Boolean) = {
     val nonZeroElements: Seq[BlockElement] = for {
@@ -69,22 +69,22 @@ object MomentMatrix {
   def apply[
     E <: Evaluator.Aux[M] with Singleton : Witness.Aux,
     M <: generic.MonoidDef with Singleton : Witness.Aux
-  ](generatingMoments: OrderedSet[M#Monomial]): MomentMatrix[E, M] =
-    apply[E, M](generatingMoments, GrpMonomialRepresentation.trivial[M#Permutation](generatingMoments.length))
+  ](generatingMoments: OrderedSet[M#MonoType]): MomentMatrix[E, M] =
+    apply[E, M](generatingMoments, GrpMonomialRepresentation.trivial[M#PermutationType](generatingMoments.length))
 
   def apply[
     E <: Evaluator.Aux[M] with Singleton : Witness.Aux,
     M <: generic.MonoidDef with Singleton : Witness.Aux
-  ](generatingMoments: OrderedSet[M#Monomial], symmetry: GrpMonomialRepresentation[M#Permutation]): MomentMatrix[E, M] = {
+  ](generatingMoments: OrderedSet[M#MonoType], symmetry: GrpMonomialRepresentation[M#PermutationType]): MomentMatrix[E, M] = {
     def E: E = valueOf[E]
     def M: M = valueOf[M]
     val size = generatingMoments.length
-    val symmetry = GrpMonomialRepresentation.fromActionOnOrderedSet(generatingMoments, E.symmetryGroup: Grp[M#Permutation])
-    val moments: Mat[E#EvaluatedMonomial] =
+    val symmetry = GrpMonomialRepresentation.fromActionOnOrderedSet(generatingMoments, E.symmetryGroup: Grp[M#PermutationType])
+    val moments: Mat[E#SingleMomentType] =
       if (symmetry.grp.isTrivial)
         Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint * generatingMoments(c)) }
       else
-        Mat.fromMutable[E#EvaluatedMonomial](size, size, E.zero) { mat =>
+        Mat.fromMutable[E#SingleMomentType](size, size, E.zero) { mat =>
           val conf = Configuration.fromGrpMonomialRepresentation(symmetry)
           cforRange(0 until conf.nOrbits) { o =>
             val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)

@@ -12,7 +12,7 @@ import net.alasc.perms.Perm
 trait Equivalence[M <: generic.MonoidDef with Singleton] extends Component[M] { self =>
 
   /** Returns whether the given group is compatible with this equivalence relation. */
-  def isCompatibleGroup(grp: Grp[M#Permutation]): Boolean = grp === compatibleSubgroup(grp)
+  def isCompatibleGroup(grp: Grp[M#PermutationType]): Boolean = grp === compatibleSubgroup(grp)
 
   /** Returns the group of permutations that is compatible with the evaluator,
     *
@@ -20,6 +20,6 @@ trait Equivalence[M <: generic.MonoidDef with Singleton] extends Component[M] { 
     * we have m1 ~ m2 if and only if (m1 <|+| g) ~ (m2 <|+| g) for any element g of the group,
     * where ~ is described by this equivalence relation.
     */
-  def compatibleSubgroup(grp: Grp[M#Permutation]): Grp[M#Permutation]
+  def compatibleSubgroup(grp: Grp[M#PermutationType]): Grp[M#PermutationType]
 
 }

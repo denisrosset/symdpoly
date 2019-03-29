@@ -10,7 +10,7 @@ object CHSHApp extends App {
   type RelaxationM[M <: generic.MonoidDef with Singleton] = Relaxation[_ <: Evaluator.Aux[M] with Singleton, M]
   type ProblemM[M <: generic.MonoidDef with Singleton] = Optimization[_ <: Evaluator.Aux[M] with Singleton, M]
 
-  def bellOperator(M: quotient.MonoidDef.Aux[Free.type]): M.Polynomial =
+  def bellOperator(M: quotient.MonoidDef.Aux[Free.type]): M.PolyType =
     M.quotient(chsh)
 
   def relaxation(M: quotient.MonoidDef.Aux[Free.type])(generatingSet: GSet[M.type]): (RelaxationM[M.type], RelaxationM[M.type]) = {

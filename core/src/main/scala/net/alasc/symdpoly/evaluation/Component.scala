@@ -17,7 +17,7 @@ trait Component[M <: generic.MonoidDef with Singleton] { self =>
   def M: M = valueOf[M]
 
   /** Returns the set of monomials equivalent to the given monomial. */
-  def apply(mono: M#Monomial): Set[M#Monomial]
+  def apply(mono: M#MonoType): Set[M#MonoType]
 
   /** Returns whether m.adjoint is equivalent to m for all m of type M#Monomial. */
   def isSelfAdjoint: Boolean

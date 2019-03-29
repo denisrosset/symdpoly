@@ -19,11 +19,11 @@ import net.alasc.symdpoly.util.OrderedSet
 import spire.syntax.involution._
 
 /** Evaluated noncommutative polynomial. */
-final class EvaluatedPoly[
+final class LinearMoment[
   E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
-](val normalForm: M#Polynomial) extends EvaluatedPolyLike[E, M] {
-  lhs: E#EvaluatedPolynomial =>
+](val normalForm: M#PolyType) extends LinearMomentLike[E, M] {
+  lhs: E#LinearMomentType =>
 
   def M: M = valueOf[M]
 
@@ -31,24 +31,24 @@ final class EvaluatedPoly[
 
   def isZero: Boolean = normalForm.isZero
 
-  def toPoly: EvaluatedPoly[E, M] = lhs
+  def toPoly: LinearMoment[E, M] = lhs
 
   override def toString: String = normalForm.string("L(", ")")
 
   override def hashCode: Int = normalForm.hashCode()
 
   override def equals(any: Any): Boolean = any match {
-    case rhs: EvaluatedPoly[E, M] if (lhs.E eq rhs.E) => valueOf[M].polyEq.eqv(lhs.normalForm, rhs.normalForm)
+    case rhs: LinearMoment[E, M] if (lhs.E eq rhs.E) => valueOf[M].polyEq.eqv(lhs.normalForm, rhs.normalForm)
     case _ => false
   }
 
   def nTerms: Int = normalForm.nTerms
 
-  def monomial(i: Int): EvaluatedMono[E, M] = new EvaluatedMono[E, M](normalForm.monomial(i))
+  def monomial(i: Int): SingleMoment[E, M] = new SingleMoment[E, M](normalForm.monomial(i))
 
   def coeff(i: Int): Cyclo = normalForm.coeff(i)
 
-  def coeff(mono: EvaluatedMono[E, M]): Cyclo = normalForm.coeff(mono.normalForm)
+  def coeff(mono: SingleMoment[E, M]): Cyclo = normalForm.coeff(mono.normalForm)
 
   /*
   def vecOverOrderedSet(orderedSet: OrderedSet[EvaluatedMono[E, M]])(implicit V: VecEngine[Cyclo]): Vec[Cyclo] =
@@ -62,8 +62,8 @@ final class EvaluatedPoly[
       }
     }*/
 
-  def invariantSubgroupOf(grp: Grp[M#Permutation]): Grp[M#Permutation] =
-    symmetries.invariantSubgroupOf[E#EvaluatedMonomial, M#Permutation]((0 until nTerms).map(monomial), (x: EvaluatedMono[E, M]) => coeff(x), E.compatibleSubgroup(grp), M.cyclotomicOrder)
+  def invariantSubgroupOf(grp: Grp[M#PermutationType]): Grp[M#PermutationType] =
+    symmetries.invariantSubgroupOf[E#SingleMomentType, M#PermutationType]((0 until nTerms).map(monomial), (x: SingleMoment[E, M]) => coeff(x), E.compatibleSubgroup(grp), M.cyclotomicOrder)
 
   /** Expands this evaluated polynomial in the given SDP relaxation.
     *
@@ -105,7 +105,7 @@ final class EvaluatedPoly[
     (0 until nTerms).flatMap(i => monomial(i).expandIn(relaxation, coeff(i))).collapse
 
   def vectorRealImagPartsIn(relaxation: Relaxation[E, M]): Seq[Vec[Double]] = {
-    implicit def polyVectorSpace: VectorSpace[E#EvaluatedPolynomial, Cyclo] = E.evaluatedPolyVectorSpace
+    implicit def polyVectorSpace: VectorSpace[E#LinearMomentType, Cyclo] = E.evaluatedPolyVectorSpace
     val adj = lhs.adjoint
     val realPart = (lhs + adj) :* (Cyclo.one / 2)
     val imagPart  = (lhs - adj) :* (-Cyclo.i / 2)
@@ -114,34 +114,34 @@ final class EvaluatedPoly[
 
 }
 
-object EvaluatedPoly {
+object LinearMoment {
 
   implicit def polyFromInt[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton:Witness.Aux
-  ](i: Int): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.fromInt(i))
+  ](i: Int): LinearMoment[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.fromInt(i))
 
   implicit def polyFromRational[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton:Witness.Aux
-  ](r: Rational): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(Cyclo.viewFromRational(r), valueOf[M].polyAssociativeAlgebra.one))
+  ](r: Rational): LinearMoment[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(Cyclo.viewFromRational(r), valueOf[M].polyAssociativeAlgebra.one))
 
   implicit def polyFromCyclo[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton:Witness.Aux
-  ](c: Cyclo): EvaluatedPoly[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(c, valueOf[M].polyAssociativeAlgebra.one))
+  ](c: Cyclo): LinearMoment[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(c, valueOf[M].polyAssociativeAlgebra.one))
 
   //region Typeclasses
 
   implicit def equ[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton
-  ]: Eq[EvaluatedPoly[E, M]] = valueOf[E].evaluatedPolyEq
+  ]: Eq[LinearMoment[E, M]] = valueOf[E].evaluatedPolyEq
 
   implicit def vectorSpace[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
     M <: generic.MonoidDef with Singleton
-  ]: VectorSpace[EvaluatedPoly[E, M], Cyclo] = valueOf[E].evaluatedPolyVectorSpace
+  ]: VectorSpace[LinearMoment[E, M], Cyclo] = valueOf[E].evaluatedPolyVectorSpace
 
   //endregion
 

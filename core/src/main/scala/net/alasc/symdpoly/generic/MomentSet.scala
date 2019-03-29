@@ -20,13 +20,13 @@ import net.alasc.util._
 class MomentSet[
   E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
-](val elements: OrderedSet[EvaluatedMono[E, M]], private[this] val _conjugateIndices: Array[Int]) {
+](val elements: OrderedSet[SingleMoment[E, M]], private[this] val _conjugateIndices: Array[Int]) {
   require(_conjugateIndices.length == elements.length)
   def nElements: Int = elements.length
   def conjugateIndex(i: Int): Int = _conjugateIndices(i)
   def isSelfAdjoint(i: Int): Boolean = conjugateIndex(i) == i
-  def apply(i: Int): EvaluatedMono[E, M] = elements(i)
-  def indexOf(element: EvaluatedMono[E, M]): Int = elements.indexOf(element)
+  def apply(i: Int): SingleMoment[E, M] = elements(i)
+  def indexOf(element: SingleMoment[E, M]): Int = elements.indexOf(element)
 
   /** Returns whether all monomials in that set are self-adjoint. */
   def allSelfAdjoint: Boolean = {
@@ -42,9 +42,9 @@ class MomentSet[
 class MomentSetBuilder[
   E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux
-](val sequence: Buffer[EvaluatedMono[E, M]],
+](val sequence: Buffer[SingleMoment[E, M]],
   val conjugate: Buffer[Int],
-  val momentMap: HashMap[EvaluatedMono[E, M], Int],
+  val momentMap: HashMap[SingleMoment[E, M], Int],
   var n: Int) {
   def E: E = valueOf[E]
   def M: M = valueOf[M]
@@ -58,11 +58,11 @@ class MomentSetBuilder[
     val unsortedToSorted = sortedToUnsorted.inverse
     val sortedMoments = Array.tabulate(n)( i => sequence(sortedToUnsorted.image(i)).asInstanceOf[AnyRef] )
     val conjugateSorted = Array.tabulate(n)( i => unsortedToSorted.image(conjugate(sortedToUnsorted.image(i))) )
-    val momentSet = new MomentSet(new OrderedSet[EvaluatedMono[E, M]](sortedMoments), conjugateSorted)
+    val momentSet = new MomentSet(new OrderedSet[SingleMoment[E, M]](sortedMoments), conjugateSorted)
     (momentSet, unsortedToSorted)
   }
 
-  def getElement(mono: EvaluatedMono[E, M], monoAdjoint: EvaluatedMono[E, M]): Tuple2Int =
+  def getElement(mono: SingleMoment[E, M], monoAdjoint: SingleMoment[E, M]): Tuple2Int =
     momentMap.ptrFind(mono) match {
       case IsVPtr(vp) =>
         val monoIndex = vp.value
@@ -81,7 +81,7 @@ class MomentSetBuilder[
         Tuple2Int(monoIndex, monoAdjointIndex)
     }
 
-  def getElement(monoSelfAdjoint: EvaluatedMono[E, M]): Int =
+  def getElement(monoSelfAdjoint: SingleMoment[E, M]): Int =
     momentMap.ptrFind(monoSelfAdjoint) match {
       case IsVPtr(vp) => vp.value
       case _ =>

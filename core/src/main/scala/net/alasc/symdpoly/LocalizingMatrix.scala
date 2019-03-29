@@ -29,14 +29,14 @@ import net.alasc.symdpoly.sdp.{BasisTerm, Block, BlockElement}
 class LocalizingMatrix[
   E <: evaluation.Evaluator.Aux[M] with Singleton: Witness.Aux,
   M <: generic.MonoidDef with Singleton: Witness.Aux
-](val polynomial: M#Polynomial, val generatingMoments: OrderedSet[M#Monomial], val mat: Mat[E#EvaluatedPolynomial]) {
+](val polynomial: M#PolyType, val generatingMoments: OrderedSet[M#MonoType], val mat: Mat[E#LinearMomentType]) {
   def E: E = valueOf[E]
   def M: M = valueOf[M]
 
   /** The matrix of moments has shape size x size */
   def size: Int =  generatingMoments.length
 
-  def allMoments: HashSet[E#EvaluatedMonomial] =
+  def allMoments: HashSet[E#SingleMomentType] =
     MomentMatrix.matIterator(mat).flatMap(p => Iterator.tabulate(p.nTerms)(i => p.monomial(i).phaseCanonical).filterNot(_.isZero)).to(HashSet)
 
   def expandIn(relaxation: Relaxation[E, M]): (Block, Boolean) = {
@@ -60,12 +60,12 @@ object LocalizingMatrix {
   def apply[
     E <: evaluation.Evaluator.Aux[M] with Singleton: Witness.Aux,
     M <: generic.MonoidDef with Singleton: Witness.Aux
-  ](polynomial: M#Polynomial, generatingMoments: OrderedSet[M#Monomial]): LocalizingMatrix[E, M] = {
+  ](polynomial: M#PolyType, generatingMoments: OrderedSet[M#MonoType]): LocalizingMatrix[E, M] = {
     def E: E = valueOf[E]
     def M: M = valueOf[M]
     require(polynomial.adjoint === polynomial)
     val size = generatingMoments.length
-    val moments: Mat[E#EvaluatedPolynomial] =
+    val moments: Mat[E#LinearMomentType] =
         Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint.toPoly * polynomial * generatingMoments(c).toPoly) }
     new LocalizingMatrix[E, M](polynomial, generatingMoments, moments)
   }

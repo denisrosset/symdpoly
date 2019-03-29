@@ -26,16 +26,16 @@ final class TransposesEquivalence[
   val untransposed: Set[Int] = groupIndex.zipWithIndex.filter(_._1 == -1).map(_._2).toSet
   val partition: Partition = Partition.fromSeq(groupIndex)
 
-  private[this] val action: PermutationAction[M#Permutation] =
+  private[this] val action: PermutationAction[M#PermutationType] =
     instances.invariant.symdpolyContravariantForPermutationAction
-      .contramap[Perm, M#Permutation](Perm.algebra)(_.genPerm.perm)
+      .contramap[Perm, M#PermutationType](Perm.algebra)(_.genPerm.perm)
 
-  def apply(mono: M#Monomial): Set[M#Monomial] =
+  def apply(mono: M#MonoType): Set[M#MonoType] =
     components.foldLeft(Set(mono)) {
       case (res, equiv) => res.flatMap(m => equiv.apply(m))
     }
 
-  def compatibleSubgroup(grp: Grp[M#Permutation]): Grp[M#Permutation] =
+  def compatibleSubgroup(grp: Grp[M#PermutationType]): Grp[M#PermutationType] =
     grp.setwiseStabilizer(action, untransposed).unorderedPartitionStabilizer(action, partition)
 
   def isSelfAdjoint: Boolean = untransposed.isEmpty

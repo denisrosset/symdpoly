@@ -26,7 +26,7 @@ import net.alasc.symdpoly.evaluation.Evaluator
 import net.alasc.symdpoly.util.OrderedSet
 
 /** A Permutation relabels the operator variables of monomials, possibly with a phase. */
-trait Permutation[M <: generic.MonoidDef with Singleton] { self: M#Permutation =>
+trait Permutation[M <: generic.MonoidDef with Singleton] { self: M#PermutationType =>
 
 }
 
@@ -34,12 +34,12 @@ object Permutation {
 
   def phasedIntAction[
     M <: generic.MonoidDef with Singleton:Witness.Aux
-  ](set: OrderedSet[M#Monomial])(implicit group: Group[Permutation[M]],
-                                 action: Action[M#Monomial, Permutation[M]]): Action[PhasedInt, Permutation[M]] =
+  ](set: OrderedSet[M#MonoType])(implicit group: Group[Permutation[M]],
+                                 action: Action[M#MonoType, Permutation[M]]): Action[PhasedInt, Permutation[M]] =
     new Action[PhasedInt, Permutation[M]] {
       def actr(p: PhasedInt, g: Permutation[M]): PhasedInt = {
-        implicit def phased: Phased[M#Monomial] = valueOf[M].monoPhased
-        implicit def order: Order[M#Monomial] = valueOf[M].monoOrder
+        implicit def phased: Phased[M#MonoType] = valueOf[M].monoPhased
+        implicit def order: Order[M#MonoType] = valueOf[M].monoOrder
         val res = set(p.index) <|+| g
         val newIndex = set.indexOf(res.phaseCanonical)
         val newPhase = p.phase * res.phaseOffset
@@ -51,7 +51,7 @@ object Permutation {
   implicit def evaluatedMonoAction[
     E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
     M <: generic.MonoidDef with Singleton
-  ](implicit action: Action[M#Monomial, Permutation[M]]): Action[EvaluatedMono[E, M], Permutation[M]] =
-    Invariant[Lambda[P => Action[P, Permutation[M]]]].imap[M#Monomial, EvaluatedMono[E, M]](action)((mono: M#Monomial) => (valueOf[E]: E).apply(mono))(_.normalForm)
+  ](implicit action: Action[M#MonoType, Permutation[M]]): Action[SingleMoment[E, M], Permutation[M]] =
+    Invariant[Lambda[P => Action[P, Permutation[M]]]].imap[M#MonoType, SingleMoment[E, M]](action)((mono: M#MonoType) => (valueOf[E]: E).apply(mono))(_.normalForm)
 
 }

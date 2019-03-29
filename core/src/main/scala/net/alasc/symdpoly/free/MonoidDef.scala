@@ -41,7 +41,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
 
   def Free: Free = this
 
-  def quotient(word: Mono[Free, Free]): Monomial = word
+  def quotient(word: Mono[Free, Free]): MonoType = word
 
   def quotient(poly: Poly[Free, Free]): Poly[Free, Free] = poly
 

@@ -26,10 +26,10 @@ import metal.syntax._
 sealed trait GSet[M <: generic.MonoidDef with Singleton] { lhs =>
 
   /** Computes and returns the sorted generating set of monomials. */
-  def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#Monomial]
+  def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#MonoType]
 
   /** Computes and returns the sorted generating set of monomials as an OrderedSet. */
-  def toOrderedSet(implicit wM: Witness.Aux[M]): OrderedSet[M#Monomial] =
+  def toOrderedSet(implicit wM: Witness.Aux[M]): OrderedSet[M#MonoType] =
     OrderedSet.fromUnique(metalSet.toScala)
 
   /** Union. */
@@ -50,7 +50,7 @@ sealed trait GSet[M <: generic.MonoidDef with Singleton] { lhs =>
   def pow(exp: Int): GSet[M] = GSet.Power(lhs, exp)
 
   /** Completes a generating set of monomials by their orbit under a group. */
-  def orbit(grp: Grp[M#Permutation])(implicit action: Action[M#Monomial, M#Permutation]): GSet[M] = GSet.Orbit[M](lhs, grp)
+  def orbit(grp: Grp[M#PermutationType])(implicit action: Action[M#MonoType, M#PermutationType]): GSet[M] = GSet.Orbit[M](lhs, grp)
 
 }
 
@@ -78,11 +78,11 @@ object GSet {
   /** Generating set of monomials containing the identity only. */
   def id[M <: generic.MonoidDef with Singleton]: GSet[M] = Id[M]()
 
-  protected case class Orbit[M <: generic.MonoidDef with Singleton](gm: GSet[M], grp: Grp[M#Permutation]) extends GSet[M] {
+  protected case class Orbit[M <: generic.MonoidDef with Singleton](gm: GSet[M], grp: Grp[M#PermutationType]) extends GSet[M] {
     override def toString: String = s"Orbit($gm)"
-    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#Monomial] = {
+    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#MonoType] = {
       import generic.MonoidDef.permutationMonoAction
-      val res = metal.mutable.HashSet.empty[M#Monomial]
+      val res = metal.mutable.HashSet.empty[M#MonoType]
       val on = gm.metalSet
       grp.iterator.foreach { g =>
         on.foreach { m =>
@@ -95,20 +95,20 @@ object GSet {
 
   protected case class Empty[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
     override def toString: String = "{}"
-    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#Monomial] = metal.immutable.HashSet.empty
+    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#MonoType] = metal.immutable.HashSet.empty
   }
 
   protected case class Id[M <: generic.MonoidDef with Singleton]() extends GSet[M] {
     override def toString: String = "1"
-    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#Monomial] = metal.immutable.HashSet(valueOf[M].one)
+    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#MonoType] = metal.immutable.HashSet(valueOf[M].one)
   }
 
   protected case class Ops[F <: free.MonoidDef.Aux[F] with Singleton](opEnum: F#OpEnum) extends GSet[F] {
     override def toString: String =
       if (opEnum.allInstances.isEmpty) opEnum.toString
       else opEnum.allInstances.head.productPrefix
-    def metalSet(implicit wF: Witness.Aux[F]): MetalSet[F#Monomial] = {
-      val res = metal.mutable.HashSet.empty[F#Monomial]
+    def metalSet(implicit wF: Witness.Aux[F]): MetalSet[F#MonoType] = {
+      val res = metal.mutable.HashSet.empty[F#MonoType]
       opEnum.allInstances.foreach { op =>
         res += op.toMono
       }
@@ -121,7 +121,7 @@ object GSet {
       if (opEnum.allInstances.isEmpty) opEnum.toString
       else opEnum.allInstances.head.productPrefix
     override def toString: String = seq.map(opEnumString).mkString("*")
-    def metalSet(implicit wF: Witness.Aux[F]): MetalSet[F#Monomial] = Tensor[F](seq.map(Ops(_))).metalSet
+    def metalSet(implicit wF: Witness.Aux[F]): MetalSet[F#MonoType] = Tensor[F](seq.map(Ops(_))).metalSet
   }
 
   case class Quotient[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](preimage: GSet[F]) extends GSet[M] {
@@ -135,7 +135,7 @@ object GSet {
       def M: M = wM.value
       implicit def wF: Witness.Aux[F] = (M.Free: F).witness
       val inF = preimage.metalSet
-      val res = metal.mutable.HashSet.reservedSize[M#Monomial](inF.size)
+      val res = metal.mutable.HashSet.reservedSize[M#MonoType](inF.size)
       inF.foreach { monoF => res += M.quotient(monoF).phaseCanonical }
       res.result()
     }
@@ -143,26 +143,26 @@ object GSet {
 
   case class Sequence[M <: generic.MonoidDef with Singleton](seq: Seq[GSet[M]]) extends GSet[M] {
     override def toString: String = seq.mkString("[",",","]")
-    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#Monomial] =
-      monoidSetSemiring[M#Monomial](valueOf[M].monoClassTag, canonicalMonoMonoid[M]).sum(seq.map(_.metalSet))
+    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#MonoType] =
+      monoidSetSemiring[M#MonoType](valueOf[M].monoClassTag, canonicalMonoMonoid[M]).sum(seq.map(_.metalSet))
   }
 
 
   protected case class Power[M <: generic.MonoidDef with Singleton](gm: GSet[M], exp: Int) extends GSet[M] {
     override def toString: String = s"($gm)^$exp"
-    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#Monomial] =
-      monoidSetSemiring[M#Monomial](valueOf[M].monoClassTag, canonicalMonoMonoid[M]).pow(gm.metalSet, exp)
+    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#MonoType] =
+      monoidSetSemiring[M#MonoType](valueOf[M].monoClassTag, canonicalMonoMonoid[M]).pow(gm.metalSet, exp)
   }
 
   protected case class Tensor[M <: generic.MonoidDef with Singleton](seq: Seq[GSet[M]]) extends GSet[M] {
     override def toString: String = seq.mkString("*")
-    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#Monomial] =
-      monoidSetSemiring[M#Monomial](valueOf[M].monoClassTag, canonicalMonoMonoid[M]).product(seq.map(_.metalSet))
+    def metalSet(implicit wM: Witness.Aux[M]): MetalSet[M#MonoType] =
+      monoidSetSemiring[M#MonoType](valueOf[M].monoClassTag, canonicalMonoMonoid[M]).product(seq.map(_.metalSet))
   }
 
-  protected def canonicalMonoMonoid[M <: generic.MonoidDef with Singleton: Witness.Aux]: Monoid[M#Monomial] = new Monoid[M#Monomial] {
-    def empty: M#Monomial = valueOf[M].one
-    def combine(x: M#Monomial, y: M#Monomial): M#Monomial = {
+  protected def canonicalMonoMonoid[M <: generic.MonoidDef with Singleton: Witness.Aux]: Monoid[M#MonoType] = new Monoid[M#MonoType] {
+    def empty: M#MonoType = valueOf[M].one
+    def combine(x: M#MonoType, y: M#MonoType): M#MonoType = {
       import generic.MonoidDef.{monoMultiplicativeBinoid, monoPhased}
       (x * y).phaseCanonical
     }

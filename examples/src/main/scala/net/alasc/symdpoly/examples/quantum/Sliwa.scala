@@ -89,10 +89,10 @@ object Sliwa {
 
   def localLevel(l: Int): GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A).pow(l) * GSet.onePlus(B).pow(l) * GSet.onePlus(C).pow(l))
 
-  val listOfMonomials: Seq[Quotient.Monomial] = for {
-    c <- Seq[Free.Monomial](Free.one, C(0), C(1))
-    b <- Seq[Free.Monomial](Free.one, B(0), B(1))
-    a <- Seq[Free.Monomial](Free.one, A(0), A(1))
+  val listOfMonomials: Seq[Quotient.MonoType] = for {
+    c <- Seq[Free.MonoType](Free.one, C(0), C(1))
+    b <- Seq[Free.MonoType](Free.one, B(0), B(1))
+    a <- Seq[Free.MonoType](Free.one, A(0), A(1))
   } yield Quotient.quotient(a * b * c)
 
 }
@@ -101,7 +101,7 @@ class SliwaInequality(val index0: Int) {
   import SliwaData.{coefficients, bounds}
   import Sliwa.{listOfMonomials, Quotient}
   def index1: Int = index0 + 1
-  def expression: Sliwa.Quotient.Polynomial =
+  def expression: Sliwa.Quotient.PolyType =
     (coefficients(index0).tail zip listOfMonomials.tail).foldLeft(Quotient.zero.toPoly) {
       case (acc, (coeff, mono)) => acc + mono * coeff
     }
