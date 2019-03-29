@@ -6,17 +6,28 @@ import net.alasc.symdpoly.util.OrderedSet
 
 class CHSHSDPSuite extends CommonSuite {
 
-  test("Test CHSH Tsirelson bound") {
-    object Free extends free.MonoidDef(2) {
+  test("Test cardinality of generating set of monomials") {
+    import examples.quantum.CHSH._
+    // for A(0), A(1) with the relation A(0)^2 = A(1)^2 = 1
+    // we only have strings of the form
+    // A0 A1 A0 A1 ...
+    // A1 A0 A1 A0 ...
+    // so the cardinality is
 
-      case class A(x: Int) extends HermitianOp
-      object A extends HermitianOpFamily1(0 to 1)
-
-      case class B(y: Int) extends HermitianOp
-      object B extends HermitianOpFamily1(0 to 1)
-
-      val operators = Seq(A, B)
+    // for level 0: 1
+    // for level 1: 3
+    // for level 2: 5
+    // for level l: 1 + 2l
+    cforRange(0 until 7) { l =>
+      val g = Quantum.quotient(GSet.onePlus(Free.A).pow(l))
+      val m = g.toOrderedSet
+      assert(m.length == 2*l + 1)
     }
+  }
+
+  test("Test CHSH scenario feasibility group") {
+
+    import examples.quantum.CHSH._
 
     import Free.{A, B}
 
@@ -36,42 +47,38 @@ class CHSHSDPSuite extends CommonSuite {
       case op => op
     }
 
-    val Quotient = Free.quotientMonoid(quotient.pairs {
-      case (A(x1), A(x2)) if x1 == x2 => Free.one
-      case (B(y1), B(y2)) if y1 == y2 => Free.one
-      case (B(y), A(x)) => A(x) * B(y)
-      case (op1, op2) => op1 * op2
-    })
+    val feasibilityGroup = Quantum.groupInQuotientNC(Grp(swapParties, inputSwapA, outputSwapA0))
+    val feasibilityGroup1 = Quantum.symmetryGroup
 
-    val bellOperator = Quotient.quotient(A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1))
+    assert(feasibilityGroup === feasibilityGroup1)
+  }
 
-    val freeGroup = Free.symmetryGroup
-    val feasibilityGroup = Quotient.groupInQuotientNC(Grp(swapParties, inputSwapA, outputSwapA0))
-    val quotientGroup = Quotient.groupInQuotient(freeGroup)
-
-    assert(feasibilityGroup === quotientGroup)
-
-    val generatingSet = Quotient.quotient(GSet.onePlus(A, B).pow(3))
-
-    val L = Quotient.evaluator(evaluation.real)
-
-    val symmetryGroup = bellOperator.invariantSubgroupOf(feasibilityGroup)
-
-    val Lsym = Quotient.symmetricEvaluator(symmetryGroup, evaluation.real)
-
-    val problem = Lsym(bellOperator).maximize
-
-    val relaxation = problem.relaxation(generatingSet)
-    import net.alasc.symdpoly.solvers.matlab._
-
-    //relaxation.mosekInstance.writeCBF("chsh.cbf")
-
+  test("CHSH optimal value, non symmetric version") {
+    import examples.quantum.CHSH._
+    import Free.{A, B}
+    val bellOperator = Quantum.quotient(chsh)
+    val generatingSet = Quantum.quotient(GSet.onePlus(A, B))
+    val L = Quantum.evaluator(evaluation.real)
+    val relaxation: Relaxation[L.type, Quantum.type] = L(bellOperator).maximize.relaxation(generatingSet)
+    // 1, A0, A1, B0, B1, A0B0, A0B1, A1B0, A1B1, A0A1, B0B1
+    assert(relaxation.allMoments.length == 11)
     val OptimumFound(_, ub) = relaxation.program.jOptimizer.solve()
-
     import spire.math.{abs, sqrt}
     val tol = 1e-9
     assert(abs(sqrt(8.0) - ub) < sqrt(tol))
+  }
 
+  test("CHSH optimal value, symmetric version") {
+    import examples.quantum.CHSH._
+    import Free.{A, B}
+    val bellOperator = Quantum.quotient(chsh)
+    val generatingSet = Quantum.quotient(GSet.onePlus(A, B))
+    val L = Quantum.evaluator(evaluation.real)
+    val relaxation: Relaxation[_, Quantum.type] = L(bellOperator).maximize.symmetrize().relaxation(generatingSet)
+    val OptimumFound(_, ub) = relaxation.program.jOptimizer.solve()
+    import spire.math.{abs, sqrt}
+    val tol = 1e-9
+    assert(abs(sqrt(8.0) - ub) < sqrt(tol))
   }
 
 }
