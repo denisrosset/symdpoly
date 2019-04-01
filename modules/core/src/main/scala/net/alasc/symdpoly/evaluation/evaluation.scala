@@ -73,16 +73,16 @@ package object evaluation {
     symmetryNotPreserving(Component.cyclic[M, F](true1), Component.transpose[M, F](true1))
 
   /** Equivalence under the adjoint operation. */
-  def real[M <: generic.MonoidDef with Singleton : Witness.Aux]: Equivalence[M] = AdjointEquivalence[M]()
+  def real[M <: generic.MonoidDef with Singleton: Witness.Aux]: Equivalence[M] = AdjointEquivalence[M]()
 
   /** Returns a trivial equivalence relation, where the equivalence class of m is Set(m). */
-  def trivial[M <: generic.MonoidDef with Singleton : Witness.Aux](): Equivalence[M] = TrivialEquivalence[M]
+  def trivial[M <: generic.MonoidDef with Singleton: Witness.Aux](): Equivalence[M] = TrivialEquivalence[M]
 
   def partialTransposes[
-    M <: freebased.MonoidDef.Aux[F] with Singleton: Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
-  ](blocks: F#OpEnum*): Equivalence[M] = {
-    implicit def witnessF: Witness.Aux[F] = valueOf[M].witnessFree
+  ](M: freebased.MonoidDef.Aux[F])(blocks: F#OpEnum*): Equivalence[M.type] = {
+    implicit def witnessM: Witness.Aux[M.type] = M.witness
+    implicit def witnessF: Witness.Aux[F] = M.witnessFree
     val map: Map[F#Op, Int] = blocks.zipWithIndex.flatMap {
       case (block, i) => block.allInstances.map(op => (op, i))
     }.groupBy(_._1).mapValues {
@@ -90,7 +90,7 @@ package object evaluation {
       case _ => throw new IllegalArgumentException("Blocks must be disjoint")
     }
     val groupIndex = valueOf[F].opIndexMap.elements.map( op => map.getOrElse(op, -1) ).toArray[Int]
-    new TransposesEquivalence[M, F](groupIndex)
+    new TransposesEquivalence[M.type, F](groupIndex)
   }
 
 }

@@ -76,11 +76,12 @@ object Sliwa {
 
   /** Default evaluator. */
   val L = Quotient.evaluator(evaluation.real)
+
   /** Evaluator for states with positive partial transpose. */
-  val LptA = Quotient.evaluator(evaluation.partialTransposes[Quotient.type, Free.type](Free.A, Free.B ++ Free.C)(Quotient.witness))
-  val LptB = Quotient.evaluator(evaluation.partialTransposes[Quotient.type, Free.type](Free.B, Free.A ++ Free.C)(Quotient.witness))
-  val LptC = Quotient.evaluator(evaluation.partialTransposes[Quotient.type, Free.type](Free.C, Free.A ++ Free.B)(Quotient.witness))
-  val LptAll = Quotient.evaluator(evaluation.partialTransposes[Quotient.type, Free.type](Free.A, Free.B, Free.C)(Quotient.witness))
+  val LptA = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.A, Free.B ++ Free.C))
+  val LptB = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.B, Free.A ++ Free.C))
+  val LptC = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.C, Free.A ++ Free.B))
+  val LptAll = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.A, Free.B, Free.C))
 
   /** Group that preserves the problem structure. */
   val feasibilityGroup = Quotient.groupInQuotient(Grp(iA, oA0, pT, pC))
