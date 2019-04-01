@@ -59,7 +59,8 @@ object Choi {
   val relaxation = L(obj).maximize.relaxation(generatingSet)
 
   /** Symmetric relaxation. */
-  val relaxationSym = L(obj).maximize.symmetrize().relaxation(generatingSet)
+  val (problemSym, _) = L(obj).maximize.symmetrize()
+  val relaxationSym = problemSym.relaxation(generatingSet)
 
 }
 

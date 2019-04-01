@@ -27,7 +27,7 @@ object CHSHApp extends App {
     val relaxation: RelaxationM[M.type] = problem.relaxation(generatingSet)
 
     /** Automatic symmetrization. */
-    val problemAuto: ProblemM[M.type] = problem.symmetrize()
+    val (problemAuto: ProblemM[M.type], _) = problem.symmetrize()
 
     val relaxationAuto = problemAuto.relaxation(generatingSet)
 

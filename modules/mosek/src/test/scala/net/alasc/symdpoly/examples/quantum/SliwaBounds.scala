@@ -32,7 +32,7 @@ class SliwaBounds extends CommonSuite {
 
         val problem = E(obj).maximize
         val relaxation = problem.relaxation(generatingSet)
-        val relaxationSym = problem.symmetrize().relaxation(generatingSet)
+        val relaxationSym = problem.symmetrize()._1.relaxation(generatingSet)
         import net.alasc.symdpoly.mosek._
         val OptimumFound(_, opt) = relaxation.program.nativeMosek.solve()
         val OptimumFound(_, optSym) = relaxationSym.program.nativeMosek.solve()

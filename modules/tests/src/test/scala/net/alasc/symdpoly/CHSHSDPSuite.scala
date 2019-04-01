@@ -74,7 +74,8 @@ class CHSHSDPSuite extends CommonSuite {
     val bellOperator = Quantum.quotient(chsh)
     val generatingSet = Quantum.quotient(GSet.onePlus(A, B))
     val L = Quantum.evaluator(evaluation.real)
-    val relaxation: Relaxation[_, Quantum.type] = L(bellOperator).maximize.symmetrize().relaxation(generatingSet)
+    val (problemSym, _) = L(bellOperator).maximize.symmetrize()
+    val relaxation: Relaxation[_, Quantum.type] = problemSym.relaxation(generatingSet)
     val OptimumFound(_, ub) = relaxation.program.jOptimizer.solve()
     import spire.math.{abs, sqrt}
     val tol = 1e-9

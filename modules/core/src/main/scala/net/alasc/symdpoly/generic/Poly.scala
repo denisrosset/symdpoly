@@ -86,6 +86,7 @@ trait PolyLike[M <: MonoidDef with Singleton] { lhs =>
 
 }
 
+/** Polynomial written as a linear combination of monomials described by the monoid M. */
 abstract class Poly[M <: generic.MonoidDef with Singleton] extends PolyLike[M] { lhs: M#PolyType =>
   def toPoly: M#PolyType = lhs
 
@@ -105,5 +106,4 @@ abstract class Poly[M <: generic.MonoidDef with Singleton] extends PolyLike[M] {
 
   def *(rhs: Phase)(implicit d: DummyImplicit): Poly[M] = M.polyAssociativeAlgebra.timesr(lhs, rhs.toCyclo)
   def /(rhs: Phase)(implicit d: DummyImplicit): Poly[M] = M.polyAssociativeAlgebra.timesr(lhs, rhs.reciprocal.toCyclo)
-
 }

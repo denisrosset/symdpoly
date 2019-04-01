@@ -131,7 +131,7 @@ object Sliwa12PPT extends App {
 
   val generatingSet = localLevel(6)
   val sliwa = SliwaInequality.fromIndex1(12)
-  val problem = LptAll(sliwa.expression).maximize.symmetrize()
+  val (problem, _) = LptAll(sliwa.expression).maximize.symmetrize()
   val relaxation = problem.relaxation(generatingSet)
   relaxation.program.sedumi.writeFile("sliwa12_ppt_sedumi.mat")
 

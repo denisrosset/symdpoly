@@ -79,8 +79,11 @@ object Robinson {
   /** Relaxation with all monomials of maximal degree 3. */
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
 
+  /** Symmetric problem. */
+  val (problemSym, _) = problem.symmetrize()
+
   /** Symmetric relaxation. */
-  val relaxationSym = problem.symmetrize().relaxation(generatingSet)
+  val relaxationSym = problemSym.relaxation(generatingSet)
 
   /** Non symmetric relaxation for comparison. */
   val relaxationNoSym = problem.relaxation(generatingSet)

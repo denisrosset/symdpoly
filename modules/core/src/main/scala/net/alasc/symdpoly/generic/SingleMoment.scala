@@ -11,7 +11,7 @@ import net.alasc.symdpoly.evaluation.Evaluator
 import net.alasc.symdpoly.sdp.BasisTerm
 import syntax.phased._
 
-/** Evaluated monomial, i.e. equivalence class under some evaluator. */
+/** Evaluated monomial, which represents an equivalence class under an evaluator. */
 final class SingleMoment[
   E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
   M <: generic.MonoidDef with Singleton:Witness.Aux

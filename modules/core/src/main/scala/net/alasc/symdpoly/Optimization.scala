@@ -29,6 +29,7 @@ case class Optimization[
     Optimization[E1.type, M](direction, objective1, operatorConstraints, scalarConstraints1)
   }
 
+  type SymmetrizedOptimization = Optimization[_ <: Evaluator.Aux[M] with Singleton, M]
   /** Symmetrizes the optimization problem, possibly using given precomputed groups
     *
     * @param quotientFeasibilityGroup Group of permutations that preserve the quotient monoid structure,
@@ -41,7 +42,7 @@ case class Optimization[
     * @return the symmetrized optimization problem
     */
   def symmetrize(quotientFeasibilityGroup: Option[Grp[M#PermutationType]] = None,
-                 evaluationFeasibilityGroup: Option[Grp[M#PermutationType]] = None): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = // TODO: support constraints
+                 evaluationFeasibilityGroup: Option[Grp[M#PermutationType]] = None): (SymmetrizedOptimization, Grp[M#PermutationType]) = // TODO: support constraints
     if (operatorConstraints.isEmpty && scalarConstraints.isEmpty) {
       val feasGrp = (quotientFeasibilityGroup, evaluationFeasibilityGroup) match {
         case (_, Some(efg)) => efg
@@ -49,8 +50,8 @@ case class Optimization[
         case (None, None) => E.compatibleSubgroup(M.symmetryGroup)
       }
       val optGrp = objective.invariantSubgroupOf(feasGrp)
-      forceSymmetrizeNC(optGrp)
-    } else this
+      (forceSymmetrizeNC(optGrp), optGrp)
+    } else (this, Grp.trivial[M#PermutationType])
 
   def E: E = valueOf[E]
   def M: M = valueOf[M]

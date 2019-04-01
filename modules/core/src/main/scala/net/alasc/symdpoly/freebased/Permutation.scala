@@ -32,6 +32,7 @@ class Permutation[
 
 object Permutation {
 
+  /** Creates a Permutation without any sanity checks. */
   def applyNC[
     M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
     F <: free.MonoidDef.Aux[F] with Singleton
