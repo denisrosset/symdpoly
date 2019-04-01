@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="free"></a><a id="free:free"></a>
       <span class="permalink">
@@ -129,10 +136,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">free</span></a>
+        <a title="User-defined free algebraic structures, such as the monoid of free monomials." href="index.html"><span class="name">free</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">User-defined free algebraic structures, such as the monoid of free monomials.</p><div class="fullcomment"><div class="comment cmt"><p>User-defined free algebraic structures, such as the monoid of free monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <a class="object" href="MonoidDef$.html" title=""></a>
                         <a class="class" href="MonoidDef.html" title="Base class for a generalized free monoid."></a>
@@ -145,6 +152,14 @@
                         <a class="object" href="MutableWord$.html" title=""></a>
                         <a class="class" href="MutableWord.html" title="A mutable word in a free monoid."></a>
                         <a href="MutableWord.html" title="A mutable word in a free monoid.">MutableWord</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="PhasedOp$.html" title=""></a>
+                        <a class="class" href="PhasedOp.html" title="An operator variable in a free monoid along with a phase."></a>
+                        <a href="PhasedOp.html" title="An operator variable in a free monoid along with a phase.">PhasedOp</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="PhasedOpLike$.html" title=""></a>
+                        <a class="trait" href="PhasedOpLike.html" title="A trait for objects that can be converted to a PhasedOp instance."></a>
+                        <a href="PhasedOpLike.html" title="A trait for objects that can be converted to a PhasedOp instance.">PhasedOpLike</a>
                       </li><li class="current-entities indented4">
                         <a class="object" href="Slice$.html" title=""></a>
                         <a class="trait" href="" title="Describes a slice of an index of an object with indices, such as a family of operator variables."></a>
@@ -182,7 +197,7 @@
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Describes a slice of an index of an object with indices, such as a family of operator variables.</p><p>Whenever a <a href="" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a> is required for some index, the user can provide either</p><p>- a wildcard <code>::</code> to cover all values of that index,
 - a sequence of indices such as <code>Seq(1,2,3)</code>
 - a single index such as <code>1</code></p><p>Those are converted to a <a href="" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a> by the means of an implicit conversion.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/free/Slice.scala" target="_blank">Slice.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/free/Slice.scala" target="_blank">Slice.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>

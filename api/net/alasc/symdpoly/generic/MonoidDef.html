@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="generic"></a><a id="generic:generic"></a>
       <span class="permalink">
@@ -129,22 +136,18 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">generic</span></a>
+        <a title="Generic user-definable algebraic structures used in polynomial optimization problems." href="index.html"><span class="name">generic</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Generic user-definable algebraic structures used in polynomial optimization problems.</p><div class="fullcomment"><div class="comment cmt"><p>Generic user-definable algebraic structures used in polynomial optimization problems.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedMono$.html" title=""></a>
-                        <a class="class" href="EvaluatedMono.html" title="Evaluated monomial, i.e."></a>
-                        <a href="EvaluatedMono.html" title="Evaluated monomial, i.e.">EvaluatedMono</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedPoly$.html" title=""></a>
-                        <a class="class" href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial."></a>
-                        <a href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial.">EvaluatedPoly</a>
+                        <a class="object" href="LinearMoment$.html" title=""></a>
+                        <a class="class" href="LinearMoment.html" title="Evaluated noncommutative polynomial."></a>
+                        <a href="LinearMoment.html" title="Evaluated noncommutative polynomial.">LinearMoment</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="EvaluatedPolyLike.html" title=""></a>
-                        <a href="EvaluatedPolyLike.html" title="">EvaluatedPolyLike</a>
+                        <a class="trait" href="LinearMomentLike.html" title=""></a>
+                        <a href="LinearMomentLike.html" title="">LinearMomentLike</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="MomentSet.html" title="Describes an ordered set of equivalence classes of monomials under evaluation."></a>
@@ -158,6 +161,10 @@
                         <a class="class" href="Mono.html" title=""></a>
                         <a href="Mono.html" title="">Mono</a>
                       </li><li class="current-entities indented4">
+                        <a class="object" href="MonoLike$.html" title=""></a>
+                        <a class="trait" href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M."></a>
+                        <a href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M.">MonoLike</a>
+                      </li><li class="current-entities indented4">
                         <a class="object" href="MonoidDef$.html" title=""></a>
                         <a class="class" href="" title="Describes a generic monomial monoid."></a>
                         <a href="" title="Describes a generic monomial monoid.">MonoidDef</a>
@@ -167,8 +174,16 @@
                         <a href="Permutation.html" title="A Permutation relabels the operator variables of monomials, possibly with a phase.">Permutation</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="Poly.html" title=""></a>
-                        <a href="Poly.html" title="">Poly</a>
+                        <a class="class" href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M."></a>
+                        <a href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M.">Poly</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="PolyLike$.html" title=""></a>
+                        <a class="trait" href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M."></a>
+                        <a href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M.">PolyLike</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="SingleMoment$.html" title=""></a>
+                        <a class="class" href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator."></a>
+                        <a href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator.">SingleMoment</a>
                       </li>
               </ul>
             </div>
@@ -199,7 +214,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Describes a generic monomial monoid.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/generic/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Describes a generic monomial monoid.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/generic/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -285,10 +300,10 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="net.alasc.symdpoly.generic.MonoidDef.Monomial" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]"></a><a id="Monomial:Monomial"></a>
+              <ol><li name="net.alasc.symdpoly.generic.MonoidDef.MonoType" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]"></a><a id="MonoType:MonoType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -297,14 +312,14 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">Monomial</span><span class="result"> &lt;: <a href="Mono.html" class="extype" name="net.alasc.symdpoly.generic.Mono">Mono</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
+        <span class="name">MonoType</span><span class="result"> &lt;: <a href="Mono.html" class="extype" name="net.alasc.symdpoly.generic.Mono">Mono</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
       </span>
       
       <p class="shortcomment cmt">Element of this monoid.</p>
-    </li><li name="net.alasc.symdpoly.generic.MonoidDef.Permutation" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]"></a><a id="Permutation:Permutation"></a>
+    </li><li name="net.alasc.symdpoly.generic.MonoidDef.PermutationType" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]"></a><a id="PermutationType:PermutationType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -313,14 +328,14 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">Permutation</span><span class="result"> &lt;: <a href="Permutation.html" class="extype" name="net.alasc.symdpoly.generic.Permutation">generic.Permutation</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
+        <span class="name">PermutationType</span><span class="result"> &lt;: <a href="Permutation.html" class="extype" name="net.alasc.symdpoly.generic.Permutation">Permutation</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
       </span>
       
       <p class="shortcomment cmt">Permutation acting on the monomials/monoid elements.</p>
-    </li><li name="net.alasc.symdpoly.generic.MonoidDef.Polynomial" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]"></a><a id="Polynomial:Polynomial"></a>
+    </li><li name="net.alasc.symdpoly.generic.MonoidDef.PolyType" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]"></a><a id="PolyType:PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -329,7 +344,7 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">Polynomial</span><span class="result"> &lt;: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.generic.Poly">Poly</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
+        <span class="name">PolyType</span><span class="result"> &lt;: <a href="Poly.html" class="extype" name="net.alasc.symdpoly.generic.Poly">Poly</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
       </span>
       
       <p class="shortcomment cmt">Element of the polynomial ring constructed as a linear space on this monoid.</p>
@@ -339,9 +354,9 @@
         <div class="values members">
               <h3>Abstract Value Members</h3>
               <ol><li name="net.alasc.symdpoly.generic.MonoidDef#constant" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="constant(c:cyclo.Cyclo):MonoidDef.this.Polynomial"></a><a id="constant(Cyclo):Polynomial"></a>
+      <a id="constant(c:cyclo.Cyclo):MonoidDef.this.PolyType"></a><a id="constant(Cyclo):PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#constant(c:cyclo.Cyclo):MonoidDef.this.Polynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#constant(c:cyclo.Cyclo):MonoidDef.this.PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -350,14 +365,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">constant</span><span class="params">(<span name="c">c: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a></span>
+        <span class="name">constant</span><span class="params">(<span name="c">c: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a></span>
       </span>
       
       <p class="shortcomment cmt">Construct a constant polynomial from the given constant.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#constant" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="constant(r:spire.math.Rational):MonoidDef.this.Polynomial"></a><a id="constant(Rational):Polynomial"></a>
+      <a id="constant(r:spire.math.Rational):MonoidDef.this.PolyType"></a><a id="constant(Rational):PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#constant(r:spire.math.Rational):MonoidDef.this.Polynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#constant(r:spire.math.Rational):MonoidDef.this.PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -366,14 +381,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">constant</span><span class="params">(<span name="r">r: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a></span>
+        <span class="name">constant</span><span class="params">(<span name="r">r: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a></span>
       </span>
       
       <p class="shortcomment cmt">Construct a constant polynomial from the given constant.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#constant" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="constant(i:Int):MonoidDef.this.Polynomial"></a><a id="constant(Int):Polynomial"></a>
+      <a id="constant(i:Int):MonoidDef.this.PolyType"></a><a id="constant(Int):PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#constant(i:Int):MonoidDef.this.Polynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#constant(i:Int):MonoidDef.this.PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -382,7 +397,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">constant</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a></span>
+        <span class="name">constant</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a></span>
       </span>
       
       <p class="shortcomment cmt">Construct a constant polynomial from the given constant.</p>
@@ -403,9 +418,9 @@
       
       <p class="shortcomment cmt">Maximal order of cyclotomic appearing in all constructions based on this monoid.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoClassTag" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="monoClassTag:scala.reflect.ClassTag[MonoidDef.this.Monomial]"></a><a id="monoClassTag:ClassTag[Monomial]"></a>
+      <a id="monoClassTag:scala.reflect.ClassTag[MonoidDef.this.MonoType]"></a><a id="monoClassTag:ClassTag[MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoClassTag:scala.reflect.ClassTag[MonoidDef.this.Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoClassTag:scala.reflect.ClassTag[MonoidDef.this.MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -414,14 +429,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoClassTag</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a>]</span>
+        <span class="name">monoClassTag</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Classtag for monomials.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoInvolution" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="monoInvolution:spire.algebra.Involution[MonoidDef.this.Monomial]"></a><a id="monoInvolution:Involution[Monomial]"></a>
+      <a id="monoInvolution:spire.algebra.Involution[MonoidDef.this.MonoType]"></a><a id="monoInvolution:Involution[MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoInvolution:spire.algebra.Involution[MonoidDef.this.Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoInvolution:spire.algebra.Involution[MonoidDef.this.MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -430,14 +445,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a>]</span>
+        <span class="name">monoInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Involution typeclass describing the Hermitian adjoint operation.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoMultiplicativeBinoid" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="monoMultiplicativeBinoid:net.alasc.symdpoly.algebra.MultiplicativeBinoid[MonoidDef.this.Monomial]"></a><a id="monoMultiplicativeBinoid:MultiplicativeBinoid[Monomial]"></a>
+      <a id="monoMultiplicativeBinoid:net.alasc.symdpoly.algebra.MultiplicativeBinoid[MonoidDef.this.MonoType]"></a><a id="monoMultiplicativeBinoid:MultiplicativeBinoid[MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoMultiplicativeBinoid:net.alasc.symdpoly.algebra.MultiplicativeBinoid[MonoidDef.this.Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoMultiplicativeBinoid:net.alasc.symdpoly.algebra.MultiplicativeBinoid[MonoidDef.this.MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -446,14 +461,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoMultiplicativeBinoid</span><span class="result">: <a href="../algebra/MultiplicativeBinoid.html" class="extype" name="net.alasc.symdpoly.algebra.MultiplicativeBinoid">MultiplicativeBinoid</a>[<a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a>]</span>
+        <span class="name">monoMultiplicativeBinoid</span><span class="result">: <a href="../algebra/MultiplicativeBinoid.html" class="extype" name="net.alasc.symdpoly.algebra.MultiplicativeBinoid">MultiplicativeBinoid</a>[<a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Multiplicative binoid typeclass.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoOrder" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="monoOrder:spire.algebra.Order[MonoidDef.this.Monomial]"></a><a id="monoOrder:Order[Monomial]"></a>
+      <a id="monoOrder:spire.algebra.Order[MonoidDef.this.MonoType]"></a><a id="monoOrder:Order[MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoOrder:spire.algebra.Order[MonoidDef.this.Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoOrder:spire.algebra.Order[MonoidDef.this.MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -462,14 +477,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoOrder</span><span class="result">: <span class="extype" name="spire.algebra.Order">Order</span>[<a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a>]</span>
+        <span class="name">monoOrder</span><span class="result">: <span class="extype" name="spire.algebra.Order">Order</span>[<a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Typeclass describing the total order for monomials.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoPhased" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="monoPhased:net.alasc.symdpoly.algebra.Phased[MonoidDef.this.Monomial]"></a><a id="monoPhased:Phased[Monomial]"></a>
+      <a id="monoPhased:net.alasc.symdpoly.algebra.Phased[MonoidDef.this.MonoType]"></a><a id="monoPhased:Phased[MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoPhased:net.alasc.symdpoly.algebra.Phased[MonoidDef.this.Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monoPhased:net.alasc.symdpoly.algebra.Phased[MonoidDef.this.MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -478,14 +493,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoPhased</span><span class="result">: <a href="../algebra/Phased.html" class="extype" name="net.alasc.symdpoly.algebra.Phased">Phased</a>[<a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a>]</span>
+        <span class="name">monoPhased</span><span class="result">: <a href="../algebra/Phased.html" class="extype" name="net.alasc.symdpoly.algebra.Phased">Phased</a>[<a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Typeclass describing the action of a phase on monomials.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monomialToPolynomial" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="monomialToPolynomial(m:MonoidDef.this.Monomial):MonoidDef.this.Polynomial"></a><a id="monomialToPolynomial(Monomial):Polynomial"></a>
+      <a id="monomialToPolynomial(m:MonoidDef.this.MonoType):MonoidDef.this.PolyType"></a><a id="monomialToPolynomial(MonoType):PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monomialToPolynomial(m:MonoidDef.this.Monomial):MonoidDef.this.Polynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#monomialToPolynomial(m:MonoidDef.this.MonoType):MonoidDef.this.PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -494,14 +509,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monomialToPolynomial</span><span class="params">(<span name="m">m: <a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a></span>)</span><span class="result">: <a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a></span>
+        <span class="name">monomialToPolynomial</span><span class="params">(<span name="m">m: <a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a></span>)</span><span class="result">: <a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a></span>
       </span>
       
       <p class="shortcomment cmt">Converts a monomial to single term polynomial.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#one" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="one:MonoidDef.this.Monomial"></a><a id="one:Monomial"></a>
+      <a id="one:MonoidDef.this.MonoType"></a><a id="one:MonoType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#one:MonoidDef.this.Monomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#one:MonoidDef.this.MonoType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -510,14 +525,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">one</span><span class="result">: <a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a></span>
+        <span class="name">one</span><span class="result">: <a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a></span>
       </span>
       
       <p class="shortcomment cmt">Identity element of this monoid.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationClassTag" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="permutationClassTag:scala.reflect.ClassTag[MonoidDef.this.Permutation]"></a><a id="permutationClassTag:ClassTag[Permutation]"></a>
+      <a id="permutationClassTag:scala.reflect.ClassTag[MonoidDef.this.PermutationType]"></a><a id="permutationClassTag:ClassTag[PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationClassTag:scala.reflect.ClassTag[MonoidDef.this.Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationClassTag:scala.reflect.ClassTag[MonoidDef.this.PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -526,14 +541,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationClassTag</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<a href="#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Permutation</a>]</span>
+        <span class="name">permutationClassTag</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Class tag for permutations.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationEq" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="permutationEq:spire.algebra.Eq[MonoidDef.this.Permutation]"></a><a id="permutationEq:Eq[Permutation]"></a>
+      <a id="permutationEq:spire.algebra.Eq[MonoidDef.this.PermutationType]"></a><a id="permutationEq:Eq[PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationEq:spire.algebra.Eq[MonoidDef.this.Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationEq:spire.algebra.Eq[MonoidDef.this.PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -542,14 +557,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationEq</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<a href="#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Permutation</a>]</span>
+        <span class="name">permutationEq</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Permutation equality.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationFaithfulPermutationActionBuilder" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="permutationFaithfulPermutationActionBuilder:net.alasc.finite.FaithfulPermutationActionBuilder[MonoidDef.this.Permutation]"></a><a id="permutationFaithfulPermutationActionBuilder:FaithfulPermutationActionBuilder[Permutation]"></a>
+      <a id="permutationFaithfulPermutationActionBuilder:net.alasc.finite.FaithfulPermutationActionBuilder[MonoidDef.this.PermutationType]"></a><a id="permutationFaithfulPermutationActionBuilder:FaithfulPermutationActionBuilder[PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationFaithfulPermutationActionBuilder:net.alasc.finite.FaithfulPermutationActionBuilder[MonoidDef.this.Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationFaithfulPermutationActionBuilder:net.alasc.finite.FaithfulPermutationActionBuilder[MonoidDef.this.PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -558,14 +573,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationFaithfulPermutationActionBuilder</span><span class="result">: <span class="extype" name="net.alasc.finite.FaithfulPermutationActionBuilder">FaithfulPermutationActionBuilder</span>[<a href="#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Permutation</a>]</span>
+        <span class="name">permutationFaithfulPermutationActionBuilder</span><span class="result">: <span class="extype" name="net.alasc.finite.FaithfulPermutationActionBuilder">FaithfulPermutationActionBuilder</span>[<a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Faithful permutation action builder.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationGroup" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="permutationGroup:spire.algebra.Group[MonoidDef.this.Permutation]"></a><a id="permutationGroup:Group[Permutation]"></a>
+      <a id="permutationGroup:spire.algebra.Group[MonoidDef.this.PermutationType]"></a><a id="permutationGroup:Group[PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationGroup:spire.algebra.Group[MonoidDef.this.Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationGroup:spire.algebra.Group[MonoidDef.this.PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -574,14 +589,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationGroup</span><span class="result">: <span class="extype" name="spire.algebra.Group">Group</span>[<a href="#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Permutation</a>]</span>
+        <span class="name">permutationGroup</span><span class="result">: <span class="extype" name="spire.algebra.Group">Group</span>[<a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Permutations form a group.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationMonoAction" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="permutationMonoAction:spire.algebra.Action[MonoidDef.this.Monomial,MonoidDef.this.Permutation]"></a><a id="permutationMonoAction:Action[Monomial,Permutation]"></a>
+      <a id="permutationMonoAction:spire.algebra.Action[MonoidDef.this.MonoType,MonoidDef.this.PermutationType]"></a><a id="permutationMonoAction:Action[MonoType,PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationMonoAction:spire.algebra.Action[MonoidDef.this.Monomial,MonoidDef.this.Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#permutationMonoAction:spire.algebra.Action[MonoidDef.this.MonoType,MonoidDef.this.PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -590,14 +605,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationMonoAction</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a>, <a href="#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Permutation</a>]</span>
+        <span class="name">permutationMonoAction</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a>, <a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Action of permutations on the monomials.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyAssociativeAlgebra" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="polyAssociativeAlgebra:spire.algebra.FieldAssociativeAlgebra[MonoidDef.this.Polynomial,cyclo.Cyclo]"></a><a id="polyAssociativeAlgebra:FieldAssociativeAlgebra[Polynomial,Cyclo]"></a>
+      <a id="polyAssociativeAlgebra:spire.algebra.FieldAssociativeAlgebra[MonoidDef.this.PolyType,cyclo.Cyclo]"></a><a id="polyAssociativeAlgebra:FieldAssociativeAlgebra[PolyType,Cyclo]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyAssociativeAlgebra:spire.algebra.FieldAssociativeAlgebra[MonoidDef.this.Polynomial,cyclo.Cyclo]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyAssociativeAlgebra:spire.algebra.FieldAssociativeAlgebra[MonoidDef.this.PolyType,cyclo.Cyclo]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -606,14 +621,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyAssociativeAlgebra</span><span class="result">: <span class="extype" name="spire.algebra.FieldAssociativeAlgebra">FieldAssociativeAlgebra</span>[<a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
+        <span class="name">polyAssociativeAlgebra</span><span class="result">: <span class="extype" name="spire.algebra.FieldAssociativeAlgebra">FieldAssociativeAlgebra</span>[<a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Associative algebra structure on the polynomials.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyClassTag" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="polyClassTag:scala.reflect.ClassTag[MonoidDef.this.Polynomial]"></a><a id="polyClassTag:ClassTag[Polynomial]"></a>
+      <a id="polyClassTag:scala.reflect.ClassTag[MonoidDef.this.PolyType]"></a><a id="polyClassTag:ClassTag[PolyType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyClassTag:scala.reflect.ClassTag[MonoidDef.this.Polynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyClassTag:scala.reflect.ClassTag[MonoidDef.this.PolyType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -622,14 +637,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyClassTag</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a>]</span>
+        <span class="name">polyClassTag</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Classtag for polynomials.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyEq" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="polyEq:spire.algebra.Eq[MonoidDef.this.Polynomial]"></a><a id="polyEq:Eq[Polynomial]"></a>
+      <a id="polyEq:spire.algebra.Eq[MonoidDef.this.PolyType]"></a><a id="polyEq:Eq[PolyType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyEq:spire.algebra.Eq[MonoidDef.this.Polynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyEq:spire.algebra.Eq[MonoidDef.this.PolyType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -638,14 +653,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyEq</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a>]</span>
+        <span class="name">polyEq</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Polynomial equality.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyInvolution" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="polyInvolution:spire.algebra.Involution[MonoidDef.this.Polynomial]"></a><a id="polyInvolution:Involution[Polynomial]"></a>
+      <a id="polyInvolution:spire.algebra.Involution[MonoidDef.this.PolyType]"></a><a id="polyInvolution:Involution[PolyType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyInvolution:spire.algebra.Involution[MonoidDef.this.Polynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#polyInvolution:spire.algebra.Involution[MonoidDef.this.PolyType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -654,14 +669,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#Polynomial&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Polynomial</a>]</span>
+        <span class="name">polyInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#PolyType&lt;:net.alasc.symdpoly.generic.Poly[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">PolyType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Involution typeclass describing the Hermitian adjoint operation on polynomials.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#symmetryGroup" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="symmetryGroup:net.alasc.finite.Grp[MonoidDef.this.Permutation]"></a><a id="symmetryGroup:Grp[Permutation]"></a>
+      <a id="symmetryGroup:net.alasc.finite.Grp[MonoidDef.this.PermutationType]"></a><a id="symmetryGroup:Grp[PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#symmetryGroup:net.alasc.finite.Grp[MonoidDef.this.Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#symmetryGroup:net.alasc.finite.Grp[MonoidDef.this.PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -670,14 +685,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">symmetryGroup</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<a href="#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Permutation</a>]</span>
+        <span class="name">symmetryGroup</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Symmetry group of this monoid.</p>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#zero" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="zero:MonoidDef.this.Monomial"></a><a id="zero:Monomial"></a>
+      <a id="zero:MonoidDef.this.MonoType"></a><a id="zero:MonoType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#zero:MonoidDef.this.Monomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#zero:MonoidDef.this.MonoType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -686,7 +701,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">zero</span><span class="result">: <a href="#Monomial&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Monomial</a></span>
+        <span class="name">zero</span><span class="result">: <a href="#MonoType&lt;:net.alasc.symdpoly.generic.Mono[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoType</a></span>
       </span>
       
       <p class="shortcomment cmt">Zero monomial, which is an absorbing element of this monoid.</p>
@@ -817,9 +832,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#evaluator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluator(equivalences:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]*):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]"></a><a id="evaluator(Equivalence[MonoidDef.this.type]*):Aux[MonoidDef.this.type]"></a>
+      <a id="evaluator():net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]"></a><a id="evaluator():Aux[MonoidDef.this.type]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#evaluator(equivalences:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]*):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#evaluator():net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -828,7 +843,23 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluator</span><span class="params">(<span name="equivalences">equivalences: <a href="../evaluation/Equivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]*</span>)</span><span class="result">: <a href="../evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
+        <span class="name">evaluator</span><span class="params">()</span><span class="result">: <a href="../evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Construct an evaluator over this monoid without enforced symmetries nor equivalence relation.</p>
+    </li><li name="net.alasc.symdpoly.generic.MonoidDef#evaluator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="evaluator(equivalence:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]"></a><a id="evaluator(Equivalence[MonoidDef.this.type]):Aux[MonoidDef.this.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#evaluator(equivalence:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">evaluator</span><span class="params">(<span name="equivalence">equivalence: <a href="../evaluation/Equivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>)</span><span class="result">: <a href="../evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
       </span>
       
       <p class="shortcomment cmt">Constructs an evaluator over this monoid without enforced symmetries.</p>
@@ -979,9 +1010,9 @@
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#symmetricEvaluator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="symmetricEvaluator(symmetryGroup0:net.alasc.finite.Grp[MonoidDef.this.Permutation],equivalences:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]*):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]"></a><a id="symmetricEvaluator(Grp[Permutation],Equivalence[MonoidDef.this.type]*):Aux[MonoidDef.this.type]"></a>
+      <a id="symmetricEvaluator(symmetryGroup0:net.alasc.finite.Grp[MonoidDef.this.PermutationType],equivalence0:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]"></a><a id="symmetricEvaluator(Grp[PermutationType],Equivalence[MonoidDef.this.type]):Aux[MonoidDef.this.type]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#symmetricEvaluator(symmetryGroup0:net.alasc.finite.Grp[MonoidDef.this.Permutation],equivalences:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]*):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#symmetricEvaluator(symmetryGroup0:net.alasc.finite.Grp[MonoidDef.this.PermutationType],equivalence0:net.alasc.symdpoly.evaluation.Equivalence[MonoidDef.this.type]):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -990,10 +1021,26 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">symmetricEvaluator</span><span class="params">(<span name="symmetryGroup0">symmetryGroup0: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<a href="#Permutation&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Permutation</a>]</span>, <span name="equivalences">equivalences: <a href="../evaluation/Equivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]*</span>)</span><span class="result">: <a href="../evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
+        <span class="name">symmetricEvaluator</span><span class="params">(<span name="symmetryGroup0">symmetryGroup0: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>, <span name="equivalence0">equivalence0: <a href="../evaluation/Equivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>)</span><span class="result">: <a href="../evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
       </span>
       
       <p class="shortcomment cmt">Constructs an evaluator over this monoid with the given symmetry enforced.</p>
+    </li><li name="net.alasc.symdpoly.generic.MonoidDef#symmetricEvaluator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="symmetricEvaluator(symmetryGroup:net.alasc.finite.Grp[MonoidDef.this.PermutationType]):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]"></a><a id="symmetricEvaluator(Grp[PermutationType]):Aux[MonoidDef.this.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef.html#symmetricEvaluator(symmetryGroup:net.alasc.finite.Grp[MonoidDef.this.PermutationType]):net.alasc.symdpoly.evaluation.Evaluator.Aux[MonoidDef.this.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">symmetricEvaluator</span><span class="params">(<span name="symmetryGroup">symmetryGroup: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<a href="#PermutationType&lt;:net.alasc.symdpoly.generic.Permutation[MonoidDef.this.type]" class="extmbr" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">PermutationType</a>]</span>)</span><span class="result">: <a href="../evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<a href="" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a>.this.type]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Constructs an evaluator over this monoid with the given symmetry enforced but no equivalence relation.</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">

@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.sdp" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="sdp"></a><a id="sdp:sdp"></a>
       <span class="permalink">
@@ -129,10 +136,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">sdp</span></a>
+        <a title="Generic description of conic linear programs including free, linear and SDP cones." href="index.html"><span class="name">sdp</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Generic description of conic linear programs including free, linear and SDP cones.</p><div class="fullcomment"><div class="comment cmt"><p>Generic description of conic linear programs including free, linear and SDP cones.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
                         <a class="object" href="BasisTerm$.html" title=""></a>
                         <a class="class" href="BasisTerm.html" title=""></a>
@@ -198,7 +205,7 @@
   for all j: sum_i y(i) blocks(j).basis(i) &gt;= 0
   eqA * y == 0
   ineqA * y &gt;= 0 (component-wise)
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/sdp/Program.scala" target="_blank">Program.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/sdp/Program.scala" target="_blank">Program.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -542,9 +549,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.sdp.Program#jOptimizer" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="jOptimizer:net.alasc.symdpoly.joptimizer.JOptimizerInstance"></a><a id="jOptimizer:JOptimizerInstance"></a>
+      <a id="jOptimizer:net.alasc.symdpoly.solvers.JOptimizerInstance"></a><a id="jOptimizer:JOptimizerInstance"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#jOptimizer:net.alasc.symdpoly.joptimizer.JOptimizerInstance" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#jOptimizer:net.alasc.symdpoly.solvers.JOptimizerInstance" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -553,7 +560,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">jOptimizer</span><span class="result">: <a href="../joptimizer/JOptimizerInstance.html" class="extype" name="net.alasc.symdpoly.joptimizer.JOptimizerInstance">JOptimizerInstance</a></span>
+        <span class="name">jOptimizer</span><span class="result">: <a href="../solvers/JOptimizerInstance.html" class="extype" name="net.alasc.symdpoly.solvers.JOptimizerInstance">JOptimizerInstance</a></span>
       </span>
       
       
@@ -676,9 +683,9 @@
       
       
     </li><li name="net.alasc.symdpoly.sdp.Program#scs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="scs:net.alasc.symdpoly.matlab.SCSMatlabFormat"></a><a id="scs:SCSMatlabFormat"></a>
+      <a id="scs:net.alasc.symdpoly.solvers.SCSMatlabFormat"></a><a id="scs:SCSMatlabFormat"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#scs:net.alasc.symdpoly.matlab.SCSMatlabFormat" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#scs:net.alasc.symdpoly.solvers.SCSMatlabFormat" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -687,7 +694,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">scs</span><span class="result">: <a href="../matlab/SCSMatlabFormat.html" class="extype" name="net.alasc.symdpoly.matlab.SCSMatlabFormat">SCSMatlabFormat</a></span>
+        <span class="name">scs</span><span class="result">: <a href="../solvers/SCSMatlabFormat.html" class="extype" name="net.alasc.symdpoly.solvers.SCSMatlabFormat">SCSMatlabFormat</a></span>
       </span>
       
       
@@ -724,9 +731,9 @@
       
       
     </li><li name="net.alasc.symdpoly.sdp.Program#sdpt3" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="sdpt3:net.alasc.symdpoly.matlab.SDPT3MatlabFormat"></a><a id="sdpt3:SDPT3MatlabFormat"></a>
+      <a id="sdpt3:net.alasc.symdpoly.solvers.SDPT3MatlabFormat"></a><a id="sdpt3:SDPT3MatlabFormat"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#sdpt3:net.alasc.symdpoly.matlab.SDPT3MatlabFormat" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#sdpt3:net.alasc.symdpoly.solvers.SDPT3MatlabFormat" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -735,14 +742,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">sdpt3</span><span class="result">: <a href="../matlab/SDPT3MatlabFormat.html" class="extype" name="net.alasc.symdpoly.matlab.SDPT3MatlabFormat">SDPT3MatlabFormat</a></span>
+        <span class="name">sdpt3</span><span class="result">: <a href="../solvers/SDPT3MatlabFormat.html" class="extype" name="net.alasc.symdpoly.solvers.SDPT3MatlabFormat">SDPT3MatlabFormat</a></span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.sdp.Program#sedumi" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="sedumi:net.alasc.symdpoly.matlab.SedumiMatlabFormat"></a><a id="sedumi:SedumiMatlabFormat"></a>
+      <a id="sedumi:net.alasc.symdpoly.solvers.SedumiMatlabFormat"></a><a id="sedumi:SedumiMatlabFormat"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#sedumi:net.alasc.symdpoly.matlab.SedumiMatlabFormat" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/sdp/Program.html#sedumi:net.alasc.symdpoly.solvers.SedumiMatlabFormat" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -751,7 +758,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">sedumi</span><span class="result">: <a href="../matlab/SedumiMatlabFormat.html" class="extype" name="net.alasc.symdpoly.matlab.SedumiMatlabFormat">SedumiMatlabFormat</a></span>
+        <span class="name">sedumi</span><span class="result">: <a href="../solvers/SedumiMatlabFormat.html" class="extype" name="net.alasc.symdpoly.solvers.SedumiMatlabFormat">SedumiMatlabFormat</a></span>
       </span>
       
       

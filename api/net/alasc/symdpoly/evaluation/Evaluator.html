@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="evaluation"></a><a id="evaluation:evaluation"></a>
       <span class="permalink">
@@ -133,10 +140,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.evaluation.internal" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="internal"></a><a id="internal:internal"></a>
+    </li><li name="net.alasc.symdpoly.evaluation.components" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="components"></a><a id="components:components"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/index.html#internal" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/index.html#components" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -145,11 +152,23 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="internal/index.html"><span class="name">internal</span></a>
+        <a title="" href="components/index.html"><span class="name">components</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly.evaluation">evaluation</a></dd></dl></div>
     </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="AdjointEquivalence.html" title="Equivalence under the adjoint operation."></a>
+                        <a href="AdjointEquivalence.html" title="Equivalence under the adjoint operation.">AdjointEquivalence</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="Component$.html" title=""></a>
+                        <a class="trait" href="Component.html" title="A component of an equivalence relation on monomials."></a>
+                        <a href="Component.html" title="A component of an equivalence relation on monomials.">Component</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="ComponentEquivalence.html" title="An equivalence relation composed of components."></a>
+                        <a href="ComponentEquivalence.html" title="An equivalence relation composed of components.">ComponentEquivalence</a>
+                      </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="trait" href="Equivalence.html" title="An equivalence relation on monomials."></a>
                         <a href="Equivalence.html" title="An equivalence relation on monomials.">Equivalence</a>
@@ -159,12 +178,24 @@
                         <a href="" title="Describes a quotient vector space defined on a polynomial ring.">Evaluator</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="package$$OpGroup.html" title=""></a>
-                        <a href="package$$OpGroup.html" title="">OpGroup</a>
+                        <a class="trait" href="FreeBasedComponent.html" title=""></a>
+                        <a href="FreeBasedComponent.html" title="">FreeBasedComponent</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="package$$OpPredicate.html" title="Boolean function on operator variables."></a>
-                        <a href="package$$OpPredicate.html" title="Boolean function on operator variables.">OpPredicate</a>
+                        <a class="trait" href="OpPredicate.html" title="Boolean function on operator variables."></a>
+                        <a href="OpPredicate.html" title="Boolean function on operator variables.">OpPredicate</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="OpPredicate2.html" title="Boolean function on pairs of operator variables."></a>
+                        <a href="OpPredicate2.html" title="Boolean function on pairs of operator variables.">OpPredicate2</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="TransposesEquivalence.html" title="Equivalence under transposition of the groups of operators."></a>
+                        <a href="TransposesEquivalence.html" title="Equivalence under transposition of the groups of operators.">TransposesEquivalence</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="TrivialEquivalence.html" title="Equivalence under the adjoint operation."></a>
+                        <a href="TrivialEquivalence.html" title="Equivalence under the adjoint operation.">TrivialEquivalence</a>
                       </li>
               </ul>
             </div>
@@ -196,7 +227,7 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Describes a quotient vector space defined on a polynomial ring.</p><p>The quotient space is defined through equivalence relations that do not necessarily
-preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/evaluation/Evaluator.scala" target="_blank">Evaluator.scala</a></dd></dl><div class="toggleContainer block">
+preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/evaluation/Evaluator.scala" target="_blank">Evaluator.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -277,10 +308,10 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="EvaluatedMonomial:EvaluatedMonomial"></a>
+              <ol><li name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="LinearMomentType:LinearMomentType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -289,23 +320,7 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">EvaluatedMonomial</span><span class="result alias"> = <a href="../generic/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.generic.EvaluatedMono">EvaluatedMono</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
-      </span>
-      
-      
-    </li><li name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="EvaluatedPolynomial:EvaluatedPolynomial"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">type</span>
-      </span>
-      <span class="symbol">
-        <span class="name">EvaluatedPolynomial</span><span class="result alias"> = <a href="../generic/EvaluatedPoly.html" class="extype" name="net.alasc.symdpoly.generic.EvaluatedPoly">EvaluatedPoly</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
+        <span class="name">LinearMomentType</span><span class="result alias"> = <a href="../generic/LinearMoment.html" class="extype" name="net.alasc.symdpoly.generic.LinearMoment">LinearMoment</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
       </span>
       
       
@@ -322,6 +337,22 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
       </span>
       <span class="symbol">
         <span class="name">Mono</span><span class="result"> &lt;: <a href="../generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="SingleMomentType:SingleMomentType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">SingleMomentType</span><span class="result alias"> = <a href="../generic/SingleMoment.html" class="extype" name="net.alasc.symdpoly.generic.SingleMoment">SingleMoment</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
       </span>
       
       
@@ -347,9 +378,9 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#symmetryGroup" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="symmetryGroup:net.alasc.finite.Grp[Evaluator.this.Mono#Permutation]"></a><a id="symmetryGroup:Grp[Mono.Permutation]"></a>
+      <a id="symmetryGroup:net.alasc.finite.Grp[Evaluator.this.Mono#PermutationType]"></a><a id="symmetryGroup:Grp[Mono.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#symmetryGroup:net.alasc.finite.Grp[Evaluator.this.Mono#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#symmetryGroup:net.alasc.finite.Grp[Evaluator.this.Mono#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -358,7 +389,7 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">symmetryGroup</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Mono.Permutation</span>]</span>
+        <span class="name">symmetryGroup</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">Mono.PermutationType</span>]</span>
       </span>
       
       
@@ -449,9 +480,9 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply(poly:Evaluator.this.Mono#Polynomial)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="apply(Mono.Polynomial)(DummyImplicit):EvaluatedPoly[Evaluator.this.type,Mono]"></a>
+      <a id="apply(poly:Evaluator.this.Mono#PolyType)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="apply(Mono.PolyType)(DummyImplicit):LinearMoment[Evaluator.this.type,Mono]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#apply(poly:Evaluator.this.Mono#Polynomial)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#apply(poly:Evaluator.this.Mono#PolyType)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -460,14 +491,14 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="poly">poly: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">Mono.Polynomial</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <a href="../generic/EvaluatedPoly.html" class="extype" name="net.alasc.symdpoly.generic.EvaluatedPoly">EvaluatedPoly</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
+        <span class="name">apply</span><span class="params">(<span name="poly">poly: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">Mono.PolyType</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <a href="../generic/LinearMoment.html" class="extype" name="net.alasc.symdpoly.generic.LinearMoment">LinearMoment</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="apply(mono:Evaluator.this.Mono#Monomial):net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="apply(Mono.Monomial):EvaluatedMono[Evaluator.this.type,Mono]"></a>
+      <a id="apply(mono:Evaluator.this.Mono#MonoType):net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="apply(Mono.MonoType):SingleMoment[Evaluator.this.type,Mono]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#apply(mono:Evaluator.this.Mono#Monomial):net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#apply(mono:Evaluator.this.Mono#MonoType):net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -476,7 +507,7 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="mono">mono: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Mono.Monomial</span></span>)</span><span class="result">: <a href="../generic/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.generic.EvaluatedMono">EvaluatedMono</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
+        <span class="name">apply</span><span class="params">(<span name="mono">mono: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">Mono.MonoType</span></span>)</span><span class="result">: <a href="../generic/SingleMoment.html" class="extype" name="net.alasc.symdpoly.generic.SingleMoment">SingleMoment</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
       </span>
       
       
@@ -521,9 +552,9 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#compatibleSubgroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="compatibleSubgroup(grp:net.alasc.finite.Grp[Evaluator.this.Mono#Permutation]):net.alasc.finite.Grp[Evaluator.this.Mono#Permutation]"></a><a id="compatibleSubgroup(Grp[Mono.Permutation]):Grp[Mono.Permutation]"></a>
+      <a id="compatibleSubgroup(grp:net.alasc.finite.Grp[Evaluator.this.Mono#PermutationType]):net.alasc.finite.Grp[Evaluator.this.Mono#PermutationType]"></a><a id="compatibleSubgroup(Grp[Mono.PermutationType]):Grp[Mono.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#compatibleSubgroup(grp:net.alasc.finite.Grp[Evaluator.this.Mono#Permutation]):net.alasc.finite.Grp[Evaluator.this.Mono#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#compatibleSubgroup(grp:net.alasc.finite.Grp[Evaluator.this.Mono#PermutationType]):net.alasc.finite.Grp[Evaluator.this.Mono#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -532,7 +563,7 @@ preserve the polynomial structure.</p></div><dl class="attributes block"> <dt>Se
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">compatibleSubgroup</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Mono.Permutation</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Mono.Permutation</span>]</span>
+        <span class="name">compatibleSubgroup</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">Mono.PermutationType</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">Mono.PermutationType</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns the subgroup of grp that is compatible with this evaluator, in the sense that
@@ -540,9 +571,9 @@ for all monomials m1 and m2 of type Mono#Monomial, and all g of type M#Permutati
 L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
 </p>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#constant" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="constant(c:cyclo.Cyclo):Evaluator.this.EvaluatedPolynomial"></a><a id="constant(Cyclo):EvaluatedPolynomial"></a>
+      <a id="constant(c:cyclo.Cyclo):Evaluator.this.LinearMomentType"></a><a id="constant(Cyclo):LinearMomentType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#constant(c:cyclo.Cyclo):Evaluator.this.EvaluatedPolynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#constant(c:cyclo.Cyclo):Evaluator.this.LinearMomentType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -551,14 +582,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">constant</span><span class="params">(<span name="c">c: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">EvaluatedPolynomial</a></span>
+        <span class="name">constant</span><span class="params">(<span name="c">c: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">LinearMomentType</a></span>
       </span>
       
       <p class="shortcomment cmt">Construct a constant evaluated polynomial from the given constant.</p>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#constant" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="constant(r:spire.math.Rational):Evaluator.this.EvaluatedPolynomial"></a><a id="constant(Rational):EvaluatedPolynomial"></a>
+      <a id="constant(r:spire.math.Rational):Evaluator.this.LinearMomentType"></a><a id="constant(Rational):LinearMomentType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#constant(r:spire.math.Rational):Evaluator.this.EvaluatedPolynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#constant(r:spire.math.Rational):Evaluator.this.LinearMomentType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -567,14 +598,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">constant</span><span class="params">(<span name="r">r: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">EvaluatedPolynomial</a></span>
+        <span class="name">constant</span><span class="params">(<span name="r">r: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">LinearMomentType</a></span>
       </span>
       
       <p class="shortcomment cmt">Construct a constant evaluated polynomial from the given constant.</p>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#constant" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="constant(i:Int):Evaluator.this.EvaluatedPolynomial"></a><a id="constant(Int):EvaluatedPolynomial"></a>
+      <a id="constant(i:Int):Evaluator.this.LinearMomentType"></a><a id="constant(Int):LinearMomentType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#constant(i:Int):Evaluator.this.EvaluatedPolynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#constant(i:Int):Evaluator.this.LinearMomentType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -583,7 +614,7 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">constant</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">EvaluatedPolynomial</a></span>
+        <span class="name">constant</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">LinearMomentType</a></span>
       </span>
       
       <p class="shortcomment cmt">Construct a constant evaluated polynomial from the given constant.</p>
@@ -620,9 +651,9 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedMonoClassTag" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedMonoClassTag:spire.ClassTag[Evaluator.this.EvaluatedMonomial]"></a><a id="evaluatedMonoClassTag:ClassTag[EvaluatedMonomial]"></a>
+      <a id="evaluatedMonoClassTag:spire.ClassTag[Evaluator.this.SingleMomentType]"></a><a id="evaluatedMonoClassTag:ClassTag[SingleMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoClassTag:spire.ClassTag[Evaluator.this.EvaluatedMonomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoClassTag:spire.ClassTag[Evaluator.this.SingleMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -631,14 +662,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedMonoClassTag</span><span class="result">: <span class="extype" name="spire.ClassTag">ClassTag</span>[<a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a>]</span>
+        <span class="name">evaluatedMonoClassTag</span><span class="result">: <span class="extype" name="spire.ClassTag">ClassTag</span>[<a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedMonoInvolution" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedMonoInvolution:spire.algebra.Involution[Evaluator.this.EvaluatedMonomial]"></a><a id="evaluatedMonoInvolution:Involution[EvaluatedMonomial]"></a>
+      <a id="evaluatedMonoInvolution:spire.algebra.Involution[Evaluator.this.SingleMomentType]"></a><a id="evaluatedMonoInvolution:Involution[SingleMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoInvolution:spire.algebra.Involution[Evaluator.this.EvaluatedMonomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoInvolution:spire.algebra.Involution[Evaluator.this.SingleMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -647,14 +678,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedMonoInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a>]</span>
+        <span class="name">evaluatedMonoInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedMonoOrder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedMonoOrder:spire.algebra.Order[Evaluator.this.EvaluatedMonomial]"></a><a id="evaluatedMonoOrder:Order[EvaluatedMonomial]"></a>
+      <a id="evaluatedMonoOrder:spire.algebra.Order[Evaluator.this.SingleMomentType]"></a><a id="evaluatedMonoOrder:Order[SingleMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoOrder:spire.algebra.Order[Evaluator.this.EvaluatedMonomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoOrder:spire.algebra.Order[Evaluator.this.SingleMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -663,14 +694,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedMonoOrder</span><span class="result">: <span class="extype" name="spire.algebra.Order">Order</span>[<a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a>]</span>
+        <span class="name">evaluatedMonoOrder</span><span class="result">: <span class="extype" name="spire.algebra.Order">Order</span>[<a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedMonoPermutationAction" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedMonoPermutationAction:spire.algebra.Action[Evaluator.this.EvaluatedMonomial,Evaluator.this.Mono#Permutation]"></a><a id="evaluatedMonoPermutationAction:Action[EvaluatedMonomial,Mono.Permutation]"></a>
+      <a id="evaluatedMonoPermutationAction:spire.algebra.Action[Evaluator.this.SingleMomentType,Evaluator.this.Mono#PermutationType]"></a><a id="evaluatedMonoPermutationAction:Action[SingleMomentType,Mono.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoPermutationAction:spire.algebra.Action[Evaluator.this.EvaluatedMonomial,Evaluator.this.Mono#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoPermutationAction:spire.algebra.Action[Evaluator.this.SingleMomentType,Evaluator.this.Mono#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -679,14 +710,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedMonoPermutationAction</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a>, <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Mono.Permutation</span>]</span>
+        <span class="name">evaluatedMonoPermutationAction</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a>, <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">Mono.PermutationType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedMonoPhased" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedMonoPhased:net.alasc.symdpoly.algebra.Phased[Evaluator.this.EvaluatedMonomial]"></a><a id="evaluatedMonoPhased:Phased[EvaluatedMonomial]"></a>
+      <a id="evaluatedMonoPhased:net.alasc.symdpoly.algebra.Phased[Evaluator.this.SingleMomentType]"></a><a id="evaluatedMonoPhased:Phased[SingleMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoPhased:net.alasc.symdpoly.algebra.Phased[Evaluator.this.EvaluatedMonomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoPhased:net.alasc.symdpoly.algebra.Phased[Evaluator.this.SingleMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -695,14 +726,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedMonoPhased</span><span class="result">: <a href="../algebra/Phased.html" class="extype" name="net.alasc.symdpoly.algebra.Phased">Phased</a>[<a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a>]</span>
+        <span class="name">evaluatedMonoPhased</span><span class="result">: <a href="../algebra/Phased.html" class="extype" name="net.alasc.symdpoly.algebra.Phased">Phased</a>[<a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedMonoZero" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedMonoZero:Evaluator.this.EvaluatedMonomial"></a><a id="evaluatedMonoZero:EvaluatedMonomial"></a>
+      <a id="evaluatedMonoZero:Evaluator.this.SingleMomentType"></a><a id="evaluatedMonoZero:SingleMomentType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoZero:Evaluator.this.EvaluatedMonomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedMonoZero:Evaluator.this.SingleMomentType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -711,14 +742,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedMonoZero</span><span class="result">: <a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a></span>
+        <span class="name">evaluatedMonoZero</span><span class="result">: <a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a></span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyClassTag" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyClassTag:spire.ClassTag[Evaluator.this.EvaluatedPolynomial]"></a><a id="evaluatedPolyClassTag:ClassTag[EvaluatedPolynomial]"></a>
+      <a id="evaluatedPolyClassTag:spire.ClassTag[Evaluator.this.LinearMomentType]"></a><a id="evaluatedPolyClassTag:ClassTag[LinearMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyClassTag:spire.ClassTag[Evaluator.this.EvaluatedPolynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyClassTag:spire.ClassTag[Evaluator.this.LinearMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -727,14 +758,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyClassTag</span><span class="result">: <span class="extype" name="spire.ClassTag">ClassTag</span>[<a href="#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">EvaluatedPolynomial</a>]</span>
+        <span class="name">evaluatedPolyClassTag</span><span class="result">: <span class="extype" name="spire.ClassTag">ClassTag</span>[<a href="#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">LinearMomentType</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyEq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyEq:spire.algebra.Eq[Evaluator.this.EvaluatedPolynomial]"></a><a id="evaluatedPolyEq:Eq[EvaluatedPolynomial]"></a>
+      <a id="evaluatedPolyEq:spire.algebra.Eq[Evaluator.this.LinearMomentType]"></a><a id="evaluatedPolyEq:Eq[LinearMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyEq:spire.algebra.Eq[Evaluator.this.EvaluatedPolynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyEq:spire.algebra.Eq[Evaluator.this.LinearMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -743,14 +774,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyEq</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<a href="#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">EvaluatedPolynomial</a>]</span>
+        <span class="name">evaluatedPolyEq</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<a href="#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">LinearMomentType</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyInvolution" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyInvolution:spire.algebra.Involution[Evaluator.this.EvaluatedPolynomial]"></a><a id="evaluatedPolyInvolution:Involution[EvaluatedPolynomial]"></a>
+      <a id="evaluatedPolyInvolution:spire.algebra.Involution[Evaluator.this.LinearMomentType]"></a><a id="evaluatedPolyInvolution:Involution[LinearMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyInvolution:spire.algebra.Involution[Evaluator.this.EvaluatedPolynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyInvolution:spire.algebra.Involution[Evaluator.this.LinearMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -759,14 +790,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">EvaluatedPolynomial</a>]</span>
+        <span class="name">evaluatedPolyInvolution</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<a href="#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">LinearMomentType</a>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyVectorSpace" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyVectorSpace:spire.algebra.VectorSpace[Evaluator.this.EvaluatedPolynomial,cyclo.Cyclo]"></a><a id="evaluatedPolyVectorSpace:VectorSpace[EvaluatedPolynomial,Cyclo]"></a>
+      <a id="evaluatedPolyVectorSpace:spire.algebra.VectorSpace[Evaluator.this.LinearMomentType,cyclo.Cyclo]"></a><a id="evaluatedPolyVectorSpace:VectorSpace[LinearMomentType,Cyclo]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyVectorSpace:spire.algebra.VectorSpace[Evaluator.this.EvaluatedPolynomial,cyclo.Cyclo]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#evaluatedPolyVectorSpace:spire.algebra.VectorSpace[Evaluator.this.LinearMomentType,cyclo.Cyclo]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -775,7 +806,7 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyVectorSpace</span><span class="result">: <span class="extype" name="spire.algebra.VectorSpace">VectorSpace</span>[<a href="#EvaluatedPolynomial=net.alasc.symdpoly.generic.EvaluatedPoly[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">EvaluatedPolynomial</a>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
+        <span class="name">evaluatedPolyVectorSpace</span><span class="result">: <span class="extype" name="spire.algebra.VectorSpace">VectorSpace</span>[<a href="#LinearMomentType=net.alasc.symdpoly.generic.LinearMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">LinearMomentType</a>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
       </span>
       
       
@@ -802,9 +833,9 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#fromNormalForm" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="fromNormalForm(normalForm:Evaluator.this.Mono#Monomial):net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="fromNormalForm(Mono.Monomial):EvaluatedMono[Evaluator.this.type,Mono]"></a>
+      <a id="fromNormalForm(normalForm:Evaluator.this.Mono#MonoType):net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]"></a><a id="fromNormalForm(Mono.MonoType):SingleMoment[Evaluator.this.type,Mono]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#fromNormalForm(normalForm:Evaluator.this.Mono#Monomial):net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#fromNormalForm(normalForm:Evaluator.this.Mono#MonoType):net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -813,7 +844,7 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromNormalForm</span><span class="params">(<span name="normalForm">normalForm: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">Mono.Monomial</span></span>)</span><span class="result">: <a href="../generic/EvaluatedMono.html" class="extype" name="net.alasc.symdpoly.generic.EvaluatedMono">EvaluatedMono</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
+        <span class="name">fromNormalForm</span><span class="params">(<span name="normalForm">normalForm: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">Mono.MonoType</span></span>)</span><span class="result">: <a href="../generic/SingleMoment.html" class="extype" name="net.alasc.symdpoly.generic.SingleMoment">SingleMoment</a>[<a href="" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a>.this.type, <a href="#Mono&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Mono">Mono</a>]</span>
       </span>
       
       
@@ -942,9 +973,9 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#one" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="one:Evaluator.this.EvaluatedMonomial"></a><a id="one:EvaluatedMonomial"></a>
+      <a id="one:Evaluator.this.SingleMomentType"></a><a id="one:SingleMomentType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#one:Evaluator.this.EvaluatedMonomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#one:Evaluator.this.SingleMomentType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -953,14 +984,14 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">one</span><span class="result">: <a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a></span>
+        <span class="name">one</span><span class="result">: <a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a></span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#symmetryGroupDecomposition" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="symmetryGroupDecomposition:net.alasc.symdpoly.math.GrpDecomposition[Evaluator.this.Mono#Permutation]"></a><a id="symmetryGroupDecomposition:GrpDecomposition[Mono.Permutation]"></a>
+      <a id="symmetryGroupDecomposition:net.alasc.symdpoly.math.GrpDecomposition[Evaluator.this.Mono#PermutationType]"></a><a id="symmetryGroupDecomposition:GrpDecomposition[Mono.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#symmetryGroupDecomposition:net.alasc.symdpoly.math.GrpDecomposition[Evaluator.this.Mono#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#symmetryGroupDecomposition:net.alasc.symdpoly.math.GrpDecomposition[Evaluator.this.Mono#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -969,7 +1000,7 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">symmetryGroupDecomposition</span><span class="result">: <a href="../math/GrpDecomposition.html" class="extype" name="net.alasc.symdpoly.math.GrpDecomposition">GrpDecomposition</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">Mono.Permutation</span>]</span>
+        <span class="name">symmetryGroupDecomposition</span><span class="result">: <a href="../math/GrpDecomposition.html" class="extype" name="net.alasc.symdpoly.math.GrpDecomposition">GrpDecomposition</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">Mono.PermutationType</span>]</span>
       </span>
       
       
@@ -1090,9 +1121,9 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#zero" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="zero:Evaluator.this.EvaluatedMonomial"></a><a id="zero:EvaluatedMonomial"></a>
+      <a id="zero:Evaluator.this.SingleMomentType"></a><a id="zero:SingleMomentType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#zero:Evaluator.this.EvaluatedMonomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator.html#zero:Evaluator.this.SingleMomentType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1101,7 +1132,7 @@ L(m1) == L(m2) if and only if L(m1 &lt;|+| g) == L(m2 &lt;|+| g)
         <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
-        <span class="name">zero</span><span class="result">: <a href="#EvaluatedMonomial=net.alasc.symdpoly.generic.EvaluatedMono[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedMonomial">EvaluatedMonomial</a></span>
+        <span class="name">zero</span><span class="result">: <a href="#SingleMomentType=net.alasc.symdpoly.generic.SingleMoment[Evaluator.this.type,Evaluator.this.Mono]" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">SingleMomentType</a></span>
       </span>
       
       

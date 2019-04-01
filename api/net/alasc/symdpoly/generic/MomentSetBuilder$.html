@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="generic"></a><a id="generic:generic"></a>
       <span class="permalink">
@@ -129,22 +136,18 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">generic</span></a>
+        <a title="Generic user-definable algebraic structures used in polynomial optimization problems." href="index.html"><span class="name">generic</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Generic user-definable algebraic structures used in polynomial optimization problems.</p><div class="fullcomment"><div class="comment cmt"><p>Generic user-definable algebraic structures used in polynomial optimization problems.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedMono$.html" title=""></a>
-                        <a class="class" href="EvaluatedMono.html" title="Evaluated monomial, i.e."></a>
-                        <a href="EvaluatedMono.html" title="Evaluated monomial, i.e.">EvaluatedMono</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedPoly$.html" title=""></a>
-                        <a class="class" href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial."></a>
-                        <a href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial.">EvaluatedPoly</a>
+                        <a class="object" href="LinearMoment$.html" title=""></a>
+                        <a class="class" href="LinearMoment.html" title="Evaluated noncommutative polynomial."></a>
+                        <a href="LinearMoment.html" title="Evaluated noncommutative polynomial.">LinearMoment</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="EvaluatedPolyLike.html" title=""></a>
-                        <a href="EvaluatedPolyLike.html" title="">EvaluatedPolyLike</a>
+                        <a class="trait" href="LinearMomentLike.html" title=""></a>
+                        <a href="LinearMomentLike.html" title="">LinearMomentLike</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="MomentSet.html" title="Describes an ordered set of equivalence classes of monomials under evaluation."></a>
@@ -158,6 +161,10 @@
                         <a class="class" href="Mono.html" title=""></a>
                         <a href="Mono.html" title="">Mono</a>
                       </li><li class="current-entities indented4">
+                        <a class="object" href="MonoLike$.html" title=""></a>
+                        <a class="trait" href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M."></a>
+                        <a href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M.">MonoLike</a>
+                      </li><li class="current-entities indented4">
                         <a class="object" href="MonoidDef$.html" title=""></a>
                         <a class="class" href="MonoidDef.html" title="Describes a generic monomial monoid."></a>
                         <a href="MonoidDef.html" title="Describes a generic monomial monoid.">MonoidDef</a>
@@ -167,8 +174,16 @@
                         <a href="Permutation.html" title="A Permutation relabels the operator variables of monomials, possibly with a phase.">Permutation</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="Poly.html" title=""></a>
-                        <a href="Poly.html" title="">Poly</a>
+                        <a class="class" href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M."></a>
+                        <a href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M.">Poly</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="PolyLike$.html" title=""></a>
+                        <a class="trait" href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M."></a>
+                        <a href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M.">PolyLike</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="SingleMoment$.html" title=""></a>
+                        <a class="class" href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator."></a>
+                        <a href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator.">SingleMoment</a>
                       </li>
               </ul>
             </div>
@@ -199,7 +214,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/generic/MomentSet.scala" target="_blank">MomentSet.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/generic/MomentSet.scala" target="_blank">MomentSet.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>

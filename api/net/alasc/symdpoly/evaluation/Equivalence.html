@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="evaluation"></a><a id="evaluation:evaluation"></a>
       <span class="permalink">
@@ -133,10 +140,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.evaluation.internal" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="internal"></a><a id="internal:internal"></a>
+    </li><li name="net.alasc.symdpoly.evaluation.components" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="components"></a><a id="components:components"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/index.html#internal" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/index.html#components" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -145,11 +152,23 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="internal/index.html"><span class="name">internal</span></a>
+        <a title="" href="components/index.html"><span class="name">components</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly.evaluation">evaluation</a></dd></dl></div>
     </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="AdjointEquivalence.html" title="Equivalence under the adjoint operation."></a>
+                        <a href="AdjointEquivalence.html" title="Equivalence under the adjoint operation.">AdjointEquivalence</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="Component$.html" title=""></a>
+                        <a class="trait" href="Component.html" title="A component of an equivalence relation on monomials."></a>
+                        <a href="Component.html" title="A component of an equivalence relation on monomials.">Component</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="ComponentEquivalence.html" title="An equivalence relation composed of components."></a>
+                        <a href="ComponentEquivalence.html" title="An equivalence relation composed of components.">ComponentEquivalence</a>
+                      </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="trait" href="" title="An equivalence relation on monomials."></a>
                         <a href="" title="An equivalence relation on monomials.">Equivalence</a>
@@ -159,12 +178,24 @@
                         <a href="Evaluator.html" title="Describes a quotient vector space defined on a polynomial ring.">Evaluator</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="package$$OpGroup.html" title=""></a>
-                        <a href="package$$OpGroup.html" title="">OpGroup</a>
+                        <a class="trait" href="FreeBasedComponent.html" title=""></a>
+                        <a href="FreeBasedComponent.html" title="">FreeBasedComponent</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="package$$OpPredicate.html" title="Boolean function on operator variables."></a>
-                        <a href="package$$OpPredicate.html" title="Boolean function on operator variables.">OpPredicate</a>
+                        <a class="trait" href="OpPredicate.html" title="Boolean function on operator variables."></a>
+                        <a href="OpPredicate.html" title="Boolean function on operator variables.">OpPredicate</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="OpPredicate2.html" title="Boolean function on pairs of operator variables."></a>
+                        <a href="OpPredicate2.html" title="Boolean function on pairs of operator variables.">OpPredicate2</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="TransposesEquivalence.html" title="Equivalence under transposition of the groups of operators."></a>
+                        <a href="TransposesEquivalence.html" title="Equivalence under transposition of the groups of operators.">TransposesEquivalence</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="TrivialEquivalence.html" title="Equivalence under the adjoint operation."></a>
+                        <a href="TrivialEquivalence.html" title="Equivalence under the adjoint operation.">TrivialEquivalence</a>
                       </li>
               </ul>
             </div>
@@ -188,26 +219,26 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Equivalence</span><span class="tparams">[<span name="M">M &lt;: <a href="../generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">Equivalence</span><span class="tparams">[<span name="M">M &lt;: <a href="../generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="Component.html" class="extype" name="net.alasc.symdpoly.evaluation.Component">Component</a>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>]</span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>An equivalence relation on monomials.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>]</dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/evaluation/Equivalence.scala" target="_blank">Equivalence.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>An equivalence relation on monomials.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>]</dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/evaluation/Equivalence.scala" target="_blank">Equivalence.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="Component.html" class="extype" name="net.alasc.symdpoly.evaluation.Component">Component</a>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>], <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">
               Known Subclasses
             </span>
-            <div class="subClasses hiddenContent"><a href="internal/AdjointEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.AdjointEquivalence">AdjointEquivalence</a>, <a href="internal/ComposedEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.ComposedEquivalence">ComposedEquivalence</a>, <a href="internal/CyclicEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.CyclicEquivalence">CyclicEquivalence</a>, <a href="internal/FreeBasedEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.FreeBasedEquivalence">FreeBasedEquivalence</a>, <a href="internal/InPlaceEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.InPlaceEquivalence">InPlaceEquivalence</a>, <a href="internal/PredicateEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.PredicateEquivalence">PredicateEquivalence</a>, <a href="internal/TransposeEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.TransposeEquivalence">TransposeEquivalence</a>, <a href="internal/TransposesEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.internal.TransposesEquivalence">TransposesEquivalence</a></div>
+            <div class="subClasses hiddenContent"><a href="AdjointEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.AdjointEquivalence">AdjointEquivalence</a>, <a href="ComponentEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.ComponentEquivalence">ComponentEquivalence</a>, <a href="TransposesEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.TransposesEquivalence">TransposesEquivalence</a>, <a href="TrivialEquivalence.html" class="extype" name="net.alasc.symdpoly.evaluation.TrivialEquivalence">TrivialEquivalence</a></div>
           </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
                 <span class="toggle diagram-link">
                   Type Hierarchy
                 </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 498.50 155.00" height="155pt" width="499pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 151)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-151 494.5,-151 494.5,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this trait" id="graph1_0"><g id="a_this trait|graph1_0"><a xlink:title="net.alasc.symdpoly.evaluation.Equivalence (this trait)" xlink:href="#inheritance-diagram"><path d="M278.6667,-86C278.6667,-86 187.3333,-86 187.3333,-86 183.1667,-86 179,-81.8333 179,-77.6667 179,-77.6667 179,-69.3333 179,-69.3333 179,-65.1667 183.1667,-61 187.3333,-61 187.3333,-61 278.6667,-61 278.6667,-61 282.8333,-61 287,-65.1667 287,-69.3333 287,-69.3333 287,-77.6667 287,-77.6667 287,-81.8333 282.8333,-86 278.6667,-86" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-80.5" x="189" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-71.1" x="210" text-anchor="start">Equivalence[M]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="net.alasc.symdpoly.evaluation.internal.AdjointEquivalence" xlink:href="internal/AdjointEquivalence.html#inheritance-diagram"><path d="M129.6667,-25C129.6667,-25 8.3333,-25 8.3333,-25 4.1667,-25 0,-20.8333 0,-16.6667 0,-16.6667 0,-8.3333 0,-8.3333 0,-4.1667 4.1667,0 8.3333,0 8.3333,0 129.6667,0 129.6667,0 133.8333,0 138,-4.1667 138,-8.3333 138,-8.3333 138,-16.6667 138,-16.6667 138,-20.8333 133.8333,-25 129.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="10" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="31" text-anchor="start">AdjointEquivalence[M]</text></a></g></g><!-- node0&#45;&gt;node1 --><g class="edge inheritance" id="graph1_0_1"><g id="a_inheritance|graph1_0_1"><a xlink:title="AdjointEquivalence[M] is a subtype of Equivalence[M]"><path d="M192.1967,-58.3232C164.6053,-48.0605 128.6071,-34.6709 102.6564,-25.0185" stroke="#d4d4d4" fill="none"></path><polygon points="191.6041,-60.7167 199.0191,-60.8608 193.3124,-56.1241 191.6041,-60.7167" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node class" id="graph1_2"><g id="a_class|graph1_2"><a xlink:title="net.alasc.symdpoly.evaluation.internal.ComposedEquivalence" xlink:href="internal/ComposedEquivalence.html#inheritance-diagram"><path d="M301.1667,-25C301.1667,-25 164.8333,-25 164.8333,-25 160.6667,-25 156.5,-20.8333 156.5,-16.6667 156.5,-16.6667 156.5,-8.3333 156.5,-8.3333 156.5,-4.1667 160.6667,0 164.8333,0 164.8333,0 301.1667,0 301.1667,0 305.3333,0 309.5,-4.1667 309.5,-8.3333 309.5,-8.3333 309.5,-16.6667 309.5,-16.6667 309.5,-20.8333 305.3333,-25 301.1667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="167" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="188" text-anchor="start">ComposedEquivalence[M]</text></a></g></g><!-- node0&#45;&gt;node2 --><g class="edge inheritance" id="graph1_0_2"><g id="a_inheritance|graph1_0_2"><a xlink:title="ComposedEquivalence[M] is a subtype of Equivalence[M]"><path d="M233,-53.7386C233,-44.3393 233,-33.3803 233,-25.123" stroke="#d4d4d4" fill="none"></path><polygon points="230.5501,-53.8607 233,-60.8608 235.4501,-53.8608 230.5501,-53.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node3 --><g class="node class" id="graph1_3"><g id="a_class|graph1_3"><a xlink:title="net.alasc.symdpoly.evaluation.internal.FreeBasedEquivalence" xlink:href="internal/FreeBasedEquivalence.html#inheritance-diagram"><path d="M482.1667,-25C482.1667,-25 335.8333,-25 335.8333,-25 331.6667,-25 327.5,-20.8333 327.5,-16.6667 327.5,-16.6667 327.5,-8.3333 327.5,-8.3333 327.5,-4.1667 331.6667,0 335.8333,0 335.8333,0 482.1667,0 482.1667,0 486.3333,0 490.5,-4.1667 490.5,-8.3333 490.5,-8.3333 490.5,-16.6667 490.5,-16.6667 490.5,-20.8333 486.3333,-25 482.1667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="338" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="359" text-anchor="start">FreeBasedEquivalence[M, F]</text></a></g></g><!-- node0&#45;&gt;node3 --><g class="edge inheritance" id="graph1_0_3"><g id="a_inheritance|graph1_0_3"><a xlink:title="FreeBasedEquivalence[M, F] is a subtype of Equivalence[M]"><path d="M276.413,-58.4534C306.0716,-48.174 344.9134,-34.7118 372.8809,-25.0185" stroke="#d4d4d4" fill="none"></path><polygon points="275.279,-56.2534 269.4673,-60.8608 276.8837,-60.8832 275.279,-56.2534" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node4 --><g class="node class" id="graph1_4"><g id="a_class|graph1_4"><a xlink:title="scala.AnyRef"><path d="M262.1667,-147C262.1667,-147 203.8333,-147 203.8333,-147 199.6667,-147 195.5,-142.8333 195.5,-138.6667 195.5,-138.6667 195.5,-130.3333 195.5,-130.3333 195.5,-126.1667 199.6667,-122 203.8333,-122 203.8333,-122 262.1667,-122 262.1667,-122 266.3333,-122 270.5,-126.1667 270.5,-130.3333 270.5,-130.3333 270.5,-138.6667 270.5,-138.6667 270.5,-142.8333 266.3333,-147 262.1667,-147" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-141.5" x="206" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-132.1" x="227" text-anchor="start">AnyRef</text></a></g></g><!-- node4&#45;&gt;node0 --><g class="edge inheritance" id="graph1_4_0"><g id="a_inheritance|graph1_4_0"><a xlink:title="Equivalence[M] is a subtype of AnyRef"><path d="M233,-114.7386C233,-105.3393 233,-94.3803 233,-86.123" stroke="#d4d4d4" fill="none"></path><polygon points="230.5501,-114.8607 233,-121.8608 235.4501,-114.8608 230.5501,-114.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 667.50 155.00" height="155pt" width="668pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 151)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-151 663.5,-151 663.5,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this trait" id="graph1_0"><g id="a_this trait|graph1_0"><a xlink:title="net.alasc.symdpoly.evaluation.Equivalence (this trait)" xlink:href="#inheritance-diagram"><path d="M377.6667,-86C377.6667,-86 286.3333,-86 286.3333,-86 282.1667,-86 278,-81.8333 278,-77.6667 278,-77.6667 278,-69.3333 278,-69.3333 278,-65.1667 282.1667,-61 286.3333,-61 286.3333,-61 377.6667,-61 377.6667,-61 381.8333,-61 386,-65.1667 386,-69.3333 386,-69.3333 386,-77.6667 386,-77.6667 386,-81.8333 381.8333,-86 377.6667,-86" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-80.5" x="288" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-71.1" x="309" text-anchor="start">Equivalence[M]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="net.alasc.symdpoly.evaluation.AdjointEquivalence" xlink:href="AdjointEquivalence.html#inheritance-diagram"><path d="M129.6667,-25C129.6667,-25 8.3333,-25 8.3333,-25 4.1667,-25 0,-20.8333 0,-16.6667 0,-16.6667 0,-8.3333 0,-8.3333 0,-4.1667 4.1667,0 8.3333,0 8.3333,0 129.6667,0 129.6667,0 133.8333,0 138,-4.1667 138,-8.3333 138,-8.3333 138,-16.6667 138,-16.6667 138,-20.8333 133.8333,-25 129.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="10" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="31" text-anchor="start">AdjointEquivalence[M]</text></a></g></g><!-- node0&#45;&gt;node1 --><g class="edge inheritance" id="graph1_0_1"><g id="a_inheritance|graph1_0_1"><a xlink:title="AdjointEquivalence[M] is a subtype of Equivalence[M]"><path d="M270.7881,-59.3026C226.0904,-48.9354 166.0491,-35.0095 123.1046,-25.049" stroke="#d4d4d4" fill="none"></path><polygon points="270.4525,-61.7397 277.8251,-60.9347 271.5597,-56.9664 270.4525,-61.7397" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node class" id="graph1_2"><g id="a_class|graph1_2"><a xlink:title="net.alasc.symdpoly.evaluation.ComponentEquivalence" xlink:href="ComponentEquivalence.html#inheritance-diagram"><path d="M315.6667,-25C315.6667,-25 164.3333,-25 164.3333,-25 160.1667,-25 156,-20.8333 156,-16.6667 156,-16.6667 156,-8.3333 156,-8.3333 156,-4.1667 160.1667,0 164.3333,0 164.3333,0 315.6667,0 315.6667,0 319.8333,0 324,-4.1667 324,-8.3333 324,-8.3333 324,-16.6667 324,-16.6667 324,-20.8333 319.8333,-25 315.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="166" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="187" text-anchor="start">ComponentEquivalence[M, F]</text></a></g></g><!-- node0&#45;&gt;node2 --><g class="edge inheritance" id="graph1_0_2"><g id="a_inheritance|graph1_0_2"><a xlink:title="ComponentEquivalence[M, F] is a subtype of Equivalence[M]"><path d="M306.7356,-56.7486C291.6685,-46.7585 272.8479,-34.2796 259.038,-25.123" stroke="#d4d4d4" fill="none"></path><polygon points="305.7495,-59.0344 312.9375,-60.8608 308.4573,-54.9505 305.7495,-59.0344" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node3 --><g class="node class" id="graph1_3"><g id="a_class|graph1_3"><a xlink:title="net.alasc.symdpoly.evaluation.TransposesEquivalence" xlink:href="TransposesEquivalence.html#inheritance-diagram"><path d="M499.6667,-25C499.6667,-25 350.3333,-25 350.3333,-25 346.1667,-25 342,-20.8333 342,-16.6667 342,-16.6667 342,-8.3333 342,-8.3333 342,-4.1667 346.1667,0 350.3333,0 350.3333,0 499.6667,0 499.6667,0 503.8333,0 508,-4.1667 508,-8.3333 508,-8.3333 508,-16.6667 508,-16.6667 508,-20.8333 503.8333,-25 499.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="352" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="373" text-anchor="start">TransposesEquivalence[M, F]</text></a></g></g><!-- node0&#45;&gt;node3 --><g class="edge inheritance" id="graph1_0_3"><g id="a_inheritance|graph1_0_3"><a xlink:title="TransposesEquivalence[M, F] is a subtype of Equivalence[M]"><path d="M357.132,-57.0156C372.4297,-46.9816 391.6704,-34.3614 405.755,-25.123" stroke="#d4d4d4" fill="none"></path><polygon points="355.7792,-54.9729 351.2697,-60.8608 358.4667,-59.0701 355.7792,-54.9729" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node4 --><g class="node class" id="graph1_4"><g id="a_class|graph1_4"><a xlink:title="net.alasc.symdpoly.evaluation.TrivialEquivalence" xlink:href="TrivialEquivalence.html#inheritance-diagram"><path d="M651.1667,-25C651.1667,-25 534.8333,-25 534.8333,-25 530.6667,-25 526.5,-20.8333 526.5,-16.6667 526.5,-16.6667 526.5,-8.3333 526.5,-8.3333 526.5,-4.1667 530.6667,0 534.8333,0 534.8333,0 651.1667,0 651.1667,0 655.3333,0 659.5,-4.1667 659.5,-8.3333 659.5,-8.3333 659.5,-16.6667 659.5,-16.6667 659.5,-20.8333 655.3333,-25 651.1667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="537" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="558" text-anchor="start">TrivialEquivalence[M]</text></a></g></g><!-- node0&#45;&gt;node4 --><g class="edge inheritance" id="graph1_0_4"><g id="a_inheritance|graph1_0_4"><a xlink:title="TrivialEquivalence[M] is a subtype of Equivalence[M]"><path d="M392.7464,-59.3026C437.1042,-48.9354 496.6889,-35.0095 539.3069,-25.049" stroke="#d4d4d4" fill="none"></path><polygon points="392.0216,-56.9559 385.7629,-60.9347 393.1368,-61.7273 392.0216,-56.9559" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node5 --><g class="node trait" id="graph1_5"><g id="a_trait|graph1_5"><a xlink:title="net.alasc.symdpoly.evaluation.Component" xlink:href="Component.html#inheritance-diagram"><path d="M376.6667,-147C376.6667,-147 287.3333,-147 287.3333,-147 283.1667,-147 279,-142.8333 279,-138.6667 279,-138.6667 279,-130.3333 279,-130.3333 279,-126.1667 283.1667,-122 287.3333,-122 287.3333,-122 376.6667,-122 376.6667,-122 380.8333,-122 385,-126.1667 385,-130.3333 385,-130.3333 385,-138.6667 385,-138.6667 385,-142.8333 380.8333,-147 376.6667,-147" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-141.5" x="289" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-132.1" x="310" text-anchor="start">Component[M]</text></a></g></g><!-- node5&#45;&gt;node0 --><g class="edge inheritance" id="graph1_5_0"><g id="a_inheritance|graph1_5_0"><a xlink:title="Equivalence[M] is a subtype of Component[M]"><path d="M332,-114.7386C332,-105.3393 332,-94.3803 332,-86.123" stroke="#d4d4d4" fill="none"></path><polygon points="329.5501,-114.8607 332,-121.8608 334.4501,-114.8608 329.5501,-114.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
                 <div id="diagram-controls" class="hiddenContent">
                   <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
                   <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
@@ -238,7 +269,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="net.alasc.symdpoly.evaluation.Equivalence"><span>Equivalence</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="net.alasc.symdpoly.evaluation.Equivalence"><span>Equivalence</span></li><li class="in" name="net.alasc.symdpoly.evaluation.Component"><span>Component</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -262,10 +293,10 @@
 
         <div class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="net.alasc.symdpoly.evaluation.Equivalence#apply" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="apply(mono:M#Monomial):Set[M#Monomial]"></a><a id="apply(M.Monomial):Set[M.Monomial]"></a>
+              <ol><li name="net.alasc.symdpoly.evaluation.Component#apply" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="apply(mono:M#MonoType):Set[M#MonoType]"></a><a id="apply(M.MonoType):Set[M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#apply(mono:M#Monomial):Set[M#Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#apply(mono:M#MonoType):Set[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -274,14 +305,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="mono">mono: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">M.Monomial</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.Set">Set</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">M.Monomial</span>]</span>
+        <span class="name">apply</span><span class="params">(<span name="mono">mono: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.Set">Set</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Returns the set of monomials equivalent to the given monomial.</p>
+      <p class="shortcomment cmt">Returns the set of monomials equivalent to the given monomial.</p><div class="fullcomment"><div class="comment cmt"><p>Returns the set of monomials equivalent to the given monomial.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Component.html" class="extype" name="net.alasc.symdpoly.evaluation.Component">Component</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation.Equivalence#compatibleSubgroup" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="compatibleSubgroup(grp:net.alasc.finite.Grp[M#Permutation]):net.alasc.finite.Grp[M#Permutation]"></a><a id="compatibleSubgroup(Grp[M.Permutation]):Grp[M.Permutation]"></a>
+      <a id="compatibleSubgroup(grp:net.alasc.finite.Grp[M#PermutationType]):net.alasc.finite.Grp[M#PermutationType]"></a><a id="compatibleSubgroup(Grp[M.PermutationType]):Grp[M.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#compatibleSubgroup(grp:net.alasc.finite.Grp[M#Permutation]):net.alasc.finite.Grp[M#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#compatibleSubgroup(grp:net.alasc.finite.Grp[M#PermutationType]):net.alasc.finite.Grp[M#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -290,14 +321,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">compatibleSubgroup</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">M.Permutation</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">M.Permutation</span>]</span>
+        <span class="name">compatibleSubgroup</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns the group of permutations that is compatible with the evaluator,</p><div class="fullcomment"><div class="comment cmt"><p>Returns the group of permutations that is compatible with the evaluator,</p><p>A group of permutations is deemed compatible if, for any monomials m1 and m2 of type M#Monomial,
 we have m1 ~ m2 if and only if (m1 &lt;|+| g) ~ (m2 &lt;|+| g) for any element g of the group,
 where ~ is described by this equivalence relation.
 </p></div></div>
-    </li><li name="net.alasc.symdpoly.evaluation.Equivalence#isSelfAdjoint" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="net.alasc.symdpoly.evaluation.Component#isSelfAdjoint" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="isSelfAdjoint:Boolean"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#isSelfAdjoint:Boolean" title="Permalink">
@@ -312,8 +343,8 @@ where ~ is described by this equivalence relation.
         <span class="name">isSelfAdjoint</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <p class="shortcomment cmt">Returns whether m.adjoint is equivalent to m for all m of type M#Monomial.</p>
-    </li><li name="net.alasc.symdpoly.evaluation.Equivalence#witnessM" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Returns whether m.adjoint is equivalent to m for all m of type M#Monomial.</p><div class="fullcomment"><div class="comment cmt"><p>Returns whether m.adjoint is equivalent to m for all m of type M#Monomial.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Component.html" class="extype" name="net.alasc.symdpoly.evaluation.Component">Component</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.evaluation.Component#witnessM" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="witnessM:shapeless.Witness.Aux[M]"></a><a id="witnessM:Aux[M]"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#witnessM:shapeless.Witness.Aux[M]" title="Permalink">
@@ -328,7 +359,7 @@ where ~ is described by this equivalence relation.
         <span class="name">witnessM</span><span class="result">: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>]</span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Component.html" class="extype" name="net.alasc.symdpoly.evaluation.Component">Component</a></dd></dl></div>
     </li></ol>
             </div>
 
@@ -383,7 +414,7 @@ where ~ is described by this equivalence relation.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.evaluation.Equivalence#M" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="net.alasc.symdpoly.evaluation.Component#M" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="M:M"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#M:M" title="Permalink">
@@ -398,23 +429,7 @@ where ~ is described by this equivalence relation.
         <span class="name">M</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span></span>
       </span>
       
-      
-    </li><li name="net.alasc.symdpoly.evaluation.Equivalence#andThen" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="andThen(next:net.alasc.symdpoly.evaluation.Equivalence[M]):net.alasc.symdpoly.evaluation.Equivalence[M]"></a><a id="andThen(Equivalence[M]):Equivalence[M]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#andThen(next:net.alasc.symdpoly.evaluation.Equivalence[M]):net.alasc.symdpoly.evaluation.Equivalence[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">andThen</span><span class="params">(<span name="next">next: <a href="" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>]</span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.evaluation.Equivalence">Equivalence</a>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>]</span>
-      </span>
-      
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Component.html" class="extype" name="net.alasc.symdpoly.evaluation.Component">Component</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -548,9 +563,9 @@ where ~ is described by this equivalence relation.
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation.Equivalence#isCompatibleGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="isCompatibleGroup(grp:net.alasc.finite.Grp[M#Permutation]):Boolean"></a><a id="isCompatibleGroup(Grp[M.Permutation]):Boolean"></a>
+      <a id="isCompatibleGroup(grp:net.alasc.finite.Grp[M#PermutationType]):Boolean"></a><a id="isCompatibleGroup(Grp[M.PermutationType]):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#isCompatibleGroup(grp:net.alasc.finite.Grp[M#Permutation]):Boolean" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Equivalence.html#isCompatibleGroup(grp:net.alasc.finite.Grp[M#PermutationType]):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -559,7 +574,7 @@ where ~ is described by this equivalence relation.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isCompatibleGroup</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">M.Permutation</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isCompatibleGroup</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
       <p class="shortcomment cmt">Returns whether the given group is compatible with this equivalence relation.</p>
@@ -743,7 +758,9 @@ where ~ is described by this equivalence relation.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="net.alasc.symdpoly.evaluation.Component">
+              <h3>Inherited from <a href="Component.html" class="extype" name="net.alasc.symdpoly.evaluation.Component">Component</a>[<span class="extype" name="net.alasc.symdpoly.evaluation.Equivalence.M">M</span>]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

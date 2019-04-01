@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="free"></a><a id="free:free"></a>
       <span class="permalink">
@@ -129,10 +136,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">free</span></a>
+        <a title="User-defined free algebraic structures, such as the monoid of free monomials." href="index.html"><span class="name">free</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">User-defined free algebraic structures, such as the monoid of free monomials.</p><div class="fullcomment"><div class="comment cmt"><p>User-defined free algebraic structures, such as the monoid of free monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef" visbl="pub" class="indented5 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="MonoidDefextendsMonoidDef"></a><a id="MonoidDef:MonoidDef"></a>
       <span class="permalink">
@@ -200,10 +207,6 @@
                         <span class="separator"></span>
                         <a class="object" href="../freebased/MonoidDef$Permutation$.html" title=""></a>
                         <a href="../freebased/MonoidDef$Permutation$.html" title="">Permutation</a>
-                      </li><li class="current-entities indented5">
-                        <a class="object" href="MonoidDef$PhasedOp$.html" title=""></a>
-                        <a class="class" href="MonoidDef$PhasedOp.html" title="An operator variable in this free monoid along with a phase."></a>
-                        <a href="MonoidDef$PhasedOp.html" title="An operator variable in this free monoid along with a phase.">PhasedOp</a>
                       </li>
               </ul>
             </div>
@@ -232,7 +235,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Base class for the companion object of a family of operators with three indices.</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/free/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Base class for the companion object of a family of operators with three indices.</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/free/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -385,6 +388,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.free.MonoidDef.OpEnum#++" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="++(rhs:MonoidDef.this.OpEnum):MonoidDef.this.OpEnum"></a><a id="++(OpEnum):OpEnum"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$OpFamily3.html#++(rhs:MonoidDef.this.OpEnum):MonoidDef.this.OpEnum" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus$plus" class="name">++</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.OpEnum">OpEnum</a></span>)</span><span class="result">: <a href="MonoidDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.OpEnum">OpEnum</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.OpEnum">OpEnum</a></dd></dl></div>
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">

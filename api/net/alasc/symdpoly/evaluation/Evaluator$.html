@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="evaluation"></a><a id="evaluation:evaluation"></a>
       <span class="permalink">
@@ -133,10 +140,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.evaluation.internal" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="internal"></a><a id="internal:internal"></a>
+    </li><li name="net.alasc.symdpoly.evaluation.components" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="components"></a><a id="components:components"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/index.html#internal" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/index.html#components" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -145,11 +152,23 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="internal/index.html"><span class="name">internal</span></a>
+        <a title="" href="components/index.html"><span class="name">components</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly.evaluation">evaluation</a></dd></dl></div>
     </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="AdjointEquivalence.html" title="Equivalence under the adjoint operation."></a>
+                        <a href="AdjointEquivalence.html" title="Equivalence under the adjoint operation.">AdjointEquivalence</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="Component$.html" title=""></a>
+                        <a class="trait" href="Component.html" title="A component of an equivalence relation on monomials."></a>
+                        <a href="Component.html" title="A component of an equivalence relation on monomials.">Component</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="ComponentEquivalence.html" title="An equivalence relation composed of components."></a>
+                        <a href="ComponentEquivalence.html" title="An equivalence relation composed of components.">ComponentEquivalence</a>
+                      </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="trait" href="Equivalence.html" title="An equivalence relation on monomials."></a>
                         <a href="Equivalence.html" title="An equivalence relation on monomials.">Equivalence</a>
@@ -159,12 +178,24 @@
                         <a href="Evaluator.html" title="Describes a quotient vector space defined on a polynomial ring.">Evaluator</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="package$$OpGroup.html" title=""></a>
-                        <a href="package$$OpGroup.html" title="">OpGroup</a>
+                        <a class="trait" href="FreeBasedComponent.html" title=""></a>
+                        <a href="FreeBasedComponent.html" title="">FreeBasedComponent</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="package$$OpPredicate.html" title="Boolean function on operator variables."></a>
-                        <a href="package$$OpPredicate.html" title="Boolean function on operator variables.">OpPredicate</a>
+                        <a class="trait" href="OpPredicate.html" title="Boolean function on operator variables."></a>
+                        <a href="OpPredicate.html" title="Boolean function on operator variables.">OpPredicate</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="OpPredicate2.html" title="Boolean function on pairs of operator variables."></a>
+                        <a href="OpPredicate2.html" title="Boolean function on pairs of operator variables.">OpPredicate2</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="TransposesEquivalence.html" title="Equivalence under transposition of the groups of operators."></a>
+                        <a href="TransposesEquivalence.html" title="Equivalence under transposition of the groups of operators.">TransposesEquivalence</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="class" href="TrivialEquivalence.html" title="Equivalence under the adjoint operation."></a>
+                        <a href="TrivialEquivalence.html" title="Equivalence under the adjoint operation.">TrivialEquivalence</a>
                       </li>
               </ul>
             </div>
@@ -195,7 +226,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/evaluation/Evaluator.scala" target="_blank">Evaluator.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/evaluation/Evaluator.scala" target="_blank">Evaluator.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -392,9 +423,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyClassTag" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyClassTag[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$4:shapeless.Witness.Aux[E]):spire.ClassTag[E#EvaluatedPolynomial]"></a><a id="evaluatedPolyClassTag[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):ClassTag[Evaluator.evaluatedPolyClassTag.E.EvaluatedPolynomial]"></a>
+      <a id="evaluatedPolyClassTag[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$4:shapeless.Witness.Aux[E]):spire.ClassTag[E#LinearMomentType]"></a><a id="evaluatedPolyClassTag[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):ClassTag[Evaluator.evaluatedPolyClassTag.E.LinearMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyClassTag[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$4:shapeless.Witness.Aux[E]):spire.ClassTag[E#EvaluatedPolynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyClassTag[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$4:shapeless.Witness.Aux[E]):spire.ClassTag[E#LinearMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -403,14 +434,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyClassTag</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyClassTag.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">Evaluator.evaluatedPolyClassTag.E.EvaluatedPolynomial</span>]</span>
+        <span class="name">evaluatedPolyClassTag</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyClassTag.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">Evaluator.evaluatedPolyClassTag.E.LinearMomentType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyEq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyEq[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$3:shapeless.Witness.Aux[E]):spire.algebra.Eq[E#EvaluatedPolynomial]"></a><a id="evaluatedPolyEq[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):Eq[Evaluator.evaluatedPolyEq.E.EvaluatedPolynomial]"></a>
+      <a id="evaluatedPolyEq[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$3:shapeless.Witness.Aux[E]):spire.algebra.Eq[E#LinearMomentType]"></a><a id="evaluatedPolyEq[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):Eq[Evaluator.evaluatedPolyEq.E.LinearMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyEq[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$3:shapeless.Witness.Aux[E]):spire.algebra.Eq[E#EvaluatedPolynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyEq[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$3:shapeless.Witness.Aux[E]):spire.algebra.Eq[E#LinearMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -419,14 +450,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyEq</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyEq.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">Evaluator.evaluatedPolyEq.E.EvaluatedPolynomial</span>]</span>
+        <span class="name">evaluatedPolyEq</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyEq.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">Evaluator.evaluatedPolyEq.E.LinearMomentType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyInvolution" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyInvolution[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$2:shapeless.Witness.Aux[E]):spire.algebra.Involution[E#EvaluatedPolynomial]"></a><a id="evaluatedPolyInvolution[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):Involution[Evaluator.evaluatedPolyInvolution.E.EvaluatedPolynomial]"></a>
+      <a id="evaluatedPolyInvolution[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$2:shapeless.Witness.Aux[E]):spire.algebra.Involution[E#LinearMomentType]"></a><a id="evaluatedPolyInvolution[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):Involution[Evaluator.evaluatedPolyInvolution.E.LinearMomentType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyInvolution[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$2:shapeless.Witness.Aux[E]):spire.algebra.Involution[E#EvaluatedPolynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyInvolution[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$2:shapeless.Witness.Aux[E]):spire.algebra.Involution[E#LinearMomentType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -435,14 +466,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyInvolution</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyInvolution.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">Evaluator.evaluatedPolyInvolution.E.EvaluatedPolynomial</span>]</span>
+        <span class="name">evaluatedPolyInvolution</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyInvolution.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">Evaluator.evaluatedPolyInvolution.E.LinearMomentType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.evaluation.Evaluator#evaluatedPolyVectorSpace" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="evaluatedPolyVectorSpace[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$1:shapeless.Witness.Aux[E]):spire.algebra.VectorSpace[E#EvaluatedPolynomial,cyclo.Cyclo]"></a><a id="evaluatedPolyVectorSpace[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):VectorSpace[Evaluator.evaluatedPolyVectorSpace.E.EvaluatedPolynomial,Cyclo]"></a>
+      <a id="evaluatedPolyVectorSpace[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$1:shapeless.Witness.Aux[E]):spire.algebra.VectorSpace[E#LinearMomentType,cyclo.Cyclo]"></a><a id="evaluatedPolyVectorSpace[E&lt;:EvaluatorwithSingleton](shapeless.Witness.Aux[E]):VectorSpace[Evaluator.evaluatedPolyVectorSpace.E.LinearMomentType,Cyclo]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyVectorSpace[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$1:shapeless.Witness.Aux[E]):spire.algebra.VectorSpace[E#EvaluatedPolynomial,cyclo.Cyclo]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/evaluation/Evaluator$.html#evaluatedPolyVectorSpace[E&lt;:net.alasc.symdpoly.evaluation.EvaluatorwithSingleton](implicitevidence$1:shapeless.Witness.Aux[E]):spire.algebra.VectorSpace[E#LinearMomentType,cyclo.Cyclo]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -451,7 +482,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">evaluatedPolyVectorSpace</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyVectorSpace.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.VectorSpace">VectorSpace</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.EvaluatedPolynomial">Evaluator.evaluatedPolyVectorSpace.E.EvaluatedPolynomial</span>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
+        <span class="name">evaluatedPolyVectorSpace</span><span class="tparams">[<span name="E">E &lt;: <a href="Evaluator.html" class="extype" name="net.alasc.symdpoly.evaluation.Evaluator">Evaluator</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">shapeless.Witness.Aux</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.evaluatedPolyVectorSpace.E">E</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.VectorSpace">VectorSpace</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.LinearMomentType">Evaluator.evaluatedPolyVectorSpace.E.LinearMomentType</span>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
       </span>
       
       

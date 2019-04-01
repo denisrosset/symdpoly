@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="generic"></a><a id="generic:generic"></a>
       <span class="permalink">
@@ -129,22 +136,18 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">generic</span></a>
+        <a title="Generic user-definable algebraic structures used in polynomial optimization problems." href="index.html"><span class="name">generic</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Generic user-definable algebraic structures used in polynomial optimization problems.</p><div class="fullcomment"><div class="comment cmt"><p>Generic user-definable algebraic structures used in polynomial optimization problems.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedMono$.html" title=""></a>
-                        <a class="class" href="EvaluatedMono.html" title="Evaluated monomial, i.e."></a>
-                        <a href="EvaluatedMono.html" title="Evaluated monomial, i.e.">EvaluatedMono</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedPoly$.html" title=""></a>
-                        <a class="class" href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial."></a>
-                        <a href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial.">EvaluatedPoly</a>
+                        <a class="object" href="LinearMoment$.html" title=""></a>
+                        <a class="class" href="LinearMoment.html" title="Evaluated noncommutative polynomial."></a>
+                        <a href="LinearMoment.html" title="Evaluated noncommutative polynomial.">LinearMoment</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="EvaluatedPolyLike.html" title=""></a>
-                        <a href="EvaluatedPolyLike.html" title="">EvaluatedPolyLike</a>
+                        <a class="trait" href="LinearMomentLike.html" title=""></a>
+                        <a href="LinearMomentLike.html" title="">LinearMomentLike</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="MomentSet.html" title="Describes an ordered set of equivalence classes of monomials under evaluation."></a>
@@ -158,6 +161,10 @@
                         <a class="class" href="" title=""></a>
                         <a href="" title="">Mono</a>
                       </li><li class="current-entities indented4">
+                        <a class="object" href="MonoLike$.html" title=""></a>
+                        <a class="trait" href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M."></a>
+                        <a href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M.">MonoLike</a>
+                      </li><li class="current-entities indented4">
                         <a class="object" href="MonoidDef$.html" title=""></a>
                         <a class="class" href="MonoidDef.html" title="Describes a generic monomial monoid."></a>
                         <a href="MonoidDef.html" title="Describes a generic monomial monoid.">MonoidDef</a>
@@ -167,8 +174,16 @@
                         <a href="Permutation.html" title="A Permutation relabels the operator variables of monomials, possibly with a phase.">Permutation</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="Poly.html" title=""></a>
-                        <a href="Poly.html" title="">Poly</a>
+                        <a class="class" href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M."></a>
+                        <a href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M.">Poly</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="PolyLike$.html" title=""></a>
+                        <a class="trait" href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M."></a>
+                        <a href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M.">PolyLike</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="SingleMoment$.html" title=""></a>
+                        <a class="class" href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator."></a>
+                        <a href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator.">SingleMoment</a>
                       </li>
               </ul>
             </div>
@@ -192,16 +207,16 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Mono</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">Mono</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>] with <a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Self Type</dt><dd><span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">M.Monomial</span></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/generic/Mono.scala" target="_blank">Mono.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Self Type</dt><dd><span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/generic/Mono.scala" target="_blank">Mono.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>], <a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>], <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">
               Known Subclasses
@@ -211,7 +226,7 @@
                 <span class="toggle diagram-link">
                   Type Hierarchy
                 </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 144.00 155.00" height="155pt" width="144pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 151)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-151 140,-151 140,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.generic.Mono (this class)" xlink:href="#inheritance-diagram"><path d="M99.6667,-86C99.6667,-86 36.3333,-86 36.3333,-86 32.1667,-86 28,-81.8333 28,-77.6667 28,-77.6667 28,-69.3333 28,-69.3333 28,-65.1667 32.1667,-61 36.3333,-61 36.3333,-61 99.6667,-61 99.6667,-61 103.8333,-61 108,-65.1667 108,-69.3333 108,-69.3333 108,-77.6667 108,-77.6667 108,-81.8333 103.8333,-86 99.6667,-86" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-80.5" x="38" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-71.1" x="59" text-anchor="start">Mono[M]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="net.alasc.symdpoly.freebased.Mono" xlink:href="../freebased/Mono.html#inheritance-diagram"><path d="M127.6667,-25C127.6667,-25 8.3333,-25 8.3333,-25 4.1667,-25 0,-20.8333 0,-16.6667 0,-16.6667 0,-8.3333 0,-8.3333 0,-4.1667 4.1667,0 8.3333,0 8.3333,0 127.6667,0 127.6667,0 131.8333,0 136,-4.1667 136,-8.3333 136,-8.3333 136,-16.6667 136,-16.6667 136,-20.8333 131.8333,-25 127.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="10" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="31" text-anchor="start">freebased.Mono[M, F]</text></a></g></g><!-- node0&#45;&gt;node1 --><g class="edge inheritance" id="graph1_0_1"><g id="a_inheritance|graph1_0_1"><a xlink:title="freebased.Mono[M, F] is a subtype of Mono[M]"><path d="M68,-53.7386C68,-44.3393 68,-33.3803 68,-25.123" stroke="#d4d4d4" fill="none"></path><polygon points="65.5501,-53.8607 68,-60.8608 70.4501,-53.8608 65.5501,-53.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node class" id="graph1_2"><g id="a_class|graph1_2"><a xlink:title="scala.AnyRef"><path d="M97.1667,-147C97.1667,-147 38.8333,-147 38.8333,-147 34.6667,-147 30.5,-142.8333 30.5,-138.6667 30.5,-138.6667 30.5,-130.3333 30.5,-130.3333 30.5,-126.1667 34.6667,-122 38.8333,-122 38.8333,-122 97.1667,-122 97.1667,-122 101.3333,-122 105.5,-126.1667 105.5,-130.3333 105.5,-130.3333 105.5,-138.6667 105.5,-138.6667 105.5,-142.8333 101.3333,-147 97.1667,-147" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-141.5" x="41" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-132.1" x="62" text-anchor="start">AnyRef</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="Mono[M] is a subtype of AnyRef"><path d="M68,-114.7386C68,-105.3393 68,-94.3803 68,-86.123" stroke="#d4d4d4" fill="none"></path><polygon points="65.5501,-114.8607 68,-121.8608 70.4501,-114.8608 65.5501,-114.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 214.00 155.00" height="155pt" width="214pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 151)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-151 210,-151 210,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.generic.Mono (this class)" xlink:href="#inheritance-diagram"><path d="M135.6667,-86C135.6667,-86 72.3333,-86 72.3333,-86 68.1667,-86 64,-81.8333 64,-77.6667 64,-77.6667 64,-69.3333 64,-69.3333 64,-65.1667 68.1667,-61 72.3333,-61 72.3333,-61 135.6667,-61 135.6667,-61 139.8333,-61 144,-65.1667 144,-69.3333 144,-69.3333 144,-77.6667 144,-77.6667 144,-81.8333 139.8333,-86 135.6667,-86" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-80.5" x="74" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-71.1" x="95" text-anchor="start">Mono[M]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="net.alasc.symdpoly.freebased.Mono" xlink:href="../freebased/Mono.html#inheritance-diagram"><path d="M163.6667,-25C163.6667,-25 44.3333,-25 44.3333,-25 40.1667,-25 36,-20.8333 36,-16.6667 36,-16.6667 36,-8.3333 36,-8.3333 36,-4.1667 40.1667,0 44.3333,0 44.3333,0 163.6667,0 163.6667,0 167.8333,0 172,-4.1667 172,-8.3333 172,-8.3333 172,-16.6667 172,-16.6667 172,-20.8333 167.8333,-25 163.6667,-25" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-19.5" x="46" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-10.1" x="67" text-anchor="start">freebased.Mono[M, F]</text></a></g></g><!-- node0&#45;&gt;node1 --><g class="edge inheritance" id="graph1_0_1"><g id="a_inheritance|graph1_0_1"><a xlink:title="freebased.Mono[M, F] is a subtype of Mono[M]"><path d="M104,-53.7386C104,-44.3393 104,-33.3803 104,-25.123" stroke="#d4d4d4" fill="none"></path><polygon points="101.5501,-53.8607 104,-60.8608 106.4501,-53.8608 101.5501,-53.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node trait" id="graph1_2"><g id="a_trait|graph1_2"><a xlink:title="net.alasc.symdpoly.generic.MonoLike" xlink:href="MonoLike.html#inheritance-diagram"><path d="M87.6667,-147C87.6667,-147 8.3333,-147 8.3333,-147 4.1667,-147 0,-142.8333 0,-138.6667 0,-138.6667 0,-130.3333 0,-130.3333 0,-126.1667 4.1667,-122 8.3333,-122 8.3333,-122 87.6667,-122 87.6667,-122 91.8333,-122 96,-126.1667 96,-130.3333 96,-130.3333 96,-138.6667 96,-138.6667 96,-142.8333 91.8333,-147 87.6667,-147" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-141.5" x="10" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-132.1" x="31" text-anchor="start">MonoLike[M]</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="Mono[M] is a subtype of MonoLike[M]"><path d="M64.3695,-116.669C73.364,-106.8714 84.3058,-94.9526 92.4116,-86.123" stroke="#d4d4d4" fill="none"></path><polygon points="62.5324,-115.0473 59.6032,-121.8608 66.142,-118.361 62.5324,-115.0473" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node3 --><g class="node trait" id="graph1_3"><g id="a_trait|graph1_3"><a xlink:title="net.alasc.symdpoly.generic.PolyLike" xlink:href="PolyLike.html#inheritance-diagram"><path d="M197.6667,-147C197.6667,-147 122.3333,-147 122.3333,-147 118.1667,-147 114,-142.8333 114,-138.6667 114,-138.6667 114,-130.3333 114,-130.3333 114,-126.1667 118.1667,-122 122.3333,-122 122.3333,-122 197.6667,-122 197.6667,-122 201.8333,-122 206,-126.1667 206,-130.3333 206,-130.3333 206,-138.6667 206,-138.6667 206,-142.8333 201.8333,-147 197.6667,-147" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-141.5" x="124" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-132.1" x="145" text-anchor="start">PolyLike[M]</text></a></g></g><!-- node3&#45;&gt;node0 --><g class="edge inheritance" id="graph1_3_0"><g id="a_inheritance|graph1_3_0"><a xlink:title="Mono[M] is a subtype of PolyLike[M]"><path d="M143.6305,-116.669C134.636,-106.8714 123.6942,-94.9526 115.5884,-86.123" stroke="#d4d4d4" fill="none"></path><polygon points="141.858,-118.361 148.3968,-121.8608 145.4676,-115.0473 141.858,-118.361" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
                 <div id="diagram-controls" class="hiddenContent">
                   <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
                   <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
@@ -242,7 +257,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="net.alasc.symdpoly.generic.Mono"><span>Mono</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="net.alasc.symdpoly.generic.Mono"><span>Mono</span></li><li class="in" name="net.alasc.symdpoly.generic.MonoLike"><span>MonoLike</span></li><li class="in" name="net.alasc.symdpoly.generic.PolyLike"><span>PolyLike</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -263,9 +278,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="net.alasc.symdpoly.generic.Mono#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;()(implicitevidence$1:shapeless.Witness.Aux[M]):net.alasc.symdpoly.generic.Mono[M]"></a><a id="&lt;init&gt;:Mono[M]"></a>
+      <a id="&lt;init&gt;():net.alasc.symdpoly.generic.Mono[M]"></a><a id="&lt;init&gt;:Mono[M]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#&lt;init&gt;()(implicitevidence$1:shapeless.Witness.Aux[M]):net.alasc.symdpoly.generic.Mono[M]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#&lt;init&gt;():net.alasc.symdpoly.generic.Mono[M]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -274,7 +289,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Mono</span><span class="params">()</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</span>)</span>
+        <span class="name">Mono</span><span class="params">()</span>
       </span>
       
       
@@ -285,7 +300,23 @@
 
         <div class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="net.alasc.symdpoly.generic.Mono#degree" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="net.alasc.symdpoly.generic.MonoLike#M" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="M:M"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#M:M" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">M</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a> → <a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.Mono#degree" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="degree:Int"></a>
       <span class="permalink">
       <a href="../../../../net/alasc/symdpoly/generic/Mono.html#degree:Int" title="Permalink">
@@ -301,10 +332,10 @@
       </span>
       
       
-    </li><li name="net.alasc.symdpoly.generic.Mono#toPoly" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="toPoly:M#Polynomial"></a><a id="toPoly:M.Polynomial"></a>
+    </li><li name="net.alasc.symdpoly.generic.MonoLike#toMono" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="toMono:M#MonoType"></a><a id="toMono:M.MonoType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#toPoly:M#Polynomial" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#toMono:M#MonoType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -313,10 +344,26 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toPoly</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">M.Polynomial</span></span>
+        <span class="name">toMono</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span></span>
       </span>
       
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#toPoly" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="toPoly:M#PolyType"></a><a id="toPoly:M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#toPoly:M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toPoly</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
       
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li></ol>
             </div>
 
@@ -355,6 +402,342 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.Mono#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="*(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.Mono[M]"></a><a id="*(Phase)(DummyImplicit):Mono[M]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#*(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.Mono[M]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.generic.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.generic.MonoLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:net.alasc.symdpoly.generic.MonoLike[M]):M#MonoType"></a><a id="*(MonoLike[M]):M.MonoType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#*(rhs:net.alasc.symdpoly.generic.MonoLike[M]):M#MonoType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:cyclo.Cyclo):M#PolyType"></a><a id="*(Cyclo):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#*(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:spire.math.Rational):M#PolyType"></a><a id="*(Rational):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#*(rhs:spire.math.Rational):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:Int):M#PolyType"></a><a id="*(Int):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#*(rhs:Int):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:M#PolyType):M#PolyType"></a><a id="*(M.PolyType):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#*(rhs:M#PolyType):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.MonoLike#**" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="**(rhs:Int):M#MonoType"></a><a id="**(Int):M.MonoType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#**(rhs:Int):M#MonoType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $times$times" class="name">**</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:cyclo.Cyclo):M#PolyType"></a><a id="+(Cyclo):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#+(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType"></a><a id="+(Phase)(DummyImplicit):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#+(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:spire.math.Rational):M#PolyType"></a><a id="+(Rational):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#+(rhs:spire.math.Rational):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:Int):M#PolyType"></a><a id="+(Int):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#+(rhs:Int):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType"></a><a id="+(PolyLike[M]):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#+(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:cyclo.Cyclo):M#PolyType"></a><a id="-(Cyclo):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#-(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType"></a><a id="-(Phase)(DummyImplicit):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#-(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:spire.math.Rational):M#PolyType"></a><a id="-(Rational):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#-(rhs:spire.math.Rational):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:Int):M#PolyType"></a><a id="-(Int):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#-(rhs:Int):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType"></a><a id="-(PolyLike[M]):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#-(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.Mono#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="/(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.Mono[M]"></a><a id="/(Phase)(DummyImplicit):Mono[M]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#/(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):net.alasc.symdpoly.generic.Mono[M]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.generic.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:cyclo.Cyclo):M#PolyType"></a><a id="/(Cyclo):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#/(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:spire.math.Rational):M#PolyType"></a><a id="/(Rational):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#/(rhs:spire.math.Rational):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:Int):M#PolyType"></a><a id="/(Int):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#/(rhs:Int):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
@@ -371,22 +754,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.generic.Mono#M" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="M:M"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#M:M" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">M</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span></span>
-      </span>
-      
-      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -427,6 +794,22 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#constant" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="constant(c:cyclo.Cyclo):M#PolyType"></a><a id="constant(Cyclo):M.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#constant(c:cyclo.Cyclo):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">constant</span><span class="params">(<span name="c">c: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -535,6 +918,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#isZero" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isZero:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#isZero:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isZero</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -589,6 +988,22 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.MonoLike#pow" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="pow(rhs:Int):M#MonoType"></a><a id="pow(Int):M.MonoType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/Mono.html#pow(rhs:Int):M#MonoType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">pow</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -699,7 +1114,11 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="net.alasc.symdpoly.generic.MonoLike">
+              <h3>Inherited from <a href="MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</h3>
+            </div><div class="parent" name="net.alasc.symdpoly.generic.PolyLike">
+              <h3>Inherited from <a href="PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<span class="extype" name="net.alasc.symdpoly.generic.Mono.M">M</span>]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

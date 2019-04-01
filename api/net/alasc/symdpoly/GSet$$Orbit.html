@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="GSet"></a><a id="GSet:GSet"></a>
       <span class="permalink">
@@ -159,10 +166,6 @@
                         <a href="GSet$$Quotient.html" title="">Quotient</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="GSet$$RichGSet.html" title="Additional operations for generating sets on free-based monomials."></a>
-                        <a href="GSet$$RichGSet.html" title="Additional operations for generating sets on free-based monomials.">RichGSet</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
                         <a class="class" href="GSet$$Sequence.html" title=""></a>
                         <a href="GSet$$Sequence.html" title="">Sequence</a>
                       </li><li class="current-entities indented4">
@@ -196,12 +199,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Orbit</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="G">G</span>]</span><span class="params">(<span name="gm">gm: <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>, <span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.G">G</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="action">action: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">M.Monomial</span>, <span class="extype" name="net.alasc.symdpoly.GSet.Orbit.G">G</span>]</span>)</span><span class="result"> extends <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Orbit</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span name="gm">gm: <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>, <span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="result"> extends <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/GSet.scala" target="_blank">GSet.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/GSet.scala" target="_blank">GSet.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -210,7 +213,7 @@
                 <span class="toggle diagram-link">
                   Type Hierarchy
                 </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 292.50 118.00" height="118pt" width="293pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 288.5,-114 288.5,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.GSet.Orbit (this class)" xlink:href="#inheritance-diagram"><path d="M172.1667,-49C172.1667,-49 97.8333,-49 97.8333,-49 93.6667,-49 89.5,-44.8333 89.5,-40.6667 89.5,-40.6667 89.5,-32.3333 89.5,-32.3333 89.5,-28.1667 93.6667,-24 97.8333,-24 97.8333,-24 172.1667,-24 172.1667,-24 176.3333,-24 180.5,-28.1667 180.5,-32.3333 180.5,-32.3333 180.5,-40.6667 180.5,-40.6667 180.5,-44.8333 176.3333,-49 172.1667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../lib/class_diagram.png" y="-43.5" x="100" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="121" text-anchor="start">Orbit[M, G]</text></a></g></g><!-- node1 --><g class="node trait" id="graph1_1"><g id="a_trait|graph1_1"><a xlink:title="net.alasc.symdpoly.GSet" xlink:href="GSet.html#inheritance-diagram"><path d="M69.6667,-110C69.6667,-110 8.3333,-110 8.3333,-110 4.1667,-110 0,-105.8333 0,-101.6667 0,-101.6667 0,-93.3333 0,-93.3333 0,-89.1667 4.1667,-85 8.3333,-85 8.3333,-85 69.6667,-85 69.6667,-85 73.8333,-85 78,-89.1667 78,-93.3333 78,-93.3333 78,-101.6667 78,-101.6667 78,-105.8333 73.8333,-110 69.6667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../lib/trait_diagram.png" y="-104.5" x="10" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="31" text-anchor="start">GSet[M]</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="Orbit[M, G] is a subtype of GSet[M]"><path d="M64.9427,-81.0156C80.7339,-70.9816 100.5952,-58.3614 115.1342,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="63.4855,-79.0387 58.8913,-84.8608 66.1134,-83.1744 63.4855,-79.0387" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node trait" id="graph1_2"><g id="a_trait|graph1_2"><a xlink:title="scala.Product"><path d="M165.1667,-110C165.1667,-110 104.8333,-110 104.8333,-110 100.6667,-110 96.5,-105.8333 96.5,-101.6667 96.5,-101.6667 96.5,-93.3333 96.5,-93.3333 96.5,-89.1667 100.6667,-85 104.8333,-85 104.8333,-85 165.1667,-85 165.1667,-85 169.3333,-85 173.5,-89.1667 173.5,-93.3333 173.5,-93.3333 173.5,-101.6667 173.5,-101.6667 173.5,-105.8333 169.3333,-110 165.1667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../lib/trait_diagram.png" y="-104.5" x="107" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="128" text-anchor="start">Product</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="Orbit[M, G] is a subtype of Product"><path d="M135,-77.7386C135,-68.3393 135,-57.3803 135,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="132.5501,-77.8607 135,-84.8608 137.4501,-77.8608 132.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node3 --><g class="node trait" id="graph1_3"><g id="a_trait|graph1_3"><a xlink:title="scala.Serializable"><path d="M276.1667,-110C276.1667,-110 199.8333,-110 199.8333,-110 195.6667,-110 191.5,-105.8333 191.5,-101.6667 191.5,-101.6667 191.5,-93.3333 191.5,-93.3333 191.5,-89.1667 195.6667,-85 199.8333,-85 199.8333,-85 276.1667,-85 276.1667,-85 280.3333,-85 284.5,-89.1667 284.5,-93.3333 284.5,-93.3333 284.5,-101.6667 284.5,-101.6667 284.5,-105.8333 280.3333,-110 276.1667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../lib/trait_diagram.png" y="-104.5" x="202" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="223" text-anchor="start">Serializable</text></a></g></g><!-- node3&#45;&gt;node0 --><g class="edge inheritance" id="graph1_3_0"><g id="a_inheritance|graph1_3_0"><a xlink:title="Orbit[M, G] is a subtype of Serializable"><path d="M210.6144,-81.2814C193.6006,-71.2052 172.0515,-58.4431 156.3143,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="209.3869,-83.4017 216.6583,-84.8608 211.8838,-79.1856 209.3869,-83.4017" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 292.50 118.00" height="118pt" width="293pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 288.5,-114 288.5,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.GSet.Orbit (this class)" xlink:href="#inheritance-diagram"><path d="M165.6667,-49C165.6667,-49 104.3333,-49 104.3333,-49 100.1667,-49 96,-44.8333 96,-40.6667 96,-40.6667 96,-32.3333 96,-32.3333 96,-28.1667 100.1667,-24 104.3333,-24 104.3333,-24 165.6667,-24 165.6667,-24 169.8333,-24 174,-28.1667 174,-32.3333 174,-32.3333 174,-40.6667 174,-40.6667 174,-44.8333 169.8333,-49 165.6667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../lib/class_diagram.png" y="-43.5" x="106" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="127" text-anchor="start">Orbit[M]</text></a></g></g><!-- node1 --><g class="node trait" id="graph1_1"><g id="a_trait|graph1_1"><a xlink:title="net.alasc.symdpoly.GSet" xlink:href="GSet.html#inheritance-diagram"><path d="M69.6667,-110C69.6667,-110 8.3333,-110 8.3333,-110 4.1667,-110 0,-105.8333 0,-101.6667 0,-101.6667 0,-93.3333 0,-93.3333 0,-89.1667 4.1667,-85 8.3333,-85 8.3333,-85 69.6667,-85 69.6667,-85 73.8333,-85 78,-89.1667 78,-93.3333 78,-93.3333 78,-101.6667 78,-101.6667 78,-105.8333 73.8333,-110 69.6667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../lib/trait_diagram.png" y="-104.5" x="10" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="31" text-anchor="start">GSet[M]</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="Orbit[M] is a subtype of GSet[M]"><path d="M64.9427,-81.0156C80.7339,-70.9816 100.5952,-58.3614 115.1342,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="63.4855,-79.0387 58.8913,-84.8608 66.1134,-83.1744 63.4855,-79.0387" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node trait" id="graph1_2"><g id="a_trait|graph1_2"><a xlink:title="scala.Product"><path d="M165.1667,-110C165.1667,-110 104.8333,-110 104.8333,-110 100.6667,-110 96.5,-105.8333 96.5,-101.6667 96.5,-101.6667 96.5,-93.3333 96.5,-93.3333 96.5,-89.1667 100.6667,-85 104.8333,-85 104.8333,-85 165.1667,-85 165.1667,-85 169.3333,-85 173.5,-89.1667 173.5,-93.3333 173.5,-93.3333 173.5,-101.6667 173.5,-101.6667 173.5,-105.8333 169.3333,-110 165.1667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../lib/trait_diagram.png" y="-104.5" x="107" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="128" text-anchor="start">Product</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="Orbit[M] is a subtype of Product"><path d="M135,-77.7386C135,-68.3393 135,-57.3803 135,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="132.5501,-77.8607 135,-84.8608 137.4501,-77.8608 132.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node3 --><g class="node trait" id="graph1_3"><g id="a_trait|graph1_3"><a xlink:title="scala.Serializable"><path d="M276.1667,-110C276.1667,-110 199.8333,-110 199.8333,-110 195.6667,-110 191.5,-105.8333 191.5,-101.6667 191.5,-101.6667 191.5,-93.3333 191.5,-93.3333 191.5,-89.1667 195.6667,-85 199.8333,-85 199.8333,-85 276.1667,-85 276.1667,-85 280.3333,-85 284.5,-89.1667 284.5,-93.3333 284.5,-93.3333 284.5,-101.6667 284.5,-101.6667 284.5,-105.8333 280.3333,-110 276.1667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../lib/trait_diagram.png" y="-104.5" x="202" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="223" text-anchor="start">Serializable</text></a></g></g><!-- node3&#45;&gt;node0 --><g class="edge inheritance" id="graph1_3_0"><g id="a_inheritance|graph1_3_0"><a xlink:title="Orbit[M] is a subtype of Serializable"><path d="M210.6144,-81.2814C193.6006,-71.2052 172.0515,-58.4431 156.3143,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="209.3869,-83.4017 216.6583,-84.8608 211.8838,-79.1856 209.3869,-83.4017" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
                 <div id="diagram-controls" class="hiddenContent">
                   <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
                   <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
@@ -262,9 +265,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="net.alasc.symdpoly.GSet.Orbit#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(gm:net.alasc.symdpoly.GSet[M],grp:net.alasc.finite.Grp[G])(implicitaction:spire.algebra.Action[M#Monomial,G]):net.alasc.symdpoly.GSet.Orbit[M,G]"></a><a id="&lt;init&gt;:Orbit[M,G]"></a>
+      <a id="&lt;init&gt;(gm:net.alasc.symdpoly.GSet[M],grp:net.alasc.finite.Grp[M#PermutationType]):net.alasc.symdpoly.GSet.Orbit[M]"></a><a id="&lt;init&gt;:Orbit[M]"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#&lt;init&gt;(gm:net.alasc.symdpoly.GSet[M],grp:net.alasc.finite.Grp[G])(implicitaction:spire.algebra.Action[M#Monomial,G]):net.alasc.symdpoly.GSet.Orbit[M,G]" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#&lt;init&gt;(gm:net.alasc.symdpoly.GSet[M],grp:net.alasc.finite.Grp[M#PermutationType]):net.alasc.symdpoly.GSet.Orbit[M]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -273,7 +276,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Orbit</span><span class="params">(<span name="gm">gm: <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>, <span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.G">G</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="action">action: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">M.Monomial</span>, <span class="extype" name="net.alasc.symdpoly.GSet.Orbit.G">G</span>]</span>)</span>
+        <span class="name">Orbit</span><span class="params">(<span name="gm">gm: <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>, <span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span>
       </span>
       
       
@@ -481,9 +484,9 @@
       
       
     </li><li name="net.alasc.symdpoly.GSet.Orbit#grp" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="grp:net.alasc.finite.Grp[G]"></a><a id="grp:Grp[G]"></a>
+      <a id="grp:net.alasc.finite.Grp[M#PermutationType]"></a><a id="grp:Grp[M.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#grp:net.alasc.finite.Grp[G]" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#grp:net.alasc.finite.Grp[M#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -492,7 +495,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">grp</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.G">G</span>]</span>
+        <span class="name">grp</span><span class="result">: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>
       </span>
       
       
@@ -512,6 +515,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.GSet.Orbit#metalSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="metalSet(implicitwM:shapeless.Witness.Aux[M]):metal.immutable.HashSet[M#MonoType]"></a><a id="metalSet(Aux[M]):HashSet[M.MonoType]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#metalSet(implicitwM:shapeless.Witness.Aux[M]):metal.immutable.HashSet[M#MonoType]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">metalSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="metal.immutable.HashSet">HashSet</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials.</p><div class="fullcomment"><div class="comment cmt"><p>Computes and returns the sorted generating set of monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.GSet.Orbit">Orbit</a> → <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -566,6 +585,22 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="net.alasc.symdpoly.GSet#orbit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="orbit(grp:net.alasc.finite.Grp[M#PermutationType])(implicitaction:spire.algebra.Action[M#MonoType,M#PermutationType]):net.alasc.symdpoly.GSet[M]"></a><a id="orbit(Grp[M.PermutationType])(Action[M.MonoType,M.PermutationType]):GSet[M]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#orbit(grp:net.alasc.finite.Grp[M#PermutationType])(implicitaction:spire.algebra.Action[M#MonoType,M#PermutationType]):net.alasc.symdpoly.GSet[M]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">orbit</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="action">action: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>, <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="result">: <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Completes a generating set of monomials by their orbit under a group.</p><div class="fullcomment"><div class="comment cmt"><p>Completes a generating set of monomials by their orbit under a group.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet#pow" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="pow(exp:Int):net.alasc.symdpoly.GSet[M]"></a><a id="pow(Int):GSet[M]"></a>
       <span class="permalink">
@@ -599,9 +634,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet#toOrderedSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#Monomial]"></a><a id="toOrderedSet(Aux[M]):OrderedSet[M.Monomial]"></a>
+      <a id="toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#MonoType]"></a><a id="toOrderedSet(Aux[M]):OrderedSet[M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#Monomial]" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -610,26 +645,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toOrderedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>)</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">M.Monomial</span>]</span>
+        <span class="name">toOrderedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>)</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials as an OrderedSet.</p><div class="fullcomment"><div class="comment cmt"><p>Computes and returns the sorted generating set of monomials as an OrderedSet.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.GSet.Orbit#toSortedSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toSortedSet(implicitwM:shapeless.Witness.Aux[M]):scala.collection.immutable.SortedSet[M#Monomial]"></a><a id="toSortedSet(Aux[M]):SortedSet[M.Monomial]"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/GSet$$Orbit.html#toSortedSet(implicitwM:shapeless.Witness.Aux[M]):scala.collection.immutable.SortedSet[M#Monomial]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toSortedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Orbit.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.collection.immutable.SortedSet">SortedSet</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">M.Monomial</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials.</p><div class="fullcomment"><div class="comment cmt"><p>Computes and returns the sorted generating set of monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.GSet.Orbit">Orbit</a> → <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet.Orbit#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">

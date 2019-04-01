@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="free"></a><a id="free:free"></a>
       <span class="permalink">
@@ -129,10 +136,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">free</span></a>
+        <a title="User-defined free algebraic structures, such as the monoid of free monomials." href="index.html"><span class="name">free</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">User-defined free algebraic structures, such as the monoid of free monomials.</p><div class="fullcomment"><div class="comment cmt"><p>User-defined free algebraic structures, such as the monoid of free monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef" visbl="pub" class="indented5 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="MonoidDefextendsMonoidDef"></a><a id="MonoidDef:MonoidDef"></a>
       <span class="permalink">
@@ -200,10 +207,6 @@
                         <span class="separator"></span>
                         <a class="object" href="../freebased/MonoidDef$Permutation$.html" title=""></a>
                         <a href="../freebased/MonoidDef$Permutation$.html" title="">Permutation</a>
-                      </li><li class="current-entities indented5">
-                        <a class="object" href="MonoidDef$PhasedOp$.html" title=""></a>
-                        <a class="class" href="MonoidDef$PhasedOp.html" title="An operator variable in this free monoid along with a phase."></a>
-                        <a href="MonoidDef$PhasedOp.html" title="An operator variable in this free monoid along with a phase.">PhasedOp</a>
                       </li>
               </ul>
             </div>
@@ -232,11 +235,11 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Abstract base class for Hermitian operator variables: implement a no op adjoint operation.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.free.MonoidDef.HermitianOp">HermitianOp</a></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/free/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Abstract base class for Hermitian operator variables: implement a no op adjoint operation.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.free.MonoidDef.HermitianOp">HermitianOp</a></dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/free/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>, <a href="../freebased/MonoLike.html" class="extype" name="net.alasc.symdpoly.freebased.MonoLike">MonoLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a>, <a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="PhasedOpLike.html" class="extype" name="net.alasc.symdpoly.free.PhasedOpLike">PhasedOpLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">
               Known Subclasses
@@ -277,7 +280,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="net.alasc.symdpoly.free.MonoidDef.HermitianOp"><span>HermitianOp</span></li><li class="in" name="net.alasc.symdpoly.free.MonoidDef.Op"><span>Op</span></li><li class="in" name="net.alasc.symdpoly.freebased.MonoLike"><span>MonoLike</span></li><li class="in" name="net.alasc.symdpoly.freebased.PolyLike"><span>PolyLike</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="net.alasc.symdpoly.free.MonoidDef.HermitianOp"><span>HermitianOp</span></li><li class="in" name="net.alasc.symdpoly.free.MonoidDef.Op"><span>Op</span></li><li class="in" name="net.alasc.symdpoly.generic.MonoLike"><span>MonoLike</span></li><li class="in" name="net.alasc.symdpoly.generic.PolyLike"><span>PolyLike</span></li><li class="in" name="net.alasc.symdpoly.free.PhasedOpLike"><span>PhasedOpLike</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -406,10 +409,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:net.alasc.symdpoly.math.Phase):MonoidDef.this.PhasedOp"></a><a id="*(Phase):PhasedOp"></a>
+    </li><li name="net.alasc.symdpoly.generic.MonoLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:net.alasc.symdpoly.generic.MonoLike[M]):M#MonoType"></a><a id="*(MonoLike[Free]):MonoidDef.MonoType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:net.alasc.symdpoly.math.Phase):MonoidDef.this.PhasedOp" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:net.alasc.symdpoly.generic.MonoLike[M]):M#MonoType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -418,14 +421,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="result">: <a href="MonoidDef$PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">PhasedOp</a></span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="MonoidDef.html#MonoType=net.alasc.symdpoly.freebased.Mono[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.MonoType">MonoidDef.MonoType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:net.alasc.symdpoly.freebased.Mono[MonoidDef.this.Free,MonoidDef.this.Free])(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[MonoidDef.this.Free,MonoidDef.this.Free]]):net.alasc.symdpoly.freebased.Mono[MonoidDef.this.Free,MonoidDef.this.Free]"></a><a id="*(Mono[Free,Free])(MultiplicativeMonoid[Mono[Free,Free]]):Mono[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:cyclo.Cyclo):M#PolyType"></a><a id="*(Cyclo):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:net.alasc.symdpoly.freebased.Mono[MonoidDef.this.Free,MonoidDef.this.Free])(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[MonoidDef.this.Free,MonoidDef.this.Free]]):net.alasc.symdpoly.freebased.Mono[MonoidDef.this.Free,MonoidDef.this.Free]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -434,14 +437,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <span class="extype" name="spire.algebra.MultiplicativeMonoid">MultiplicativeMonoid</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../freebased/MonoLike.html" class="extype" name="net.alasc.symdpoly.freebased.MonoLike">MonoLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]):net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]"></a><a id="*(Poly[Free,Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:spire.math.Rational):M#PolyType"></a><a id="*(Rational):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]):net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:spire.math.Rational):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -450,14 +453,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.MonoLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:F#PhasedOp)(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[M,F]],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Mono[M,F]"></a><a id="*(PhasedOp)(MultiplicativeMonoid[Mono[Free,Free]],Is[Mono[Free,Free],Mono[Free,Free]]):Mono[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:Int):M#PolyType"></a><a id="*(Int):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:F#PhasedOp)(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[M,F]],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Mono[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:Int):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -466,14 +469,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef$PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">PhasedOp</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <span class="extype" name="spire.algebra.MultiplicativeMonoid">MultiplicativeMonoid</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/MonoLike.html" class="extype" name="net.alasc.symdpoly.freebased.MonoLike">MonoLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.MonoLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:F#Op)(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[M,F]],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Mono[M,F]"></a><a id="*(Op)(MultiplicativeMonoid[Mono[Free,Free]],Is[Mono[Free,Free],Mono[Free,Free]]):Mono[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:M#PolyType):M#PolyType"></a><a id="*(MonoidDef.PolyType):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:F#Op)(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[M,F]],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Mono[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:M#PolyType):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -482,14 +485,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <span class="extype" name="spire.algebra.MultiplicativeMonoid">MultiplicativeMonoid</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/MonoLike.html" class="extype" name="net.alasc.symdpoly.freebased.MonoLike">MonoLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="*(Cyclo)(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.free.PhasedOpLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="*(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):net.alasc.symdpoly.free.PhasedOp[M]"></a><a id="*(Phase)(DummyImplicit):PhasedOp[Free]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):net.alasc.symdpoly.free.PhasedOp[M]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -498,14 +501,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <a href="PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.PhasedOp">PhasedOp</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="*(Rational)(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PhasedOpLike.html" class="extype" name="net.alasc.symdpoly.free.PhasedOpLike">PhasedOpLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.MonoLike#**" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="**(rhs:Int):M#MonoType"></a><a id="**(Int):MonoidDef.MonoType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#**(rhs:Int):M#MonoType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -514,14 +517,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $times$times" class="name">**</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="MonoidDef.html#MonoType=net.alasc.symdpoly.freebased.Mono[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.MonoType">MonoidDef.MonoType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#*" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="*(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="*(Int)(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:cyclo.Cyclo):M#PolyType"></a><a id="+(Cyclo):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#*(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -530,14 +533,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $times" class="name">*</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]):net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]"></a><a id="+(Poly[Free,Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType"></a><a id="+(Phase)(DummyImplicit):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]):net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -546,14 +549,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:net.alasc.symdpoly.freebased.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="+(Mono[Free,Free])(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:spire.math.Rational):M#PolyType"></a><a id="+(Rational):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:net.alasc.symdpoly.freebased.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:spire.math.Rational):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -562,14 +565,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="+(PhasedOp)(Aux[Free],Is[Mono[Free,Free],Mono[Free,Free]]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:Int):M#PolyType"></a><a id="+(Int):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:Int):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -578,14 +581,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef$PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">PhasedOp</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="+(Op)(Aux[Free],Is[Mono[Free,Free],Mono[Free,Free]]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="+(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType"></a><a id="+(PolyLike[Free]):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -594,14 +597,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="+(Cyclo)(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:cyclo.Cyclo):M#PolyType"></a><a id="-(Cyclo):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -610,14 +613,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="+(Phase)(DummyImplicit,Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType"></a><a id="-(Phase)(DummyImplicit):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -626,14 +629,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>, <span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="+(Rational)(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:spire.math.Rational):M#PolyType"></a><a id="-(Rational):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:spire.math.Rational):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -642,14 +645,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="+(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="+(Int)(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:Int):M#PolyType"></a><a id="-(Int):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#+(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:Int):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -658,14 +661,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="-(rhs:net.alasc.symdpoly.freebased.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="-(Mono[Free,Free])(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="-(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType"></a><a id="-(PolyLike[Free]):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:net.alasc.symdpoly.freebased.Mono[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:net.alasc.symdpoly.generic.PolyLike[M]):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -674,14 +677,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="-(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="-(PhasedOp)(Aux[Free],Is[Mono[Free,Free],Mono[Free,Free]]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:cyclo.Cyclo):M#PolyType"></a><a id="/(Cyclo):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:F#PhasedOp)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#/(rhs:cyclo.Cyclo):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -690,14 +693,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef$PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">PhasedOp</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="-(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="-(Op)(Aux[Free],Is[Mono[Free,Free],Mono[Free,Free]]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:spire.math.Rational):M#PolyType"></a><a id="/(Rational):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:F#Op)(implicitwM:shapeless.Witness.Aux[M],implicitev:cats.evidence.Is[net.alasc.symdpoly.freebased.Mono[F,F],net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#/(rhs:spire.math.Rational):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -706,14 +709,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>, <span name="ev">ev: <span class="extype" name="cats.evidence.Is">Is</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>], <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="-(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="-(Cyclo)(Aux[Free]):Poly[Free,Free]"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="/(rhs:Int):M#PolyType"></a><a id="/(Int):MonoidDef.PolyType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#/(rhs:Int):M#PolyType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -722,234 +725,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="-(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="-(Phase)(DummyImplicit,Aux[Free]):Poly[Free,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:net.alasc.symdpoly.math.Phase)(implicitd:DummyImplicit,implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="d">d: <span class="extype" name="scala.Predef.DummyImplicit">DummyImplicit</span></span>, <span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="-(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="-(Rational)(Aux[Free]):Poly[Free,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="-(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="-(Int)(Aux[Free]):Poly[Free,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#-(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="/(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="/(Cyclo)(Aux[Free]):Poly[Free,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#/(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="/(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="/(Rational)(Aux[Free]):Poly[Free,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#/(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#/" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="/(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]"></a><a id="/(Int)(Aux[Free]):Poly[Free,Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#/(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.freebased.Poly[M,F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $div" class="name">/</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&lt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;=!(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&lt;=!(Cyclo)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&lt;=!(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $less$eq$bang" class="name">&lt;=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&lt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;=!(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&lt;=!(Rational)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&lt;=!(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $less$eq$bang" class="name">&lt;=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&lt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;=!(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&lt;=!(Int)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&lt;=!(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $less$eq$bang" class="name">&lt;=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&lt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;=!(rhs:net.alasc.symdpoly.freebased.PolyLike[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&lt;=!(PolyLike[Free,Free])(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&lt;=!(rhs:net.alasc.symdpoly.freebased.PolyLike[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $less$eq$bang" class="name">&lt;=!</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="=!(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="=!(Cyclo)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#=!(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $eq$bang" class="name">=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="=!(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="=!(Rational)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#=!(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $eq$bang" class="name">=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="=!(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="=!(Int)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#=!(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $eq$bang" class="name">=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="=!(rhs:net.alasc.symdpoly.freebased.PolyLike[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="=!(PolyLike[Free,Free])(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#=!(rhs:net.alasc.symdpoly.freebased.PolyLike[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $eq$bang" class="name">=!</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
@@ -966,10 +745,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&gt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&gt;=!(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&gt;=!(Cyclo)(Aux[Free]):OperatorConstraint[Free]"></a>
+    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#M" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="M:MonoidDef.this.Free"></a><a id="M:Free"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&gt;=!(rhs:cyclo.Cyclo)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#M:MonoidDef.this.Free" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -978,58 +757,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $greater$eq$bang" class="name">&gt;=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span class="name">M</span><span class="result">: <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&gt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&gt;=!(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&gt;=!(Rational)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&gt;=!(rhs:spire.math.Rational)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $greater$eq$bang" class="name">&gt;=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="spire.math.Rational">Rational</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&gt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&gt;=!(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&gt;=!(Int)(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&gt;=!(rhs:Int)(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $greater$eq$bang" class="name">&gt;=!</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.PolyLike#&gt;=!" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&gt;=!(rhs:net.alasc.symdpoly.freebased.PolyLike[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]"></a><a id="&gt;=!(PolyLike[Free,Free])(Aux[Free]):OperatorConstraint[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#&gt;=!(rhs:net.alasc.symdpoly.freebased.PolyLike[M,F])(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.OperatorConstraint[M]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $greater$eq$bang" class="name">&gt;=!</span><span class="params">(<span name="rhs">rhs: <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>)</span><span class="result">: <a href="../OperatorConstraint.html" class="extype" name="net.alasc.symdpoly.OperatorConstraint">OperatorConstraint</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a> → <a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef.HermitianOp#adjoint" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="adjoint:MonoidDef.this.Op"></a><a id="adjoint:Op"></a>
       <span class="permalink">
@@ -1087,6 +818,22 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#constant" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="constant(c:cyclo.Cyclo):M#PolyType"></a><a id="constant(Cyclo):MonoidDef.PolyType"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#constant(c:cyclo.Cyclo):M#PolyType" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">constant</span><span class="params">(<span name="c">c: <span class="extype" name="cyclo.Cyclo">Cyclo</span></span>)</span><span class="result">: <a href="MonoidDef.html#PolyType=net.alasc.symdpoly.freebased.Poly[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.PolyType">MonoidDef.PolyType</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -1211,6 +958,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.generic.PolyLike#isZero" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isZero:Boolean"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#isZero:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isZero</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -1265,10 +1028,10 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="net.alasc.symdpoly.freebased.MonoLike#pow" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="pow(rhs:Int)(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Mono[M,F]"></a><a id="pow(Int)(MultiplicativeMonoid[Mono[Free,Free]]):Mono[Free,Free]"></a>
+    </li><li name="net.alasc.symdpoly.generic.MonoLike#pow" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="pow(rhs:Int):M#MonoType"></a><a id="pow(Int):MonoidDef.MonoType"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#pow(rhs:Int)(implicitmm:spire.algebra.MultiplicativeMonoid[net.alasc.symdpoly.freebased.Mono[M,F]]):net.alasc.symdpoly.freebased.Mono[M,F]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#pow(rhs:Int):M#MonoType" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1277,10 +1040,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">pow</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <span class="extype" name="spire.algebra.MultiplicativeMonoid">MultiplicativeMonoid</span>[<a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]]</span>)</span><span class="result">: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+        <span class="name">pow</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="MonoidDef.html#MonoType=net.alasc.symdpoly.freebased.Mono[MonoidDef.this.type,MonoidDef.this.Free]" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.MonoType">MonoidDef.MonoType</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../freebased/MonoLike.html" class="extype" name="net.alasc.symdpoly.freebased.MonoLike">MonoLike</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
     </li><li name="scala.Product#productIterator" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="productIterator:Iterator[Any]"></a>
       <span class="permalink">
@@ -1344,7 +1107,23 @@
         <span class="name">toMono</span><span class="result">: <a href="../freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../freebased/MonoLike.html" class="extype" name="net.alasc.symdpoly.freebased.MonoLike">MonoLike</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#toPhasedOp" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toPhasedOp:net.alasc.symdpoly.free.PhasedOp[MonoidDef.this.Free]"></a><a id="toPhasedOp:PhasedOp[Free]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#toPhasedOp:net.alasc.symdpoly.free.PhasedOp[MonoidDef.this.Free]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toPhasedOp</span><span class="result">: <a href="PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.PhasedOp">PhasedOp</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="PhasedOpLike.html" class="extype" name="net.alasc.symdpoly.free.PhasedOpLike">PhasedOpLike</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#toPoly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toPoly:net.alasc.symdpoly.freebased.Poly[MonoidDef.this.Free,MonoidDef.this.Free]"></a><a id="toPoly:Poly[Free,Free]"></a>
       <span class="permalink">
@@ -1360,7 +1139,7 @@
         <span class="name">toPoly</span><span class="result">: <a href="../freebased/Poly.html" class="extype" name="net.alasc.symdpoly.freebased.Poly">Poly</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a> → <a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
@@ -1377,10 +1156,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#unary_-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="unary_-:MonoidDef.this.PhasedOp"></a><a id="unary_-:PhasedOp"></a>
+    </li><li name="net.alasc.symdpoly.free.PhasedOpLike#unary_-" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unary_-:net.alasc.symdpoly.free.PhasedOp[M]"></a><a id="unary_-:PhasedOp[Free]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#unary_-:MonoidDef.this.PhasedOp" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#unary_-:net.alasc.symdpoly.free.PhasedOp[M]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1389,26 +1168,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: unary_$minus" class="name">unary_-</span><span class="result">: <a href="MonoidDef$PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.PhasedOp">PhasedOp</a></span>
+        <span title="gt4s: unary_$minus" class="name">unary_-</span><span class="result">: <a href="PhasedOp.html" class="extype" name="net.alasc.symdpoly.free.PhasedOp">PhasedOp</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoidDef.Op#wM" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wM:shapeless.Witness.Aux[MonoidDef.this.Free]"></a><a id="wM:Aux[Free]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoidDef$HermitianOp.html#wM:shapeless.Witness.Aux[MonoidDef.this.Free]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wM</span><span class="result">: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PhasedOpLike.html" class="extype" name="net.alasc.symdpoly.free.PhasedOpLike">PhasedOpLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
@@ -1489,10 +1252,12 @@
         <div id="inheritedMembers">
         <div class="parent" name="net.alasc.symdpoly.free.MonoidDef.Op">
               <h3>Inherited from <a href="MonoidDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoidDef.Op">Op</a></h3>
-            </div><div class="parent" name="net.alasc.symdpoly.freebased.MonoLike">
-              <h3>Inherited from <a href="../freebased/MonoLike.html" class="extype" name="net.alasc.symdpoly.freebased.MonoLike">MonoLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</h3>
-            </div><div class="parent" name="net.alasc.symdpoly.freebased.PolyLike">
-              <h3>Inherited from <a href="../freebased/PolyLike.html" class="extype" name="net.alasc.symdpoly.freebased.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>, <a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</h3>
+            </div><div class="parent" name="net.alasc.symdpoly.generic.MonoLike">
+              <h3>Inherited from <a href="../generic/MonoLike.html" class="extype" name="net.alasc.symdpoly.generic.MonoLike">MonoLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</h3>
+            </div><div class="parent" name="net.alasc.symdpoly.generic.PolyLike">
+              <h3>Inherited from <a href="../generic/PolyLike.html" class="extype" name="net.alasc.symdpoly.generic.PolyLike">PolyLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</h3>
+            </div><div class="parent" name="net.alasc.symdpoly.free.PhasedOpLike">
+              <h3>Inherited from <a href="PhasedOpLike.html" class="extype" name="net.alasc.symdpoly.free.PhasedOpLike">PhasedOpLike</a>[<a href="MonoidDef.html#Free=MonoidDef.this.type" class="extmbr" name="net.alasc.symdpoly.free.MonoidDef.Free">Free</a>]</h3>
             </div><div class="parent" name="scala.Product">
               <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
             </div><div class="parent" name="scala.Equals">

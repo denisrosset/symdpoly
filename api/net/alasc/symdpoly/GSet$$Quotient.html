@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="GSet"></a><a id="GSet:GSet"></a>
       <span class="permalink">
@@ -159,10 +166,6 @@
                         <a href="" title="">Quotient</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="GSet$$RichGSet.html" title="Additional operations for generating sets on free-based monomials."></a>
-                        <a href="GSet$$RichGSet.html" title="Additional operations for generating sets on free-based monomials.">RichGSet</a>
-                      </li><li class="current-entities indented4">
-                        <span class="separator"></span>
                         <a class="class" href="GSet$$Sequence.html" title=""></a>
                         <a href="GSet$$Sequence.html" title="">Sequence</a>
                       </li><li class="current-entities indented4">
@@ -201,7 +204,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/GSet.scala" target="_blank">GSet.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/GSet.scala" target="_blank">GSet.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -480,6 +483,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.GSet.Quotient#metalSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="metalSet(implicitwM:shapeless.Witness.Aux[M]):metal.immutable.HashSet[net.alasc.symdpoly.freebased.Mono[M,F]]"></a><a id="metalSet(Aux[M]):HashSet[Mono[M,F]]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Quotient.html#metalSet(implicitwM:shapeless.Witness.Aux[M]):metal.immutable.HashSet[net.alasc.symdpoly.freebased.Mono[M,F]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">metalSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Quotient.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="metal.immutable.HashSet">HashSet</span>[<a href="freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Quotient.M">M</span>, <span class="extype" name="net.alasc.symdpoly.GSet.Quotient.F">F</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials.</p><div class="fullcomment"><div class="comment cmt"><p>Computes and returns the sorted generating set of monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.GSet.Quotient">Quotient</a> → <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -534,6 +553,22 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="net.alasc.symdpoly.GSet#orbit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="orbit(grp:net.alasc.finite.Grp[M#PermutationType])(implicitaction:spire.algebra.Action[M#MonoType,M#PermutationType]):net.alasc.symdpoly.GSet[M]"></a><a id="orbit(Grp[M.PermutationType])(Action[M.MonoType,M.PermutationType]):GSet[M]"></a>
+      <span class="permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Quotient.html#orbit(grp:net.alasc.finite.Grp[M#PermutationType])(implicitaction:spire.algebra.Action[M#MonoType,M#PermutationType]):net.alasc.symdpoly.GSet[M]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">orbit</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.freebased.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="action">action: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.freebased.MonoidDef.MonoType">M.MonoType</span>, <span class="extype" name="net.alasc.symdpoly.freebased.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="result">: <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Quotient.M">M</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Completes a generating set of monomials by their orbit under a group.</p><div class="fullcomment"><div class="comment cmt"><p>Completes a generating set of monomials by their orbit under a group.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet#pow" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="pow(exp:Int):net.alasc.symdpoly.GSet[M]"></a><a id="pow(Int):GSet[M]"></a>
       <span class="permalink">
@@ -583,9 +618,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet#toOrderedSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#Monomial]"></a><a id="toOrderedSet(Aux[M]):OrderedSet[M.Monomial]"></a>
+      <a id="toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#MonoType]"></a><a id="toOrderedSet(Aux[M]):OrderedSet[M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/GSet$$Quotient.html#toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#Monomial]" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/GSet$$Quotient.html#toOrderedSet(implicitwM:shapeless.Witness.Aux[M]):net.alasc.symdpoly.util.OrderedSet[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -594,26 +629,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toOrderedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Quotient.M">M</span>]</span>)</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.freebased.MonoidDef.Monomial">M.Monomial</span>]</span>
+        <span class="name">toOrderedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Quotient.M">M</span>]</span>)</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.freebased.MonoidDef.MonoType">M.MonoType</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials as an OrderedSet.</p><div class="fullcomment"><div class="comment cmt"><p>Computes and returns the sorted generating set of monomials as an OrderedSet.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.GSet.Quotient#toSortedSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toSortedSet(implicitwM:shapeless.Witness.Aux[M]):scala.collection.immutable.SortedSet[net.alasc.symdpoly.freebased.Mono[M,F]]"></a><a id="toSortedSet(Aux[M]):SortedSet[Mono[M,F]]"></a>
-      <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/GSet$$Quotient.html#toSortedSet(implicitwM:shapeless.Witness.Aux[M]):scala.collection.immutable.SortedSet[net.alasc.symdpoly.freebased.Mono[M,F]]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toSortedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.Quotient.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.collection.immutable.SortedSet">SortedSet</span>[<a href="freebased/Mono.html" class="extype" name="net.alasc.symdpoly.freebased.Mono">Mono</a>[<span class="extype" name="net.alasc.symdpoly.GSet.Quotient.M">M</span>, <span class="extype" name="net.alasc.symdpoly.GSet.Quotient.F">F</span>]]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials.</p><div class="fullcomment"><div class="comment cmt"><p>Computes and returns the sorted generating set of monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.GSet.Quotient">Quotient</a> → <a href="GSet.html" class="extype" name="net.alasc.symdpoly.GSet">GSet</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.GSet.Quotient#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">

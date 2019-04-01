@@ -113,10 +113,17 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../index.html"><span class="name">symdpoly</span></a>
+        <a title="SymDPoly contains different packages." href="../index.html"><span class="name">symdpoly</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
+      <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
+  <a href="index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
+  packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
+  <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
+  define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
+simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="generic"></a><a id="generic:generic"></a>
       <span class="permalink">
@@ -129,22 +136,18 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">generic</span></a>
+        <a title="Generic user-definable algebraic structures used in polynomial optimization problems." href="index.html"><span class="name">generic</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Generic user-definable algebraic structures used in polynomial optimization problems.</p><div class="fullcomment"><div class="comment cmt"><p>Generic user-definable algebraic structures used in polynomial optimization problems.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedMono$.html" title=""></a>
-                        <a class="class" href="EvaluatedMono.html" title="Evaluated monomial, i.e."></a>
-                        <a href="EvaluatedMono.html" title="Evaluated monomial, i.e.">EvaluatedMono</a>
-                      </li><li class="current-entities indented4">
-                        <a class="object" href="EvaluatedPoly$.html" title=""></a>
-                        <a class="class" href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial."></a>
-                        <a href="EvaluatedPoly.html" title="Evaluated noncommutative polynomial.">EvaluatedPoly</a>
+                        <a class="object" href="LinearMoment$.html" title=""></a>
+                        <a class="class" href="LinearMoment.html" title="Evaluated noncommutative polynomial."></a>
+                        <a href="LinearMoment.html" title="Evaluated noncommutative polynomial.">LinearMoment</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="trait" href="EvaluatedPolyLike.html" title=""></a>
-                        <a href="EvaluatedPolyLike.html" title="">EvaluatedPolyLike</a>
+                        <a class="trait" href="LinearMomentLike.html" title=""></a>
+                        <a href="LinearMomentLike.html" title="">LinearMomentLike</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="class" href="MomentSet.html" title="Describes an ordered set of equivalence classes of monomials under evaluation."></a>
@@ -158,6 +161,10 @@
                         <a class="class" href="Mono.html" title=""></a>
                         <a href="Mono.html" title="">Mono</a>
                       </li><li class="current-entities indented4">
+                        <a class="object" href="MonoLike$.html" title=""></a>
+                        <a class="trait" href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M."></a>
+                        <a href="MonoLike.html" title="Mixin trait for types that can be converted to a M#MonoType for a monoid M.">MonoLike</a>
+                      </li><li class="current-entities indented4">
                         <a class="object" href="" title=""></a>
                         <a class="class" href="MonoidDef.html" title="Describes a generic monomial monoid."></a>
                         <a href="MonoidDef.html" title="Describes a generic monomial monoid.">MonoidDef</a>
@@ -167,8 +174,16 @@
                         <a href="Permutation.html" title="A Permutation relabels the operator variables of monomials, possibly with a phase.">Permutation</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="Poly.html" title=""></a>
-                        <a href="Poly.html" title="">Poly</a>
+                        <a class="class" href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M."></a>
+                        <a href="Poly.html" title="Polynomial written as a linear combination of monomials described by the monoid M.">Poly</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="PolyLike$.html" title=""></a>
+                        <a class="trait" href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M."></a>
+                        <a href="PolyLike.html" title="Mixin trait for types that can be converted to a M#PolyType in the monoid M.">PolyLike</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="SingleMoment$.html" title=""></a>
+                        <a class="class" href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator."></a>
+                        <a href="SingleMoment.html" title="Evaluated monomial, which represents an equivalence class under an evaluator.">SingleMoment</a>
                       </li>
               </ul>
             </div>
@@ -199,7 +214,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/core/src/main/scala/net/alasc/symdpoly/generic/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/generic/MonoidDef.scala" target="_blank">MonoidDef.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -453,9 +468,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoClassTag" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="monoClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$5:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#Monomial]"></a><a id="monoClassTag[M&lt;:MonoidDefwithSingleton](Aux[M]):ClassTag[MonoidDef.monoClassTag.M.Monomial]"></a>
+      <a id="monoClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$5:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#MonoType]"></a><a id="monoClassTag[M&lt;:MonoidDefwithSingleton](Aux[M]):ClassTag[MonoidDef.monoClassTag.M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$5:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$5:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -464,14 +479,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoClassTag</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoClassTag.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">MonoidDef.monoClassTag.M.Monomial</span>]</span>
+        <span class="name">monoClassTag</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoClassTag.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoidDef.monoClassTag.M.MonoType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoInvolution" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="monoInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$2:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#Monomial]"></a><a id="monoInvolution[M&lt;:MonoidDefwithSingleton](Aux[M]):Involution[MonoidDef.monoInvolution.M.Monomial]"></a>
+      <a id="monoInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$2:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#MonoType]"></a><a id="monoInvolution[M&lt;:MonoidDefwithSingleton](Aux[M]):Involution[MonoidDef.monoInvolution.M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$2:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$2:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -480,14 +495,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoInvolution</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoInvolution.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">MonoidDef.monoInvolution.M.Monomial</span>]</span>
+        <span class="name">monoInvolution</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoInvolution.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoidDef.monoInvolution.M.MonoType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoMultiplicativeBinoid" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="monoMultiplicativeBinoid[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$1:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.MultiplicativeBinoid[M#Monomial]"></a><a id="monoMultiplicativeBinoid[M&lt;:MonoidDefwithSingleton](Aux[M]):MultiplicativeBinoid[MonoidDef.monoMultiplicativeBinoid.M.Monomial]"></a>
+      <a id="monoMultiplicativeBinoid[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$1:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.MultiplicativeBinoid[M#MonoType]"></a><a id="monoMultiplicativeBinoid[M&lt;:MonoidDefwithSingleton](Aux[M]):MultiplicativeBinoid[MonoidDef.monoMultiplicativeBinoid.M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoMultiplicativeBinoid[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$1:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.MultiplicativeBinoid[M#Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoMultiplicativeBinoid[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$1:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.MultiplicativeBinoid[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -496,14 +511,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoMultiplicativeBinoid</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoMultiplicativeBinoid.M">M</span>]</span>)</span><span class="result">: <a href="../algebra/MultiplicativeBinoid.html" class="extype" name="net.alasc.symdpoly.algebra.MultiplicativeBinoid">MultiplicativeBinoid</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">MonoidDef.monoMultiplicativeBinoid.M.Monomial</span>]</span>
+        <span class="name">monoMultiplicativeBinoid</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoMultiplicativeBinoid.M">M</span>]</span>)</span><span class="result">: <a href="../algebra/MultiplicativeBinoid.html" class="extype" name="net.alasc.symdpoly.algebra.MultiplicativeBinoid">MultiplicativeBinoid</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoidDef.monoMultiplicativeBinoid.M.MonoType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoOrder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="monoOrder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$3:shapeless.Witness.Aux[M]):spire.algebra.Order[M#Monomial]"></a><a id="monoOrder[M&lt;:MonoidDefwithSingleton](Aux[M]):Order[MonoidDef.monoOrder.M.Monomial]"></a>
+      <a id="monoOrder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$3:shapeless.Witness.Aux[M]):spire.algebra.Order[M#MonoType]"></a><a id="monoOrder[M&lt;:MonoidDefwithSingleton](Aux[M]):Order[MonoidDef.monoOrder.M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoOrder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$3:shapeless.Witness.Aux[M]):spire.algebra.Order[M#Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoOrder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$3:shapeless.Witness.Aux[M]):spire.algebra.Order[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -512,14 +527,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoOrder</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoOrder.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Order">Order</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">MonoidDef.monoOrder.M.Monomial</span>]</span>
+        <span class="name">monoOrder</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoOrder.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Order">Order</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoidDef.monoOrder.M.MonoType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#monoPhased" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="monoPhased[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$4:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.Phased[M#Monomial]"></a><a id="monoPhased[M&lt;:MonoidDefwithSingleton](Aux[M]):Phased[MonoidDef.monoPhased.M.Monomial]"></a>
+      <a id="monoPhased[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$4:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.Phased[M#MonoType]"></a><a id="monoPhased[M&lt;:MonoidDefwithSingleton](Aux[M]):Phased[MonoidDef.monoPhased.M.MonoType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoPhased[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$4:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.Phased[M#Monomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#monoPhased[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$4:shapeless.Witness.Aux[M]):net.alasc.symdpoly.algebra.Phased[M#MonoType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -528,7 +543,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">monoPhased</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoPhased.M">M</span>]</span>)</span><span class="result">: <a href="../algebra/Phased.html" class="extype" name="net.alasc.symdpoly.algebra.Phased">Phased</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">MonoidDef.monoPhased.M.Monomial</span>]</span>
+        <span class="name">monoPhased</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.monoPhased.M">M</span>]</span>)</span><span class="result">: <a href="../algebra/Phased.html" class="extype" name="net.alasc.symdpoly.algebra.Phased">Phased</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoidDef.monoPhased.M.MonoType</span>]</span>
       </span>
       
       
@@ -587,9 +602,9 @@
               
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationClassTag" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="permutationClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$14:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#Permutation]"></a><a id="permutationClassTag[M&lt;:MonoidDefwithSingleton](Aux[M]):ClassTag[MonoidDef.permutationClassTag.M.Permutation]"></a>
+      <a id="permutationClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$14:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#PermutationType]"></a><a id="permutationClassTag[M&lt;:MonoidDefwithSingleton](Aux[M]):ClassTag[MonoidDef.permutationClassTag.M.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$14:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$14:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -598,14 +613,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationClassTag</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationClassTag.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">MonoidDef.permutationClassTag.M.Permutation</span>]</span>
+        <span class="name">permutationClassTag</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationClassTag.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">MonoidDef.permutationClassTag.M.PermutationType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationEq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="permutationEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$11:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#Permutation]"></a><a id="permutationEq[M&lt;:MonoidDefwithSingleton](Aux[M]):Eq[MonoidDef.permutationEq.M.Permutation]"></a>
+      <a id="permutationEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$11:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#PermutationType]"></a><a id="permutationEq[M&lt;:MonoidDefwithSingleton](Aux[M]):Eq[MonoidDef.permutationEq.M.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$11:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$11:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -614,14 +629,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationEq</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationEq.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">MonoidDef.permutationEq.M.Permutation</span>]</span>
+        <span class="name">permutationEq</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationEq.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">MonoidDef.permutationEq.M.PermutationType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationFaithfulPermutationActionBuilder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="permutationFaithfulPermutationActionBuilder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$12:shapeless.Witness.Aux[M]):net.alasc.finite.FaithfulPermutationActionBuilder[M#Permutation]"></a><a id="permutationFaithfulPermutationActionBuilder[M&lt;:MonoidDefwithSingleton](Aux[M]):FaithfulPermutationActionBuilder[MonoidDef.permutationFaithfulPermutationActionBuilder.M.Permutation]"></a>
+      <a id="permutationFaithfulPermutationActionBuilder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$12:shapeless.Witness.Aux[M]):net.alasc.finite.FaithfulPermutationActionBuilder[M#PermutationType]"></a><a id="permutationFaithfulPermutationActionBuilder[M&lt;:MonoidDefwithSingleton](Aux[M]):FaithfulPermutationActionBuilder[MonoidDef.permutationFaithfulPermutationActionBuilder.M.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationFaithfulPermutationActionBuilder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$12:shapeless.Witness.Aux[M]):net.alasc.finite.FaithfulPermutationActionBuilder[M#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationFaithfulPermutationActionBuilder[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$12:shapeless.Witness.Aux[M]):net.alasc.finite.FaithfulPermutationActionBuilder[M#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -630,14 +645,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationFaithfulPermutationActionBuilder</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationFaithfulPermutationActionBuilder.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.finite.FaithfulPermutationActionBuilder">FaithfulPermutationActionBuilder</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">MonoidDef.permutationFaithfulPermutationActionBuilder.M.Permutation</span>]</span>
+        <span class="name">permutationFaithfulPermutationActionBuilder</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationFaithfulPermutationActionBuilder.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="net.alasc.finite.FaithfulPermutationActionBuilder">FaithfulPermutationActionBuilder</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">MonoidDef.permutationFaithfulPermutationActionBuilder.M.PermutationType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="permutationGroup[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$10:shapeless.Witness.Aux[M]):spire.algebra.Group[M#Permutation]"></a><a id="permutationGroup[M&lt;:MonoidDefwithSingleton](Aux[M]):Group[MonoidDef.permutationGroup.M.Permutation]"></a>
+      <a id="permutationGroup[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$10:shapeless.Witness.Aux[M]):spire.algebra.Group[M#PermutationType]"></a><a id="permutationGroup[M&lt;:MonoidDefwithSingleton](Aux[M]):Group[MonoidDef.permutationGroup.M.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationGroup[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$10:shapeless.Witness.Aux[M]):spire.algebra.Group[M#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationGroup[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$10:shapeless.Witness.Aux[M]):spire.algebra.Group[M#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -646,14 +661,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationGroup</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationGroup.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Group">Group</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">MonoidDef.permutationGroup.M.Permutation</span>]</span>
+        <span class="name">permutationGroup</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationGroup.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Group">Group</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">MonoidDef.permutationGroup.M.PermutationType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#permutationMonoAction" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="permutationMonoAction[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$13:shapeless.Witness.Aux[M]):spire.algebra.Action[M#Monomial,M#Permutation]"></a><a id="permutationMonoAction[M&lt;:MonoidDefwithSingleton](Aux[M]):Action[MonoidDef.permutationMonoAction.M.Monomial,MonoidDef.permutationMonoAction.M.Permutation]"></a>
+      <a id="permutationMonoAction[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$13:shapeless.Witness.Aux[M]):spire.algebra.Action[M#MonoType,M#PermutationType]"></a><a id="permutationMonoAction[M&lt;:MonoidDefwithSingleton](Aux[M]):Action[MonoidDef.permutationMonoAction.M.MonoType,MonoidDef.permutationMonoAction.M.PermutationType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationMonoAction[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$13:shapeless.Witness.Aux[M]):spire.algebra.Action[M#Monomial,M#Permutation]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#permutationMonoAction[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$13:shapeless.Witness.Aux[M]):spire.algebra.Action[M#MonoType,M#PermutationType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -662,14 +677,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">permutationMonoAction</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationMonoAction.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Monomial">MonoidDef.permutationMonoAction.M.Monomial</span>, <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Permutation">MonoidDef.permutationMonoAction.M.Permutation</span>]</span>
+        <span class="name">permutationMonoAction</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.permutationMonoAction.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">MonoidDef.permutationMonoAction.M.MonoType</span>, <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">MonoidDef.permutationMonoAction.M.PermutationType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyAssociativeAlgebra" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="polyAssociativeAlgebra[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$6:shapeless.Witness.Aux[M]):spire.algebra.FieldAssociativeAlgebra[M#Polynomial,cyclo.Cyclo]"></a><a id="polyAssociativeAlgebra[M&lt;:MonoidDefwithSingleton](Aux[M]):FieldAssociativeAlgebra[MonoidDef.polyAssociativeAlgebra.M.Polynomial,Cyclo]"></a>
+      <a id="polyAssociativeAlgebra[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$6:shapeless.Witness.Aux[M]):spire.algebra.FieldAssociativeAlgebra[M#PolyType,cyclo.Cyclo]"></a><a id="polyAssociativeAlgebra[M&lt;:MonoidDefwithSingleton](Aux[M]):FieldAssociativeAlgebra[MonoidDef.polyAssociativeAlgebra.M.PolyType,Cyclo]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyAssociativeAlgebra[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$6:shapeless.Witness.Aux[M]):spire.algebra.FieldAssociativeAlgebra[M#Polynomial,cyclo.Cyclo]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyAssociativeAlgebra[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$6:shapeless.Witness.Aux[M]):spire.algebra.FieldAssociativeAlgebra[M#PolyType,cyclo.Cyclo]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -678,14 +693,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyAssociativeAlgebra</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyAssociativeAlgebra.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.FieldAssociativeAlgebra">FieldAssociativeAlgebra</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">MonoidDef.polyAssociativeAlgebra.M.Polynomial</span>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
+        <span class="name">polyAssociativeAlgebra</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyAssociativeAlgebra.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.FieldAssociativeAlgebra">FieldAssociativeAlgebra</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">MonoidDef.polyAssociativeAlgebra.M.PolyType</span>, <span class="extype" name="cyclo.Cyclo">Cyclo</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyClassTag" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="polyClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$9:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#Polynomial]"></a><a id="polyClassTag[M&lt;:MonoidDefwithSingleton](Aux[M]):ClassTag[MonoidDef.polyClassTag.M.Polynomial]"></a>
+      <a id="polyClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$9:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#PolyType]"></a><a id="polyClassTag[M&lt;:MonoidDefwithSingleton](Aux[M]):ClassTag[MonoidDef.polyClassTag.M.PolyType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$9:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#Polynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyClassTag[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$9:shapeless.Witness.Aux[M]):scala.reflect.ClassTag[M#PolyType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -694,14 +709,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyClassTag</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyClassTag.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">MonoidDef.polyClassTag.M.Polynomial</span>]</span>
+        <span class="name">polyClassTag</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyClassTag.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">MonoidDef.polyClassTag.M.PolyType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyEq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="polyEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$8:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#Polynomial]"></a><a id="polyEq[M&lt;:MonoidDefwithSingleton](Aux[M]):Eq[MonoidDef.polyEq.M.Polynomial]"></a>
+      <a id="polyEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$8:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#PolyType]"></a><a id="polyEq[M&lt;:MonoidDefwithSingleton](Aux[M]):Eq[MonoidDef.polyEq.M.PolyType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$8:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#Polynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyEq[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$8:shapeless.Witness.Aux[M]):spire.algebra.Eq[M#PolyType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -710,14 +725,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyEq</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyEq.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">MonoidDef.polyEq.M.Polynomial</span>]</span>
+        <span class="name">polyEq</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyEq.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Eq">Eq</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">MonoidDef.polyEq.M.PolyType</span>]</span>
       </span>
       
       
     </li><li name="net.alasc.symdpoly.generic.MonoidDef#polyInvolution" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="polyInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$7:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#Polynomial]"></a><a id="polyInvolution[M&lt;:MonoidDefwithSingleton](Aux[M]):Involution[MonoidDef.polyInvolution.M.Polynomial]"></a>
+      <a id="polyInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$7:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#PolyType]"></a><a id="polyInvolution[M&lt;:MonoidDefwithSingleton](Aux[M]):Involution[MonoidDef.polyInvolution.M.PolyType]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$7:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#Polynomial]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/generic/MonoidDef$.html#polyInvolution[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton](implicitevidence$7:shapeless.Witness.Aux[M]):spire.algebra.Involution[M#PolyType]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -726,7 +741,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">polyInvolution</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyInvolution.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.Polynomial">MonoidDef.polyInvolution.M.Polynomial</span>]</span>
+        <span class="name">polyInvolution</span><span class="tparams">[<span name="M">M &lt;: <a href="MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.polyInvolution.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="spire.algebra.Involution">Involution</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">MonoidDef.polyInvolution.M.PolyType</span>]</span>
       </span>
       
       
