@@ -86,6 +86,12 @@ trait PolyLike[M <: MonoidDef with Singleton] { lhs =>
 
 }
 
+object PolyLike {
+
+  implicit def toPoly[M <: MonoidDef with Singleton](polyLike: PolyLike[M]): M#PolyType = polyLike.toPoly
+
+}
+
 /** Polynomial written as a linear combination of monomials described by the monoid M. */
 abstract class Poly[M <: generic.MonoidDef with Singleton] extends PolyLike[M] { lhs: M#PolyType =>
   def toPoly: M#PolyType = lhs
