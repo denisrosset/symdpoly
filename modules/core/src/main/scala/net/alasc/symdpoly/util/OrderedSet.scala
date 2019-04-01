@@ -15,7 +15,7 @@ class OrderedSet[A](private[this] val sortedArray: Array[AnyRef]) { lhs =>
 
   override def hashCode: Int = scala.util.hashing.MurmurHash3.arrayHash(sortedArray)
 
-  override def toString: String = sortedArray.map(_.toString).mkString("OrderSet(",", ",")")
+  override def toString: String = sortedArray.map(_.toString).mkString("OrderedSet(",", ",")")
 
   def apply(i: Int): A = sortedArray(i).asInstanceOf[A]
   def length: Int = sortedArray.length

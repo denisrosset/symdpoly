@@ -66,6 +66,12 @@ package object evaluation {
   ]: Equivalence[M] =
     symmetryNotPreserving(Component.cyclic[M, F](true1))
 
+  def cyclicReal[
+    M <: freebased.MonoidDef.Aux[F] with Singleton:Witness.Aux,
+    F <: free.MonoidDef.Aux[F] with Singleton
+  ]: Equivalence[M] =
+    symmetryNotPreserving(Component.cyclic[M, F](true1), Component.transpose[M, F](true1))
+
   /** Equivalence under the adjoint operation. */
   def real[M <: generic.MonoidDef with Singleton : Witness.Aux]: Equivalence[M] = AdjointEquivalence[M]()
 

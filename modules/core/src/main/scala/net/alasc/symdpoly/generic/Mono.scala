@@ -21,7 +21,7 @@ trait MonoLike[M <: MonoidDef with Singleton] extends PolyLike[M] { lhs =>
 
   // abstract method to implement
   def toMono: M#MonoType
-
+  def **(rhs: Int): M#MonoType = lhs.pow(rhs)
   def pow(rhs: Int): M#MonoType = M.monoMultiplicativeBinoid.pow(lhs.toMono, rhs)
   def *(rhs: MonoLike[M]): M#MonoType = M.monoMultiplicativeBinoid.times(lhs.toMono, rhs.toMono)
 }

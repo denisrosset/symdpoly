@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package solvers
 
-import java.io.{BufferedWriter, FileWriter, PrintWriter, StringWriter, Writer}
+import java.io.{BufferedWriter, File, FileWriter, PrintWriter, StringWriter, Writer}
 
 import spire.syntax.cfor.cforRange
 
@@ -60,5 +60,27 @@ case class SDPAFormat(val sdp: Program) extends TextFormat {
         }
       }
     }
+
+  def solve(): Solution = {
+    import scala.sys.process._
+    val inputFile = File.createTempFile("symdpoly", ".dat-s")
+    val outputFile = File.createTempFile("symdpoly", ".result")
+    writeFile(inputFile.getAbsolutePath)
+    inputFile.deleteOnExit()
+    outputFile.deleteOnExit()
+    val ObjValPrimal = "objValPrimal\\s*=(.*)".r
+    val ObjValDual = "objValDual\\s*=(.*)".r
+    s"sdpa -ds ${inputFile.getAbsolutePath} -o ${outputFile.getAbsolutePath}".!!
+    val output = scala.io.Source.fromFile(outputFile).getLines.toSeq
+    val objFactor = if (sdp.direction == Direction.Maximize) -1.0 else 1.0
+    val objShift = sdp.obj(0)
+    val objValPrimal = output.collect {
+      case ObjValPrimal(primal) => primal.toDouble * objFactor + objShift
+    }
+    val objValDual = output.collect {
+      case ObjValDual(dual) => dual.toDouble * objFactor + objShift
+    }
+    OptimumFound(Some(objValPrimal.head), objValDual.head)
+  }
 
 }
