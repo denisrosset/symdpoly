@@ -1,6 +1,7 @@
 package net.alasc.symdpoly
 package freebased
 
+import scala.annotation.tailrec
 import scala.reflect.ClassTag
 
 import cats.instances.eq._
@@ -9,14 +10,14 @@ import cats.syntax.invariant._
 import shapeless.Witness
 import spire.algebra.{free => _, _}
 import spire.math.Rational
+import spire.syntax.eq._
 
 import cyclo.Cyclo
 
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.free._
-import net.alasc.symdpoly.freebased.MonoidDef.PolyInstances
-import net.alasc.symdpoly.math.GenPerm
+import net.alasc.symdpoly.math.{GenPerm, Phase}
 import instances.all._
 import cats.syntax.traverse._
 import spire.syntax.cfor._
@@ -142,19 +143,9 @@ abstract class MonoidDef extends generic.MonoidDef {
 }
 
 object MonoidDef {
+
   type Aux[F <: free.MonoidDef.Aux[F] with Singleton] = MonoidDef { type Free = F }
 
-  private[MonoidDef] final class PolyInstances[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit val wM: Witness.Aux[M])
-    extends FieldAssociativeAlgebra[Poly[M, F], Cyclo] with Involution[Poly[M, F]] with Eq[Poly[M, F]] {
-    def adjoint(a: Poly[M, F]): Poly[M, F] = a.adjoint
-    def negate(x: Poly[M, F]): Poly[M, F] = -x
-    def zero: Poly[M, F] = Poly.zero[M, F]
-    def plus(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x + y
-    def one: Poly[M, F] = Poly.one[M, F]
-    def times(x: Poly[M, F], y: Poly[M, F]): Poly[M, F] = x * y
-    def eqv(x: Poly[M, F], y: Poly[M, F]): Boolean = x == y
-    implicit def scalar: Field[Cyclo] = Cyclo.typeclasses
-    def timesl(c: Cyclo, v: Poly[M, F]): Poly[M, F] = c *: v
-  }
-
 }
+
+

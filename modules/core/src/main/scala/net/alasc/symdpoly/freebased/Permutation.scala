@@ -8,6 +8,8 @@ import spire.algebra.{Action, Eq, Group}
 import spire.syntax.group._
 
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
+import net.alasc.symdpoly.free
+import net.alasc.symdpoly.free.PhasedOp
 import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt}
 
 /** Permutation of the operator variables compatible with the structure of a monoid structure M. */
@@ -40,7 +42,7 @@ object Permutation {
       i <- 0 until F.nOperators
       PhasedInt(phase, image) = opAction.image(PhasedInt(Phase.one, i)) if phase != Phase.one || i != image
       op = F.opFromIndex(i)
-      opImage = F.PhasedOp(phase, F.opFromIndex(image))
+      opImage = free.PhasedOp[F.type](phase, F.opFromIndex(image))
     } yield s"$op -> $opImage"
     elements.mkString("{", ", ", "}")
   }

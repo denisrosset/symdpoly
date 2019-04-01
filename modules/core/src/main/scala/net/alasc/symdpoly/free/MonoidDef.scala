@@ -10,8 +10,10 @@ import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
 import spire.std.int._
+
 import net.alasc.finite.Grp
-import net.alasc.symdpoly.freebased.{Mono, MonoLike, Permutation, Poly, PolyLike}
+import net.alasc.symdpoly.freebased.{Mono, Permutation, Poly}
+import net.alasc.symdpoly.generic.{MonoLike, PolyLike}
 import net.alasc.symdpoly.util.{IndexMap, OrderedSet, SparseTrie}
 import net.alasc.symdpoly.quotient.{MonoidDef => QuotientMonoidDef, Rules => QuotientRules}
 
@@ -56,6 +58,22 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   val immutableMutableWordMinusOne: MutableWord[Free] = new MutableWord[Free](Phase.minusOne, 0, new Array[Int](0), false)
   val immutableMutableWordZero: MutableWord[Free] = new MutableWord[Free](Phase.one, -1, new Array[Int](0), false)
 
+  implicit val phasedOpOrder: Order[PhasedOp[Free]] = new Order[PhasedOp[Free]] {
+    def compare(x: PhasedOp[Free], y: PhasedOp[Free]): Int = Op.opOrder.compare(x.op, y.op) match {
+      case 0 => Phase.order.compare(x.phase, y.phase)
+      case i => i
+    }
+  }
+  implicit val phasedOpGenPermAction: Action[PhasedOp[Free], GenPerm] = new Action[PhasedOp[Free], GenPerm] {
+    def actl(g: GenPerm, p: PhasedOp[Free]): PhasedOp[Free] = actr(p, g.inverse)
+
+    def actr(p: PhasedOp[Free], g: GenPerm): PhasedOp[Free] = {
+      val PhasedOp(phase, op) = p
+      val PhasedInt(newPhase, newIndex) = g.image(PhasedInt(phase, indexFromOp(op)))
+      PhasedOp(newPhase, opFromIndex(newIndex))
+    }
+  }
+
   //endregion
 
   /** Symmetry group of this free monoid containing all generalized permutations of letters with all possible phases
@@ -97,26 +115,15 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     *
     * Instance types must be declared in this monoid [[operators]] sequence before using them in monomials/polynomials.
     */
-  abstract class Op extends Product with MonoLike[Free, Free] with PolyLike[Free, Free] {
+  abstract class Op extends Product with PhasedOpLike[Free] with MonoLike[Free] with PolyLike[Free] {
     lhs =>
-    def wM: Witness.Aux[Free] = witnessFree
+    def M: Free = monoidDef
 
     def index: Int = indexFromOp(this)
 
-    def toMono: Mono[Free, Free] = Mono.fromOp(lhs)
-
+    def toPhasedOp: PhasedOp[Free] = PhasedOp(Phase.one, lhs)
+    def toMono: Mono[Free, Free] = Mono.fromOp[Free](lhs)
     def toPoly: Poly[Free, Free] = freebased.Poly(lhs.toMono)
-
-    def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
-
-    def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
-
-    def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
-
-    // Returns PhasedOp
-    def unary_- : PhasedOp = lhs * Phase.minusOne
-
-    def *(rhs: Phase): PhasedOp = PhasedOp(rhs, lhs)
 
     /** Method that, for each operator in this ring, returns its adjoint.
       *
@@ -134,46 +141,6 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   abstract class HermitianOp extends Op {
     selfOp =>
     def adjoint: Op = selfOp
-  }
-
-  /** An operator variable in this free monoid along with a phase. */
-  case class PhasedOp(phase: Phase, op: Op) extends MonoLike[Free, Free] with PolyLike[Free, Free] {
-    lhs =>
-    override def toString: String = Mono[Free](phase, op).toString
-
-    def toPoly: Poly[Free, Free] = Poly(lhs.toMono)
-
-    def toMono: Mono[Free, Free] = Mono(lhs)
-
-    def unary_- : PhasedOp = PhasedOp(-phase, op)
-
-    def *(newPhase: Phase): PhasedOp = PhasedOp(phase * newPhase, op)
-
-    def +(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly + rhs
-
-    def *(rhs: Poly[Free, Free]): Poly[Free, Free] = lhs.toPoly * rhs
-
-    def *(rhs: Mono[Free, Free])(implicit mm: MultiplicativeMonoid[Mono[Free, Free]]): Mono[Free, Free] = lhs.toMono * rhs
-  }
-
-  object PhasedOp {
-    implicit def fromOp(op: Op): PhasedOp = PhasedOp(Phase.one, op)
-
-    implicit val phasedOpOrder: Order[PhasedOp] = new Order[PhasedOp] {
-      def compare(x: PhasedOp, y: PhasedOp): Int = Op.opOrder.compare(x.op, y.op) match {
-        case 0 => Phase.order.compare(x.phase, y.phase)
-        case i => i
-      }
-    }
-    implicit val phasedOpGenPermAction: Action[PhasedOp, GenPerm] = new Action[PhasedOp, GenPerm] {
-      def actl(g: GenPerm, p: PhasedOp): PhasedOp = actr(p, g.inverse)
-
-      def actr(p: PhasedOp, g: GenPerm): PhasedOp = {
-        val PhasedOp(phase, op) = p
-        val PhasedInt(newPhase, newIndex) = g.image(PhasedInt(phase, indexFromOp(op)))
-        PhasedOp(newPhase, opFromIndex(newIndex))
-      }
-    }
   }
 
   /** A collection of operator variables; more general than a family as it can describe slices, i.e. subsets
@@ -326,7 +293,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
     *
     * @param f Image function
     */
-  def permutation(f: Op => PhasedOp): freebased.Permutation[this.type, this.type] = {
+  def permutation(f: Op => PhasedOp[this.type]): freebased.Permutation[this.type, this.type] = {
     import scala.collection.mutable.{HashMap => MMap}
     val phaseMap: MMap[Int, Phase] = MMap.empty[Int, Phase]
     val permImages = new Array[Int](nOperators)

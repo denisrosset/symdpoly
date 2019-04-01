@@ -45,9 +45,9 @@ class CHSHAlgebraSuite extends CommonSuite {
 
   val CHSH = A(0)*B(0) + B(1)*A(0) + A(1)*B(0) - A(1)*B(1)
 
-  checkAll("free monoid", RingLaws[Mono.Free[Free.type]].multiplicativeMonoid)
-  checkAll("free monoid involution", InvolutionLaws[Mono.Free[Free.type]].involutionMultiplicativeMonoid)
-  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[Mono.Free[Free.type]].multiplicativeBinoid)
+  checkAll("free monoid", RingLaws[Free.MonoType].multiplicativeMonoid)
+  checkAll("free monoid involution", InvolutionLaws[Free.MonoType].involutionMultiplicativeMonoid)
+  checkAll("free binoid", ExtraMultiplicativeMonoidLaws[Free.MonoType].multiplicativeBinoid)
 
   val Quotient = Free.quotientMonoid(quotient.pairs {
     case (A(x1), A(x2)) if x1 == x2 => Mono.one

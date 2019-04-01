@@ -6,7 +6,8 @@ import shapeless.Witness
 import spire.algebra.{Action, Involution, MultiplicativeMonoid, Order}
 
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
-import net.alasc.symdpoly.free.MutableWord
+import net.alasc.symdpoly.free.{MutableWord, PhasedOp}
+import net.alasc.symdpoly.generic.PolyLike
 import net.alasc.symdpoly.math.{GenPerm, Phase}
 import org.typelevel.discipline.Predicate
 
@@ -17,11 +18,13 @@ import org.typelevel.discipline.Predicate
 class Mono[
   M <: MonoidDef.Aux[F] with Singleton: Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-](protected[symdpoly] val data: MutableWord[F]) extends generic.Mono[M] with PolyLike[M, F] { lhs =>
+](protected[symdpoly] val data: MutableWord[F]) extends generic.Mono[M] { lhs =>
+
+  def toMono: Mono[M, F] = lhs
 
   require(!data.mutable)
   require(F.cyclotomicOrder % data.phase.n == 0)
-
+  def M: M = valueOf[M]
   def F: F = (M: M).Free
   implicit def witnessF: Witness.Aux[F] = (F: F).witness
 
@@ -77,20 +80,11 @@ class Mono[
 
   def toPoly: Poly[M, F] = Poly(lhs)
 
-  def +(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly + rhs
-
-  def *(rhs: Poly[M, F]): Poly[M, F] = lhs.toPoly * rhs
-
   //endregion
 
 }
 
 object Mono {
-
-  implicit def monoTermToMono[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](monoTerm: MonoLike[M, F]): Mono[M, F] =
-    monoTerm.toMono
-
-  type Free[F <: free.MonoidDef.Aux[F] with Singleton] = Mono[F, F]
 
   // Factory methods that work for any monoid, free or quotient
 
@@ -111,7 +105,7 @@ object Mono {
   def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phase: Phase): Mono[F, F] =
     new Mono[F, F](MutableWord[F](phase).setImmutable())
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phasedOp: F#PhasedOp): Mono[F, F] =
+  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phasedOp: PhasedOp[F]): Mono[F, F] =
     new Mono[F, F](MutableWord[F](phasedOp.phase, Seq(phasedOp.op)).setImmutable())
 
   // apply(op, op, ...)
