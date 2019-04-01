@@ -9,7 +9,7 @@ import net.alasc.symdpoly.math.Phase
 
 /** A trait for objects that can be converted to a [[PhasedOp]] instance.
   *
-  * See [[PolyLike]] for the structure behind this construction.
+  * See [[generic.PolyLike]] for the structure behind this construction.
   *
   */
 trait PhasedOpLike[M <: MonoidDef.Aux[M] with Singleton] {

@@ -11,7 +11,12 @@ As Scala is a relatively niche programming language in the physics community, we
 In the following, we assume that the variable `program` contains the conic linear program corresponding to the current moment-based relaxation.
 
 ```tut:silent
-val program = net.alasc.symdpoly.examples.quantum.CHSH.relaxation.program
+import net.alasc.symdpoly._
+import net.alasc.symdpoly.examples.quantum.CHSH
+import CHSH._
+val L = Quantum.evaluator(evaluation.real)
+val generatingSet = Quantum.quotient(GSet.onePlus(Free.A, Free.B))
+val program = L(Quantum.quotient(CHSH.chsh)).maximize.relaxation(generatingSet).program
 ```
 
 ## Solver input data: text-based formats

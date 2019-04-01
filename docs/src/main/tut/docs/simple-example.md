@@ -49,7 +49,8 @@ val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
 val L = Quotient.evaluator(evaluation.real)
 
-val relaxation = L(chsh).maximize.symmetrize().relaxation(generatingSet)
+val (symProblem, symGroup) = L(chsh).maximize.symmetrize()
+val relaxation = symProblem.relaxation(generatingSet)
 ```
 
 Finally, we display the resulting moment matrix and solve the semidefinite program.

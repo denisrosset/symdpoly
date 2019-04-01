@@ -9,8 +9,12 @@ position: 3
 Again, we work with the CHSH relaxation.
 
 ```tut
+import net.alasc.symdpoly._
 import net.alasc.symdpoly.examples.quantum.CHSH
-val relaxation = CHSH.relaxation
+import CHSH._
+val L = Quantum.evaluator(evaluation.real)
+val generatingSet = Quantum.quotient(GSet.onePlus(Free.A, Free.B))
+val relaxation = L(Quantum.quotient(CHSH.chsh)).maximize.relaxation(generatingSet)
 ```
 
 ## Exploring the monomial matrix structure

@@ -53,10 +53,10 @@ QuotientCG.quotient(FreeCG.A(0, 1) * FreeCG.A(0, 1))
 
 Then, polynomials over those operators can be defined using the helper functions:
 ```tut:silent
-def allA(x: Int) = for(a <- 0 to nOutputs - 2) yield (QuotientCG.quotient(FreeCG.A(a, x)): QuotientCG.Polynomial)
-def A(a: Int, x: Int): QuotientCG.Polynomial = if (a == nOutputs - 1) QuotientCG.one - allA(x).reduce(_ + _) else QuotientCG.quotient(FreeCG.A(a, x))
-def allB(y: Int) = for(b <- 0 to nOutputs - 2) yield (QuotientCG.quotient(FreeCG.B(b, y)): QuotientCG.Polynomial)
-def B(b: Int, y: Int): QuotientCG.Polynomial = if (b == nOutputs - 1) QuotientCG.one - allB(y).reduce(_ + _) else QuotientCG.quotient(FreeCG.B(b, y))
+def allA(x: Int) = for(a <- 0 to nOutputs - 2) yield (QuotientCG.quotient(FreeCG.A(a, x).toPoly))
+def A(a: Int, x: Int): QuotientCG.PolyType = if (a == nOutputs - 1) QuotientCG.one - allA(x).reduce(_ + _) else QuotientCG.quotient(FreeCG.A(a, x).toPoly)
+def allB(y: Int) = for(b <- 0 to nOutputs - 2) yield (QuotientCG.quotient(FreeCG.B(b, y).toPoly))
+def B(b: Int, y: Int): QuotientCG.PolyType = if (b == nOutputs - 1) QuotientCG.one - allB(y).reduce(_ + _) else QuotientCG.quotient(FreeCG.B(b, y).toPoly)
 ```
 
 ```tut

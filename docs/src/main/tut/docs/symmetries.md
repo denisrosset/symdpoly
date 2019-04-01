@@ -11,7 +11,7 @@ We show below the syntax used to define those generators, which uses Scala [patt
 ```tut:silent
 import net.alasc.symdpoly._
 import defaults._
-import net.alasc.symdpoly.examples.quantum.CHSH.{Free, Quotient}
+import net.alasc.symdpoly.examples.quantum.CHSH.{Free, Quantum}
 import Free.{A, B}
 ```
 
@@ -41,11 +41,11 @@ The *feasibility group* of a quotient monoid/algebra is a symmetry group whose a
 
 The feasibility group can be defined from a permutation group on the free monoid. When using `groupInQuotient`, we check compatibility of the generators with the quotient structure: if some generators are incompatible, we look for the subgroup that preserves the quotient structure. The `groupInQuotientNC` method is unsafe and disables this check: you can use it when performance becomes critical and you have already proved that the given group preserves the quotient structure.
 
-Note that the feasibility group can automatically be computed by calling `Quotient.symmetryGroup`.
+Note that the feasibility group can automatically be computed by calling `Quantum.symmetryGroup`.
 ```tut
-val feasibilityGroup = Quotient.groupInQuotient(Grp(swapParties, inputSwapA, outputSwapA0))
-val feasibilityGroup1 = Quotient.groupInQuotientNC(Grp(swapParties, inputSwapA, outputSwapA0))
-val feasibilityGroup2 = Quotient.symmetryGroup
+val feasibilityGroup = Quantum.groupInQuotient(Grp(swapParties, inputSwapA, outputSwapA0))
+val feasibilityGroup1 = Quantum.groupInQuotientNC(Grp(swapParties, inputSwapA, outputSwapA0))
+val feasibilityGroup2 = Quantum.symmetryGroup
 ```
 
 Using the algorithms of [Alasc](https://github.com/denisrosset/alasc), the group order is readily computed, as well as a small set of generators:

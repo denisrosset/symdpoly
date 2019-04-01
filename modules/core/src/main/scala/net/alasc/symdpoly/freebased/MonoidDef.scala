@@ -147,5 +147,3 @@ object MonoidDef {
   type Aux[F <: free.MonoidDef.Aux[F] with Singleton] = MonoidDef { type Free = F }
 
 }
-
-

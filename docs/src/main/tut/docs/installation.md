@@ -8,6 +8,43 @@ position: 1
 
 In this chapter we cover the basics of starting a SymDPoly project.
 
+There are two options:
+
+1. Run simple command line scripts using Ammonite (best for one-off computations)
+2. Work with a full SBT project (best for multi file projects, and for use with an IDE)
+
+## Simple command line scripts (Ammonite)
+
+First, install the [Ammonite REPL](https://ammonite.io/#Ammonite-REPL).
+
+- On Linux/Mac OS X, follow the instructions [here](https://ammonite.io/#Ammonite-REPL).
+- On Windows, download the [latest release](https://github.com/lihaoyi/Ammonite/releases) -- the filename should look like `2.12-1.6.5`, where the `1.6.5` can change depending on the Ammonite version. Rename the file to `amm.bat`, and place it either in your path, or in the directory where you want to use it.
+
+You'll also need a recent version of the Java Virtual Machine (minimum Java 1.8).
+To verify this, you can run `java -version` from the command line, and you should obtain an output similar to
+```
+openjdk version "1.8.0_191"
+OpenJDK Runtime Environment (build 1.8.0_191-8u191-b12-2ubuntu0.18.04.1-b12)
+OpenJDK 64-Bit Server VM (build 25.191-b12, mixed mode)
+```
+
+Then, download one of the example scripts, for example [examples/CHSH.sc](https://github.com/denisrosset/symdpoly/blob/master/examples/CHSH.sc), and run it from the command line using `amm CHSH.sc`.
+
+You should obtain the following output:
+
+```
+Compiling /home/denis/w/symdpoly/examples/CHSH.sc
+Compiling /home/denis/w/symdpoly/examples/CHSH.sc #2
+We maximize the CHSH expression [A(0) B(0)] + [A(0) B(1)] + [A(1) B(0)] - [A(1) B(1)]
+We discovered a symmetry group of order 16 with generators Vector({A(0) -> - B(1), A(1) -> B(0), B(0) -> A(1), B(1) -> - A(0)}, {A(0) -> - A(1), A(1) -> - A(0), B(0) -> - B(0)})
+Resulting relaxation: Moment relaxation with 1 monomials, a moment matrix of size 5 x 5, and 0 localizing matrix/ces
+We wrote SDP data description files for SDPA (chsh.dat-s), Mosek (chsh.cbf) and SeDuMi (chsh.sedumi.mat)
+```
+
+NB: older versions of Ammonite (until version 1.6.4) used to send [usage statistics to Google Analytics by default](https://github.com/lihaoyi/Ammonite/issues/607). See below for an alternative.
+
+## Using SymDPoly as part of a Scala project (SBT)
+
 First, install the SBT build tool. While the download page is [here](https://www.scala-sbt.org/download.html), specific instructions are available:
 
 - [For Linux.](https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html)
@@ -16,7 +53,7 @@ First, install the SBT build tool. While the download page is [here](https://www
 
 - [For Windows.](https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Windows.html)
 
-## Creating a project
+### Creating a project
 
 Start with an empty folder, and add the following `build.sbt` file in it.
 
@@ -58,16 +95,3 @@ And enter `sbt run` in the command line. After a few lines concerning package re
 ```
 
 This output corresponds to the problem data in SDPA sparse format, as requested.
-
-## Working with the Scala Read–Eval–Print Loop (REPL)
-
-Now that we are confident that the toolbox works on your computer as expected, we will perform our future exploration using the REPL. At any time, you can cut'n'paste all the statements that have being used inside a `object MyApp extends App { ... }` in a Scala source code file and run it with `sbt run`. If you have multiple `App` objects, SBT will ask you which one you want to run.
-
-Thus the example above would be presented:
-
-```tut
-import net.alasc.symdpoly._;
-import net.alasc.symdpoly.defaults._;
-
-examples.quantum.CHSH.relaxation.program.sdpa.data
-```

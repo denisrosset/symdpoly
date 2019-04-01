@@ -12,15 +12,32 @@ Current version: **{{site.symdpolyVersion}}** for **Scala {{site.scalaVersion}}*
 [![Join the chat at https://gitter.im/denisrosset/symdpoly](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/denisrosset/symdpoly)
 [![Travis CI](https://travis-ci.org/denisrosset/symdpoly.svg?branch=master)](https://travis-ci.org/denisrosset/symdpoly)
 
-**SymDPoly** solves polynomial optimization problems using symmetry-adapted semidefinite relaxations. The problems can involve either commutative or noncommutative variables, though SymDPoly is optimized for the latter. SymDPoly does not require a particular structure in the problem, as it works by brute combinatorial enumeration of equivalences. However, its processing routines are highly optimized and able to reduce around 1M monomials/second.
+**SymDPoly** solves polynomial optimization problems using symmetry-adapted semidefinite relaxations. 
+The problems can involve either commutative or noncommutative variables, though SymDPoly is optimized for the latter. 
+SymDPoly does not require a particular structure in the problem, as it works by brute combinatorial enumeration of equivalences. 
+However, its processing routines are highly optimized and able to reduce around 100k monomials/second.
+
+## How to try SymDPoly
+
+The easiest way is to install the [Ammonite REPL](https://ammonite.io/#Ammonite-REPL), and then run one of the example scripts, for example [examples/CHSH.sc](https://github.com/denisrosset/symdpoly/blob/cleanup/examples/CHSH.sc) from the command line using `amm CHSH.sc`.
+
+See the [**Installation guide**](docs/installation.html) for additional instructions, including usage of Ammonite on Windows.
 
 ## A simple example
 
-An evaluation of the Tsirelson's bound for the CHSH inequality can be done in a few lines of code. See the [**full explanation**](docs/simple-example.html)
+An evaluation of the Tsirelson's bound for the CHSH inequality can be done in a few lines of code. 
+See the [**full explanation**](docs/simple-example.html).
+Create a text file name `CHSH.sc`, and copy/paste first the following lines to define an [Ammonite](https://ammonite.io/#Ammonite-REPL) script.
+```scala
+interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denisrosset/maven")
+@
+import $ivy.`net.alasc::symdpoly-core:{{site.symdpolyVersion}}`
+```
 
-First, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We import the operator types `A` and `B` in global scope.
+Then, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We import the operator types `A` and `B` in global scope.
 ```tut:silent
-import net.alasc.symdpoly._; import defaults._
+import net.alasc.symdpoly._; 
+import defaults._
 
 object Free extends free.MonoidDef(cyclotomicOrder = 2) { // allows signed monomials
   case class A(x: Int) extends HermitianOp
@@ -45,21 +62,20 @@ val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
 val L = Quotient.evaluator(evaluation.real)
 
-val relaxation = L(chsh).maximize.symmetrize().relaxation(generatingSet)
+val (problem, symmetryGroup) = L(chsh).maximize.symmetrize()
+val relaxation = problem.relaxation(generatingSet)
 
 ```
+
 We then solve:
 ```tut
-relaxation.program.jOptimizer.solve()
+relaxation.program.sdpa.solve()
 ```
-
-## How to start a SymDPoly project
-
-See the [**Installation guide**](docs/installation.html).
 
 ## Work in progress
 
-**SymDPoly** is a work-in-progress. We have support in the code for the following features, but they are considered untested/experimental.
+**SymDPoly** is a work-in-progress. 
+We have support in the code for the following features, but they are not tested.
 
 1. Equality constraints.
 2. Operator semidefinite constraints.
@@ -74,7 +90,7 @@ See the [**Installation guide**](docs/installation.html).
 - It supports equality constraints through monomial rewriting, which leads to efficient formulations.
 - It discovers symmetries of the problem and creates symmetry-adapted relaxations.
 - It interfaces with a wide range of solvers.
-- It works in exact arithmetic.
+- It processes problems in exact arithmetic.
 - It is extremely fast.
 
 Other libraries working on the same problem space include:
@@ -110,9 +126,12 @@ When integrating SymDPoly with other Scala libraries, note that it is based on t
 
 ## Contributors
 
-SymDPoly and the group theory/linear algebra libraries it depends on were written by [Denis Rosset](https://github.com). For the implementation of the [cyclotomic number field](https://github.com/denisrosset/cyclo), we acknowledge contributions from the [GAP system](http://www.gap-system.org/Gap3/gap3.html) project.
+SymDPoly and the group theory/linear algebra libraries it depends on were written by [Denis Rosset](https://github.com/denisrosset).
+For the implementation of the [cyclotomic number field](https://github.com/denisrosset/cyclo), we acknowledge contributions from the [GAP system](http://www.gap-system.org/Gap3/gap3.html) project.
 
-Feedback and suggestions are always welcome. We ask participants to follow the guidelines of the [Typelevel Code of Conduct](https://typelevel.org/conduct.html) (note that **SymDPoly** is not a Typelevel project, but some of its components, e.g. **Spire** are).
+Feedback and suggestions are always welcome. 
+We ask participants to follow the guidelines of the [Typelevel Code of Conduct](https://typelevel.org/conduct.html).
+Note that **SymDPoly** is not a Typelevel project, but some of its components, e.g. **Spire** are.
 
 ## License
 
