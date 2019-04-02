@@ -14,7 +14,6 @@ import spire.syntax.cfor.cforRange
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator}
 import net.alasc.symdpoly.free
-import net.alasc.symdpoly.freebased.{MonoidDef, Poly}
 import net.alasc.symdpoly.math.{GenPerm, Phase}
 
 /** Describes a generic monomial monoid. */
