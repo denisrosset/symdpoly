@@ -186,29 +186,4 @@ object Poly {
   implicit def equ[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Eq[Poly[M, F]] =
     (wM.value: M).polyEq
 
-  implicit def genPermAction[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Action[Poly[M, F], GenPerm] =
-    (wM.value: M).polyGenPermAction
-
-  final class PolyGenPermAction[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M])
-    extends Action[Poly[M, F], GenPerm] {
-    def M: M = wM.value
-
-    implicit def wF: Witness.Aux[F] = M.witnessFree
-
-    def actr(p: Poly[M, F], g: GenPerm): Poly[M, F] = {
-      val res = free.MutablePoly.empty[F](p.nTerms)
-      cforRange(0 until p.nTerms) { i =>
-        val newMono = p.monomialNormalForm(i).mutableCopy()
-        newMono.inPlaceGenPermAction(g)
-        M.inPlaceNormalForm(newMono)
-        val newCoeff = p.coeff(i) * newMono.phase.toCyclo
-        newMono.setPhase(Phase.one)
-        res.add(newMono.setImmutable(), newCoeff)
-      }
-      res.immutableCopy[M]
-    }
-
-    def actl(g: GenPerm, p: Poly[M, F]): Poly[M, F] = actr(p, g.inverse)
-  }
-
 }

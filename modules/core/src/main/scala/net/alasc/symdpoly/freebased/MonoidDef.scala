@@ -103,7 +103,8 @@ abstract class MonoidDef extends generic.MonoidDef {
 
   def polyEq: Eq[PolyType] = polyInstances
 
-  val polyGenPermAction: Action[Poly[self.type, Free], GenPerm] = new Poly.PolyGenPermAction
+  def permutationPolyAction: Action[PolyType, PermutationType] = polyInstances
+
   val polyClassTag: ClassTag[PolyType] = implicitly
 
   def constant(i: Int): PolyType = polyAssociativeAlgebra.fromInt(i)

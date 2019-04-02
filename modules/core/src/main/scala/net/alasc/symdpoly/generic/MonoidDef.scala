@@ -9,9 +9,13 @@ import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import shapeless.Witness
 import spire.algebra._
 import spire.math.Rational
+import spire.syntax.cfor.cforRange
 
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator}
+import net.alasc.symdpoly.free
+import net.alasc.symdpoly.freebased.{MonoidDef, Poly}
+import net.alasc.symdpoly.math.{GenPerm, Phase}
 
 /** Describes a generic monomial monoid. */
 abstract class MonoidDef { self =>
@@ -99,6 +103,9 @@ abstract class MonoidDef { self =>
   /** Action of permutations on the monomials. */
   def permutationMonoAction: Action[MonoType, PermutationType]
 
+  /** Action of permutations on polynomials. */
+  def permutationPolyAction: Action[PolyType, PermutationType]
+
   /** Class tag for permutations. */
   def permutationClassTag: ClassTag[PermutationType]
 
@@ -140,6 +147,7 @@ object MonoidDef {
   implicit def permutationEq[M <: generic.MonoidDef with Singleton:Witness.Aux]: Eq[M#PermutationType] = valueOf[M].permutationEq
   implicit def permutationFaithfulPermutationActionBuilder[M <: generic.MonoidDef with Singleton:Witness.Aux]: FaithfulPermutationActionBuilder[M#PermutationType] = valueOf[M].permutationFaithfulPermutationActionBuilder
   implicit def permutationMonoAction[M <: generic.MonoidDef with Singleton:Witness.Aux]: Action[M#MonoType, M#PermutationType] = valueOf[M].permutationMonoAction
+  implicit def permutationPolyAction[M <: generic.MonoidDef with Singleton:Witness.Aux]: Action[M#PolyType, M#PermutationType] = valueOf[M].permutationPolyAction
   implicit def permutationClassTag[M <: generic.MonoidDef with Singleton:Witness.Aux]: ClassTag[M#PermutationType] = valueOf[M].permutationClassTag
 
 }

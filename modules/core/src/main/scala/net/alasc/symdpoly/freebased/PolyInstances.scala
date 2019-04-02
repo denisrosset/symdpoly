@@ -3,7 +3,7 @@ package net.alasc.symdpoly.freebased
 import scala.annotation.tailrec
 
 import shapeless.Witness
-import spire.algebra.{Eq, Field, FieldAssociativeAlgebra, Involution}
+import spire.algebra.{Action, Eq, Field, FieldAssociativeAlgebra, Involution}
 import spire.syntax.cfor.cforRange
 
 import cyclo.Cyclo
@@ -17,7 +17,7 @@ import spire.syntax.eq._
 final class PolyInstances[
   M <: MonoidDef.Aux[F] with Singleton: Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
-] extends FieldAssociativeAlgebra[Poly[M, F], Cyclo] with Involution[Poly[M, F]] with Eq[Poly[M, F]] {
+] extends FieldAssociativeAlgebra[Poly[M, F], Cyclo] with Involution[Poly[M, F]] with Eq[Poly[M, F]] with Action[Poly[M, F], M#PermutationType] {
 
   implicit def scalar: Field[Cyclo] = Cyclo.typeclasses
 
@@ -88,5 +88,20 @@ final class PolyInstances[
 
   def timesl(c: Cyclo, poly: Poly[M, F]): Poly[M, F] =
     if (c.isZero) zero else new Poly[M, F](poly.keys, poly.values.map(c * _))
+
+  def actr(p: Poly[M, F], g: M#PermutationType): Poly[M, F] = {
+    val res = free.MutablePoly.empty[F](p.nTerms)
+    cforRange(0 until p.nTerms) { i =>
+      val newMono = p.monomialNormalForm(i).mutableCopy()
+      newMono.inPlaceGenPermAction(g.genPerm)
+      M.inPlaceNormalForm(newMono)
+      val newCoeff = p.coeff(i) * newMono.phase.toCyclo
+      newMono.setPhase(Phase.one)
+      res.add(newMono.setImmutable(), newCoeff)
+    }
+    res.immutableCopy[M]
+  }
+
+  def actl(g: M#PermutationType, p: Poly[M, F]): Poly[M, F] = actr(p, M.permutationGroup.inverse(g))
 
 }
