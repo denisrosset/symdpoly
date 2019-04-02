@@ -37,7 +37,7 @@ Resulting relaxation: Moment relaxation with 1 monomials, a moment matrix of siz
 We wrote SDP data description files for SDPA (chsh.dat-s), Mosek (chsh.cbf) and SeDuMi (chsh.sedumi.mat)
 </code></pre></div></div>
 
-<p>NB: older versions of Ammonite (until version 1.6.4) used to send <a href="https://github.com/lihaoyi/Ammonite/issues/607">usage statistics to Google Analytics by default</a>. See below for an alternative.</p>
+<p>NB: older versions of Ammonite (until version 1.6.4) used to send <a href="https://github.com/lihaoyi/Ammonite/issues/607">usage statistics to Google Analytics by default</a>, with a possibility to opt-out (<code class="highlighter-rouge">--no-remote-logging</code>).</p>
 
 <h2 id="using-symdpoly-as-part-of-a-scala-project-sbt">Using SymDPoly as part of a Scala project (SBT)</h2>
 
@@ -61,7 +61,7 @@ We wrote SDP data description files for SDPA (chsh.dat-s), Mosek (chsh.cbf) and 
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resolvers</span> <span class="o">+=</span> <span class="nc">Resolver</span><span class="o">.</span><span class="n">bintrayRepo</span><span class="o">(</span><span class="s">"denisrosset"</span><span class="o">,</span> <span class="s">"maven"</span><span class="o">)</span>
 
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-core"</span>    <span class="o">%</span> <span class="s">"0.4"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-core"</span>    <span class="o">%</span> <span class="s">"0.5"</span>
 </code></pre></div></div>
 
 <p>Add now a single file <code class="highlighter-rouge">Test.scala</code> to your project:</p>
