@@ -11,7 +11,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.4`
+import $ivy.`net.alasc::symdpoly-core:0.5`
 import net.alasc.symdpoly._
 import defaults._
 
