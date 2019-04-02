@@ -19,7 +19,7 @@ However, its processing routines are highly optimized and able to reduce around 
 
 ## How to try SymDPoly
 
-The easiest way is to install the [Ammonite REPL](https://ammonite.io/#Ammonite-REPL), and then run one of the example scripts, for example [examples/CHSH.sc](https://github.com/denisrosset/symdpoly/blob/cleanup/examples/CHSH.sc) from the command line using `amm CHSH.sc`.
+The easiest way is to install the [Ammonite REPL](https://ammonite.io/#Ammonite-REPL), and then run one of the example scripts, for example [examples/CHSH.sc](https://github.com/denisrosset/symdpoly/blob/master/examples/CHSH.sc) from the command line using `amm CHSH.sc`.
 
 See the [**Installation guide**](docs/installation.html) for additional instructions, including usage of Ammonite on Windows.
 
@@ -69,7 +69,7 @@ val relaxation = problem.relaxation(generatingSet)
 
 We then solve:
 ```tut
-relaxation.program.sdpa.solve()
+println(relaxation.program.sdpa.solve())
 ```
 
 ## Work in progress
@@ -99,7 +99,7 @@ Other libraries working on the same problem space include:
 - [NCSOSTools](http://ncsostools.fis.unm.si/), a toolbox for MATLAB (noncommutative).
 - [GloptiPoly](http://homepages.laas.fr/henrion/software/gloptipoly/), a package for MATLAB (commutative).
 - [SparsePOP](http://sparsepop.sourceforge.net/), a toolbox for MATLAB (commutative).
-- [https://www.cds.caltech.edu/sostools/](SOSTOOLS), a toolbox for MATLAB (commutative).
+- [SOSTOOLS](https://www.cds.caltech.edu/sostools/), a toolbox for MATLAB (commutative).
 
 
 ## When using SymSDPoly as a library.
