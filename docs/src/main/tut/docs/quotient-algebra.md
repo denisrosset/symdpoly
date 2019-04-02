@@ -20,7 +20,6 @@ val Quotient = Free.quotientMonoid(quotient.pairs {
   case (Free.A(x1), Free.A(x2)) if x1 == x2 => Free.one
   case (Free.B(y1), Free.B(y2)) if y1 == y2 => Free.one
   case (Free.B(y),  Free.A(x))              => Free.A(x) * Free.B(y)
-  case (op1, op2)                           => op1 * op2
 })
 ```
 
@@ -43,7 +42,6 @@ val QuotientCG = FreeCG.quotientMonoid(quotient.pairs {
   case (FreeCG.B(b1, y1), FreeCG.B(b2, y2)) if y1 == y2 && b1 == b2 => FreeCG.B(b1, y1)
   case (FreeCG.B(b1, y1), FreeCG.B(b2, y2)) if y1 == y2 && b1 != b2 => FreeCG.zero
   case (FreeCG.B(b, y), FreeCG.A(a, x))                             => FreeCG.A(a, x) * FreeCG.B(b, y)
-  case (op1, op2)                                                   => op1 * op2
 })
 ```
 ```tut

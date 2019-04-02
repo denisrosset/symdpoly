@@ -24,12 +24,13 @@ val swapParties = Free.permutation {
 val inputSwapA = Free.permutation {
   case A(0) => A(1)
   case A(1) => A(0)
-  case op => op
+  case B(y) => B(y)
 }
 
 val outputSwapA0 = Free.permutation {
   case A(0) => -A(0)
-  case op => op
+  case A(1) => A(1)
+  case B(y) => B(y)
 }
 ```
 

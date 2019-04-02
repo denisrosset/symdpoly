@@ -43,7 +43,6 @@ object Sliwa {
     case (A(x1), A(x2)) if x1 == x2 => Free.one
     case (B(y1), B(y2)) if y1 == y2 => Free.one
     case (C(z1), C(z2)) if z1 == z2 => Free.one
-    case (op1, op2) => op1 * op2
   })
 
   // We now describe the feasibility group, i.e. the group that respects the structure of the quotient monoid
@@ -64,14 +63,18 @@ object Sliwa {
 
   /** Flip of Alice's input. */
   val iA = Free.permutation {
-    case A(x) => A(1 - x)
-    case op => op
+    case A(0) => A(1)
+    case A(1) => A(0)
+    case B(y) => B(y)
+    case C(z) => C(z)
   }
 
   /** Flip Alice output for x = 0. */
   val oA0 = Free.permutation {
-    case A(x) if x == 0 => -A(x)
-    case op => op
+    case A(0) => -A(0)
+    case A(1) => A(1)
+    case B(y) => B(y)
+    case C(z) => C(z)
   }
 
   /** Default evaluator. */

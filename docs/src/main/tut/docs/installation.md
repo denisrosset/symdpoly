@@ -41,7 +41,7 @@ Resulting relaxation: Moment relaxation with 1 monomials, a moment matrix of siz
 We wrote SDP data description files for SDPA (chsh.dat-s), Mosek (chsh.cbf) and SeDuMi (chsh.sedumi.mat)
 ```
 
-NB: older versions of Ammonite (until version 1.6.4) used to send [usage statistics to Google Analytics by default](https://github.com/lihaoyi/Ammonite/issues/607). See below for an alternative.
+NB: older versions of Ammonite (until version 1.6.4) used to send [usage statistics to Google Analytics by default](https://github.com/lihaoyi/Ammonite/issues/607), with a possibility to opt-out (`--no-remote-logging`).
 
 ## Using SymDPoly as part of a Scala project (SBT)
 

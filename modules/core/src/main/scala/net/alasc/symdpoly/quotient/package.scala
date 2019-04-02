@@ -1,5 +1,7 @@
 package net.alasc.symdpoly
 
+import scala.util.Try
+
 import shapeless.Witness
 import spire.syntax.eq._
 
@@ -14,7 +16,7 @@ package object quotient {
     op1 <- valueOf[F].opIndexMap.elements
     op2 <- valueOf[F].opIndexMap.elements
     lhs = op1 * op2
-    rhs = rules(op1, op2) if lhs =!= rhs
+    rhs = rules.safeApply(op1, op2) if lhs =!= rhs
   } yield (lhs -> rhs)
 
   def commutative[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Rules[F] = for {

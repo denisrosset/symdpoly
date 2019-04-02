@@ -53,7 +53,6 @@ val Quotient = Free.quotientMonoid(quotient.pairs {
   case (A(x1), A(x2)) if x1 == x2 => Free.one
   case (B(y1), B(y2)) if y1 == y2 => Free.one
   case (B(y), A(x))               => A(x) * B(y)
-  case (op1, op2)                 => op1 * op2
 })
 
 val chsh = Quotient.quotient(A(0) * B(0) + A(0) * B(1) + A(1) * B(0) - A(1) * B(1))
