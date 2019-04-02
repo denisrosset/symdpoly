@@ -42,7 +42,7 @@ case class Optimization[
     * @return the symmetrized optimization problem
     */
   def symmetrize(quotientFeasibilityGroup: Option[Grp[M#PermutationType]] = None,
-                 evaluationFeasibilityGroup: Option[Grp[M#PermutationType]] = None): (SymmetrizedOptimization, Grp[M#PermutationType]) = // TODO: support constraints
+                 evaluationFeasibilityGroup: Option[Grp[M#PermutationType]] = None): (SymmetrizedOptimization, Grp[M#PermutationType]) =
     if (operatorConstraints.isEmpty && scalarConstraints.isEmpty) {
       val feasGrp = (quotientFeasibilityGroup, evaluationFeasibilityGroup) match {
         case (_, Some(efg)) => efg

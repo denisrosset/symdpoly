@@ -22,11 +22,6 @@ class OrderedSet[A](private[this] val sortedArray: Array[AnyRef]) { lhs =>
 
   /** Returns the index of the given elements, or -1 if the element cannot be found. */
   def indexOf(a: A)(implicit ord: Order[A]): Int = {
-    /* Linear-time variant for debugging, TODO: remove
-    cforRange(0 until length) { i =>
-      if (ord.eqv(apply(i), a)) return i
-    }
-    return -1*/
     val res = spire.math.Searching.search(sortedArray, a.asInstanceOf[AnyRef])(ord.asInstanceOf[Order[AnyRef]])
     if (res < 0) -1 else res
   }

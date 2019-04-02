@@ -24,7 +24,7 @@ class Phases(val encoding: Array[Int]) extends AnyVal { lhs =>
   /** Returns the least common multiple of the phase denominators. */
   def commonRootOrder: Int =
     if (isEmpty) 1 else {
-      @tailrec def iter(i: Int, n: Int): Int = // TODO: remove Long after spire.math addition of int-valued lcm/gcd
+      @tailrec def iter(i: Int, n: Int): Int =
         if (i == size) n else {
           iter(i + 1, spire.math.lcm(n.toLong, value(i).n.toLong).toInt)
         }
