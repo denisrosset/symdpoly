@@ -10,6 +10,7 @@ import scalin.syntax.all._
 import net.alasc.symdpoly.sdp.Program
 import net.alasc.symdpoly.solvers.MosekFormat.{ACoordElement, BCoordElement, ObjACoordElement, VarElement}
 import net.alasc.symdpoly.solvers._
+import io.tmos.arm.ArmMethods._
 
 class NativeMosekInstance(val program: Program) {
 
@@ -82,10 +83,9 @@ class NativeMosekInstance(val program: Program) {
   }
 
   def writeFile(fileName: String, tolRelGap: Double = 1e-9): Unit = {
-    import resource._
     for {
-      env <- managed(new _root_.mosek.Env)
-      task <- managed(new _root_.mosek.Task(env))
+      env <- manage(new _root_.mosek.Env)
+      task <- manage(new _root_.mosek.Task(env))
     } {
       task.putdouparam(_root_.mosek.dparam.intpnt_co_tol_rel_gap, tolRelGap)
       task.set_Stream(_root_.mosek.streamtype.log, new _root_.mosek.Stream {
@@ -98,11 +98,10 @@ class NativeMosekInstance(val program: Program) {
 
 
   def solve(tolRelGap: Double = 1e-9): Solution = {
-    import resource._
     var res: Solution = null
     for {
-      env <- managed(new _root_.mosek.Env)
-      task <- managed(new _root_.mosek.Task(env))
+      env <- manage(new _root_.mosek.Env)
+      task <- manage(new _root_.mosek.Task(env))
     } {
       task.putdouparam(_root_.mosek.dparam.intpnt_co_tol_rel_gap, tolRelGap)
       task.set_Stream(_root_.mosek.streamtype.log, new _root_.mosek.Stream {
