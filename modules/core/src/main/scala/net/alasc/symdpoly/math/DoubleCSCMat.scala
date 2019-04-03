@@ -3,60 +3,7 @@ package net.alasc.symdpoly.math
 import spire.syntax.cfor._
 import scala.annotation.tailrec
 
-import us.hebi.matlab.mat.types.{AbstractArray, MatlabType, Sink, Array => MFLArray}
-import us.hebi.matlab.mat.format.{Mat5, Mat5Serializable, Mat5Type}
-import us.hebi.matlab.mat.format.Mat5WriteUtil._
-
-class DoubleCSCMatWrapper(val matrix: DoubleCSCMat) extends AbstractArray(Mat5.dims(matrix.nRows, matrix.nCols)) with Mat5Serializable with Mat5Serializable.Mat5Attributes {
-  import matrix.{nRows, nCols, colPtrs, rowIndices, data}
-
-  def getMat5Size(name: String): Int = Mat5.MATRIX_TAG_SIZE + computeArrayHeaderSize(name, this) + getMat5DataSize
-
-  protected def getMat5DataSize: Int =
-    Mat5Type.Int32.computeSerializedSize(getNumRowIndices) +
-      Mat5Type.Int32.computeSerializedSize(getNumColIndices) +
-      Mat5Type.Double.computeSerializedSize(data.length)
-
-  import java.io.IOException
-
-  def writeMat5(name: String, isGlobal: Boolean, sink: Sink): Unit = {
-    writeMatrixTag(name, this, sink)
-    writeArrayHeader(name, isGlobal, this, sink)
-    writeMat5Data(sink)
-  }
-
-  protected def writeMat5Data(sink: Sink): Unit = { // Row indices (MATLAB requires at least 1 entry)
-    Mat5Type.Int32.writeTag(getNumRowIndices, sink)
-    if (data.length == 0) sink.writeInt(0)
-    else sink.writeInts(rowIndices, 0, getNumRowIndices)
-    Mat5Type.Int32.writePadding(getNumRowIndices, sink)
-    // Column indices
-    Mat5Type.Int32.writeTag(getNumColIndices, sink)
-    sink.writeInts(colPtrs, 0, getNumColIndices)
-    Mat5Type.Int32.writePadding(getNumColIndices, sink)
-    // Non-zero values
-    Mat5Type.Double.writeTag(data.length, sink)
-    sink.writeDoubles(data, 0, data.length)
-    Mat5Type.Double.writePadding(data.length, sink)
-  }
-
-  def getType = MatlabType.Sparse
-  def isLogical = false
-  def isComplex: Boolean = false
-  def getNzMax: Int = spire.math.max(1, data.length)
-  private[this] def getNumRowIndices = getNzMax
-  private[this] def getNumColIndices = nCols + 1
-
-  def close(): Unit = ()
-
-  def subHashCode(): Int = hashCode
-
-  protected def subEqualsGuaranteedSameClass(otherGuaranteedSameClass: Any): Boolean = {
-    val other = otherGuaranteedSameClass.asInstanceOf[DoubleCSCMatWrapper]
-    this.matrix == other.matrix
-  }
-
-}
+import scalin.immutable.{CSCMat, Mat}
 
 /** A compressed sparse column matrix, as used in Matlab, etc..,
   * see [[https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_column_.28CSC_or_CCS.29]]
@@ -85,8 +32,6 @@ class DoubleCSCMat(val nRows: Int,
     else data(ind)
   }
 
-  def toMatlab: DoubleCSCMatWrapper = new DoubleCSCMatWrapper(this)
-
 }
 
 /** Sparse matrix of Double coefficients represented by triplets (rowIndex, colIndex, coefficients).
@@ -96,11 +41,11 @@ class DoubleCSCMat(val nRows: Int,
   */
 class DoubleCOOMat(val nRows: Int,
                    val nCols: Int,
-                   private[this] val rowIndices: Array[Int],
-                   private[this] val colIndices: Array[Int],
-                   private[this] val data: Array[Double],
-                   private[this] var nEntries: Int,
-                   private[this] var isNormal: Boolean
+                   private[symdpoly] val rowIndices: Array[Int],
+                   private[symdpoly] val colIndices: Array[Int],
+                   private[symdpoly] val data: Array[Double],
+                   private[symdpoly] var nEntries: Int,
+                   private[symdpoly] var isNormal: Boolean
                    ) extends scalin.immutable.Mat[Double] {
 
 
@@ -233,5 +178,47 @@ object DoubleCOOMat {
 
   def apply(nRows: Int, nCols: Int, rowIndices: Array[Int], colIndices: Array[Int], data: Array[Double]): DoubleCOOMat =
     new DoubleCOOMat(nRows, nCols, rowIndices, colIndices, data, data.length, false)
+
+  def vertcat(nCols: Int, matrices: DoubleCOOMat*): DoubleCOOMat = {
+    require(matrices.forall(_.nCols == nCols))
+    val n = matrices.map(_.nEntries).sum
+    val nRows = matrices.map(_.nRows).sum
+    val rowIndices = new Array[Int](n)
+    val colIndices = new Array[Int](n)
+    val data = new Array[Double](n)
+    def rec(i: Int, posShift: Int, rowShift: Int): Unit =
+      if (i < matrices.length) {
+        val mat: DoubleCOOMat = matrices(i)
+        cforRange(0 until mat.nEntries) { j =>
+          rowIndices(posShift + j) = mat.rowIndices(j) + rowShift
+        }
+        Array.copy(mat.colIndices, 0, colIndices, posShift, mat.nEntries)
+        Array.copy(mat.data, 0, data, posShift, mat.nEntries)
+        rec(i + 1, posShift + mat.nEntries, rowShift + mat.nRows)
+      }
+    rec(0, 0, 0)
+    DoubleCOOMat(nRows, nCols, rowIndices, colIndices, data)
+  }
+
+  def horzcat(nRows: Int, matrices: DoubleCOOMat*): DoubleCOOMat = {
+    require(matrices.forall(_.nRows == nRows))
+    val n = matrices.map(_.nEntries).sum
+    val nCols = matrices.map(_.nCols).sum
+    val rowIndices = new Array[Int](n)
+    val colIndices = new Array[Int](n)
+    val data = new Array[Double](n)
+    def rec(i: Int, posShift: Int, colShift: Int): Unit =
+      if (i < matrices.length) {
+        val mat: DoubleCOOMat = matrices(i)
+        cforRange(0 until mat.nEntries) { j =>
+          colIndices(posShift + j) = mat.colIndices(j) + colShift
+        }
+        Array.copy(mat.rowIndices, 0, rowIndices, posShift, mat.nEntries)
+        Array.copy(mat.data, 0, data, posShift, mat.nEntries)
+        rec(i + 1, posShift + mat.nEntries, colShift + mat.nCols)
+      }
+    rec(0, 0, 0)
+    DoubleCOOMat(nRows, nCols, rowIndices, colIndices, data)
+  }
 
 }

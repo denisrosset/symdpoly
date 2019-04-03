@@ -2,15 +2,15 @@ package net.alasc.symdpoly
 package solvers
 
 import java.io.{BufferedWriter, FileWriter, StringWriter, Writer}
-import resource._
+import io.tmos.arm.ArmMethods._
 
 trait TextFormat {
   def writeData(writer: Writer): Unit
   def writeFile(filename: String): Unit = {
     val file = new java.io.File(filename)
     for {
-      fileWriter <- managed(new FileWriter(file))
-      bufferedWriter <- managed(new BufferedWriter(fileWriter))
+      fileWriter <- manage(new FileWriter(file))
+      bufferedWriter <- manage(new BufferedWriter(fileWriter))
     } {
       writeData(bufferedWriter)
     }

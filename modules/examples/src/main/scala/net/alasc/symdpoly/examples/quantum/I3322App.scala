@@ -17,11 +17,8 @@ object I3322App extends App {
     val relaxation: Relaxation[_, _] = problem.relaxation(generatingSet(level))
     relaxation.program.mosek.writeFile(s"i3322_$level.cbf")
     relaxation.program.sdpa.writeFile(s"i3322_$level.dat-s")
-    if (level < 5) {
-      // TODO: bring back SCS save when sparse matrix concatenation is faster
-      relaxation.program.scs.writeFile(s"i3322_${level}_scs.mat")
-      relaxation.program.sedumi.writeFile(s"i3322_${level}_sedumi.mat")
-      relaxation.program.sdpt3.writeFile(s"i3322_${level}_sdpt3.mat")
-    }
+    relaxation.program.scs.writeFile(s"i3322_${level}_scs.mat")
+    relaxation.program.sedumi.writeFile(s"i3322_${level}_sedumi.mat")
+    relaxation.program.sdpt3.writeFile(s"i3322_${level}_sdpt3.mat")
   }
 }
