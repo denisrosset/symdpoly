@@ -158,20 +158,16 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly.solvers">solvers</a></dd></dl></div>
     </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="CellArray.html" title=""></a>
-                        <a href="CellArray.html" title="">CellArray</a>
+                        <a class="class" href="DoubleCSCMatWrapper.html" title=""></a>
+                        <a href="DoubleCSCMatWrapper.html" title="">DoubleCSCMatWrapper</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="Char.html" title=""></a>
-                        <a href="Char.html" title="">Char</a>
+                        <a class="class" href="DoubleDenseMatWrapper.html" title=""></a>
+                        <a href="DoubleDenseMatWrapper.html" title="">DoubleDenseMatWrapper</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="MatlabChar.html" title=""></a>
-                        <a href="MatlabChar.html" title="">MatlabChar</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="trait" href="MatlabData.html" title=""></a>
-                        <a href="MatlabData.html" title="">MatlabData</a>
+                        <a class="class" href="DoubleMatWrapper.html" title=""></a>
+                        <a href="DoubleMatWrapper.html" title="">DoubleMatWrapper</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="trait" href="MatlabFormat.html" title=""></a>
@@ -186,20 +182,20 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a href="package$$MatlabPerm.html" title="">MatlabPerm</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="Matrix.html" title=""></a>
-                        <a href="Matrix.html" title="">Matrix</a>
+                        <a class="class" href="package$$RichMatDouble.html" title=""></a>
+                        <a href="package$$RichMatDouble.html" title="">RichMatDouble</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="Scalar.html" title=""></a>
-                        <a href="Scalar.html" title="">Scalar</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="Struct.html" title=""></a>
-                        <a href="Struct.html" title="">Struct</a>
-                      </li><li class="current-entities indented5">
-                        <a class="object" href="Vect$.html" title=""></a>
                         <a class="class" href="" title=""></a>
-                        <a href="" title="">Vect</a>
+                        <a href="" title="">RichMatMatlabArray</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$RichSeqMatlabArray.html" title=""></a>
+                        <a href="package$$RichSeqMatlabArray.html" title="">RichSeqMatlabArray</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$RichVecDouble.html" title=""></a>
+                        <a href="package$$RichVecDouble.html" title="">RichVecDouble</a>
                       </li>
               </ul>
             </div>
@@ -207,39 +203,37 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
           <div id="content">
             <body class="class type">
       <div id="definition">
-        <a href="Vect$.html" title="See companion object"><div class="big-circle class-companion-object">c</div></a>
+        <div class="big-circle class">c</div>
         <p id="owner"><a href="../../../../index.html" class="extype" name="net">net</a>.<a href="../../../index.html" class="extype" name="net.alasc">alasc</a>.<a href="../../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a>.<a href="../index.html" class="extype" name="net.alasc.symdpoly.solvers">solvers</a>.<a href="index.html" class="extype" name="net.alasc.symdpoly.solvers.matlab">matlab</a></p>
-        <h1><a href="Vect$.html" title="See companion object">Vect</a><span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html" title="Permalink">
+        <h1>RichMatMatlabArray<span class="permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
-        <h3><span class="morelinks"><div>
-            Companion <a href="Vect$.html" title="See companion object">object Vect</a>
-          </div></span></h3>
+        <h3><span class="morelinks"></span></h3>
       </div>
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="modifier">implicit </span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Vect</span><span class="params">(<span name="vec">vec: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Double">Double</span>]</span>, <span name="isColVector">isColVector: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result"> extends <a href="MatlabData.html" class="extype" name="net.alasc.symdpoly.solvers.matlab.MatlabData">MatlabData</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">RichMatMatlabArray</span><span class="tparams">[<span name="A">A &lt;: <span class="extype" name="us.hebi.matlab.mat.types.Array">Array</span></span>]</span><span class="result"> extends <a href="../../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/solvers/matlab/MatlabData.scala" target="_blank">MatlabData.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/solvers/matlab/matlab.scala" target="_blank">matlab.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="MatlabData.html" class="extype" name="net.alasc.symdpoly.solvers.matlab.MatlabData">MatlabData</a>, <a href="../../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="../../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
                 <span class="toggle diagram-link">
                   Type Hierarchy
                 </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 306.50 118.00" height="118pt" width="307pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 302.5,-114 302.5,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.solvers.matlab.Vect (this class)" xlink:href="#inheritance-diagram"><path d="M172.1667,-49C172.1667,-49 125.8333,-49 125.8333,-49 121.6667,-49 117.5,-44.8333 117.5,-40.6667 117.5,-40.6667 117.5,-32.3333 117.5,-32.3333 117.5,-28.1667 121.6667,-24 125.8333,-24 125.8333,-24 172.1667,-24 172.1667,-24 176.3333,-24 180.5,-28.1667 180.5,-32.3333 180.5,-32.3333 180.5,-40.6667 180.5,-40.6667 180.5,-44.8333 176.3333,-49 172.1667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../../lib/class_diagram.png" y="-43.5" x="128" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="149" text-anchor="start">Vect</text></a></g></g><!-- node1 --><g class="node trait" id="graph1_1"><g id="a_trait|graph1_1"><a xlink:title="net.alasc.symdpoly.solvers.matlab.MatlabData" xlink:href="MatlabData.html#inheritance-diagram"><path d="M83.6667,-110C83.6667,-110 8.3333,-110 8.3333,-110 4.1667,-110 0,-105.8333 0,-101.6667 0,-101.6667 0,-93.3333 0,-93.3333 0,-89.1667 4.1667,-85 8.3333,-85 8.3333,-85 83.6667,-85 83.6667,-85 87.8333,-85 92,-89.1667 92,-93.3333 92,-93.3333 92,-101.6667 92,-101.6667 92,-105.8333 87.8333,-110 83.6667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../../lib/trait_diagram.png" y="-104.5" x="10" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="31" text-anchor="start">MatlabData</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="Vect is a subtype of MatlabData"><path d="M73.3856,-81.2814C90.3994,-71.2052 111.9485,-58.4431 127.6857,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="72.1162,-79.1856 67.3417,-84.8608 74.6131,-83.4017 72.1162,-79.1856" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node2 --><g class="node trait" id="graph1_2"><g id="a_trait|graph1_2"><a xlink:title="scala.Product"><path d="M179.1667,-110C179.1667,-110 118.8333,-110 118.8333,-110 114.6667,-110 110.5,-105.8333 110.5,-101.6667 110.5,-101.6667 110.5,-93.3333 110.5,-93.3333 110.5,-89.1667 114.6667,-85 118.8333,-85 118.8333,-85 179.1667,-85 179.1667,-85 183.3333,-85 187.5,-89.1667 187.5,-93.3333 187.5,-93.3333 187.5,-101.6667 187.5,-101.6667 187.5,-105.8333 183.3333,-110 179.1667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../../lib/trait_diagram.png" y="-104.5" x="121" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="142" text-anchor="start">Product</text></a></g></g><!-- node2&#45;&gt;node0 --><g class="edge inheritance" id="graph1_2_0"><g id="a_inheritance|graph1_2_0"><a xlink:title="Vect is a subtype of Product"><path d="M149,-77.7386C149,-68.3393 149,-57.3803 149,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="146.5501,-77.8607 149,-84.8608 151.4501,-77.8608 146.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g><!-- node3 --><g class="node trait" id="graph1_3"><g id="a_trait|graph1_3"><a xlink:title="scala.Serializable"><path d="M290.1667,-110C290.1667,-110 213.8333,-110 213.8333,-110 209.6667,-110 205.5,-105.8333 205.5,-101.6667 205.5,-101.6667 205.5,-93.3333 205.5,-93.3333 205.5,-89.1667 209.6667,-85 213.8333,-85 213.8333,-85 290.1667,-85 290.1667,-85 294.3333,-85 298.5,-89.1667 298.5,-93.3333 298.5,-93.3333 298.5,-101.6667 298.5,-101.6667 298.5,-105.8333 294.3333,-110 290.1667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../../lib/trait_diagram.png" y="-104.5" x="216" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="237" text-anchor="start">Serializable</text></a></g></g><!-- node3&#45;&gt;node0 --><g class="edge inheritance" id="graph1_3_0"><g id="a_inheritance|graph1_3_0"><a xlink:title="Vect is a subtype of Serializable"><path d="M224.6144,-81.2814C207.6006,-71.2052 186.0515,-58.4431 170.3143,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="223.3869,-83.4017 230.6583,-84.8608 225.8838,-79.1856 223.3869,-83.4017" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
+                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 198.00 118.00" height="118pt" width="198pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 194,-114 194,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.solvers.matlab.RichMatMatlabArray (this class)" xlink:href="#inheritance-diagram"><path d="M157.1667,-49C157.1667,-49 32.8333,-49 32.8333,-49 28.6667,-49 24.5,-44.8333 24.5,-40.6667 24.5,-40.6667 24.5,-32.3333 24.5,-32.3333 24.5,-28.1667 28.6667,-24 32.8333,-24 32.8333,-24 157.1667,-24 157.1667,-24 161.3333,-24 165.5,-28.1667 165.5,-32.3333 165.5,-32.3333 165.5,-40.6667 165.5,-40.6667 165.5,-44.8333 161.3333,-49 157.1667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../../lib/class_diagram.png" y="-43.5" x="35" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="56" text-anchor="start">RichMatMatlabArray[A]</text></a></g></g><!-- node1 --><g class="node class" id="graph1_1"><g id="a_class|graph1_1"><a xlink:title="scala.AnyRef"><path d="M124.1667,-110C124.1667,-110 65.8333,-110 65.8333,-110 61.6667,-110 57.5,-105.8333 57.5,-101.6667 57.5,-101.6667 57.5,-93.3333 57.5,-93.3333 57.5,-89.1667 61.6667,-85 65.8333,-85 65.8333,-85 124.1667,-85 124.1667,-85 128.3333,-85 132.5,-89.1667 132.5,-93.3333 132.5,-93.3333 132.5,-101.6667 132.5,-101.6667 132.5,-105.8333 128.3333,-110 124.1667,-110" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../../lib/class_diagram.png" y="-104.5" x="68" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="89" text-anchor="start">AnyRef</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="RichMatMatlabArray[A] is a subtype of AnyRef"><path d="M95,-77.7386C95,-68.3393 95,-57.3803 95,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="92.5501,-77.8607 95,-84.8608 97.4501,-77.8608 92.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
                 <div id="diagram-controls" class="hiddenContent">
                   <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
                   <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
@@ -270,7 +264,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="net.alasc.symdpoly.solvers.matlab.Vect"><span>Vect</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="net.alasc.symdpoly.solvers.matlab.MatlabData"><span>MatlabData</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="net.alasc.symdpoly.solvers.matlab.RichMatMatlabArray"><span>RichMatMatlabArray</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -290,10 +284,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="net.alasc.symdpoly.solvers.matlab.Vect#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(vec:Array[Double],isColVector:Boolean):net.alasc.symdpoly.solvers.matlab.Vect"></a><a id="&lt;init&gt;:Vect"></a>
+              <ol><li name="net.alasc.symdpoly.solvers.matlab.RichMatMatlabArray#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(mat:scalin.immutable.Mat[A]):net.alasc.symdpoly.solvers.matlab.package.RichMatMatlabArray[A]"></a><a id="&lt;init&gt;:RichMatMatlabArray[A]"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#&lt;init&gt;(vec:Array[Double],isColVector:Boolean):net.alasc.symdpoly.solvers.matlab.Vect" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#&lt;init&gt;(mat:scalin.immutable.Mat[A]):net.alasc.symdpoly.solvers.matlab.package.RichMatMatlabArray[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -302,7 +296,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Vect</span><span class="params">(<span name="vec">vec: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Double">Double</span>]</span>, <span name="isColVector">isColVector: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span>
+        <span class="name">RichMatMatlabArray</span><span class="params">(<span name="mat">mat: <span class="extype" name="scalin.immutable.Mat">Mat</span>[<span class="extype" name="net.alasc.symdpoly.solvers.matlab.RichMatMatlabArray.A">A</span>]</span>)</span>
       </span>
       
       
@@ -319,7 +313,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -335,7 +329,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html###():Int" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -351,7 +345,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -367,7 +361,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -383,7 +377,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#clone():Object" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -404,26 +398,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="net.alasc.symdpoly.solvers.matlab.Vect#data" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="data(name:Option[String]):com.jmatio.types.MLArray"></a><a id="data(Option[String]):MLArray"></a>
-      <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#data(name:Option[String]):com.jmatio.types.MLArray" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">data</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="com.jmatio.types.MLArray">MLArray</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.solvers.matlab.Vect">Vect</a> → <a href="MatlabData.html" class="extype" name="net.alasc.symdpoly.solvers.matlab.MatlabData">MatlabData</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -436,10 +414,26 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#equals(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#finalize():Unit" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -461,7 +455,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#getClass():Class[_]" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -477,26 +471,29 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="net.alasc.symdpoly.solvers.matlab.Vect#isColVector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="isColVector:Boolean"></a>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#isColVector:Boolean" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#hashCode():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isColVector</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -509,10 +506,26 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.solvers.matlab.RichMatMatlabArray#mat" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="mat:scalin.immutable.Mat[A]"></a><a id="mat:Mat[A]"></a>
+      <span class="permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#mat:scalin.immutable.Mat[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mat</span><span class="result">: <span class="extype" name="scalin.immutable.Mat">Mat</span>[<span class="extype" name="net.alasc.symdpoly.solvers.matlab.RichMatMatlabArray.A">A</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -528,7 +541,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#notify():Unit" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -547,7 +560,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#notifyAll():Unit" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -566,7 +579,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -579,26 +592,42 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.solvers.matlab.Vect#vec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="vec:Array[Double]"></a>
+    </li><li name="net.alasc.symdpoly.solvers.matlab.RichMatMatlabArray#toMatlab" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="toMatlab:us.hebi.matlab.mat.types.Cell"></a><a id="toMatlab:Cell"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#vec:Array[Double]" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#toMatlab:us.hebi.matlab.mat.types.Cell" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">vec</span><span class="result">: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Double">Double</span>]</span>
+        <span class="name">toMatlab</span><span class="result">: <span class="extype" name="us.hebi.matlab.mat.types.Cell">Cell</span></span>
       </span>
       
       
+    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <span class="permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#toString():String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#wait():Unit" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -620,7 +649,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -642,7 +671,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/Vect.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../../../../../net/alasc/symdpoly/solvers/matlab/package$$RichMatMatlabArray.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -673,17 +702,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
-            </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
-            </div><div class="parent" name="net.alasc.symdpoly.solvers.matlab.MatlabData">
-              <h3>Inherited from <a href="MatlabData.html" class="extype" name="net.alasc.symdpoly.solvers.matlab.MatlabData">MatlabData</a></h3>
-            </div><div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="../../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
