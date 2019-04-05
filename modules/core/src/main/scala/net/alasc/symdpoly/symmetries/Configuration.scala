@@ -7,7 +7,7 @@ import shapeless.Witness
 
 import scalin.immutable.{DenseMat, Mat, Vec}
 import scalin.immutable.dense._
-
+import net.alasc.syntax.permutationAction._
 import net.alasc.finite.Grp
 import net.alasc.partitions.Partition
 import cyclo.Cyclo
@@ -201,8 +201,11 @@ object Configuration {
     val phase = new Array[Int](n * n)
     /** Stack of row and column */
     val stack = metal.mutable.Buffer.empty[Int]
-    /** Put group generators in array to guarantee faster access. */
-    val generatorArray = generators.toArray
+    /** Put group generators permutation images / phases in array to guarantee faster access. */
+    val nGenerators = generators.size
+    val generatorPermImages = generators.map(_.perm.images(n).toArray).toArray
+    val generatorPhases = generators.map(g => Array.tabulate(n)(i => g.phases.phaseFor(i).encoding)).toArray
+
     /** Iterate through the matrix, working on the cells that have not been identified as
       * part of an orbit.
       *
@@ -235,11 +238,22 @@ object Configuration {
 
             // iterate the action of all generators on the current cell (r1, c1)
             @tailrec def iterateGenerators(isZero2: Boolean, i: Int): Boolean =
-              if (i == generatorArray.length) isZero2 else {
+              if (i == nGenerators) isZero2 else {
                 // compute the action of the generator on (r1, c1)
-                val g = generatorArray(i)
-                val PhasedInt(pr, r2) = g.image(PhasedInt(Phase.one, r1))
-                val PhasedInt(pc, c2) = g.image(PhasedInt(Phase.one, c1))
+
+                // Unoptimized code
+                // val g = generators(i)
+                // val PhasedInt(pr, r2) = g.image(PhasedInt(Phase.one, r1))
+                // val PhasedInt(pc, c2) = g.image(PhasedInt(Phase.one, c1))
+
+                // Optimized code
+                val gPermImages = generatorPermImages(i)
+                val gPhases = generatorPhases(i)
+                val r2 = gPermImages(r1)
+                val c2 = gPermImages(c1)
+                val pr = Phase.fromEncoding(gPhases(r2))
+                val pc = Phase.fromEncoding(gPhases(c2))
+
                 // and compute the phase of the new element, relative to the first orbit element
                 // thus we need to multiply the phase difference of the generator action to the
                 // phase of the element acted upon
