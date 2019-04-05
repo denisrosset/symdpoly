@@ -6,6 +6,7 @@ import scala.annotation.tailrec
 
 import shapeless.Witness
 
+/** Equivalence under cyclic permutation of a subset of operators. */
 final case class CyclicComponent[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton

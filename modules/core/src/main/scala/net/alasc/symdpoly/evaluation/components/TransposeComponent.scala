@@ -6,6 +6,7 @@ import scala.annotation.tailrec
 
 import shapeless.Witness
 
+/** Equivalence under partial transpose operation. */
 final case class TransposeComponent[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
