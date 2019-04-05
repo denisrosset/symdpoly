@@ -19,12 +19,13 @@ import spire.syntax.action._
 import net.alasc.symdpoly.util.OrderedSet
 import scalin.immutable.dense._
 import scalin.syntax.all._
+
 import net.alasc.perms.default._
 import cern.colt.matrix.io.MatrixInfo.MatrixSymmetry
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.algebra.Morphism
 import net.alasc.symdpoly.evaluation.Evaluator
-import net.alasc.symdpoly.math.{GenPerm, GrpMonomialRepresentation}
+import net.alasc.symdpoly.math.{GenPerm, GrpMonomialRepresentation, Phase}
 import net.alasc.symdpoly.sdp.{BasisTerm, Block, BlockElement}
 import net.alasc.symdpoly.symmetries.Configuration
 
@@ -72,6 +73,9 @@ object MomentMatrix {
   ](generatingMoments: OrderedSet[M#MonoType]): MomentMatrix[E, M] =
     apply[E, M](generatingMoments, GrpMonomialRepresentation.trivial[M#PermutationType](generatingMoments.length))
 
+  /** Constructs a moment matrix according to the given generating moments and the given evaluator.
+    * The symmetry of the moment matrix can be provided when the evaluator has equivalence under symmetry.
+    */
   def apply[
     E <: Evaluator.Aux[M] with Singleton : Witness.Aux,
     M <: generic.MonoidDef with Singleton : Witness.Aux
@@ -90,12 +94,16 @@ object MomentMatrix {
             val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)
             val r = ptr.row
             val c = ptr.col
+
             val v = E(generatingMoments(ptr.row).adjoint * generatingMoments(ptr.col))
+            // cache monomials after phase action
+            val map = scala.collection.mutable.LongMap(Phase.one.encoding.toLong -> v)
+
             mat(r, c) := v
 
             @tailrec def rec(p: symmetries.Ptr[conf.type]): Unit =
               if (!p.isEmpty) {
-                mat(p.row, p.col) := v <* p.phase
+                mat(p.row, p.col) := map.getOrElseUpdate(p.phase.encoding.toLong, v <* p.phase)
                 rec(p.next)
               }
 
