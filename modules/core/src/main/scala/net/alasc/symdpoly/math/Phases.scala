@@ -103,6 +103,9 @@ class Phases(val encoding: Array[Int]) extends AnyVal { lhs =>
         newElements(2*j + 1) = tmp1
         newElements(2*j + 2) = tmp2
       }
+      // we use comb sort as it is 2-3x slower than quicksort/mergesort in practice
+      // and the implementation is super simple
+      // https://en.wikipedia.org/wiki/Comb_sort
       @tailrec def combSortPass(previousGap: Int): Unit = {
         val gap = spire.math.max(1, (previousGap / 1.247).toInt)
         @tailrec def iter(i: Int, hasSwapped: Boolean): Boolean =
