@@ -4,7 +4,6 @@ package freebased
 import shapeless.Witness
 
 
-/*
 object Evaluator {
 
   def apply[
@@ -112,17 +111,5 @@ final class FreeBasedEvaluator[
 
   def transpose(predicate: OpPredicate[F]): Evaluator[M] = self :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))
 
-}
-*/
-
-/*
-class GenericFreeBasedEvaluator[M <: generic.FreeBasedMonoidDef.Aux[F] with Singleton:Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](equivalences: Seq[Equivalence[M]]) extends GenericEvaluator[M](equivalences) { self =>
-  type E = GenericFreeBasedEvaluator[M, F]
-  def cyclic: Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](x => true))
-  def cyclic(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new CyclicEquivalence[F](predicate))
-  def transpose(predicate: OpPredicate[F]): Evaluator[M] = this :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))
-  def :+(e: Equivalence[M]): GenericFreeBasedEvaluator[M, F] = new GenericFreeBasedEvaluator[M, F](equivalences :+ e)
-  def real: GenericFreeBasedEvaluator[M, F] = self :+ new AdjointEquivalence[M]
-  def symmetric[G](grp: Grp[G])(implicit action: Action[M#Monomial, G]): GenericFreeBasedEvaluator[M, F] = self :+ new SymmetryEquivalence(grp)
 }
 */

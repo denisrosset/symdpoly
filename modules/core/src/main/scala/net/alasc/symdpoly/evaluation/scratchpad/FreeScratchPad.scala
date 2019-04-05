@@ -1,4 +1,5 @@
-package net.alasc.symdpoly.evaluation.scratchpad
+package net.alasc.symdpoly
+package evaluation.scratchpad
 
 import scala.annotation.tailrec
 
@@ -6,13 +7,11 @@ import shapeless.Witness
 import spire.syntax.cfor._
 
 import net.alasc.symdpoly.free.MutableWord
-import net.alasc.symdpoly.{free, valueOf}
 
-/*
 /** Scratch pad of mutable words where operations are applied in batch. */
 class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array: Array[MutableWord[F]], var n: Int) { self =>
 
-  def check1(): Unit = {
+  def check(): Unit = {
     cforRange(0 until array.length) {i =>
       cforRange(i + 1 until array.length) { j =>
         assert(array(i) ne array(j))
@@ -58,6 +57,7 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array:
 
   def ensureMinimalSize(minimalSize: Int): Unit = setSize(spire.math.max(minimalSize, array.length))
 
+  /*
   // Sorting and duplicate removal
 
   /** Sorts the given range from index `start` up to, but not including, the index `end`,
@@ -120,7 +120,7 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var array:
         n = newN
         false // the monomial is not (yet) proven to be zero
     }
-  }
+  }*/
 
 }
 
@@ -129,4 +129,3 @@ object FreeScratchPad {
   def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0)
 
 }
-*/

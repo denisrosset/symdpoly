@@ -1,17 +1,16 @@
 package net.alasc.symdpoly
-package freebased
+package evaluation
+package components
 
 import scala.annotation.tailrec
 
 import shapeless.Witness
 
-import net.alasc.finite.Grp
-
-/*
-final class AdjointEquivalence[
-  M <: MonoidDef.Aux[F] with Singleton,
+/** Equivalence under global transpose operation. */
+final case class AdjointComponent[
+  M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-](implicit val witnessM: Witness.Aux[M]) extends InPlaceEquivalence[M, F] {
+]()(implicit val witnessM: Witness.Aux[M]) extends InPlaceComponent[M, F] {
 
   /** Performs the in place transpose of the given monomial.
     *
@@ -35,7 +34,6 @@ final class AdjointEquivalence[
       if (iter(0, mono.length - 1, false)) 2 else 1
     }
 
-  def groupInEvaluator(grp: Grp[Permutation[M, F]]): Grp[Permutation[M, F]] = grp
+  def isSelfAdjoint: Boolean = true
 
 }
-*/
