@@ -17,7 +17,7 @@ import cyclo.Cyclo
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
 import net.alasc.symdpoly.algebra.{MultiplicativeBinoid, Phased}
 import net.alasc.symdpoly.free._
-import net.alasc.symdpoly.math.{GenPerm, Phase}
+import net.alasc.symdpoly.math.{GenPerm, GenPermFaithfulPermutationAction, Phase}
 import instances.all._
 import cats.syntax.traverse._
 import spire.syntax.cfor._
@@ -129,8 +129,10 @@ abstract class MonoidDef extends generic.MonoidDef {
 
   val permutationEq: Eq[PermutationType] = Eq[GenPerm].contramap(_.genPerm)
   val permutationGroup: Group[PermutationType] = Group[GenPerm].imap(new freebased.Permutation[self.type, Free](_))(_.genPerm)
-  val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[PermutationType] =
-    FaithfulPermutationActionBuilder[GenPerm].contramap(_.genPerm)
+  lazy val permutationFaithfulPermutationAction: PermutationAction[PermutationType] = GenPermFaithfulPermutationAction(Free.nOperators, cyclotomicOrder).contramap(_.genPerm)
+  val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[PermutationType] = new FaithfulPermutationActionBuilder[PermutationType] {
+    def apply(generators: Iterable[PermutationType]): PermutationAction[PermutationType] = permutationFaithfulPermutationAction
+ }
   val permutationMonoAction: Action[MonoType, PermutationType] = new freebased.PermutationMonoAction[self.type, Free]
   val permutationClassTag: ClassTag[PermutationType] = implicitly
 
