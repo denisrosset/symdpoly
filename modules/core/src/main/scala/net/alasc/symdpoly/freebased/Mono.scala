@@ -22,7 +22,7 @@ class Mono[
 
   def toMono: Mono[M, F] = lhs
 
-  require(!data.mutable)
+  require(data.mutation == MutableWord.MUTATION_IMMUTABLE)
   require(F.cyclotomicOrder % data.phase.n == 0)
   def M: M = valueOf[M]
   def F: F = (M: M).Free
@@ -37,7 +37,7 @@ class Mono[
   override def toString: String = if (M eq F) data.toString else s"[$data]"
 
   override def equals(any: Any): Boolean = any match {
-    case rhs: Mono[M, F] if (lhs.M eq rhs.M) && (lhs.F eq rhs.F) => (lhs.data.immutableHash == rhs.data.immutableHash) && lhs.data == rhs.data
+    case rhs: Mono[M, F] if (lhs.M eq rhs.M) && (lhs.F eq rhs.F) => (lhs.data.hashCode == rhs.data.hashCode) && lhs.data == rhs.data
     case _ => false
   }
 
