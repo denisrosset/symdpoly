@@ -18,7 +18,7 @@ object Monos {
       phase <- Phase.genForDenominator(valueOf[F].cyclotomicOrder)
       length <- Gen.choose(0, 8)
       indices <- Gen.containerOfN[Array, Int](length, Gen.choose(0, valueOf[F].nOperators - 1))
-    } yield new Mono[F, F](new MutableWord[F](phase, length, indices, false))
+    } yield new Mono[F, F](new MutableWord[F](phase, length, indices, MutableWord.MUTATION_IMMUTABLE, -1))
 
   // Generator for a random free monomial
   def genFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Gen[Mono[F, F]] =

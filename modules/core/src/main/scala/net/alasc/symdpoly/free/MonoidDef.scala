@@ -54,9 +54,9 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   //region Cached instances
 
   val mutableWordOrder: Order[MutableWord[Free]] = Order.from(_.compareTo(_))
-  val immutableMutableWordOne: MutableWord[Free] = new MutableWord[Free](Phase.one, 0, new Array[Int](0), false)
-  val immutableMutableWordMinusOne: MutableWord[Free] = new MutableWord[Free](Phase.minusOne, 0, new Array[Int](0), false)
-  val immutableMutableWordZero: MutableWord[Free] = new MutableWord[Free](Phase.one, -1, new Array[Int](0), false)
+  val immutableMutableWordOne: MutableWord[Free] = MutableWord.one[Free].setImmutable()
+  val immutableMutableWordMinusOne: MutableWord[Free] = MutableWord.apply[Free](Phase.minusOne).setImmutable()
+  val immutableMutableWordZero: MutableWord[Free] = MutableWord.zero[Free].setImmutable()
 
   implicit val phasedOpOrder: Order[PhasedOp[Free]] = new Order[PhasedOp[Free]] {
     def compare(x: PhasedOp[Free], y: PhasedOp[Free]): Int = Op.opOrder.compare(x.op, y.op) match {

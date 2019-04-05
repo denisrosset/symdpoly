@@ -91,7 +91,7 @@ object SparseTrie {
 
   /** Encapsulates the result of an `lookup` operation on a [[SparseTrie]].
     *
-    * @param v Either contains
+    * @param a Either contains
     *          - Empty representing a missing value
     *          - a [[SparseTrie]] representing a branch
     *          - a Wrap(value: SparseTrie) when the value is of type [[SparseTrie]] (this to avoid ambiguity)
@@ -171,7 +171,7 @@ object SparseTrie {
     def nIndices: Int = valueOf[F].nOperators
     def length(key: MutableWord[F]): Int = key.length
     def indexAt(key: MutableWord[F], pos: Int): Int = key.indices(pos)
-    def fromIndices(indices: Array[Int]): MutableWord[F] = new MutableWord[F](Phase.one, indices.length, indices, false)
+    def fromIndices(indices: Array[Int]): MutableWord[F] = new MutableWord[F](Phase.one, indices.length, indices, MutableWord.MUTATION_IMMUTABLE, -1)
   }
 
 }

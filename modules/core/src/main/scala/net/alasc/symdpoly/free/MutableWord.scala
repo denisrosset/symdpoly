@@ -14,11 +14,21 @@ import java.util.Arrays
   * @param phase The phase exp(2*pi*grade*i/M.grade)
   * @param length Length of the word; special convention: length = -1 for the zero word, in which case phase = Phase.one
   * @param indices Indices of the word letters
-  * @param mutable Whether the word is mutable.
+  * @param mutation Whether the word is mutable (MUTATION_MUTABLE), locked (MUTATION_LOCKED) or immutable (MUTATION_IMMUTABLE)
+  *                 The MUTATION_LOCKED state caches the hashCode value and prevents modification.
+  * @param cachedHash If != -1, precomputed hash value. If == -1, no precomputed hash value is known.
+  *                   Note that -1 is used as a marker for unknown hash, and we make sure that the computed hashCode of MutableWord
+  *                   is never -1.
   */
-class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: Int, var indices: Array[Int], var mutable: Boolean)
+class MutableWord[F <: MonoidDef with Singleton](var phase: Phase,
+                                                 var length: Int,
+                                                 var indices: Array[Int],
+                                                 var mutation: Int,
+                                                 var cachedHash: Int)
                                                 (implicit val wF: Witness.Aux[F]) {
   lhs =>
+
+  import MutableWord.{MUTATION_IMMUTABLE, MUTATION_LOCKED, MUTATION_MUTABLE}
 
   def F: F = wF.value
 
@@ -54,16 +64,17 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
     cforRange(0 until length) { i =>
       h = MurmurHash3.mix(h, indices(i))
     }
-    MurmurHash3.finalizeHash(h, length)
+    val res = MurmurHash3.finalizeHash(h, length)
+    if (res == -1) 0 else res
   }
 
-  /** Cached hashCode as it is used repeatedly in polynomial computations. */
-  lazy val immutableHash: Int = {
-    assert(!lhs.mutable)
-    computeHash
+  override def hashCode: Int = mutation match {
+    case MUTATION_LOCKED | MUTATION_IMMUTABLE =>
+      if (cachedHash == -1)
+        cachedHash = computeHash
+      cachedHash
+    case _ => computeHash
   }
-
-  override def hashCode: Int = if (mutable) computeHash else immutableHash
 
   def wordString: String = Seq.tabulate(length)(i => F.opFromIndex(indices(i))).mkString(" ")
 
@@ -121,26 +132,26 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
 
   /** Creates an immutable copy if this mutable word is mutable, otherwise simply returns the existing immutable word. */
   def immutableCopy: MutableWord[F] =
-    if (!mutable) this
+    if (mutation == MUTATION_IMMUTABLE) this
     else if (isZero) F.immutableMutableWordZero
     else if (isOne) F.immutableMutableWordOne
     else if (isMinusOne) F.immutableMutableWordMinusOne
     else {
       val newIndices = new Array[Int](length)
       System.arraycopy(indices, 0, newIndices, 0, length)
-      new MutableWord[F](phase, length, newIndices, false)
+      new MutableWord[F](phase, length, newIndices, MUTATION_IMMUTABLE, if (mutation != MUTATION_MUTABLE) cachedHash else -1)
     }
 
   /** Returns a mutable copy of this word. */
   def mutableCopy(): MutableWord[F] =
-    new MutableWord[F](phase, length, indices.clone, true)
+    new MutableWord[F](phase, length, indices.clone, MUTATION_MUTABLE, if (mutation != MUTATION_MUTABLE) cachedHash else -1)
 
   /** Returns a mutable copy of this word with the given reserved size in the created word. */
   def mutableCopy(newReservedLength: Int): MutableWord[F] = {
     require(newReservedLength >= length)
     val newIndices = new Array[Int](newReservedLength)
     System.arraycopy(indices, 0, newIndices, 0, length)
-    new MutableWord[F](phase, length, newIndices, true)
+    new MutableWord[F](phase, length, newIndices, MUTATION_MUTABLE, if (mutation != MUTATION_MUTABLE) cachedHash else -1)
   }
 
   //endregion
@@ -169,13 +180,24 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
 
   /** Makes a [[MutableWord]] immutable, so it can be stored as an immutable object. */
   def setImmutable(): MutableWord[F] = {
-    mutable = false
+    mutation = MUTATION_IMMUTABLE
     lhs
   }
 
   /** Asserts that this [[MutableWord]] is mutable. Called before mutable operations are performed. */
   def checkMutable(): Unit = {
-    assert(mutable)
+    assert(mutation == MUTATION_MUTABLE)
+  }
+
+  def lock(): Unit = {
+    assert(mutation != MUTATION_IMMUTABLE)
+    mutation = MUTATION_LOCKED
+  }
+
+  def unlock(): Unit = {
+    assert(mutation != MUTATION_IMMUTABLE)
+    mutation = MUTATION_MUTABLE
+    cachedHash = -1
   }
 
   //endregion
@@ -366,16 +388,20 @@ class MutableWord[F <: MonoidDef with Singleton](var phase: Phase, var length: I
 
 object MutableWord {
 
+  final val MUTATION_MUTABLE = 0
+  final val MUTATION_LOCKED = 1
+  final val MUTATION_IMMUTABLE = 2
+
   /** Constructs a mutable identity word. */
   def one[F <: MonoidDef with Singleton:Witness.Aux]: MutableWord[F] = one[F](0)
 
   /** Constructs a mutable identity word with reserved size. */
   def one[F <: MonoidDef with Singleton:Witness.Aux](reservedLength: Int): MutableWord[F] =
-    new MutableWord[F](Phase.one, 0, new Array[Int](reservedLength), true)
+    new MutableWord[F](Phase.one, 0, new Array[Int](reservedLength), MUTATION_MUTABLE, -1)
 
   /** Constructs a mutable zero word. */
   def zero[F <: MonoidDef with Singleton:Witness.Aux]: MutableWord[F] =
-    new MutableWord(Phase.one, -1, new Array[Int](0), true)
+    new MutableWord(Phase.one, -1, new Array[Int](0), MUTATION_MUTABLE, -1)
 
   /** Constructs a mutable word from a sequence of operators. */
   def apply[F <: MonoidDef with Singleton: Witness.Aux](ops: Seq[F#Op]): MutableWord[F] = {
@@ -394,7 +420,7 @@ object MutableWord {
 
   /** Constructs a mutable word that contains a scalar phase. */
   def apply[F <: MonoidDef with Singleton: Witness.Aux](phase: Phase): MutableWord[F] =
-    new MutableWord(phase, 0, new Array[Int](0), true)
+    new MutableWord(phase, 0, new Array[Int](0), MUTATION_MUTABLE, -1)
 
   /** Order instance for mutable words. */
   implicit def order[F <: MonoidDef with Singleton](implicit wM: Witness.Aux[F]): Order[MutableWord[F]] =
