@@ -13,10 +13,10 @@ val fastParseVersion = "1.0.0"
 val jGraphTVersion = "1.2.0"
 val jOptimizerVersion = "4.0.0"
 val kindProjectorVersion = "0.9.8"
-val matFileRWVersion = "3.0.1"
+val mflVersion = "0.5.1"
 val metalVersion = "0.16.0.0"
 val progressBarVersion = "0.7.0"
-val scalaARMVersion = "2.0"
+val arm4SVersion = "1.1.0"
 val scalaCheckVersion = "1.13.5"
 val scalaCollectionCompatVersion = "0.2.2"
 val scalaTestVersion = "3.0.5"
@@ -111,9 +111,9 @@ lazy val commonSettings = Seq(
     "net.alasc" %% "scalin-core" % scalinVersion,
     "com.chuusai" %% "shapeless" % shapelessVersion,
     "com.lihaoyi" %% "sourcecode" % sourcecodeVersion,
-    "com.jsuereth" %% "scala-arm" % scalaARMVersion,
+    "io.tmos" %% "arm4s" % arm4SVersion,
     "com.joptimizer" % "joptimizer" % jOptimizerVersion,
-    "com.diffplug.matsim" % "matfilerw" % matFileRWVersion,
+    "us.hebi.matlab.mat" % "mfl-core" % mflVersion
   ),
   scalacOptions in (Compile, console) ~= {_.filterNot("-Ywarn-unused-import" == _)},
   scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value

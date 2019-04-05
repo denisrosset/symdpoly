@@ -4,10 +4,13 @@ package sdp
 import spire.algebra.{Group, Monoid, Semigroup}
 import spire.random.Size
 import spire.syntax.cfor._
+
 import scalin.immutable.{Mat, MatEngine, Vec}
 import spire.std.double._
+
 import scalin.Sparse
 import scalin.immutable.dense._
+
 import net.alasc.finite.Grp
 import net.alasc.perms.Perm
 import net.alasc.symdpoly.algebra.Morphism

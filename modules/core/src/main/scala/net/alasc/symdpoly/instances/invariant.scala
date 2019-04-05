@@ -102,7 +102,7 @@ trait InvariantInstances {
     def contramap[A, B](fa: FaithfulPermutationActionBuilder[A])(f: B => A): FaithfulPermutationActionBuilder[B] = new FaithfulPermutationActionBuilder[B] {
       def apply(generators: Iterable[B]): PermutationAction[B] = {
         val permutationActionA = fa.apply(generators.map(f))
-        Contravariant[PermutationAction].contramap[A, B](permutationActionA)(f)
+        ContravariantForFaithfulPermutationAction.contramap[A, B](permutationActionA)(f)
       }
     }
   }
