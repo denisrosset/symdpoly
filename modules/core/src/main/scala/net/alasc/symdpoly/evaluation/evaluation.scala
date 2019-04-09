@@ -87,4 +87,10 @@ package object evaluation {
     new TransposesEquivalence[M.type, F](groupIndex)
   }
 
+  sealed trait LetterEquivalence
+  case object Transpose extends LetterEquivalence
+  case object Cyclic extends LetterEquivalence
+
+  // def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F])(groups: (F#OpEnum, LetterEquivalence)): Equivalence[M.type]
+
 }

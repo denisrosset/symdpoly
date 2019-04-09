@@ -27,7 +27,7 @@ import cats.instances.option._
 import net.alasc.util._
 import net.alasc.algebra.PermutationAction
 import net.alasc.symdpoly.evaluation
-import net.alasc.symdpoly.evaluation.Evaluator
+import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator}
 import net.alasc.symdpoly.util.OrderedSet
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
@@ -136,12 +136,21 @@ abstract class MonoidDef extends generic.MonoidDef {
   val permutationMonoAction: Action[MonoType, PermutationType] = new freebased.PermutationMonoAction[self.type, Free]
   val permutationClassTag: ClassTag[PermutationType] = implicitly
 
-  //endregion
-
   /** Returns the symmetry group that leaves the structure of this monoid invariant. */
   def symmetryGroup: Grp[freebased.Permutation[self.type, Free]]
 
   //endregion
+
+  /*
+  /** Constructs an evaluator over this monoid with the given symmetry enforced. */
+  override def symmetricEvaluator(symmetryGroup0: Grp[PermutationType], equivalence0: Equivalence[self.type]): Evaluator.Aux[self.type] =
+    new Evaluator { evaluator =>
+    val equivalence: Equivalence[self.type] = equivalence0
+    val symmetryGroup: Grp[PermutationType] = symmetryGroup0
+    type Mono = self.type
+    val witnessMono: Witness.Aux[self.type] = self.witness
+  }*/
+
 
 }
 

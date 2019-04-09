@@ -44,14 +44,25 @@ case class Optimization[
   def symmetrize(quotientFeasibilityGroup: Option[Grp[M#PermutationType]] = None,
                  evaluationFeasibilityGroup: Option[Grp[M#PermutationType]] = None): (SymmetrizedOptimization, Grp[M#PermutationType]) =
     if (operatorConstraints.isEmpty && scalarConstraints.isEmpty) {
+      logNormal("Performing automated symmetry detection")
       val feasGrp = (quotientFeasibilityGroup, evaluationFeasibilityGroup) match {
-        case (_, Some(efg)) => efg
-        case (Some(qfg), None) => E.compatibleSubgroup(qfg)
-        case (None, None) => E.compatibleSubgroup(M.symmetryGroup)
+        case (_, Some(efg)) =>
+          logVerbose(s"Passed evaluation feasibility subgroup of order ${efg.order}")
+          efg
+        case (Some(qfg), None) =>
+          logVerbose(s"Passed monoid feasibility subgroup of order ${qfg.order}, computing evaluation feasibility subgroup")
+          E.compatibleSubgroup(qfg)
+        case (None, None) =>
+          logVerbose(s"No feasibility subgroup provided, computing from scratch")
+          E.compatibleSubgroup(M.symmetryGroup)
       }
       val optGrp = objective.invariantSubgroupOf(feasGrp)
+      logVerbose(s"Found symmetry group of order ${optGrp.order}")
       (forceSymmetrizeNC(optGrp), optGrp)
-    } else (this, Grp.trivial[M#PermutationType])
+    } else {
+      logNormal("Automated symmetrization does not support nonmonomial equality/inequality constraints, using trivial symmetry group")
+      (this, Grp.trivial[M#PermutationType])
+    }
 
   def E: E = valueOf[E]
   def M: M = valueOf[M]

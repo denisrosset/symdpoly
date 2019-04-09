@@ -53,16 +53,22 @@ case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
   }
 
   def data: MatFile = {
+    logNormal("Preparing SeDuMi file")
     val k = Mat5.newStruct()
       .set("f", Mat5.newScalar(program.eqA.nRows))
       .set("l", Mat5.newScalar(program.ineqA.nRows))
       .set("q", Mat.zeros[Double](1, 0).toMatlab)
       .set("r",  Mat.zeros[Double](1, 0).toMatlab)
       .set("s", Vec(program.sdpCon.blocks.map(_.size.toDouble): _*).toMatlabRow)
+    logVerbose(s"Number of variables in the dual form: ${program.ineqA.nCols}")
+    logVerbose(s"Equality constraints in the dual form: ${program.eqA.nRows}")
+    logVerbose(s"Inequality constraints in the dual form: ${program.ineqA.nRows}")
+    logVerbose(s"SDP block sizes: ${program.sdpCon.blocks.map(_.size).toList}")
     val eqc = program.eqA(::, 0)
     val ineqc = program.ineqA(::, 0)
     val eqA = -program.eqA(::, 1 until program.eqA.nCols).t
     val ineqA = -program.ineqA(::, 1 until program.ineqA.nCols).t
+    logVerbose(s"Transforming blocks")
     val (blocksA, blocksb) = program.sdpCon.blocks.map(convertBlock).unzip
     val matA = if (eqA.nCols == 0 && ineqA.nCols == 0) DoubleCOOMat.horzcat(program.nY - 1, blocksA: _*).toMatlab else
       Seq[Mat[Double]](Seq(eqA, ineqA) ++ blocksA: _*).reduce(_ horzcat _).toMatlab
@@ -85,6 +91,7 @@ case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
       // we use the right action convention, while the Sedumi extended file format uses left action, so we need to invert the permutations,
       // but not the matrices (the matrix multiplication convention is stable)
       val nGenerators = program.sdpCon.symmetryGroup.nGenerators
+      logVerbose(s"Writing group representation of a permutation group of domain size ${permSize} with ${nGenerators} generator(s)")
       val permGenerators = program.sdpCon.symmetryGroup.generators.map(_.inverse.matlabImage(permSize))
       def generatorImages: Seq[Mat[Double]] = program.sdpCon.symmetryGroup.generators.map(p => program.sdpCon.representation(p).toMat)
       import scalin.immutable.dense._

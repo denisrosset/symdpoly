@@ -22,7 +22,7 @@ class Mono[
 
   def toMono: Mono[M, F] = lhs
 
-  require(data.mutation == MutableWord.MUTATION_IMMUTABLE)
+  require(data.state == MutableWord.Immutable)
   require(F.cyclotomicOrder % data.phase.n == 0)
   def M: M = valueOf[M]
   def F: F = (M: M).Free

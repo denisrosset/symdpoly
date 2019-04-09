@@ -55,6 +55,7 @@ class Relaxation[
     val all: OrderedSet[E#SingleMomentType] = OrderedSet.fromUnique(
       HashSet(E.one) union localizingMatrices.foldLeft(momentMatrix.allMoments) { case (s, lm) => s union lm.allMoments }
     )
+    logVerbose(s"Found ${all.length} unique monomials in the relaxation")
     val adj = Array.tabulate(all.length) { i =>
       val m = all(i)
       val madj = E.evaluatedMonoInvolution.adjoint(m)
@@ -65,6 +66,7 @@ class Relaxation[
   }
 
   lazy val program: Program = {
+    logNormal("Computing semidefinite program representation")
     val m = allMoments.length
     // convention for the mapping of variables
     // for a moment of index i in allMoments, we distinguish two cases depending on iadj = adjointMoment(i)
@@ -107,11 +109,16 @@ object Relaxation {
     M <: generic.MonoidDef with Singleton: Witness.Aux
   ](optimization: Optimization[E, M], gSet: GSet[M]): Relaxation[E, M] = {
     import optimization.{direction, objective}
+    logNormal(s"Computing relaxation with the generating set ${gSet}")
     def E: E = valueOf[E]
     def M: M = valueOf[M]
     val generatingSet = gSet.toOrderedSet
+    logNormal(s"Found ${generatingSet.length} generating monomials")
     val degree = generatingSet.iterator.map(_.degree).max
+    logVerbose(s"Symmetry group of order ${E.symmetryGroup.order} provided")
     val compatible = symmetries.Orbit.compatibleSubgroup[M#MonoType, M#PermutationType](generatingSet.toIndexedSeq, E.symmetryGroup, M.monoPhased.phaseCanonical)
+    if (compatible.order < E.symmetryGroup.order)
+      logNormal(s"Warning: the generating set of monomials is not fully symmetric under the provided symmetry group, a subgroup of order ${compatible.order} is used instead")
     val symmetry = GrpMonomialRepresentation.fromActionOnOrderedSet(generatingSet, compatible)
     val momentMatrix = MomentMatrix[E, M](generatingSet, symmetry)
     def filterGeneratingSet(maxDegree: Int): OrderedSet[M#MonoType] =
