@@ -20,7 +20,7 @@ class PauliMonoidSuite extends CommonSuite {
     }
     object σ extends HermitianOpFamily1(1 to 3)
 
-    val operators = Seq(σ)
+    lazy val operators = Seq(σ)
   }
 
   import Free.σ

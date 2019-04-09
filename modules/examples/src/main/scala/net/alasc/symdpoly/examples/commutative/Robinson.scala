@@ -25,7 +25,7 @@ object Robinson {
   object Free extends free.MonoidDef(2) {
     case object X extends HermitianSingleOp
     case object Y extends HermitianSingleOp
-    val operators = Seq(X, Y)
+    lazy val operators = Seq(X, Y)
   }
 
   // Import the variables X and Y in the current scope
