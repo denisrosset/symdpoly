@@ -15,7 +15,7 @@ val jOptimizerVersion = "4.0.0"
 val kindProjectorVersion = "0.9.8"
 val mflVersion = "0.5.1"
 val metalVersion = "0.16.0.0"
-val progressBarVersion = "0.7.0"
+val progressBarVersion = "0.7.3"
 val arm4SVersion = "1.1.0"
 val scalaCheckVersion = "1.13.5"
 val scalaCollectionCompatVersion = "1.0.0"
@@ -113,7 +113,8 @@ lazy val commonSettings = Seq(
     "com.lihaoyi" %% "sourcecode" % sourcecodeVersion,
     "io.tmos" %% "arm4s" % arm4SVersion,
     "com.joptimizer" % "joptimizer" % jOptimizerVersion,
-    "us.hebi.matlab.mat" % "mfl-core" % mflVersion
+    "us.hebi.matlab.mat" % "mfl-core" % mflVersion,
+    "me.tongfei" % "progressbar" % progressBarVersion,
   ),
   scalacOptions in (Compile, console) ~= {_.filterNot("-Ywarn-unused-import" == _)},
   scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value
