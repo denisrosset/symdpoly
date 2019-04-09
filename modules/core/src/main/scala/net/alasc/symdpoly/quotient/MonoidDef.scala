@@ -12,10 +12,12 @@ import net.alasc.partitions.Partition
 import net.alasc.symdpoly.math.{GenPerm, Phase}
 import net.alasc.util._
 import spire.syntax.eq._
-import cats.instances.vector._
 import spire.syntax.group._
+import cats.instances.vector._
 import cats.instances.option._
+import cats.instances.either._
 import cats.syntax.traverse._
+import cats.syntax.alternative._
 import syntax.phased._
 import net.alasc.symdpoly.util.{OrderedSet, SparseTrie}
 import shapeless.Witness
@@ -25,6 +27,7 @@ import net.alasc.util._
 import net.alasc.symdpoly.freebased.{Mono, Poly}
 import net.alasc.perms.default._
 
+/** Tools for computation of symmetries of a quotient monoid. */
 class Symmetries[
   M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
