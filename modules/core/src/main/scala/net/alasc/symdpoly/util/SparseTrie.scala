@@ -171,7 +171,7 @@ object SparseTrie {
     def nIndices: Int = valueOf[F].nOperators
     def length(key: MutableWord[F]): Int = key.length
     def indexAt(key: MutableWord[F], pos: Int): Int = key.indices(pos)
-    def fromIndices(indices: Array[Int]): MutableWord[F] = new MutableWord[F](Phase.one, indices.length, indices, MutableWord.MUTATION_IMMUTABLE, -1)
+    def fromIndices(indices: Array[Int]): MutableWord[F] = new MutableWord[F](Phase.one, indices.length, indices, MutableWord.Immutable, -1)
   }
 
 }

@@ -83,13 +83,16 @@ object MomentMatrix {
     def E: E = valueOf[E]
     def M: M = valueOf[M]
     val size = generatingMoments.length
+    logNormal(s"Constructing moment matrix of size $size x $size")
     val symmetry = GrpMonomialRepresentation.fromActionOnOrderedSet(generatingMoments, E.symmetryGroup: Grp[M#PermutationType])
     val moments: Mat[E#SingleMomentType] =
-      if (symmetry.grp.isTrivial)
+      if (symmetry.grp.isTrivial || !Settings.optimize)
         Mat.tabulate(size, size) { (r, c) => E(generatingMoments(r).adjoint * generatingMoments(c)) }
       else
         Mat.fromMutable[E#SingleMomentType](size, size, E.zero) { mat =>
+          logVerbose("Computing configuration")
           val conf = Configuration.fromGrpMonomialRepresentation(symmetry)
+          logVerbose(s"Found ${conf.nOrbits} orbits")
           cforRange(0 until conf.nOrbits) { o =>
             val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)
             val r = ptr.row

@@ -10,6 +10,7 @@ import scalin.SparseAdditiveGroup
 import scala.collection.mutable
 
 import spire.std.double._
+import spire.syntax.order._
 import spire.math.Complex
 
 import net.alasc.symdpoly.math.Phase
@@ -63,4 +64,7 @@ package object symdpoly {
   val cycloValue = MemoMap[Cyclo, Complex[Double]](c => Complex(RealCyclo.real(c).toAlgebraic.toDouble, RealCyclo.imag(c).toAlgebraic.toDouble))
   val phaseValue = MemoMap[Phase, Complex[Double]](p => cycloValue(p.toCyclo))
 
+  def log(level: Verbosity)(text: => String): Unit = if (level >= Settings.verbosity) Settings.err.println(text)
+  def logNormal(text: => String): Unit = log(Verbosity.Normal)(text)
+  def logVerbose(text: => String): Unit = log(Verbosity.Verbose)(text)
 }
