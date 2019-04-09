@@ -91,6 +91,7 @@ package object evaluation {
   case object Transpose extends LetterEquivalence
   case object Cyclic extends LetterEquivalence
 
-  // def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F])(groups: (F#OpEnum, LetterEquivalence)): Equivalence[M.type]
+  def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F], parts: Set[Set[F#Op]])(groups: (F#OpEnum, LetterEquivalence)): Equivalence[M.type] = ???
+  def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F])(groups: (F#OpEnum, LetterEquivalence)): Equivalence[M.type] = ???
 
 }

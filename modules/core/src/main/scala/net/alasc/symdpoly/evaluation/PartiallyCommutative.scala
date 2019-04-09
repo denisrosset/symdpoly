@@ -26,6 +26,22 @@ case class PartiallyCommutative[
 
 object PartiallyCommutative {
 
+  class InvestigatedQuotient[
+    M <: quotient.MonoidDef.Aux[F] with Singleton:Witness.Aux,
+    F <: free.MonoidDef.Aux[F] with Singleton
+  ] {
+    def M: M = valueOf[M]
+    def F: F = M.Free
+    implicit def witnessF: Witness.Aux[F] = F.witness
+    // collect either the ordering behind a commutation relation (Right), or a set of operators entering another type of constraints (Left)
+    val (opsets, relations) = M.rewritingRules.entries.toVector.map {
+      case (lhs, rhs) if lhs.length == 2 && rhs.length == 2 && lhs(0) == rhs(1) && lhs(1) == rhs(0) =>
+        Right((rhs(0).index, rhs(1).index))
+      case (lhs, rhs) => Left((0 until lhs.length).map(lhs(_).index).toSet union (0 until rhs.length).map(rhs(_).index).toSet)
+    }.separate
+
+  }
+
   def compute[F <: free.MonoidDef.Aux[F] with Singleton](M: MonoidDef.Aux[F] with Singleton): Option[PartiallyCommutative[M.type, F]] = {
     implicit def witnessM: Witness.Aux[M.type] = M.witness
     def F: F = M.Free
