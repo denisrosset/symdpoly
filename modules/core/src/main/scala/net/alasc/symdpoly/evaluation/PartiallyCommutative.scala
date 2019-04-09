@@ -15,11 +15,14 @@ import net.alasc.symdpoly.quotient.MonoidDef
   * - equivalence classes are defined among operators for operators that do *not* commute
   * - those equivalence classes are ordered by the commutation relations
   * - other rewriting rules stay inside an equivalence class
+  *
+  * @param parts First, the keys form a set of equivalence classes. The associated value
+  *              tells whether additional rewriting rules are present.
   */
 case class PartiallyCommutative[
   M <: MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
-](parts: Set[Set[F#Op]])
+](parts: Map[Set[F#Op], Boolean])
 
 object PartiallyCommutative {
 
@@ -56,17 +59,22 @@ object PartiallyCommutative {
     // verify that commutation relations are consistent with the discovered partition
     for (block <- partition.blocks) {
       val h = block.head
-      @tailrec def checkBlocks(remaining: Set[Int]): Unit =
-        if (remaining.nonEmpty) {
+      @tailrec def checkBlocks(remaining: Set[Int]): Boolean =
+        if (remaining.isEmpty) true else {
           val o = remaining.head
           val oBlock = partition.blockFor(o)
-          if ((oBlock diff remaining).nonEmpty) return None
-          checkBlocks(remaining diff oBlock)
+          if ((oBlock diff remaining).nonEmpty)
+            false
+          else
+            checkBlocks(remaining diff oBlock)
         }
-      checkBlocks(lessThan.getOrElse(h, Set.empty))
-      checkBlocks(greaterThan.getOrElse(h, Set.empty))
+      if (!checkBlocks(lessThan.getOrElse(h, Set.empty))) return None
+      if (!checkBlocks(greaterThan.getOrElse(h, Set.empty))) return None
     }
-    Some(PartiallyCommutative(partition.blocks.toSet.map((block: partition.Block) => block.map((i: Int) => F.opIndexMap.elements(i)))))
+    val blocks: Set[Set[F#Op]] = partition.blocks.toSet.map((block: partition.Block) => block.map((i: Int) => F.opIndexMap.elements(i)))
+    val map = blocks.map { (block: Set[F#Op]) =>
+      (block, block.exists(i => opsets.exists(_.contains(i.index))))
+    }.toMap
+    Some(PartiallyCommutative(map))
   }
-
 }
