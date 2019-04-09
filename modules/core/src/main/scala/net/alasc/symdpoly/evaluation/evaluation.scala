@@ -91,7 +91,20 @@ package object evaluation {
   case object Transpose extends LetterEquivalence
   case object Cyclic extends LetterEquivalence
 
-  def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F], parts: Set[Set[F#Op]])(groups: (F#OpEnum, LetterEquivalence)): Equivalence[M.type] = ???
-  def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F])(groups: (F#OpEnum, LetterEquivalence)): Equivalence[M.type] = ???
+  def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: quotient.MonoidDef.Aux[F], parts: Map[Set[F#Op], Boolean])(groups: (F#OpEnum, LetterEquivalence)*): Equivalence[M.type] = {
+    ???
+  }
+
+  def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: quotient.MonoidDef.Aux[F], parts: Set[Set[F#Op]])(groups: (F#OpEnum, LetterEquivalence)*): Equivalence[M.type] = {
+    val iq = new PartiallyCommutative.InvestigatedQuotient[M.type, F]()(M.witness)
+    require(iq.verify(parts))
+    partiallyCommutative[F](M, iq.computeMap(parts))(groups: _*)
+  }
+
+
+  def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: quotient.MonoidDef.Aux[F])(groups: (F#OpEnum, LetterEquivalence)*): Equivalence[M.type] = {
+    val iq = new PartiallyCommutative.InvestigatedQuotient[M.type, F]()(M.witness)
+    partiallyCommutative[F](M, iq.ansatzFromRules)(groups: _*)
+  }
 
 }
