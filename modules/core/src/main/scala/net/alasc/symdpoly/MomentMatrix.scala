@@ -2,26 +2,21 @@ package net.alasc.symdpoly
 
 import scala.annotation.tailrec
 import scala.collection.immutable.HashSet
-
 import shapeless.Witness
 import spire.algebra.Group
-
 import scalin.immutable.Mat
-
 import syntax.phased._
 import spire.syntax.involution._
 import spire.syntax.cfor._
-
 import net.alasc.perms.Perm
 import spire.syntax.ring._
 import spire.syntax.action._
-
 import net.alasc.symdpoly.util.OrderedSet
 import scalin.immutable.dense._
 import scalin.syntax.all._
-
 import net.alasc.perms.default._
 import cern.colt.matrix.io.MatrixInfo.MatrixSymmetry
+import me.tongfei.progressbar.ProgressBar
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.algebra.Morphism
 import net.alasc.symdpoly.evaluation.Evaluator
@@ -93,7 +88,10 @@ object MomentMatrix {
           logVerbose("Computing configuration")
           val conf = Configuration.fromGrpMonomialRepresentation(symmetry)
           logVerbose(s"Found ${conf.nOrbits} orbits")
+          val showProgress = Settings.verbosity != Verbosity.Quiet && Settings.useProgressBar
+          val bar = if (showProgress) Some(new ProgressBar("Computing reduced monomials", conf.nOrbits)) else None
           cforRange(0 until conf.nOrbits) { o =>
+            bar.foreach(_.stepTo(o + 1))
             val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)
             val r = ptr.row
             val c = ptr.col
@@ -112,6 +110,7 @@ object MomentMatrix {
 
             rec(ptr.next)
           }
+          bar.foreach(_.close())
         }
     new MomentMatrix[E, M](generatingMoments, moments)
   }
