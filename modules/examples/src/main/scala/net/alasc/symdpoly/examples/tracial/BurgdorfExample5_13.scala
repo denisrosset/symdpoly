@@ -3,7 +3,7 @@ package examples
 package tracial
 
 import spire.syntax.ring._
-
+/*
 object BurgdorfExample5_13 {
   /** Free monoid containing the operator variables. */
   object Free extends free.MonoidDef(1) {
@@ -24,3 +24,4 @@ object BurgdorfExample5_13 {
   val problem = L(f).minimize.relaxation(generatingSet)
   val program: sdp.Program = problem.program
 }
+*/

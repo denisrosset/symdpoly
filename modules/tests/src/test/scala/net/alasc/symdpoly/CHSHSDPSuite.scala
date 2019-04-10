@@ -58,7 +58,7 @@ class CHSHSDPSuite extends CommonSuite {
     import Free.{A, B}
     val bellOperator = Quantum.quotient(chsh)
     val generatingSet = Quantum.quotient(GSet.onePlus(A, B))
-    val L = Quantum.evaluator(evaluation.real)
+    val L = Quantum.eigenvalueEvaluator(true)
     val relaxation: Relaxation[L.type, Quantum.type] = L(bellOperator).maximize.relaxation(generatingSet)
     // 1, A0, A1, B0, B1, A0B0, A0B1, A1B0, A1B1, A0A1, B0B1
     assert(relaxation.allMoments.length == 11)
@@ -73,7 +73,7 @@ class CHSHSDPSuite extends CommonSuite {
     import Free.{A, B}
     val bellOperator = Quantum.quotient(chsh)
     val generatingSet = Quantum.quotient(GSet.onePlus(A, B))
-    val L = Quantum.evaluator(evaluation.real)
+    val L = Quantum.eigenvalueEvaluator(true)
     val (problemSym, _) = L(bellOperator).maximize.symmetrize()
     val relaxation: Relaxation[_, Quantum.type] = problemSym.relaxation(generatingSet)
     val OptimumFound(_, ub) = relaxation.program.jOptimizer.solve()

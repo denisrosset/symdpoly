@@ -5,7 +5,7 @@ package components
 import scala.annotation.tailrec
 
 import shapeless.Witness
-
+/*
 /** Equivalence under global transpose operation. */
 final case class AdjointComponent[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
@@ -34,6 +34,7 @@ final case class AdjointComponent[
       if (iter(0, mono.length - 1, false)) 2 else 1
     }
 
-  def isSelfAdjoint: Boolean = true
+  def isReal: Boolean = true
 
 }
+*/

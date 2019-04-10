@@ -128,7 +128,7 @@ class InflationTest extends CommonSuite {
     val localLevel1 = QM.quotient(GSet.onePlus(A)*GSet.onePlus(B)* GSet.onePlus(C))
     val npaLevel2 = QM.quotient(GSet.onePlus(A, B, C).pow(2))
 
-    val L = QM.evaluator(evaluation.real)
+    val L = QM.eigenvalueEvaluator(true)
 
     def inflationMaximize(expression: QM.PolyType, useExpressionSymmetries: Boolean = true, useInflationSymmetries: Boolean = true): (Optimization[_ <: evaluation.Evaluator.Aux[QM.type] with Singleton, QM.type], Grp[QM.PermutationType]) = {
       cforRange(0 until expression.nTerms) { i =>

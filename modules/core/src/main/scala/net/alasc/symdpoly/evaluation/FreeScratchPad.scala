@@ -1,5 +1,7 @@
-package net.alasc.symdpoly
-package evaluation.scratchpad
+package net.alasc.symdpoly.evaluation
+
+import java.util.WeakHashMap
+import java.util.Collections
 
 import scala.annotation.tailrec
 
@@ -7,11 +9,11 @@ import shapeless.Witness
 import spire.syntax.cfor._
 
 import metal.IsVPtr
-
-import net.alasc.symdpoly.free.MutableWord
 import metal.syntax._
 
+import net.alasc.symdpoly.free.MutableWord
 import net.alasc.symdpoly.math.Phase
+import net.alasc.symdpoly.{free, valueOf}
 
 /** Scratch pad of mutable words where equivalence operations are applied in batch.
   * The pad itself is an array of words, all stored in their phase canonical form. Additionally, the map "phases"
@@ -58,9 +60,10 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
   /** Clears the scratch pad and sets its first element to the given word. */
   def resetWithCopyOf(mono: MutableWord[F]): FreeScratchPad[F] = {
     require(!mono.isZero)
-    cforRange(0 until n) { i =>
+    cforRange(0 until pad.length) { i =>
       pad(i).reset()
     }
+    phases.reset()
     scratch(0).setToContentOf(mono)
     scratch(0).setPhase(Phase.one)
     scratch(0).lock()
@@ -113,10 +116,10 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
         phases.ptrFind(w) match {
           case IsVPtr(vp) => // word is already known
             val storedPhase: Int = vp.value
+            w.reset() // in any case we reset the word
             // check if phases match
             if (storedPhase == phase.encoding) {
               // if yes, the word is redundant
-              w.reset()
               if (cur != bound - 1) {
                 val tmp = pad(bound - 1)
                 pad(bound - 1) = w
@@ -143,6 +146,20 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
 
 object FreeScratchPad {
 
-  def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0, metal.mutable.HashMap.empty[MutableWord[F], Int])
+  private val map = new WeakHashMap[free.MonoidDef, FreeScratchPad[_ <: free.MonoidDef with Singleton]]
+
+  def release[F <: free.MonoidDef with Singleton](pad: FreeScratchPad[F]): Unit =
+    synchronized { map.put(pad.F, pad) }
+
+  def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = synchronized {
+    Option(map.remove(valueOf[F])) match {
+      case Some(pad) => pad.asInstanceOf[FreeScratchPad[F]]
+        create[F]
+      case None => create[F]
+    }
+  }
+
+  protected def create[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] =
+    new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0, metal.mutable.HashMap.empty[MutableWord[F], Int])
 
 }

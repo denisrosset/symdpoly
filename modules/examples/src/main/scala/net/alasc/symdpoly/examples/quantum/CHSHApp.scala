@@ -15,7 +15,7 @@ object CHSHApp extends App {
 
   def relaxation(M: quotient.MonoidDef.Aux[Free.type])(generatingSet: GSet[M.type]): (RelaxationM[M.type], RelaxationM[M.type]) = {
     /** Default evaluator. */
-    val L = M.evaluator(evaluation.real)
+    val L = M.eigenvalueEvaluator(true)
 
     /** Relaxation with all monomials of given local Level. */
     //    val generatingSet = M.quotient(freeGeneratingSet)

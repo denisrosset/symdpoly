@@ -6,14 +6,15 @@ import net.alasc.symdpoly.examples.quantum.{SliwaData, SliwaInequality}
 
 class PPTTest extends CommonSuite {
   import examples.quantum.Sliwa._
-
+/*
   test("Simple PPT test") {
     import Free.{A, B, C}
     val m1 = LptA(Quotient.quotient(A(0) * A(1) * B(1) * B(0) * C(0) * C(1)))
     val m2 = LptA(Quotient.quotient(A(0) * A(1) * B(0) * B(1) * C(1) * C(0)))
     assert(m1 == m2)
   }
-
+*/
+  /*
   test("Optimized vs nonoptimized") {
     val generatingSet = localLevel(1)
     def nMonomials(expr: Quotient.PolyType, ev: Evaluator.Aux[Quotient.type]): Int = {
@@ -27,5 +28,5 @@ class PPTTest extends CommonSuite {
       assert(n1 == n2)
     }
   }
-
+*/
 }
