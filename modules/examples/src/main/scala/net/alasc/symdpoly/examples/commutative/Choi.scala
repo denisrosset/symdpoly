@@ -50,7 +50,7 @@ object Choi {
   val obj = Quotient.quotient(-B*S)
 
   /** Default evaluator. */
-  val L = Quotient.evaluator(evaluation.real)
+  val L = Quotient.eigenvalueEvaluator(true)
 
   /** Generating set of monomials. */
   val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))

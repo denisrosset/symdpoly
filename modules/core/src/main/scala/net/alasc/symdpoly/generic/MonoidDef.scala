@@ -12,9 +12,10 @@ import spire.math.Rational
 import spire.syntax.cfor.cforRange
 
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp}
-import net.alasc.symdpoly.evaluation.{Equivalence, Evaluator}
+import net.alasc.symdpoly.evaluation.{EigenvalueEvaluator, Evaluator}
 import net.alasc.symdpoly.free
 import net.alasc.symdpoly.math.{GenPerm, Phase}
+import net.alasc.perms.default._
 
 /** Describes a generic monomial monoid. */
 abstract class MonoidDef { self =>
@@ -108,24 +109,19 @@ abstract class MonoidDef { self =>
   /** Class tag for permutations. */
   def permutationClassTag: ClassTag[PermutationType]
 
-  /** Constructs an evaluator over this monoid without enforced symmetries. */
-  def evaluator(equivalence: Equivalence[self.type]): Evaluator.Aux[self.type] =
-    symmetricEvaluator(Grp.trivial[PermutationType], equivalence)
+  // Evaluator creation
 
-  /** Construct an evaluator over this monoid without enforced symmetries nor equivalence relation. */
-  def evaluator(): Evaluator.Aux[self.type] = evaluator(net.alasc.symdpoly.evaluation.trivial[self.type])
-
-  /** Constructs an evaluator over this monoid with the given symmetry enforced but no equivalence relation. */
-  def symmetricEvaluator(symmetryGroup: Grp[PermutationType]): Evaluator.Aux[self.type] =
-    symmetricEvaluator(symmetryGroup, net.alasc.symdpoly.evaluation.trivial[self.type])
-
-    /** Constructs an evaluator over this monoid with the given symmetry enforced. */
-  def symmetricEvaluator(symmetryGroup0: Grp[PermutationType], equivalence0: Equivalence[self.type]): Evaluator.Aux[self.type] = new Evaluator { evaluator =>
-    val equivalence: Equivalence[self.type] = equivalence0
-    val symmetryGroup: Grp[PermutationType] = symmetryGroup0
-    type Mono = self.type
-    val witnessMono: Witness.Aux[self.type] = self.witness
-  }
+  /** Creates an evaluator for eigenvalue optimization.
+    *
+    * @param real Whether the problem is real, i.e. we have L(x) = L(x.adjoint), where L is this evaluator
+    *             By default, we do not enforce the problem to be real..
+    * @param symmetryGroup Symmetry group defining additional equivalences for this evaluator.
+    *                      By default, we use the trivial group (i.e. no additional equivalences).
+    */
+  def eigenvalueEvaluator(real: Boolean = false,
+                          symmetryGroup: Grp[PermutationType] = Grp.trivial[PermutationType]
+                         ): Evaluator.Aux[this.type] =
+    new EigenvalueEvaluator[this.type](real, symmetryGroup)
 
 }
 

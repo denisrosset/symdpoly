@@ -90,25 +90,30 @@ object MomentMatrix {
           logVerbose(s"Found ${conf.nOrbits} orbits")
           val showProgress = Settings.verbosity != Verbosity.Quiet && Settings.useProgressBar
           val bar = if (showProgress) Some(new ProgressBar("Computing reduced monomials", conf.nOrbits)) else None
+          bar.foreach(_.stepTo(0))
           cforRange(0 until conf.nOrbits) { o =>
-            bar.foreach(_.stepTo(o + 1))
             val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)
             val r = ptr.row
             val c = ptr.col
+            val adjO = conf.orbit(c, r)
+            if (!E.isReal || o <= adjO) {
+              val v = E(generatingMoments(r).adjoint * generatingMoments(c))
+              val map = scala.collection.mutable.LongMap.empty[E#SingleMomentType]
 
-            val v = E(generatingMoments(ptr.row).adjoint * generatingMoments(ptr.col))
-            // cache monomials after phase action
-            val map = scala.collection.mutable.LongMap(Phase.one.encoding.toLong -> v)
+              @tailrec def rec(p: symmetries.Ptr[conf.type], factor: Phase): Unit =
+                if (!p.isEmpty) {
+                  val thisPhase = p.phase * factor
+                  mat(p.row, p.col) := map.getOrElseUpdate(thisPhase.encoding.toLong, v <* thisPhase)
+                  rec(p.next, factor)
+                }
 
-            mat(r, c) := v
-
-            @tailrec def rec(p: symmetries.Ptr[conf.type]): Unit =
-              if (!p.isEmpty) {
-                mat(p.row, p.col) := map.getOrElseUpdate(p.phase.encoding.toLong, v <* p.phase)
-                rec(p.next)
+              rec(ptr, ptr.phase.reciprocal)
+              if (E.isReal && o != adjO) {
+                val ptr1: symmetries.Ptr[conf.type] = conf.orbitStart(adjO)
+                rec(ptr1, ptr1.phase.reciprocal)
               }
-
-            rec(ptr.next)
+            }
+            bar.foreach(_.stepTo(o + 1))
           }
           bar.foreach(_.close())
         }

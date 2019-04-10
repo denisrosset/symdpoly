@@ -32,47 +32,56 @@ abstract class Evaluator { self =>
 
   //region Members to implement in concrete instances
 
-  def equivalence: Equivalence[Mono]
-  def symmetryGroup: Grp[Mono#PermutationType]
-  lazy val symmetryGroupDecomposition: GrpDecomposition[Mono#PermutationType] = GrpDecomposition(symmetryGroup)
-
   type Mono <: generic.MonoidDef with Singleton
+
+  implicit def witnessMono: Witness.Aux[Mono]
+
+  /** Current symmetry group */
+  def symmetryGroup: Grp[Mono#PermutationType]
+
+  /** Returns the set of monomials equivalent to the given monomial. */
+  def apply(mono: Mono#MonoType): SingleMomentType
+
+  protected def buildWithSymmetryGroup(newSymmetryGroup: Grp[Mono#PermutationType]): Evaluator.Aux[Mono]
+
+  /** Derives a new evaluator from this evaluator by adding equivalence under the given symmetry group. */
+  def forceSymmetrize(grp: Grp[Mono#PermutationType]): Evaluator.Aux[Mono] =
+    buildWithSymmetryGroup(grp union symmetryGroup)
+
+  /** Derives a new evaluator from this evaluator by adding equivalence under the subgroup of the given symmetry group
+    * that is compatible with the structure of this evaluator.
+    *
+    * In clear, given a group G such that x ~ y implies (x <|+| g) ~ (y <|+| g) for all g in G, we find the subgroup H
+    * such that L(x) ~ L(y) implies (L(x) <|+| h) ~ (L(y) <|+| h) for h in H.
+    */
+  def symmetrize(grp: Grp[Mono#PermutationType]): Evaluator.Aux[Mono] =
+    forceSymmetrize(compatibleSubgroup(grp))
+
+  /** Returns the group of permutations that is compatible with the evaluator,
+    *
+    * A group of permutations is deemed compatible if, for any monomials m1 and m2 of type M#Monomial,
+    * we have m1 ~ m2 if and only if (m1 <|+| g) ~ (m2 <|+| g) for any element g of the group,
+    * where ~ is described by this equivalence relation.
+    */
+  def compatibleSubgroup(grp: Grp[Mono#PermutationType]): Grp[Mono#PermutationType]
+
+  /** Returns whether m.adjoint is equivalent to m for all m of type M#Monomial. */
+  def isReal: Boolean
 
   //endregion
 
-  implicit def witnessMono: Witness.Aux[Mono]
   implicit val witness: Witness.Aux[self.type] = Witness.mkWitness(self)
   def M: Mono = valueOf[Mono]
-
-  def isSelfAdjoint: Boolean = equivalence.isSelfAdjoint
-
-  /** Returns the subgroup of grp that is compatible with this evaluator, in the sense that
-    * for all monomials m1 and m2 of type Mono#Monomial, and all g of type M#Permutation, we have
-    * L(m1) == L(m2) if and only if L(m1 <|+| g) == L(m2 <|+| g)
-    */
-  def compatibleSubgroup(grp: Grp[Mono#PermutationType]): Grp[Mono#PermutationType] = grp intersect (symmetryGroup union equivalence.compatibleSubgroup(grp))
 
   //region Evaluated monomials
 
   type SingleMomentType = SingleMoment[self.type, Mono]
 
-  lazy val zero: SingleMomentType = apply(M.zero)
+  lazy val zero: SingleMomentType = new SingleMoment[self.type, Mono](M.zero)
 
-  lazy val one: SingleMomentType = apply(M.one)
+  lazy val one: SingleMomentType = new SingleMoment[self.type, Mono](M.one)
 
-  def fromNormalForm(normalForm: Mono#MonoType): SingleMoment[self.type, Mono] = new SingleMoment[self.type, Mono](normalForm)
-
-  def apply(mono: Mono#MonoType): SingleMoment[self.type, Mono] = {
-    val equivalentUnderSymmetry: Set[Mono#MonoType] = symmetryGroupDecomposition.transversals.foldLeft(Set(mono)) {
-      case (set, transversal) => for ( m <- set ; g <- transversal ) yield m <|+| g
-    }
-    val candidates = equivalentUnderSymmetry.flatMap( equivalence.apply(_: Mono#MonoType) )
-    val canonicalCandidates = candidates.map(M.monoPhased.phaseCanonical)
-    if (canonicalCandidates.size != candidates.size)
-      new SingleMoment[self.type, Mono](M.monoMultiplicativeBinoid.zero)
-    else
-      new SingleMoment[self.type, Mono](candidates.qmin(M.monoOrder))
-  }
+  def fromNormalForm(normalForm: Mono#MonoType): SingleMomentType = new SingleMoment[self.type, Mono](normalForm)
 
   //endregion
 

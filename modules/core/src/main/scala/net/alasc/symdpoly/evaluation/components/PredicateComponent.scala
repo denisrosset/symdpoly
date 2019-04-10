@@ -15,7 +15,7 @@ import net.alasc.symdpoly.util.OrderedSet
 import net.alasc.perms.default._
 import instances.invariant._
 import net.alasc.symdpoly.freebased.{Mono, Permutation}
-
+/*
 abstract class PredicateComponent[
   M <: freebased.MonoidDef.Aux[F] with Singleton:Witness.Aux,
   F <: free.MonoidDef.Aux[F] with Singleton
@@ -26,3 +26,4 @@ abstract class PredicateComponent[
   val predicateIndex: BitSet = BitSet.empty ++ (0 until F.nOperators).filter(i => predicate(F.opFromIndex(i)))
 
 }
+*/

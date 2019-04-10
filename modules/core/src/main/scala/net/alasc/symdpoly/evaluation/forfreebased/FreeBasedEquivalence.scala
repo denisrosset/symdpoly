@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package evaluation
-package scratchpad
-
+package forfreebased
+/*
 import shapeless.Witness
 
 import net.alasc.symdpoly.{free, freebased}
@@ -12,3 +12,4 @@ trait FreeBasedEquivalence[
 ] extends Equivalence[M] with FreeBasedComponent[M, F] {
 
 }
+*/

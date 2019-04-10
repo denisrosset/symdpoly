@@ -1,7 +1,7 @@
 package net.alasc.symdpoly
 package evaluation
-package scratchpad
-
+package forfreebased
+/*
 import shapeless.Witness
 
 import net.alasc.finite.Grp
@@ -96,3 +96,4 @@ final case class FreeBasedEvaluator[
     def transpose(predicate: OpPredicate[F]): Evaluator[M] = self :+ new LiftedFreeBasedEquivalence[M, F](new TransposeEquivalence[F](predicate))
   */
 }
+*/

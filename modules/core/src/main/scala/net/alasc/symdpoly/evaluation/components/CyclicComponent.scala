@@ -5,7 +5,7 @@ package components
 import scala.annotation.tailrec
 
 import shapeless.Witness
-
+/*
 /** Equivalence under cyclic permutation of a subset of operators. */
 final case class CyclicComponent[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
@@ -39,6 +39,7 @@ final case class CyclicComponent[
     iterate(first, second, 0)
   }
 
-  def isSelfAdjoint: Boolean = false
+  def isReal: Boolean = false
 
 }
+*/

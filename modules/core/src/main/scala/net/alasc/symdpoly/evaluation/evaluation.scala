@@ -10,6 +10,7 @@ package object evaluation {
   private[this] def false2[A, B](a: A, b: B): Boolean = false
   private[this] def true2[A, B](a: A, b: B): Boolean = true
 
+  /*
   /** Constructs an equivalence relation from various components.
     *
     * This variant of the construction does not preserve symmetries.
@@ -59,11 +60,12 @@ package object evaluation {
     actionCompatible: (F#Op, F#Op) => Boolean,
     components: FreeBasedComponent[M, F]*): Equivalence[M] = new ComponentEquivalence[M, F](components, permutationCompatible, actionCompatible)
 
+
   /** Returns an equivalence relation under cyclic permutation of operators. */
-  def cyclic[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F]): Equivalence[M.type] =
+  def trace[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F]): Equivalence[M.type] =
     symmetryNotPreserving(Component.cyclic[M.type, F](true1))
 
-  def cyclicReal[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F]): Equivalence[M.type] =
+  def traceReal[F <: free.MonoidDef.Aux[F] with Singleton](M: freebased.MonoidDef.Aux[F]): Equivalence[M.type] =
     symmetryNotPreserving(Component.cyclic[M.type, F](true1), Component.transpose[M.type, F](true1))
 
   /** Equivalence under the adjoint operation. */
@@ -86,11 +88,8 @@ package object evaluation {
     val groupIndex = valueOf[F].opIndexMap.elements.map( op => map.getOrElse(op, -1) ).toArray[Int]
     new TransposesEquivalence[M.type, F](groupIndex)
   }
-
-  sealed trait LetterEquivalence
-  case object Transpose extends LetterEquivalence
-  case object Cyclic extends LetterEquivalence
-
+*/
+/*
   def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: quotient.MonoidDef.Aux[F], parts: Map[Set[F#Op], Boolean])(groups: (F#OpEnum, LetterEquivalence)*): Equivalence[M.type] = {
     ???
   }
@@ -105,6 +104,6 @@ package object evaluation {
   def partiallyCommutative[F <: free.MonoidDef.Aux[F] with Singleton](M: quotient.MonoidDef.Aux[F])(groups: (F#OpEnum, LetterEquivalence)*): Equivalence[M.type] = {
     val iq = new PartiallyCommutative.InvestigatedQuotient[M.type, F]()(M.witness)
     partiallyCommutative[F](M, iq.ansatzFromRules)(groups: _*)
-  }
+  }*/
 
 }

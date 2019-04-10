@@ -20,8 +20,7 @@ case class Optimization[
     * No consistency checks are performed, use with caution.
     */
   def forceSymmetrizeNC(grp: Grp[M#PermutationType]): Optimization[_ <: Evaluator.Aux[M] with Singleton, M] = {
-    val unionGrp = E.symmetryGroup union grp
-    val E1 = M.symmetricEvaluator(unionGrp, E.equivalence)
+    val E1 = E.forceSymmetrize(grp)
     val objective1 = E1(objective.normalForm)
     val scalarConstraints1 = scalarConstraints.map {
       case ScalarConstraint(lhs, op, rhs) => ScalarConstraint(E1(lhs.normalForm), op, E1(rhs.normalForm))

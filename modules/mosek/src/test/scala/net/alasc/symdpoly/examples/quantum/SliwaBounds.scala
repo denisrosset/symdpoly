@@ -44,10 +44,13 @@ class SliwaBounds extends CommonSuite {
       }
 
       solve(L, "", sliwa.almostQuantum)
+      /*
       solve(LptA, "_ptA", sliwa.almostQuantumTA)
       solve(LptB, "_ptB", sliwa.almostQuantumTB)
       solve(LptC, "_ptC", sliwa.almostQuantumTC)
       solve(LptAll, "_ptABC", sliwa.almostQuantumTall)
+
+       */
     }
   }
 

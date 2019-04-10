@@ -10,7 +10,7 @@ import net.alasc.symdpoly.math.{GenPerm, Phase, PhasedInt, Phases}
 import shapeless.Witness
 import spire.math.Rational
 import spire.std.int._
-
+import spire.compat._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.freebased.{Mono, Permutation, Poly}
 import net.alasc.symdpoly.generic.{MonoLike, PolyLike}
@@ -30,10 +30,13 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
 
   import MonoidDef.booleans
 
-  //region Abstract members to implement
+  //region Abstract members to implement, and members that can be overriden
 
   /** Sequence of all operator families appearing in this free monoid. */
   def operators: Seq[OpFamily]
+
+  /** Sequence of all operators of this free monoid. Override to prescribe a custom order. */
+  def allOperators: Seq[Op] = operators.flatMap(oc => oc.allInstances)
 
   //endregion
 
@@ -87,7 +90,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
 
   //region Operator variables and handling of these
 
-  lazy val opIndexMap: IndexMap[Op] = IndexMap(operators.flatMap(oc => oc.allInstances))
+  lazy val opIndexMap: IndexMap[Op] = IndexMap(allOperators)
 
   // Internally, operators are represented by their index
   private[this] lazy val adjointIndices: Array[Int] = {
@@ -328,6 +331,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
   }
 
   //endregion
+
 
 }
 

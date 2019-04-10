@@ -3,7 +3,7 @@ package evaluation
 package components
 
 import net.alasc.symdpoly.freebased.Mono
-
+/*
 abstract class InPlaceComponent[
   M <: freebased.MonoidDef.Aux[F] with Singleton,
   F <: free.MonoidDef.Aux[F] with Singleton
@@ -34,3 +34,4 @@ abstract class InPlaceComponent[
   }
 
 }
+*/
