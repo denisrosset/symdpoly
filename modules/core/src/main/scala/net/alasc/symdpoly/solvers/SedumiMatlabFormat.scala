@@ -60,7 +60,7 @@ case class SedumiMatlabFormat(val program: Program) extends MatlabFormat {
       .set("q", Mat.zeros[Double](1, 0).toMatlab)
       .set("r",  Mat.zeros[Double](1, 0).toMatlab)
       .set("s", Vec(program.sdpCon.blocks.map(_.size.toDouble): _*).toMatlabRow)
-    logVerbose(s"Number of variables in the dual form: ${program.ineqA.nCols}")
+    logVerbose(s"Number of variables in the dual form: ${program.ineqA.nCols-1}")
     logVerbose(s"Equality constraints in the dual form: ${program.eqA.nRows}")
     logVerbose(s"Inequality constraints in the dual form: ${program.ineqA.nRows}")
     logVerbose(s"SDP block sizes: ${program.sdpCon.blocks.map(_.size).toList}")
