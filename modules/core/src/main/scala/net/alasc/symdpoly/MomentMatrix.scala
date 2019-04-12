@@ -110,7 +110,8 @@ object MomentMatrix {
               rec(ptr, ptr.phase.reciprocal)
               if (E.isReal && o != adjO) {
                 val ptr1: symmetries.Ptr[conf.type] = conf.orbitStart(adjO)
-                rec(ptr1, ptr1.phase.reciprocal)
+                val phaseCorrection = conf.phase(c, r).reciprocal
+                rec(ptr1, phaseCorrection)
               }
             }
             bar.foreach(_.stepTo(o + 1))
