@@ -182,7 +182,6 @@ object FreeScratchPad {
   def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = synchronized {
     Option(map.remove(valueOf[F])) match {
       case Some(pad) => pad.asInstanceOf[FreeScratchPad[F]]
-        create[F]
       case None => create[F]
     }
   }
