@@ -44,11 +44,12 @@ final case class FreeBasedEigenvalueEvaluator[
     }
 
     @tailrec def recAndTestForZero(pos: Int): Boolean =
-      if (pos == pad.n) false else {
+      if (pos >= pad.n) false else {
         var newPos = pad.n
         cforRange(0 until symmetryGroup.nGenerators) { genI =>
           val g = symmetryGroup.generator(genI).genPerm
           pad.scratch(newPos).setToContentOf(pad.scratch(pos))
+          pad.scratch(newPos).setPhase(Phase.fromEncoding(pad.phaseArray(pos)))
           pad.scratch(newPos).inPlaceGenPermAction(g)
           M.inPlaceNormalForm(pad.scratch(newPos))
           newPos += 1
