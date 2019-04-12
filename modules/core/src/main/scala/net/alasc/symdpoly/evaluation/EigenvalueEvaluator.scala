@@ -27,7 +27,7 @@ final case class EigenvalueEvaluator[M <: generic.MonoidDef with Singleton](real
     elements.flatMap(m => transversal.map(g => m <|+| g))
 
   def apply(mono: Mono#MonoType): SingleMomentType = {
-    val start: Set[Mono#MonoType] = if (real) HashSet(mono) else HashSet(mono, mono.adjoint)
+    val start: Set[Mono#MonoType] = if (real) HashSet(mono, mono.adjoint) else HashSet(mono)
     val candidates: Set[Mono#MonoType] = symmetryGroupDecomposition.transversals.foldLeft(start) {
       case (set, transversal) => applyTransversal(set, transversal)
     }
