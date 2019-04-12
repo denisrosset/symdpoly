@@ -38,6 +38,12 @@ class MomentMatrix[
   def E: E = valueOf[E]
   def M: M = valueOf[M]
 
+  override def toString: String = s"Moment matrix on generating moments $generatingMoments\n$mat"
+  override def hashCode: Int = mat.hashCode
+  override def equals(any: Any): Boolean = any match {
+    case that: MomentMatrix[E, M] if this.E eq that.E => (this.generatingMoments == that.generatingMoments) && (this.mat == that.mat)
+    case _ => false
+  }
   /** The matrix of moments has shape size x size */
   def size: Int =  generatingMoments.length
 
