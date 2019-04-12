@@ -28,18 +28,19 @@ import net.alasc.symdpoly.{free, valueOf}
   *
   * There is no way to store a zero in the scratch pad.
   */
-class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: Array[MutableWord[F]], var n: Int, val phases: metal.mutable.HashMap[MutableWord[F], Int]) { self =>
+class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: Array[MutableWord[F]], var n: Int, var phaseArray: Array[Int], val phaseMap: metal.mutable.HashMap[MutableWord[F], Int]) { self =>
 
   /** Verifies class invariants, used for debugging purposes. */
   def checkInvariants(): Unit = {
-    assert(phases.size == n)
+    assert(phaseMap.size == n)
     assert(n <= pad.length)
     cforRange(0 until n) { i =>
       val w = pad(i)
       assert(w.state == MutableWord.Locked)
       assert(w.phase == Phase.one)
       assert(w.length >= 0)
-      assert(phases.contains(w))
+      assert(phaseMap.contains(w))
+      assert(phaseArray(i) == phaseMap(w))
     }
     cforRange(n until pad.size) { i =>
       val w = pad(i)
@@ -63,11 +64,12 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
     cforRange(0 until pad.length) { i =>
       pad(i).reset()
     }
-    phases.reset()
+    phaseMap.reset()
     scratch(0).setToContentOf(mono)
     scratch(0).setPhase(Phase.one)
     scratch(0).lock()
-    phases(scratch(0)) = mono.phase.encoding
+    phaseMap(scratch(0)) = mono.phase.encoding
+    phaseArray(0) = mono.phase.encoding
     n = 1
     self
   }
@@ -85,11 +87,14 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
     if (newSize != n) {
       val newScratch = new Array[free.MutableWord[F]](newSize)
       System.arraycopy(pad, 0, newScratch, 0, pad.length)
+      val newPhaseArray = new Array[Int](newSize)
+      System.arraycopy(phaseArray, 0, newPhaseArray, 0, phaseArray.length)
       val reservedSize = if (n == 0) 8 else newScratch(0).reservedSize
       cforRange(pad.length until newScratch.length) { i =>
         newScratch(i) = free.MutableWord.one[F](reservedSize)
       }
       pad = newScratch
+      phaseArray = newPhaseArray
     }
   }
 
@@ -113,7 +118,7 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
         val phase = w.phase
         w.setPhase(Phase.one)
         w.lock()
-        phases.ptrFind(w) match {
+        phaseMap.ptrFind(w) match {
           case IsVPtr(vp) => // word is already known
             val storedPhase: Int = vp.value
             w.reset() // in any case we reset the word
@@ -128,7 +133,8 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
               rec(cur, bound - 1)
             } else ~cur // if not, the word is equivalent to zero
           case _ =>
-            phases(w) = phase.encoding
+            phaseMap(w) = phase.encoding
+            phaseArray(cur) = phase.encoding
             rec(cur + 1, bound)
         }
       }
@@ -160,6 +166,6 @@ object FreeScratchPad {
   }
 
   protected def create[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] =
-    new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0, metal.mutable.HashMap.empty[MutableWord[F], Int])
+    new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0, Array.empty[Int], metal.mutable.HashMap.empty[MutableWord[F], Int])
 
 }
