@@ -95,7 +95,7 @@ object MomentMatrix {
           val conf = Configuration.fromGrpMonomialRepresentation(symmetry)
           logVerbose(s"Found ${conf.nOrbits} orbits")
           val showProgress = Settings.verbosity != Verbosity.Quiet && Settings.useProgressBar
-          val bar = if (showProgress) Some(new ProgressBar("Computing reduced monomials", conf.nOrbits)) else None
+          val bar = if (showProgress) Some(new ProgressBar("Computing reduced monomials", conf.nOrbits, 100)) else None
           bar.foreach(_.stepTo(0))
           cforRange(0 until conf.nOrbits) { o =>
             val ptr: symmetries.Ptr[conf.type] = conf.orbitStart(o)
@@ -105,14 +105,12 @@ object MomentMatrix {
             if (!E.isReal || o <= adjO) {
               val v = E(generatingMoments(r).adjoint * generatingMoments(c))
               val map = scala.collection.mutable.LongMap.empty[E#SingleMomentType]
-
               @tailrec def rec(p: symmetries.Ptr[conf.type], factor: Phase): Unit =
                 if (!p.isEmpty) {
                   val thisPhase = p.phase * factor
                   mat(p.row, p.col) := map.getOrElseUpdate(thisPhase.encoding.toLong, v <* thisPhase)
                   rec(p.next, factor)
                 }
-
               rec(ptr, ptr.phase.reciprocal)
               if (E.isReal && o != adjO) {
                 val ptr1: symmetries.Ptr[conf.type] = conf.orbitStart(adjO)
