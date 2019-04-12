@@ -89,7 +89,7 @@ package object symdpoly {
   def checkOptimize[T](thunk: => T): T = {
     val optimizedT = optimized(thunk)
     val unoptimizedT = unoptimized(thunk)
-    assert(optimizedT == unoptimizedT)
+    assert(optimizedT == unoptimizedT, s"The values $optimizedT and $unoptimizedT should be equal")
     optimizedT
   }
 
