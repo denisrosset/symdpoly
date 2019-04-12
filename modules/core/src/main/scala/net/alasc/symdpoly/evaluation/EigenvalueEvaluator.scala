@@ -28,9 +28,9 @@ final case class EigenvalueEvaluator[M <: generic.MonoidDef with Singleton](real
 
   def apply(mono: Mono#MonoType): SingleMomentType = {
     val start: Set[Mono#MonoType] = if (real) HashSet(mono, mono.adjoint) else HashSet(mono)
-    val candidates: Set[Mono#MonoType] = symmetryGroupDecomposition.transversals.foldLeft(start) {
-      case (set, transversal) => applyTransversal(set, transversal)
-    }
+    val candidates: Set[Mono#MonoType] =
+      if (Settings.optimize) symmetryGroupDecomposition.transversals.foldLeft(start) { case (set, transversal) => applyTransversal(set, transversal) }
+      else start.flatMap(m => symmetryGroup.iterator.map(g => m <|+| g))
     val canonical = candidates.map(_.phaseCanonical)
     if (canonical.size != candidates.size)
       new SingleMoment[this.type, Mono](M.monoMultiplicativeBinoid.zero)
