@@ -24,52 +24,56 @@ final case class FreeBasedEigenvalueEvaluator[
   F <: free.MonoidDef.Aux[F] with Singleton
 ](real: Boolean, symmetryGroup: Grp[M#PermutationType])(implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
 
-  println("Created freebased")
+  private[this] lazy val unoptimized: Evaluator.Aux[M] = new EigenvalueEvaluator[M](real, symmetryGroup)
+
   implicit def witnessF: Witness.Aux[F] = valueOf[M].witnessFree
 
   type Mono = M
 
   def apply(mono: Mono#MonoType): SingleMomentType =
-  if (mono.isZero) zero else {
-    val pad = FreeScratchPad[F]
-    pad.resetWithCopyOf(mono.data)
-    if (real) {
-      pad.scratch(1).setToContentOf(mono.data)
-      pad.scratch(1).inPlaceAdjoint()
-      M.inPlaceNormalForm(pad.scratch(1))
-      if (pad.registerAndTestForZero(2)) {
+    if (!Settings.optimize) new SingleMoment[this.type, M](unoptimized(mono).normalForm)
+    else if (mono.isZero) zero
+    else {
+      val pad = FreeScratchPad[F]
+      pad.resetWithCopyOf(mono.data)
+      if (real) {
+        pad.scratch(1).setToContentOf(mono.data)
+        pad.scratch(1).inPlaceAdjoint()
+        M.inPlaceNormalForm(pad.scratch(1))
+        if (pad.registerAndTestForZero(2)) {
+          FreeScratchPad.release(pad)
+          return this.zero
+        }
+      }
+
+      @tailrec def recAndTestForZero(pos: Int): Boolean =
+        if (pos >= pad.n) false else {
+          var newPos = pad.n
+          cforRange(0 until symmetryGroup.nGenerators) { genI =>
+            val g = symmetryGroup.generator(genI).genPerm
+            pad.scratch(newPos).setToContentOf(pad.scratch(pos))
+            pad.scratch(newPos).setPhase(Phase.fromEncoding(pad.phaseArray(pos)))
+            pad.scratch(newPos).inPlaceGenPermAction(g)
+            M.inPlaceNormalForm(pad.scratch(newPos))
+            newPos += 1
+          }
+          if (pad.registerAndTestForZero(newPos)) true else recAndTestForZero(pos + 1)
+        }
+
+      if (recAndTestForZero(0)) {
         FreeScratchPad.release(pad)
         return this.zero
       }
-    }
-
-    @tailrec def recAndTestForZero(pos: Int): Boolean =
-      if (pos >= pad.n) false else {
-        var newPos = pad.n
-        cforRange(0 until symmetryGroup.nGenerators) { genI =>
-          val g = symmetryGroup.generator(genI).genPerm
-          pad.scratch(newPos).setToContentOf(pad.scratch(pos))
-          pad.scratch(newPos).setPhase(Phase.fromEncoding(pad.phaseArray(pos)))
-          pad.scratch(newPos).inPlaceGenPermAction(g)
-          M.inPlaceNormalForm(pad.scratch(newPos))
-          newPos += 1
-        }
-        if (pad.registerAndTestForZero(newPos)) true else recAndTestForZero(pos + 1)
+      var imin = 0
+      cforRange(1 until pad.n) { i =>
+        if (pad.scratch(i) < pad.scratch(imin))
+          imin = i
       }
-
-    if (recAndTestForZero(0)) {
+      val resWord = pad.scratch(imin).mutableCopy().setPhase(Phase.fromEncoding(pad.phaseArray(imin))).setImmutable()
+      val res = new SingleMoment[this.type, M](new freebased.Mono[M, F](resWord))
       FreeScratchPad.release(pad)
-      return this.zero
+      res
     }
-    var elmin = pad.scratch(0)
-    cforRange(1 until pad.n) { i =>
-      if (pad.scratch(i) < elmin)
-        elmin = pad.scratch(i)
-    }
-    val res = new SingleMoment[this.type, M](new freebased.Mono[M, F](elmin.immutableCopy))
-    FreeScratchPad.release(pad)
-    res
-  }
 
   protected def buildWithSymmetryGroup(newSymmetryGroup: Grp[M#PermutationType]): Evaluator.Aux[M] =
     new FreeBasedEigenvalueEvaluator[M, F](real, newSymmetryGroup)
