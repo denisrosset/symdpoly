@@ -44,6 +44,8 @@ final class Configuration(val n: Int,
                           _orbit: Array[Int],
                           _phase: Array[Int]) {
 
+  implicit val witness: Witness.Aux[this.type] = Witness(this)
+
   override def toString: String =
     scalin.Printer.mat(
       Mat.tabulate(n, n) { (r, c) =>
