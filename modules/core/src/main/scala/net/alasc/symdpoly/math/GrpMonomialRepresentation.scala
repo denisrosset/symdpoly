@@ -31,7 +31,7 @@ case class GrpMonomialRepresentation[G](grp: Grp[G], n: Int, representation: Mor
   lazy val niceMorphism: InjectiveMorphism[G, Perm, Group] = {
     val action: PermutationAction[G] = grp match {
       case grpChain: GrpChain[G, a] if grpChain.action.isFaithful => grpChain.action
-      case _ => instances.invariant.ContravariantForFaithfulPermutationAction.contramap(GenPerm.fpab.apply(generatorImages))(representation.apply)
+      case _ => instances.invariant.contravariantForFaithfulPermutationAction.contramap(GenPerm.fpab.apply(generatorImages))(representation.apply)
     }
     InjectiveMorphism[G, Perm, Group](action.toPerm)(representation.S, implicitly)
   }

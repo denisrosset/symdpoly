@@ -17,7 +17,7 @@ trait InvariantInstances {
     }
   }
 
-  val ContravariantForFaithfulPermutationAction: Contravariant[PermutationAction] = new Contravariant[PermutationAction] {
+  val contravariantForFaithfulPermutationAction: Contravariant[PermutationAction] = new Contravariant[PermutationAction] {
     def contramap[A, B](fa: PermutationAction[A])(f: B => A): PermutationAction[B] = new PermutationAction[B] {
       def isFaithful: Boolean = true
       override def movesAnyPoint(g: B): Boolean = fa.movesAnyPoint(f(g))
@@ -102,7 +102,7 @@ trait InvariantInstances {
     def contramap[A, B](fa: FaithfulPermutationActionBuilder[A])(f: B => A): FaithfulPermutationActionBuilder[B] = new FaithfulPermutationActionBuilder[B] {
       def apply(generators: Iterable[B]): PermutationAction[B] = {
         val permutationActionA = fa.apply(generators.map(f))
-        ContravariantForFaithfulPermutationAction.contramap[A, B](permutationActionA)(f)
+        contravariantForFaithfulPermutationAction.contramap[A, B](permutationActionA)(f)
       }
     }
   }
