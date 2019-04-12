@@ -128,7 +128,8 @@ abstract class MonoidDef extends generic.MonoidDef {
 
   val permutationEq: Eq[PermutationType] = Eq[GenPerm].contramap(_.genPerm)
   val permutationGroup: Group[PermutationType] = Group[GenPerm].imap(new freebased.Permutation[self.type, Free](_))(_.genPerm)
-  lazy val permutationFaithfulPermutationAction: PermutationAction[PermutationType] = GenPermFaithfulPermutationAction(Free.nOperators, cyclotomicOrder).contramap(_.genPerm)
+  lazy val permutationFaithfulPermutationAction: PermutationAction[PermutationType] =
+    contravariantForFaithfulPermutationAction.contramap(GenPermFaithfulPermutationAction(Free.nOperators, cyclotomicOrder))(_.genPerm)
   val permutationFaithfulPermutationActionBuilder: FaithfulPermutationActionBuilder[PermutationType] = new FaithfulPermutationActionBuilder[PermutationType] {
     def apply(generators: Iterable[PermutationType]): PermutationAction[PermutationType] = permutationFaithfulPermutationAction
  }

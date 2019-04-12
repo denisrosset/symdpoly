@@ -14,7 +14,7 @@ import instances.invariant._
 import net.alasc.syntax.all._
 import net.alasc.util.NNOption
 import shapeless.Witness
-import instances.invariant.ContravariantForFaithfulPermutationAction
+import instances.invariant.contravariantForFaithfulPermutationAction
 import scala.annotation.tailrec
 import scala.reflect.ClassTag
 import cats.{Contravariant, Invariant, InvariantMonoidal}
@@ -150,7 +150,7 @@ object MorphismFromGeneratorImages {
       val sourceGenerators = source.generators
       val targetGenerators = images.filterNot(_.isEmpty)
       val sAction: PermutationAction[S] = FaithfulPermutationActionBuilder[S].apply(sourceGenerators)
-      val combinedAction: PermutationAction[(S, T)] = ContravariantForFaithfulPermutationAction.contramap[S, (S, T)](sAction)(_._1)
+      val combinedAction: PermutationAction[(S, T)] = contravariantForFaithfulPermutationAction.contramap[S, (S, T)](sAction)(_._1)
       val combinedGrp: Grp[(S, T)] = Grp(sourceGenerators zip targetGenerators: _*)
       val nPoints = combinedGrp.largestMovedPoint(combinedAction).getOrElse(-1) + 1
       assert(combinedGrp.pointwiseStabilizer(combinedAction, 0 until nPoints: _*).isTrivial,
