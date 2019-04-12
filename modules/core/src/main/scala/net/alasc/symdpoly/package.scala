@@ -51,20 +51,46 @@ package object symdpoly {
 
   @inline def valueOf[S <: Singleton](implicit wS: Witness.Aux[S]): S = wS.value
 
-  private[this] val cachedCycloDoubleValues: mutable.HashMap[Cyclo, Double] = mutable.HashMap.empty
+  implicit class RichRealCyclo(val rc: RealCyclo) extends AnyVal {
+    def toDouble: Double =
+      if (rc.isRational) rc.toRational.toDouble else rc.toAlgebraic.toDouble
+  }
 
-  private[this] def computeCycloToDouble(cyclo: Cyclo): Double =
-    if (cyclo.isRational) cyclo.toRational.toDouble
-    else RealCyclo.real(cyclo).toAlgebraic.toDouble
+  /** Cached floating point approximations of cyclotomics. */
+  val cycloValue: MemoMap[Cyclo, Complex[Double]] = MemoMap(c => Complex(RealCyclo.real(c).toDouble, RealCyclo.imag(c).toDouble))
 
-  /** Computes a Double approximation of a real cyclotomic number. */
-  def realCycloToDouble(cyclo: Cyclo): Double =
-    cachedCycloDoubleValues.getOrElseUpdate(cyclo, computeCycloToDouble(cyclo))
+  /** Cached floating point approximations of phases. */
+  val phaseValue: MemoMap[Phase, Complex[Double]] = MemoMap(p => cycloValue(p.toCyclo))
 
-  val cycloValue = MemoMap[Cyclo, Complex[Double]](c => Complex(RealCyclo.real(c).toAlgebraic.toDouble, RealCyclo.imag(c).toAlgebraic.toDouble))
-  val phaseValue = MemoMap[Phase, Complex[Double]](p => cycloValue(p.toCyclo))
-
+  /** Logs the given message if the current verbosity level is >= than the given verbosity level. */
   def log(level: Verbosity)(text: => String): Unit = if (level >= Settings.verbosity) Settings.err.println(text)
+
+  /** Logs the given message if the current verbosity level is >= Verbosity.Normal.
+    *
+    * Use for coarse updates about the progress of the computation.
+    */
   def logNormal(text: => String): Unit = log(Verbosity.Normal)(text)
+
+  /** Logs the given message if the current verbosity level is >= Verbosity.Verbose. */
   def logVerbose(text: => String): Unit = log(Verbosity.Verbose)(text)
+
+  /** Computes the given function while setting the Settings.optimize flag to true.
+    *
+    * When possible, optimized algorithms will be used.
+    */
+  def optimized[T](thunk: => T): T = Settings.withOptimize(true)(thunk)
+
+  /** Computes the given function while setting the Settings.optimize flag to false.
+    *
+    * Disables some optimizations by running the boring/slow/robust code path. Useful to debug. */
+  def unoptimized[T](thunk: => T): T = Settings.withOptimize(false)(thunk)
+
+  /** Runs the given function twice, once with optimization on, once with optimization off and compares the results. */
+  def checkOptimize[T](thunk: => T): T = {
+    val optimizedT = optimized(thunk)
+    val unoptimizedT = unoptimized(thunk)
+    assert(optimizedT == unoptimizedT)
+    optimizedT
+  }
+
 }
