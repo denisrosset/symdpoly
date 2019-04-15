@@ -9,7 +9,7 @@ class GrpDecompositionSuite extends CommonSuite {
   implicit val arbPerm: Arbitrary[Perm] = Arbitrary(net.alasc.laws.Permutations.permForSize(6))
   import net.alasc.laws.Grps.arbGrp
   forAll(arbGrp[Perm].arbitrary) { grp =>
-    val decomposition = GrpDecomposition(grp)
+    val decomposition = grp.decomposition
     def allElements(chain: List[Vector[Perm]]): Vector[Perm] = chain match {
       case hd :: tl =>
         for {

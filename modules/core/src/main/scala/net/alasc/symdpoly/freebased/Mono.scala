@@ -86,6 +86,9 @@ class Mono[
 
 object Mono {
 
+  def unapply[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](mono: Mono[F, F]): Option[(Phase, Vector[F#Op])] =
+    if (mono.isZero) None else Some((mono.phase, Vector.tabulate(mono.length)(mono.apply)))
+
   // Factory methods that work for any monoid, free or quotient
 
   /** Zero monoid element. */

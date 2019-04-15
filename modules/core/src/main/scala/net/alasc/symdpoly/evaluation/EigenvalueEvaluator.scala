@@ -20,22 +20,10 @@ final case class EigenvalueEvaluator[M <: generic.MonoidDef with Singleton](real
                                                                            (implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
   type Mono = M
 
-  lazy val symmetryGroupDecomposition: GrpDecomposition[Mono#PermutationType] = GrpDecomposition(symmetryGroup)
-
-  protected def applyTransversal(elements: Set[Mono#MonoType],
-                                 transversal: Vector[Mono#PermutationType]): Set[Mono#MonoType] =
-    elements.flatMap(m => transversal.map(g => m <|+| g))
-
   def apply(mono: Mono#MonoType): SingleMomentType = {
     val start: Set[Mono#MonoType] = if (real) HashSet(mono, mono.adjoint) else HashSet(mono)
-    val candidates: Set[Mono#MonoType] =
-      if (Settings.optimize) symmetryGroupDecomposition.transversals.foldLeft(start) { case (set, transversal) => applyTransversal(set, transversal) }
-      else start.flatMap(m => symmetryGroup.iterator.map(g => m <|+| g))
-    val canonical = candidates.map(_.phaseCanonical)
-    if (canonical.size != candidates.size)
-      new SingleMoment[this.type, Mono](M.monoMultiplicativeBinoid.zero)
-    else
-      new SingleMoment[this.type, Mono](candidates.qmin(M.monoOrder))
+    val candidates: Set[Mono#MonoType] = symmetrizeMonoSet(start, symmetryGroup)
+    fromNormalForm(findCanonicalInSet(candidates))
   }
 
   protected def buildWithSymmetryGroup(newSymmetryGroup: Grp[M#PermutationType]): Evaluator.Aux[M] =

@@ -26,14 +26,9 @@ final case class TraceEvaluator[
 
   type Mono = M
 
-  lazy val symmetryGroupDecomposition: GrpDecomposition[M#PermutationType] = GrpDecomposition(symmetryGroup)
-
-  protected def applyTransversal(elements: Set[M#MonoType],
-                                 transversal: Vector[M#PermutationType]): Set[M#MonoType] =
-    elements.flatMap(m => transversal.map(g => m <|+| g))
-
-  def allCyclicPermutations(mono: M#MonoType): Set[M#MonoType] =
-    if (mono.data.length <= 1) Set(mono) else {
+  def allCyclicPermutations(mono: M#MonoType): Set[M#MonoType] = {
+    val normalForm = mono.normalForm
+    if (normalForm.length <= 1) Set(mono) else {
       var rewritten = false
       val l = mono.data.length
       val res = Seq.tabulate(l) { i =>
@@ -45,19 +40,14 @@ final case class TraceEvaluator[
         new freebased.Mono[M, F](w.setImmutable())
       }.toSet
       if (rewritten) res.flatMap(allCyclicPermutations) else res
+    }
   }
 
   def apply(mono: M#MonoType): SingleMomentType = {
     val start: Set[M#MonoType] = if (real) HashSet(mono, mono.adjoint) else HashSet(mono)
     val afterCyclic: Set[M#MonoType] = start.flatMap(allCyclicPermutations)
-    val candidates: Set[M#MonoType] =
-      if (Settings.optimize) symmetryGroupDecomposition.transversals.foldLeft(start) { case (set, transversal) => applyTransversal(set, transversal) }
-      else start.flatMap(m => symmetryGroup.iterator.map(g => m <|+| g))
-    val canonical = candidates.map(_.phaseCanonical)
-    if (canonical.size != candidates.size)
-      new SingleMoment[this.type, M](M.monoMultiplicativeBinoid.zero)
-    else
-      new SingleMoment[this.type, M](candidates.qmin(M.monoOrder))
+    val candidates: Set[M#MonoType] = symmetrizeMonoSet[M](afterCyclic, symmetryGroup)
+    fromNormalForm(findCanonicalInSet[M](candidates))
   }
 
   protected def buildWithSymmetryGroup(newSymmetryGroup: Grp[M#PermutationType]): Evaluator.Aux[M] =

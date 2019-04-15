@@ -1,4 +1,4 @@
-package net.alasc.symdpoly.evaluation.partially
+package net.alasc.symdpoly.evaluation.parts
 
 import scala.collection.compat._
 import scala.collection.immutable.SortedSet
@@ -17,34 +17,6 @@ import spire.syntax.order._
 import net.alasc.partitions.Partition
 import net.alasc.symdpoly.util.IndexMap
 import net.alasc.symdpoly.{free, quotient, valueOf}
-
-class OpPartition[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](val partition: Partition) {
-
-  def toSetOfSets: Set[Set[F#Op]] = partition.blocks.map(_.map(i => valueOf[F].opFromIndex(i))).toSet
-
-  def blockFor(op: F#Op): Set[F#Op] = partition.blockFor(op.index).map(i => valueOf[F].opFromIndex(i))
-
-}
-
-object OpPartition {
-
-  def fromPartition[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](partition: Partition): OpPartition[F] =
-    new OpPartition[F](partition)
-
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](blocks: Set[Set[F#Op]]): OpPartition[F] =
-    fromPartition(Partition.fromSortedBlocks(blocks.map(_.map(_.index).to(SortedSet)).toSeq.sortBy(_.min)))
-
-  implicit def partialOrder[F <: free.MonoidDef.Aux[F] with Singleton]: PartialOrder[OpPartition[F]] =
-    PartialOrder[Partition].contramap(_.partition)
-
-  implicit def boundedLattice[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: BoundedLattice[OpPartition[F]] = new BoundedLattice[OpPartition[F]] {
-    def zero: OpPartition[F] = new OpPartition[F](Partition.fromSortedBlocks(Seq.tabulate(valueOf[F].nOperators)(SortedSet(_))))
-    def one: OpPartition[F] = new OpPartition[F](Partition.fromSortedBlocks(Seq((0 until valueOf[F].nOperators).to(SortedSet))))
-    def meet(lhs: OpPartition[F], rhs: OpPartition[F]): OpPartition[F] = new OpPartition[F](MeetSemilattice[Partition].meet(lhs.partition, rhs.partition))
-    def join(lhs: OpPartition[F], rhs: OpPartition[F]): OpPartition[F] = new OpPartition[F](JoinSemilattice[Partition].join(lhs.partition, rhs.partition))
-  }
-
-}
 
 /** A quotient monoid is partially commutative if the following rules are obeyed:
   * - equivalence classes are defined among operators for operators that do *not* commute
@@ -134,6 +106,8 @@ class PartiallyCommutative[
 }
 
 object PartiallyCommutative {
+
   def apply[F <: free.MonoidDef.Aux[F] with Singleton](M: quotient.MonoidDef.Aux[F]): PartiallyCommutative[M.type, F] =
     new PartiallyCommutative[M.type, F]
+
 }
