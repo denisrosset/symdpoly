@@ -47,7 +47,7 @@ import net.alasc.symdpoly.{free, valueOf}
   *
   * There is no way to store a zero in the scratch pad.
   */
-class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: Array[MutableWord[F]], var n: Int, var phaseArray: Array[Int], val phaseMap: metal.mutable.HashMap[MutableWord[F], Int]) { self =>
+class FreeScratchPad[F <: free.MonoDef with Singleton: Witness.Aux](var pad: Array[MutableWord[F]], var n: Int, var phaseArray: Array[Int], val phaseMap: metal.mutable.HashMap[MutableWord[F], Int]) { self =>
 
   /** Verifies class invariants, used for debugging purposes. */
   def checkInvariants(): Unit = {
@@ -174,19 +174,19 @@ class FreeScratchPad[F <: free.MonoidDef with Singleton: Witness.Aux](var pad: A
 
 object FreeScratchPad {
 
-  private val map = new WeakHashMap[free.MonoidDef, FreeScratchPad[_ <: free.MonoidDef with Singleton]]
+  private val map = new WeakHashMap[free.MonoDef, FreeScratchPad[_ <: free.MonoDef with Singleton]]
 
-  def release[F <: free.MonoidDef with Singleton](pad: FreeScratchPad[F]): Unit =
+  def release[F <: free.MonoDef with Singleton](pad: FreeScratchPad[F]): Unit =
     synchronized { map.put(pad.F, pad) }
 
-  def apply[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] = synchronized {
+  def apply[F <: free.MonoDef with Singleton:Witness.Aux]: FreeScratchPad[F] = synchronized {
     Option(map.remove(valueOf[F])) match {
       case Some(pad) => pad.asInstanceOf[FreeScratchPad[F]]
       case None => create[F]
     }
   }
 
-  protected def create[F <: free.MonoidDef with Singleton:Witness.Aux]: FreeScratchPad[F] =
+  protected def create[F <: free.MonoDef with Singleton:Witness.Aux]: FreeScratchPad[F] =
     new FreeScratchPad[F](Array.empty[free.MutableWord[F]], 0, Array.empty[Int], metal.mutable.HashMap.empty[MutableWord[F], Int])
 
 }

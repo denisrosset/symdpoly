@@ -21,7 +21,7 @@ import net.alasc.symdpoly._
 import defaults._
 
 // We describe the free variables A(0) A(1) B(0) B(1) C(0) C(1)
-object Free extends free.MonoidDef(2) {
+object Free extends free.MonoDef(2) {
 
   case class A(x: Int) extends HermitianOp
   object A extends HermitianOpFamily1(0 to 1)

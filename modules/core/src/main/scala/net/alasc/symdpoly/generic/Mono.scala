@@ -16,7 +16,7 @@ import net.alasc.symdpoly.math.Phase
   *
   * This trait defines all the methods where we are sure that the return type is M#MonoType.
   */
-trait MonoLike[M <: MonoidDef with Singleton] extends PolyLike[M] { lhs =>
+trait MonoLike[M <: MonoDef with Singleton] extends PolyLike[M] { lhs =>
   def M: M
 
   // abstract method to implement
@@ -28,11 +28,11 @@ trait MonoLike[M <: MonoidDef with Singleton] extends PolyLike[M] { lhs =>
 
 object MonoLike {
 
-  implicit def toMono[M <: MonoidDef with Singleton](monoLike: MonoLike[M]): M#MonoType = monoLike.toMono
+  implicit def toMono[M <: MonoDef with Singleton](monoLike: MonoLike[M]): M#MonoType = monoLike.toMono
 
 }
 
-abstract class Mono[M <: generic.MonoidDef with Singleton] extends MonoLike[M] with PolyLike[M] { lhs: M#MonoType =>
+abstract class Mono[M <: generic.MonoDef with Singleton] extends MonoLike[M] with PolyLike[M] { lhs: M#MonoType =>
   def degree: Int
   def *(rhs: Phase)(implicit d: DummyImplicit): Mono[M] = M.monoPhased.gtimesr(lhs, rhs)
   def /(rhs: Phase)(implicit d: DummyImplicit): Mono[M] = lhs * rhs.reciprocal

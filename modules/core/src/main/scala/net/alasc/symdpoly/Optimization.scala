@@ -9,7 +9,7 @@ import net.alasc.perms.default._
 /** Polynomial optimization problem. */
 case class Optimization[
   E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton: Witness.Aux
+  M <: generic.MonoDef with Singleton: Witness.Aux
 ](direction: Direction,
   objective: E#LinearMomentType,
   operatorConstraints: Seq[OperatorConstraint[M]] = Seq.empty,

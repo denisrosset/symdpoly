@@ -5,10 +5,10 @@ import spire.syntax.involution._
 import spire.syntax.eq._
 import generic.LinearMoment
 
-sealed trait Constraint[+E <: evaluation.Evaluator.Aux[M] with Singleton, M <: generic.MonoidDef with Singleton]
+sealed trait Constraint[+E <: evaluation.Evaluator.Aux[M] with Singleton, M <: generic.MonoDef with Singleton]
 
 final case class OperatorConstraint[
-  M <: generic.MonoidDef with Singleton:Witness.Aux
+  M <: generic.MonoDef with Singleton:Witness.Aux
 ](lhs: M#PolyType, op: ComparisonOp, rhs: M#PolyType) extends Constraint[Nothing, M] {
   def M: M = valueOf[M]
   require(op == ComparisonOp.EQ || {
@@ -20,7 +20,7 @@ final case class OperatorConstraint[
 
 final case class ScalarConstraint[
   E <: evaluation.Evaluator.Aux[M] with Singleton:Witness.Aux,
-  M <: generic.MonoidDef with Singleton:Witness.Aux
+  M <: generic.MonoDef with Singleton:Witness.Aux
 ](lhs: LinearMoment[E, M], op: ComparisonOp, rhs: LinearMoment[E, M]) extends Constraint[E, M] {
   def E: E = valueOf[E]
   require(op == ComparisonOp.EQ || {

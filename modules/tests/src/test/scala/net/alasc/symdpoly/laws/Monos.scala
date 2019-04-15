@@ -13,7 +13,7 @@ object Monos {
 
   // Generators
 
-  def genNonZeroFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Gen[Mono[F, F]] =
+  def genNonZeroFree[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux]: Gen[Mono[F, F]] =
     for {
       phase <- Phase.genForDenominator(valueOf[F].cyclotomicOrder)
       length <- Gen.choose(0, 8)
@@ -21,20 +21,20 @@ object Monos {
     } yield new Mono[F, F](new MutableWord[F](phase, length, indices, MutableWord.Immutable, -1))
 
   // Generator for a random free monomial
-  def genFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Gen[Mono[F, F]] =
+  def genFree[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux]: Gen[Mono[F, F]] =
     Gen.frequency(1 -> Gen.const(Mono.zero[F, F]), 10 -> genNonZeroFree[F])
 
-  def gen[M <: freebased.MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Gen[Mono[M, F]] = {
+  def gen[M <: freebased.MonoDef.Aux[F] with Singleton, F <: free.MonoDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Gen[Mono[M, F]] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
     genFree[F].map(mono => (wM.value: M).quotient(mono))
   }
 
   implicit def arb[
-    M <: freebased.MonoidDef.Aux[F] with Singleton:Witness.Aux,
-    F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux
+    M <: freebased.MonoDef.Aux[F] with Singleton:Witness.Aux,
+    F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux
   ](implicit ev: NoImplicit[F =:= M]): Arbitrary[Mono[M, F]] = Arbitrary(gen[M, F])
 
-  implicit def arbFree[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Arbitrary[Mono[F, F]] =
+  implicit def arbFree[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux]: Arbitrary[Mono[F, F]] =
     Arbitrary(genFree[F])
 
 }

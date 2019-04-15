@@ -26,14 +26,14 @@ import net.alasc.symdpoly.evaluation.Evaluator
 import net.alasc.symdpoly.util.OrderedSet
 
 /** A Permutation relabels the operator variables of monomials, possibly with a phase. */
-trait Permutation[M <: generic.MonoidDef with Singleton] { self: M#PermutationType =>
+trait Permutation[M <: generic.MonoDef with Singleton] { self: M#PermutationType =>
 
 }
 
 object Permutation {
 
   def phasedIntAction[
-    M <: generic.MonoidDef with Singleton:Witness.Aux
+    M <: generic.MonoDef with Singleton:Witness.Aux
   ](set: OrderedSet[M#MonoType])(implicit group: Group[Permutation[M]],
                                  action: Action[M#MonoType, Permutation[M]]): Action[PhasedInt, Permutation[M]] =
     new Action[PhasedInt, Permutation[M]] {
@@ -50,7 +50,7 @@ object Permutation {
 
   implicit def evaluatedMonoAction[
     E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
-    M <: generic.MonoidDef with Singleton
+    M <: generic.MonoDef with Singleton
   ](implicit action: Action[M#MonoType, Permutation[M]]): Action[SingleMoment[E, M], Permutation[M]] =
     Invariant[Lambda[P => Action[P, Permutation[M]]]].imap[M#MonoType, SingleMoment[E, M]](action)((mono: M#MonoType) => (valueOf[E]: E).apply(mono))(_.normalForm)
 

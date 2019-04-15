@@ -21,7 +21,7 @@ import spire.syntax.involution._
 /** Evaluated noncommutative polynomial. */
 final class LinearMoment[
   E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-  M <: generic.MonoidDef with Singleton:Witness.Aux
+  M <: generic.MonoDef with Singleton:Witness.Aux
 ](val normalForm: M#PolyType) extends LinearMomentLike[E, M] {
   lhs: E#LinearMomentType =>
 
@@ -116,29 +116,29 @@ object LinearMoment {
 
   implicit def polyFromInt[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-    M <: generic.MonoidDef with Singleton:Witness.Aux
+    M <: generic.MonoDef with Singleton:Witness.Aux
   ](i: Int): LinearMoment[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.fromInt(i))
 
   implicit def polyFromRational[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-    M <: generic.MonoidDef with Singleton:Witness.Aux
+    M <: generic.MonoDef with Singleton:Witness.Aux
   ](r: Rational): LinearMoment[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(Cyclo.viewFromRational(r), valueOf[M].polyAssociativeAlgebra.one))
 
   implicit def polyFromCyclo[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-    M <: generic.MonoidDef with Singleton:Witness.Aux
+    M <: generic.MonoDef with Singleton:Witness.Aux
   ](c: Cyclo): LinearMoment[E, M] = valueOf[E].apply(valueOf[M].polyAssociativeAlgebra.timesl(c, valueOf[M].polyAssociativeAlgebra.one))
 
   //region Typeclasses
 
   implicit def equ[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-    M <: generic.MonoidDef with Singleton
+    M <: generic.MonoDef with Singleton
   ]: Eq[LinearMoment[E, M]] = valueOf[E].evaluatedPolyEq
 
   implicit def vectorSpace[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-    M <: generic.MonoidDef with Singleton
+    M <: generic.MonoDef with Singleton
   ]: VectorSpace[LinearMoment[E, M], Cyclo] = valueOf[E].evaluatedPolyVectorSpace
 
   //endregion

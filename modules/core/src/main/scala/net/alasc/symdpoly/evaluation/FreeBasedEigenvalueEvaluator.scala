@@ -20,8 +20,8 @@ import net.alasc.perms.default._
 
 /** Equivalence under the adjoint operation. */
 final case class FreeBasedEigenvalueEvaluator[
-  M <: freebased.MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: freebased.MonoDef.Aux[F] with Singleton,
+  F <: free.MonoDef.Aux[F] with Singleton
 ](real: Boolean, symmetryGroup: Grp[M#PermutationType])(implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
 
   private[this] lazy val unoptimized: Evaluator.Aux[M] = new EigenvalueEvaluator[M](real, symmetryGroup)

@@ -15,7 +15,7 @@ import net.alasc.finite.Grp
 import net.alasc.symdpoly.freebased.{Mono, Permutation, Poly}
 import net.alasc.symdpoly.generic.{MonoLike, PolyLike}
 import net.alasc.symdpoly.util.{IndexMap, OrderedSet, SparseTrie}
-import net.alasc.symdpoly.quotient.{MonoidDef => QuotientMonoidDef, Rules => QuotientRules}
+import net.alasc.symdpoly.quotient.{MonoDef => QuotientMonoidDef, Rules => QuotientRules}
 
 /** Base class for a generalized free monoid.
   *
@@ -25,10 +25,10 @@ import net.alasc.symdpoly.quotient.{MonoidDef => QuotientMonoidDef, Rules => Quo
   * - Call declare for each operator with the relevant range of indices.
   * - Implement the abstract method "adjoint" for non hermitian operators.
   */
-abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
+abstract class MonoDef(val cyclotomicOrder: Int) extends freebased.MonoDef {
   monoidDef =>
 
-  import MonoidDef.booleans
+  import MonoDef.booleans
 
   //region Abstract members to implement, and members that can be overriden
 
@@ -335,7 +335,7 @@ abstract class MonoidDef(val cyclotomicOrder: Int) extends freebased.MonoidDef {
 
 }
 
-object MonoidDef {
+object MonoDef {
   val booleans = Seq(true, false)
-  type Aux[F <: MonoidDef with Singleton] = MonoidDef { type Free = F }
+  type Aux[F <: MonoDef with Singleton] = MonoDef { type Free = F }
 }

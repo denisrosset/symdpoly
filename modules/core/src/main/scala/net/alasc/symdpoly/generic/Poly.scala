@@ -39,7 +39,7 @@ import net.alasc.perms.default._
   *
   * This trait defines all the methods where we are sure that the return type is M#PolyType.
   */
-trait PolyLike[M <: MonoidDef with Singleton] { lhs =>
+trait PolyLike[M <: MonoDef with Singleton] { lhs =>
   def M: M
 
   // to implement
@@ -88,12 +88,12 @@ trait PolyLike[M <: MonoidDef with Singleton] { lhs =>
 
 object PolyLike {
 
-  implicit def toPoly[M <: MonoidDef with Singleton](polyLike: PolyLike[M]): M#PolyType = polyLike.toPoly
+  implicit def toPoly[M <: MonoDef with Singleton](polyLike: PolyLike[M]): M#PolyType = polyLike.toPoly
 
 }
 
 /** Polynomial written as a linear combination of monomials described by the monoid M. */
-abstract class Poly[M <: generic.MonoidDef with Singleton] extends PolyLike[M] { lhs: M#PolyType =>
+abstract class Poly[M <: generic.MonoDef with Singleton] extends PolyLike[M] { lhs: M#PolyType =>
   def toPoly: M#PolyType = lhs
 
   def nTerms: Int

@@ -14,7 +14,7 @@ import syntax.phased._
 /** Evaluated monomial, which represents an equivalence class under an evaluator. */
 final class SingleMoment[
   E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-  M <: generic.MonoidDef with Singleton:Witness.Aux
+  M <: generic.MonoDef with Singleton:Witness.Aux
 ](val normalForm: M#MonoType) extends LinearMomentLike[E, M] { lhs: E#SingleMomentType =>
 
   def E: E = valueOf[E]
@@ -59,17 +59,17 @@ object SingleMoment {
 
   implicit def order[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-    M <: generic.MonoidDef with Singleton
+    M <: generic.MonoDef with Singleton
   ]: Order[SingleMoment[E, M]] = valueOf[E].evaluatedMonoOrder
 
   implicit def phased[
     E <: Evaluator.Aux[M] with Singleton:Witness.Aux,
-    M <: generic.MonoidDef with Singleton
+    M <: generic.MonoDef with Singleton
   ]: Phased[SingleMoment[E, M]] = valueOf[E].evaluatedMonoPhased
 
   implicit def evaluatedMonoAction[
     E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
-    M <: generic.MonoidDef with Singleton
+    M <: generic.MonoDef with Singleton
   ]: Action[SingleMoment[E, M], M#PermutationType] = (valueOf[E]: E).evaluatedMonoPermutationAction
 
   //endregion

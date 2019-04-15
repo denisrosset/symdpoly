@@ -28,7 +28,7 @@ import net.alasc.symdpoly.sdp.{BasisTerm, Block, BlockElement}
   */
 class LocalizingMatrix[
   E <: evaluation.Evaluator.Aux[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton: Witness.Aux
+  M <: generic.MonoDef with Singleton: Witness.Aux
 ](val polynomial: M#PolyType, val generatingMoments: OrderedSet[M#MonoType], val mat: Mat[E#LinearMomentType]) {
   def E: E = valueOf[E]
   def M: M = valueOf[M]
@@ -59,7 +59,7 @@ object LocalizingMatrix {
 
   def apply[
     E <: evaluation.Evaluator.Aux[M] with Singleton: Witness.Aux,
-    M <: generic.MonoidDef with Singleton: Witness.Aux
+    M <: generic.MonoDef with Singleton: Witness.Aux
   ](polynomial: M#PolyType, generatingMoments: OrderedSet[M#MonoType]): LocalizingMatrix[E, M] = {
     def E: E = valueOf[E]
     def M: M = valueOf[M]

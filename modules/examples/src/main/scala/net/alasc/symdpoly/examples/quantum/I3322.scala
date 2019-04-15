@@ -8,7 +8,7 @@ import net.alasc.symdpoly.examples.quantum.I3322.{Quotient, bellOperator}
 object I3322 {
 
   /** The operator variables are A(x=0,1,2) B(y=0,1,2). */
-  object Free extends free.MonoidDef(2) {
+  object Free extends free.MonoDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianOpFamily1(0 to 2)

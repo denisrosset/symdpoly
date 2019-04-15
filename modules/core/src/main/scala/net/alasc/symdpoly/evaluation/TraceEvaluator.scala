@@ -18,8 +18,8 @@ import scala.annotation.tailrec
 
 /** Equivalence under the adjoint operation. */
 final case class TraceEvaluator[
-  M <: freebased.MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: freebased.MonoDef.Aux[F] with Singleton,
+  F <: free.MonoDef.Aux[F] with Singleton
 ](real: Boolean, symmetryGroup: Grp[M#PermutationType])(implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
 
   implicit def witnessF: Witness.Aux[F] = valueOf[M].witnessFree

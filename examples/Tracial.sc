@@ -16,7 +16,7 @@ import net.alasc.symdpoly._
 import defaults._
 
 /** Free monoid containing the operator variables. */
-object Free extends free.MonoidDef(1) {
+object Free extends free.MonoDef(1) {
   case object X1 extends HermitianSingleOp
   case object X2 extends HermitianSingleOp
   lazy val operators = Seq(X1, X2)

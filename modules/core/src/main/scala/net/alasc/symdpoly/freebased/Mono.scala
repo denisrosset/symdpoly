@@ -11,13 +11,13 @@ import net.alasc.symdpoly.generic.PolyLike
 import net.alasc.symdpoly.math.{GenPerm, Phase}
 import org.typelevel.discipline.Predicate
 
-/** An element of a [[MonoidDef]], which represents a monomial in a polynomial ring.
+/** An element of a [[MonoDef]], which represents a monomial in a polynomial ring.
   *
   * @param data Normal form of the monoid element, along with a possible phase
   */
 class Mono[
-  M <: MonoidDef.Aux[F] with Singleton: Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton: Witness.Aux,
+  F <: free.MonoDef.Aux[F] with Singleton
 ](protected[symdpoly] val data: MutableWord[F]) extends generic.Mono[M] { lhs =>
 
   def toMono: Mono[M, F] = lhs
@@ -86,99 +86,99 @@ class Mono[
 
 object Mono {
 
-  def unapply[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](mono: Mono[F, F]): Option[(Phase, Vector[F#Op])] =
+  def unapply[F <: free.MonoDef.Aux[F] with Singleton: Witness.Aux](mono: Mono[F, F]): Option[(Phase, Vector[F#Op])] =
     if (mono.isZero) None else Some((mono.phase, Vector.tabulate(mono.length)(mono.apply)))
 
   // Factory methods that work for any monoid, free or quotient
 
   /** Zero monoid element. */
-  def zero[M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Mono[M, F] =
+  def zero[M <: MonoDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux]: Mono[M, F] =
     new Mono[M, F](MutableWord.zero[F].setImmutable())
 
   /** Empty word, i.e. one / the identity. */
-  def one[M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Mono[M, F] =
+  def one[M <: MonoDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux]: Mono[M, F] =
     new Mono[M, F](MutableWord.one[F].setImmutable())
 
   // all the overloads of apply to workaround the issue shapeless#843
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](): Mono[F, F] = one[F, F]
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](): Mono[F, F] = one[F, F]
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phase: Phase): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](phase: Phase): Mono[F, F] =
     new Mono[F, F](MutableWord[F](phase).setImmutable())
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phasedOp: PhasedOp[F]): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](phasedOp: PhasedOp[F]): Mono[F, F] =
     new Mono[F, F](MutableWord[F](phasedOp.phase, Seq(phasedOp.op)).setImmutable())
 
   // apply(op, op, ...)
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op): Mono[F, F] =
     fromSeq(Seq(op1))
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op, op2: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op, op2: F#Op): Mono[F, F] =
     fromSeq(Seq(op1, op2))
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op, op2: F#Op, op3: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op, op2: F#Op, op3: F#Op): Mono[F, F] =
     fromSeq(Seq(op1, op2, op3))
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op, op2: F#Op, op3: F#Op, op4: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](op1: F#Op, op2: F#Op, op3: F#Op, op4: F#Op): Mono[F, F] =
     fromSeq(Seq(op1, op2, op3, op4))
 
   // apply(phase, op, op, ...)
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op): Mono[F, F] =
     fromSeq(phase, Seq(op1))
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op, op2: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op, op2: F#Op): Mono[F, F] =
     fromSeq(phase, Seq(op1, op2))
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op, op2: F#Op, op3: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op, op2: F#Op, op3: F#Op): Mono[F, F] =
     fromSeq(phase, Seq(op1, op2, op3))
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op, op2: F#Op, op3: F#Op, op4: F#Op): Mono[F, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, op1: F#Op, op2: F#Op, op3: F#Op, op4: F#Op): Mono[F, F] =
     fromSeq(phase, Seq(op1, op2, op3, op4))
 
-  def fromSeq[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](ops: Seq[F#Op]): Mono[F, F] =
+  def fromSeq[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](ops: Seq[F#Op]): Mono[F, F] =
     new Mono[F, F](MutableWord(ops).setImmutable())
 
-  def fromSeq[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, ops: Seq[F#Op]): Mono[F, F] =
+  def fromSeq[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](phase: Phase, ops: Seq[F#Op]): Mono[F, F] =
     new Mono[F, F](MutableWord(phase, ops).setImmutable())
 
-  implicit def fromOp[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](op: F#Op): Mono[F, F] = apply(op)
+  implicit def fromOp[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](op: F#Op): Mono[F, F] = apply(op)
 
   //region Typeclasses
 
-  implicit def predicate[M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton]: Predicate[Mono[M, F]] = Predicate(gw => !gw.data.isZero)
+  implicit def predicate[M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton]: Predicate[Mono[M, F]] = Predicate(gw => !gw.data.isZero)
 
   implicit def involution[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]): Involution[Mono[M, F]] = (wM.value: M).monoInvolution
 
   implicit def multiplicativeBinoid[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]): MultiplicativeBinoid[Mono[M, F]] = (wM.value: M).monoMultiplicativeBinoid
 
   implicit def order[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]): Order[Mono[M, F]] = (wM.value: M).monoOrder
 
   implicit def genPermAction[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]): Action[Mono[M, F], GenPerm] = (wM.value: M).monoGenPermAction
 
   implicit def phased[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]): Phased[Mono[M, F]] = (wM.value: M).monoPhased
 
   final class FreeBasedMonoGenPermAction[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends Action[Mono[M, F], GenPerm] {
     def M: M = wM.value
     def actr(m: Mono[M, F], g: GenPerm): Mono[M, F] = {
@@ -191,8 +191,8 @@ object Mono {
   }
 
   final class FreeBasedMonoInstances[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends MultiplicativeBinoid[Mono[M, F]]
     with Involution[Mono[M, F]]
     with Order[Mono[M, F]] {
@@ -227,8 +227,8 @@ object Mono {
   }
 
   final class FreeBasedMonoPhased[
-    M <: MonoidDef.Aux[F] with Singleton,
-    F <: free.MonoidDef.Aux[F] with Singleton
+    M <: MonoDef.Aux[F] with Singleton,
+    F <: free.MonoDef.Aux[F] with Singleton
   ](implicit wM: Witness.Aux[M]) extends Phased[Mono[M, F]] {
     def phaseOffset(mono: Mono[M, F]): Phase = mono.data.phase
     def phaseCanonical(mono: Mono[M, F]): Mono[M, F] = new Mono[M, F](mono.data.mutableCopy().setPhase(Phase.one).setImmutable())

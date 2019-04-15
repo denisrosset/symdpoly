@@ -15,7 +15,7 @@ import cats.syntax.contravariant._
 
 import net.alasc.partitions.Partition
 
-case class OpPartition[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](val underlying: Partition) {
+case class OpPartition[F <: free.MonoDef.Aux[F] with Singleton: Witness.Aux](val underlying: Partition) {
 
   def F: F = valueOf[F]
 
@@ -29,16 +29,16 @@ case class OpPartition[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](v
 
 object OpPartition {
 
-  def fromPartition[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](partition: Partition): OpPartition[F] =
+  def fromPartition[F <: free.MonoDef.Aux[F] with Singleton: Witness.Aux](partition: Partition): OpPartition[F] =
     new OpPartition[F](partition)
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton: Witness.Aux](blocks: Set[Set[F#Op]]): OpPartition[F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton: Witness.Aux](blocks: Set[Set[F#Op]]): OpPartition[F] =
     fromPartition(Partition.fromSortedBlocks(blocks.map(_.map(_.index).to(SortedSet)).toSeq.sortBy(_.min)))
 
-  implicit def partialOrder[F <: free.MonoidDef.Aux[F] with Singleton]: PartialOrder[OpPartition[F]] =
+  implicit def partialOrder[F <: free.MonoDef.Aux[F] with Singleton]: PartialOrder[OpPartition[F]] =
     PartialOrder[Partition].contramap(_.underlying)
 
-  implicit def boundedLattice[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: BoundedLattice[OpPartition[F]] = new BoundedLattice[OpPartition[F]] {
+  implicit def boundedLattice[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux]: BoundedLattice[OpPartition[F]] = new BoundedLattice[OpPartition[F]] {
     def zero: OpPartition[F] = new OpPartition[F](Partition.fromSortedBlocks(Seq.tabulate(valueOf[F].nOperators)(SortedSet(_))))
     def one: OpPartition[F] = new OpPartition[F](Partition.fromSortedBlocks(Seq((0 until valueOf[F].nOperators).to(SortedSet))))
     def meet(lhs: OpPartition[F], rhs: OpPartition[F]): OpPartition[F] = new OpPartition[F](MeetSemilattice[Partition].meet(lhs.underlying, rhs.underlying))

@@ -38,7 +38,7 @@ import net.alasc.perms.default._
 /** Moment-based relaxation of a noncommutative polynomial optimization problem. */
 class Relaxation[
   E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton: Witness.Aux
+  M <: generic.MonoDef with Singleton: Witness.Aux
 ](val direction: Direction,
   val objective: LinearMoment[E, M],
   val momentMatrix: MomentMatrix[E, M],
@@ -106,7 +106,7 @@ object Relaxation {
     */
   def apply[
     E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
-    M <: generic.MonoidDef with Singleton: Witness.Aux
+    M <: generic.MonoDef with Singleton: Witness.Aux
   ](optimization: Optimization[E, M], gSet: GSet[M]): Relaxation[E, M] = {
     import optimization.{direction, objective}
     logNormal(s"Computing relaxation with the generating set ${gSet}")

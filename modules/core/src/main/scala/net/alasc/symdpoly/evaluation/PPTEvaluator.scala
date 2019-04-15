@@ -9,7 +9,7 @@ import spire.syntax.involution._
 import spire.syntax.cfor._
 import cats.syntax.contravariant._
 import spire.syntax.ring._
-
+import spire.syntax.order._
 import syntax.phased._
 import net.alasc.finite.Grp
 import net.alasc.symdpoly.generic.SingleMoment
@@ -25,14 +25,14 @@ import cats.Contravariant
 import instances.invariant._
 import net.alasc.algebra.PermutationAction
 import net.alasc.perms.Perm
-import net.alasc.symdpoly.evaluation.parts.OpPartition
+import net.alasc.symdpoly.evaluation.parts.{OpPartition, PartiallyCommutative}
 import net.alasc.symdpoly.freebased.Permutation
 
 /** Equivalence under the adjoint operation. */
-final case class PPTEvaluator[
-  M <: freebased.MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
-](partition: OpPartition[F], symmetryGroup: Grp[M#PermutationType])(implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
+class PPTEvaluator[
+  M <: freebased.MonoDef.Aux[F] with Singleton,
+  F <: free.MonoDef.Aux[F] with Singleton
+](val partition: OpPartition[F], val symmetryGroup: Grp[M#PermutationType])(implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
 
   implicit def witnessF: Witness.Aux[F] = valueOf[M].witnessFree
   def F: F = valueOf[F]
@@ -80,5 +80,18 @@ final case class PPTEvaluator[
     grp.subgroupFor(permAction, backtrackTest, predicate)
 
   def isReal: Boolean = true
+
+}
+
+object PPTEvaluator {
+
+  def apply[
+    M <: quotient.MonoDef.Aux[F] with Singleton:Witness.Aux,
+    F <: free.MonoDef.Aux[F] with Singleton
+  ](partition: OpPartition[F], symmetryGroup: Grp[M#PermutationType]): PPTEvaluator[M, F] =
+    PartiallyCommutative[F](valueOf[M]: M).partition.fold(err => sys.error(s"Invalid partially commutative monoid: $err"), parts => {
+      require(partition >= parts, s"The PPT partition $partition should be equal or coarser than the commutative partition $parts")
+      new PPTEvaluator[M, F](partition, symmetryGroup)
+    })
 
 }

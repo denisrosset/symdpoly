@@ -15,7 +15,7 @@ class CHSHAlgebraSuite extends CommonSuite {
   import laws.Monos._
   import laws.Polys._
 
-  object Free extends free.MonoidDef(2) {
+  object Free extends free.MonoDef(2) {
 
     case class A(x: Int) extends HermitianOp
     object A extends HermitianOpFamily1(0 to 1)
@@ -43,8 +43,6 @@ class CHSHAlgebraSuite extends CommonSuite {
     case op => op
   }
 
-  val CHSH = A(0)*B(0) + B(1)*A(0) + A(1)*B(0) - A(1)*B(1)
-
   checkAll("free monoid", RingLaws[Free.MonoType].multiplicativeMonoid)
   checkAll("free monoid involution", InvolutionLaws[Free.MonoType].involutionMultiplicativeMonoid)
   checkAll("free binoid", ExtraMultiplicativeMonoidLaws[Free.MonoType].multiplicativeBinoid)
@@ -56,11 +54,15 @@ class CHSHAlgebraSuite extends CommonSuite {
     case (op1, op2) => op1 * op2
   })
 
+  val CHSH = Quotient.quotient(A(0)*B(0) + B(1)*A(0) + A(1)*B(0) - A(1)*B(1))
+
   val ambientGroup = Quotient.groupInQuotient(Grp(swapParties, swapInputA, swapOutputA0))
+  val symmetryGroup = CHSH.invariantSubgroupOf(ambientGroup)
 
   val gset: GSet[Quotient.type] = Quotient.quotient(GSet.onePlus(A, B))
 
   val L = Quotient.eigenvalueEvaluator(true)
+  val Lsym = L.symmetrize(symmetryGroup)
 
   checkAll("quotient monoid", RingLaws[Mono[Quotient.type, Free.type]].multiplicativeMonoid)
   checkAll("quotient monoid involution", InvolutionLaws[Mono[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
@@ -73,6 +75,20 @@ class CHSHAlgebraSuite extends CommonSuite {
   checkAll("nc poly ring", spire.laws.RingLaws[Poly[Quotient.type, Free.type]].ring)
   checkAll("nc ring as vector space", spire.laws.VectorSpaceLaws[Poly[Quotient.type, Free.type], Cyclo].vectorSpace)
   checkAll("nc ring involution", spire.laws.InvolutionLaws[Poly[Quotient.type, Free.type]].involutionMultiplicativeMonoid)
+
+  test("Optimized vs unoptimized quotient") {
+    forAll { (m: Quotient.MonoType) =>
+      optimized(L(m)) === unoptimized(L(m))
+    }
+    forAll { (m: Quotient.MonoType) =>
+      optimized(Lsym(m)) === unoptimized(Lsym(m))
+    }
+  }
+
+  test("Partially commutative parts") {
+    val pc = evaluation.parts.PartiallyCommutative(Quotient)
+    assert(pc.partition.fold(sys.error, partition => partition.underlying.nBlocks) == 2)
+  }
 
   test("Sign interpretation") {
     val e1 = A(1) - A(0) - A(0)

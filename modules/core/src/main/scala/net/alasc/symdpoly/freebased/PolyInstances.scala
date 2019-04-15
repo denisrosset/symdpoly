@@ -15,8 +15,8 @@ import spire.syntax.involution._
 import spire.syntax.eq._
 
 final class PolyInstances[
-  M <: MonoidDef.Aux[F] with Singleton: Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton: Witness.Aux,
+  F <: free.MonoDef.Aux[F] with Singleton
 ] extends FieldAssociativeAlgebra[Poly[M, F], Cyclo] with Involution[Poly[M, F]] with Eq[Poly[M, F]] with Action[Poly[M, F], M#PermutationType] {
 
   implicit def scalar: Field[Cyclo] = Cyclo.typeclasses

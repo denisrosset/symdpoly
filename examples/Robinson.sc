@@ -28,7 +28,7 @@ import defaults._
  * SymDPoly supports commutative polynomial rings as quotients of the free noncommutative ring,
  * thus the ceremonial below.
  */
-object Free extends free.MonoidDef(2) {
+object Free extends free.MonoDef(2) {
   case object X extends HermitianSingleOp
   case object Y extends HermitianSingleOp
   lazy val operators = Seq(X, Y)

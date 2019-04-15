@@ -10,7 +10,7 @@ import net.alasc.symdpoly.evaluation.Evaluator
 
 trait LinearMomentLike[
   E <: Evaluator.Aux[M] with Singleton,
-  M <: generic.MonoidDef with Singleton
+  M <: generic.MonoDef with Singleton
 ] { lhs =>
 
   def toPoly: LinearMoment[E, M]

@@ -22,8 +22,8 @@ import net.alasc.symdpoly.math.{GenPerm, Phase}
 import org.typelevel.discipline.Predicate
 
 class Poly[
-  M <: MonoidDef.Aux[F] with Singleton: Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton: Witness.Aux,
+  F <: free.MonoDef.Aux[F] with Singleton
 ](protected[freebased] val keys: Array[MutableWord[F]],
   protected[freebased] val values: Array[Cyclo]) extends generic.Poly[M] { lhs =>
   def M: M = valueOf[M]
@@ -96,40 +96,40 @@ class Poly[
 
 object Poly {
 
-  def zero[M <: MonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton]: Poly[M, F] =
+  def zero[M <: MonoDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoDef.Aux[F] with Singleton]: Poly[M, F] =
     new Poly[M, F](new Array[MutableWord[F]](0), new Array[Cyclo](0))
 
-  def one[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Poly[M, F] = {
+  def one[M <: MonoDef.Aux[F] with Singleton, F <: free.MonoDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Poly[M, F] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
 
     new Poly[M, F](Array(MutableWord.one[F].setImmutable()), Array(Cyclo.one))
   }
 
   def constant[
-  M <: MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton,
+  F <: free.MonoDef.Aux[F] with Singleton
   ](int: Int)(implicit wM: Witness.Aux[M]): Poly[M, F] = constant(Cyclo(int))
 
   def constant[
-  M <: MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton,
+  F <: free.MonoDef.Aux[F] with Singleton
   ](phase: Phase)(implicit d: DummyImplicit, wM: Witness.Aux[M]): Poly[M, F] = constant(phase.toCyclo)
 
   def constant[
-  M <: MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton,
+  F <: free.MonoDef.Aux[F] with Singleton
   ](rational: Rational)(implicit wM: Witness.Aux[M]): Poly[M, F] = constant(Cyclo(rational))
 
   def constant[
-  M <: MonoidDef.Aux[F] with Singleton,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton,
+  F <: free.MonoDef.Aux[F] with Singleton
   ](cyclo: Cyclo)(implicit wM: Witness.Aux[M]): Poly[M, F] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
 
     if (cyclo.isZero) zero[M, F] else new Poly[M, F](Array(MutableWord.one[F]), Array(cyclo))
   }
 
-  def single[M <: MonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: Mono[M, F], coeff: Cyclo): Poly[M, F] =
+  def single[M <: MonoDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoDef.Aux[F] with Singleton](mono: Mono[M, F], coeff: Cyclo): Poly[M, F] =
     if (coeff.isZero || mono.isZero) zero[M, F]
     else if (mono.data.phase.isOne) new Poly[M, F](Array(mono.data), Array(coeff))
     else {
@@ -138,7 +138,7 @@ object Poly {
       new Poly[M, F](Array(res.setPhase(Phase.one).setImmutable()), Array(newCoeff))
     }
 
-  def apply[M <: MonoidDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoidDef.Aux[F] with Singleton](mono: Mono[M, F]): Poly[M, F] =
+  def apply[M <: MonoDef.Aux[F] with Singleton : Witness.Aux, F <: free.MonoDef.Aux[F] with Singleton](mono: Mono[M, F]): Poly[M, F] =
     if (mono.isZero) zero[M, F]
     else if (mono.data.phase.isOne) new Poly[M, F](Array(mono.data), Array(Cyclo.one))
     else {
@@ -148,7 +148,7 @@ object Poly {
       new Poly[M, F](Array(newMono.setImmutable()), Array(phase.toCyclo))
     }
 
-  def apply[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](terms: (Mono[M, F], Cyclo)*)(implicit wM: Witness.Aux[M]): Poly[M, F] = {
+  def apply[M <: MonoDef.Aux[F] with Singleton, F <: free.MonoDef.Aux[F] with Singleton](terms: (Mono[M, F], Cyclo)*)(implicit wM: Witness.Aux[M]): Poly[M, F] = {
     implicit def wF: Witness.Aux[F] = (wM.value: M).witnessFree
 
     if (terms.size == 0) zero[M, F]
@@ -173,17 +173,17 @@ object Poly {
 
   // Typeclasses
 
-  implicit def predicate[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton]: Predicate[Poly[M, F]] = {
+  implicit def predicate[M <: MonoDef.Aux[F] with Singleton, F <: free.MonoDef.Aux[F] with Singleton]: Predicate[Poly[M, F]] = {
     poly => poly.nTerms > 0
   }
 
-  implicit def associativeAlgebra[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): FieldAssociativeAlgebra[Poly[M, F], Cyclo] =
+  implicit def associativeAlgebra[M <: MonoDef.Aux[F] with Singleton, F <: free.MonoDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): FieldAssociativeAlgebra[Poly[M, F], Cyclo] =
     (wM.value: M).polyAssociativeAlgebra
 
-  implicit def involution[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Involution[Poly[M, F]] =
+  implicit def involution[M <: MonoDef.Aux[F] with Singleton, F <: free.MonoDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Involution[Poly[M, F]] =
     (wM.value: M).polyInvolution
 
-  implicit def equ[M <: MonoidDef.Aux[F] with Singleton, F <: free.MonoidDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Eq[Poly[M, F]] =
+  implicit def equ[M <: MonoDef.Aux[F] with Singleton, F <: free.MonoDef.Aux[F] with Singleton](implicit wM: Witness.Aux[M]): Eq[Poly[M, F]] =
     (wM.value: M).polyEq
 
 }

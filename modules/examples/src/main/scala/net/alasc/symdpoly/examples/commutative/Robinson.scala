@@ -22,7 +22,7 @@ object Robinson {
 
   /** Free monomial monoid in two variables X and Y, that includes signed monomials
     * preceded by a sign (-1 or +1), so its cyclotomic order is 2. */
-  object Free extends free.MonoidDef(2) {
+  object Free extends free.MonoDef(2) {
     case object X extends HermitianSingleOp
     case object Y extends HermitianSingleOp
     lazy val operators = Seq(X, Y)
