@@ -50,11 +50,11 @@ class PartiallyCommutative[
 
   // for each operator, the operators less than it according to the commutation rules
   lazy val lessThan: Map[F#Op, Set[F#Op]] =
-    Map(F.allOperators.map { k => (k -> commutationRelations.collect { case (op1, op2) if k == op2 => op1 }) }: _*)
+    Map(F.operators.map { k => (k -> commutationRelations.collect { case (op1, op2) if k == op2 => op1 }) }: _*)
 
   // for each operator, the operators greater than it according to the commutation rules
   lazy val greaterThan: Map[F#Op, Set[F#Op]] =
-  Map(F.allOperators.map { k => (k -> commutationRelations.collect { case (op1, op2) if k == op1 => op2 }) }: _*)
+  Map(F.operators.map { k => (k -> commutationRelations.collect { case (op1, op2) if k == op1 => op2 }) }: _*)
 
   /** Sets of operators entering in rewriting rules that are not of commutation type. */
   def opsets: Set[Set[F#Op]] = pair._1
@@ -80,7 +80,7 @@ class PartiallyCommutative[
             rec(remainingGreater2, top :: largest)
         }
     }
-    val notPresent = F.allOperators.toSet diff (greaterThan.keySet union lessThan.keySet)
+    val notPresent = F.operators.toSet diff (greaterThan.keySet union lessThan.keySet)
     if (notPresent.nonEmpty)
       Validated.invalid(s"The operators in the set $notPresent are not part of any commutation relation")
     else

@@ -29,7 +29,7 @@ object Sliwa {
 
     object C extends HermitianOpFamily1(0 to 1)
 
-    lazy val operators = Seq(A, B, C)
+    lazy val families = Seq(A, B, C)
   }
 
   import Free.{A, B, C}

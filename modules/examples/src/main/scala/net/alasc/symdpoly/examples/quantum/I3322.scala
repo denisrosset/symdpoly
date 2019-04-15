@@ -16,7 +16,7 @@ object I3322 {
     case class B(y: Int) extends HermitianOp
     object B extends HermitianOpFamily1(0 to 2)
 
-    lazy val operators = Seq(A, B)
+    lazy val families = Seq(A, B)
   }
 
   import Free.{A, B}

@@ -33,10 +33,10 @@ abstract class MonoDef(val cyclotomicOrder: Int) extends freebased.MonoDef {
   //region Abstract members to implement, and members that can be overriden
 
   /** Sequence of all operator families appearing in this free monoid. */
-  def operators: Seq[OpFamily]
+  def families: Seq[OpFamily]
 
   /** Sequence of all operators of this free monoid. Override to prescribe a custom order. */
-  def allOperators: Seq[Op] = operators.flatMap(oc => oc.allInstances)
+  def operators: Seq[Op] = families.flatMap(oc => oc.allInstances)
 
   //endregion
 
@@ -90,7 +90,7 @@ abstract class MonoDef(val cyclotomicOrder: Int) extends freebased.MonoDef {
 
   //region Operator variables and handling of these
 
-  lazy val opIndexMap: IndexMap[Op] = IndexMap(allOperators)
+  lazy val opIndexMap: IndexMap[Op] = IndexMap(operators)
 
   // Internally, operators are represented by their index
   private[this] lazy val adjointIndices: Array[Int] = {
@@ -116,7 +116,7 @@ abstract class MonoDef(val cyclotomicOrder: Int) extends freebased.MonoDef {
 
   /** Abstract base class for operator variables.
     *
-    * Instance types must be declared in this monoid [[operators]] sequence before using them in monomials/polynomials.
+    * Instance types must be declared in this monoid [[families]] sequence before using them in monomials/polynomials.
     */
   abstract class Op extends Product with PhasedOpLike[Free] with MonoLike[Free] with PolyLike[Free] {
     lhs =>

@@ -18,7 +18,7 @@ object CHSH {
     case class B(y: Int) extends HermitianOp
     object B extends HermitianOpFamily1(0 to 1)
 
-    lazy val operators = Seq(A, B)
+    lazy val families = Seq(A, B)
   }
 
   import Free.{A, B}

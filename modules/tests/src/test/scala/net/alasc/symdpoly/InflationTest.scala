@@ -20,7 +20,7 @@ class InflationTest extends CommonSuite {
       case class C(z: Int, j: Int, k: Int) extends HermitianOp
       object C extends HermitianOpFamily3(0 to 1, 0 until nCopies, 0 until nCopies)
 
-      val operators = Seq(A, B, C)
+      val families = Seq(A, B, C)
     }
 
     // import the values A,B,C in scope to avoid having to write FM.A(..) everywhere

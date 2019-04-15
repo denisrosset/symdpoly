@@ -9,7 +9,7 @@ object BurgdorfExample5_13 {
   object Free extends free.MonoDef(1) {
     case object X1 extends HermitianSingleOp
     case object X2 extends HermitianSingleOp
-    lazy val operators = Seq(X1, X2)
+    lazy val families = Seq(X1, X2)
   }
 
   import Free.{X1, X2}

@@ -29,7 +29,7 @@ object Choi {
     case class Y(i: Int) extends HermitianOp
     object Y extends HermitianOpFamily1(1 to 3)
 
-    lazy val operators = Seq(X, Y)
+    lazy val families = Seq(X, Y)
 
   }
 
