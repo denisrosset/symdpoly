@@ -94,7 +94,7 @@ lazy val commonSettings = Seq(
     "-Ywarn-numeric-widen",
     "-Ywarn-value-discard"
   )),
-  scalacOptions ++= Seq("-opt:l:inline", "-opt-inline-from:**"),
+  //scalacOptions ++= Seq("-opt:l:inline", "-opt-inline-from:**"),
   resolvers ++= Seq(
     "bintray/denisrosset/maven" at "https://dl.bintray.com/denisrosset/maven",
     Resolver.sonatypeRepo("snapshots"),

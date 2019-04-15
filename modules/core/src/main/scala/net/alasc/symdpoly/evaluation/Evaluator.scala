@@ -32,7 +32,7 @@ abstract class Evaluator { self =>
 
   //region Members to implement in concrete instances
 
-  type Mono <: generic.MonoidDef with Singleton
+  type Mono <: generic.MonoDef with Singleton
 
   implicit def witnessMono: Witness.Aux[Mono]
 
@@ -132,7 +132,7 @@ abstract class Evaluator { self =>
 
 object Evaluator {
 
-  type Aux[M <: generic.MonoidDef with Singleton] = Evaluator { type Mono = M }
+  type Aux[M <: generic.MonoDef with Singleton] = Evaluator { type Mono = M }
 
   implicit def evaluatedPolyVectorSpace[E <: Evaluator with Singleton: Witness.Aux]: VectorSpace[E#LinearMomentType, Cyclo] = valueOf[E].evaluatedPolyVectorSpace
   implicit def evaluatedPolyInvolution[E <: Evaluator with Singleton: Witness.Aux]: Involution[E#LinearMomentType] = valueOf[E].evaluatedPolyInvolution

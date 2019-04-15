@@ -16,8 +16,8 @@ import spire.syntax.std.seq._
 import net.alasc.perms.default._
 
 /** Equivalence under the adjoint operation. */
-final case class EigenvalueEvaluator[M <: generic.MonoidDef with Singleton](real: Boolean, symmetryGroup: Grp[M#PermutationType])
-                                                                           (implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
+final case class EigenvalueEvaluator[M <: generic.MonoDef with Singleton](real: Boolean, symmetryGroup: Grp[M#PermutationType])
+                                                                         (implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
   type Mono = M
 
   def apply(mono: Mono#MonoType): SingleMomentType = {

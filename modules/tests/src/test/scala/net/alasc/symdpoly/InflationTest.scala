@@ -10,7 +10,7 @@ class InflationTest extends CommonSuite {
     // arrangement of sources (<>) and parties
     //    <K>  A  <L>  B  <J>  C  <K>
     // the free monoid of all the operators of our problem
-    object FM extends free.MonoidDef(2) {
+    object FM extends free.MonoDef(2) {
       case class A(x: Int, k: Int, l: Int) extends HermitianOp
       object A extends HermitianOpFamily3(0 to 1, 0 until nCopies, 0 until nCopies)
 
@@ -151,7 +151,6 @@ class InflationTest extends CommonSuite {
     // Tested inequality
     val svetlichny = QM.quotient( abc(1,0,0) + abc(0,1,0) + abc(0,0,1) - abc(1,1,1) - abc(0,1,1) - abc(1,0,1) - abc(1,1,0) + abc(0,0,0) )
 
-    println(s"Symmetrizing maximization of $svetlichny")
     val (problem, group) = inflationMaximize(svetlichny)
 
   }

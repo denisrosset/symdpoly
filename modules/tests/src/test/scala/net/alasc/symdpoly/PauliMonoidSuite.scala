@@ -13,7 +13,7 @@ class PauliMonoidSuite extends CommonSuite {
   import laws.Monos._
   import laws.Polys._
 
-  object Free extends free.MonoidDef(4) {
+  object Free extends free.MonoDef(4) {
 
     case class σ(i: Int) extends HermitianOp {
       require(i >= 1 && i <= 3)

@@ -14,7 +14,7 @@ import defaults._
 // Free monoid containing the operator variables
 // The cyclotomic order is two so that we can use the roots of unity -1 and +1 when dealing with symmetries
 val cyclotomicOrder = 2
-object Free extends free.MonoidDef(cyclotomicOrder) {
+object Free extends free.MonoDef(cyclotomicOrder) {
 
   case class A(x: Int) extends HermitianOp
   object A extends HermitianOpFamily1(0 to 1)

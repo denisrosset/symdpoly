@@ -33,7 +33,7 @@ import net.alasc.symdpoly.symmetries.Configuration
   */
 class MomentMatrix[
   E <: Evaluator.Aux[M] with Singleton: Witness.Aux,
-  M <: generic.MonoidDef with Singleton: Witness.Aux
+  M <: generic.MonoDef with Singleton: Witness.Aux
 ](val generatingMoments: OrderedSet[M#MonoType], val mat: Mat[E#SingleMomentType]) {
   def E: E = valueOf[E]
   def M: M = valueOf[M]
@@ -70,7 +70,7 @@ object MomentMatrix {
 
   def apply[
     E <: Evaluator.Aux[M] with Singleton : Witness.Aux,
-    M <: generic.MonoidDef with Singleton : Witness.Aux
+    M <: generic.MonoDef with Singleton : Witness.Aux
   ](generatingMoments: OrderedSet[M#MonoType]): MomentMatrix[E, M] =
     apply[E, M](generatingMoments, GrpMonomialRepresentation.trivial[M#PermutationType](generatingMoments.length))
 
@@ -79,7 +79,7 @@ object MomentMatrix {
     */
   def apply[
     E <: Evaluator.Aux[M] with Singleton : Witness.Aux,
-    M <: generic.MonoidDef with Singleton : Witness.Aux
+    M <: generic.MonoDef with Singleton : Witness.Aux
   ](generatingMoments: OrderedSet[M#MonoType], symmetry: GrpMonomialRepresentation[M#PermutationType]): MomentMatrix[E, M] = {
     def E: E = valueOf[E]
     def M: M = valueOf[M]

@@ -9,7 +9,7 @@ import scala.annotation.tailrec
 
 import net.alasc.symdpoly.freebased.Poly
 
-class MutablePoly[F <: free.MonoidDef.Aux[F] with Singleton](private[this] val _terms: MMap[MutableWord[F], Cyclo])(implicit val wF: Witness.Aux[F]) { lhs =>
+class MutablePoly[F <: free.MonoDef.Aux[F] with Singleton](private[this] val _terms: MMap[MutableWord[F], Cyclo])(implicit val wF: Witness.Aux[F]) { lhs =>
 
   def copy: MutablePoly[F] = new MutablePoly[F](_terms.mutableCopy)
 
@@ -48,7 +48,7 @@ class MutablePoly[F <: free.MonoidDef.Aux[F] with Singleton](private[this] val _
 
   override def hashCode: Int = sys.error("Not Implemented")
 
-  def immutableCopy[M <: freebased.MonoidDef.Aux[F] with Singleton: Witness.Aux]: Poly[M, F] = {
+  def immutableCopy[M <: freebased.MonoDef.Aux[F] with Singleton: Witness.Aux]: Poly[M, F] = {
     val n = _terms.size
     val keyArray = new Array[MutableWord[F]](n)
     val valueArray = new Array[Cyclo](n)
@@ -87,6 +87,6 @@ class MutablePoly[F <: free.MonoidDef.Aux[F] with Singleton](private[this] val _
 }
 
 object MutablePoly {
-  def empty[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux](reservedSize: Int = 8): MutablePoly[F] =
+  def empty[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux](reservedSize: Int = 8): MutablePoly[F] =
     new MutablePoly[F](MMap.reservedSize(reservedSize))
 }

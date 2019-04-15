@@ -26,9 +26,11 @@ import net.alasc.symdpoly.{free, quotient, valueOf}
   * This class provides helper functions to investigate the partial commutation relations of a monoid.
   */
 class PartiallyCommutative[
-  M <: quotient.MonoidDef.Aux[F] with Singleton:Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: quotient.MonoDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoDef.Aux[F] with Singleton
 ] {
+
+  override def toString: String = s"PartiallyCommutative($partition)"
 
   def M: M = valueOf[M]
   def F: F = M.Free
@@ -47,10 +49,12 @@ class PartiallyCommutative[
   def commutationRelations: Set[(F#Op, F#Op)] = pair._2
 
   // for each operator, the operators less than it according to the commutation rules
-  lazy val lessThan: Map[F#Op, Set[F#Op]] = commutationRelations.groupBy(_._2).mapValues(_.map(_._1).toSet)
+  lazy val lessThan: Map[F#Op, Set[F#Op]] =
+    Map(F.allOperators.map { k => (k -> commutationRelations.collect { case (op1, op2) if k == op2 => op1 }) }: _*)
 
   // for each operator, the operators greater than it according to the commutation rules
-  lazy val greaterThan: Map[F#Op, Set[F#Op]] = commutationRelations.groupBy(_._1).mapValues(_.map(_._2).toSet)
+  lazy val greaterThan: Map[F#Op, Set[F#Op]] =
+  Map(F.allOperators.map { k => (k -> commutationRelations.collect { case (op1, op2) if k == op1 => op2 }) }: _*)
 
   /** Sets of operators entering in rewriting rules that are not of commutation type. */
   def opsets: Set[Set[F#Op]] = pair._1
@@ -72,11 +76,11 @@ class PartiallyCommutative[
         } match {
           case Some((lhs, rhsSet)) => Validated.invalid("Missing commutation relation " + rhsSet.map(rhs => s"$lhs < $rhs").mkString(", "))
           case None =>
-            val remainingGreater2 = remainingGreater.mapValues(_ diff top)
+            val remainingGreater2 = remainingGreater1.mapValues(_ diff top)
             rec(remainingGreater2, top :: largest)
         }
     }
-    val notPresent = F.allOperators.toSet diff greaterThan.keySet
+    val notPresent = F.allOperators.toSet diff (greaterThan.keySet union lessThan.keySet)
     if (notPresent.nonEmpty)
       Validated.invalid(s"The operators in the set $notPresent are not part of any commutation relation")
     else
@@ -107,7 +111,7 @@ class PartiallyCommutative[
 
 object PartiallyCommutative {
 
-  def apply[F <: free.MonoidDef.Aux[F] with Singleton](M: quotient.MonoidDef.Aux[F]): PartiallyCommutative[M.type, F] =
+  def apply[F <: free.MonoDef.Aux[F] with Singleton](M: quotient.MonoDef.Aux[F]): PartiallyCommutative[M.type, F] =
     new PartiallyCommutative[M.type, F]
 
 }

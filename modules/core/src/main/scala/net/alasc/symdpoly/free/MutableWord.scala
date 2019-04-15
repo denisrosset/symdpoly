@@ -21,12 +21,12 @@ import java.util.Arrays
   *                   Note that -1 is used as a marker for unknown hash, and we make sure that the computed hashCode of MutableWord
   *                   is never -1.
   */
-class MutableWord[F <: MonoidDef with Singleton](var phase: Phase,
-                                                 var length: Int,
-                                                 var indices: Array[Int],
-                                                 var state: MutableWord.State,
-                                                 var cachedHash: Int)
-                                                (implicit val wF: Witness.Aux[F]) {
+class MutableWord[F <: MonoDef with Singleton](var phase: Phase,
+                                               var length: Int,
+                                               var indices: Array[Int],
+                                               var state: MutableWord.State,
+                                               var cachedHash: Int)
+                                              (implicit val wF: Witness.Aux[F]) {
   lhs =>
 
   import MutableWord.{Mutable, Locked, Immutable}
@@ -397,25 +397,25 @@ object MutableWord {
   case object Immutable extends State
 
   /** Constructs a mutable identity word. */
-  def one[F <: MonoidDef with Singleton:Witness.Aux]: MutableWord[F] = one[F](0)
+  def one[F <: MonoDef with Singleton:Witness.Aux]: MutableWord[F] = one[F](0)
 
   /** Constructs a mutable identity word with reserved size. */
-  def one[F <: MonoidDef with Singleton:Witness.Aux](reservedLength: Int): MutableWord[F] =
+  def one[F <: MonoDef with Singleton:Witness.Aux](reservedLength: Int): MutableWord[F] =
     new MutableWord[F](Phase.one, 0, new Array[Int](reservedLength), Mutable, -1)
 
   /** Constructs a mutable zero word. */
-  def zero[F <: MonoidDef with Singleton:Witness.Aux]: MutableWord[F] =
+  def zero[F <: MonoDef with Singleton:Witness.Aux]: MutableWord[F] =
     new MutableWord(Phase.one, -1, new Array[Int](0), Mutable, -1)
 
   /** Constructs a mutable word from a sequence of operators. */
-  def apply[F <: MonoidDef with Singleton: Witness.Aux](ops: Seq[F#Op]): MutableWord[F] = {
+  def apply[F <: MonoDef with Singleton: Witness.Aux](ops: Seq[F#Op]): MutableWord[F] = {
     val mgw = one[F](ops.length)
     ops.foreach { op => mgw *= op }
     mgw
   }
 
   /** Constructs a mutable word from a phase and a sequence of operators. */
-  def apply[F <: MonoidDef with Singleton: Witness.Aux](phase: Phase, ops: Seq[F#Op]): MutableWord[F] = {
+  def apply[F <: MonoDef with Singleton: Witness.Aux](phase: Phase, ops: Seq[F#Op]): MutableWord[F] = {
     val mgw = one[F](ops.length)
     ops.foreach { op => mgw *= op }
     mgw.setPhase(phase)
@@ -423,11 +423,11 @@ object MutableWord {
   }
 
   /** Constructs a mutable word that contains a scalar phase. */
-  def apply[F <: MonoidDef with Singleton: Witness.Aux](phase: Phase): MutableWord[F] =
+  def apply[F <: MonoDef with Singleton: Witness.Aux](phase: Phase): MutableWord[F] =
     new MutableWord(phase, 0, new Array[Int](0), Mutable, -1)
 
   /** Order instance for mutable words. */
-  implicit def order[F <: MonoidDef with Singleton](implicit wM: Witness.Aux[F]): Order[MutableWord[F]] =
+  implicit def order[F <: MonoDef with Singleton](implicit wM: Witness.Aux[F]): Order[MutableWord[F]] =
     (wM.value: F).mutableWordOrder
 
 }

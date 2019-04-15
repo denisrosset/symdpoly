@@ -15,7 +15,7 @@ import shapeless.Witness
   */
 object Sliwa {
 
-  object Free extends free.MonoidDef(2) {
+  object Free extends free.MonoDef(2) {
 
     case class A(x: Int) extends HermitianOp
 
@@ -80,13 +80,13 @@ object Sliwa {
   /** Default evaluator. */
   val L = Quotient.eigenvalueEvaluator(true)
 
-  /*
+
   /** Evaluator for states with positive partial transpose. */
-  val LptA = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.A, Free.B ++ Free.C))
-  val LptB = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.B, Free.A ++ Free.C))
-  val LptC = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.C, Free.A ++ Free.B))
-  val LptAll = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.A, Free.B, Free.C))
-*/
+  val LptA = Quotient.pptEvaluator(Free.A, Free.B ++ Free.C)
+  val LptB = Quotient.pptEvaluator(Free.B, Free.A ++ Free.C)
+  val LptC = Quotient.pptEvaluator(Free.C, Free.A ++ Free.B)
+  val LptAll = Quotient.pptEvaluator(Free.A, Free.B, Free.C)
+
 
   /** Group that preserves the problem structure. */
   val feasibilityGroup = Quotient.groupInQuotient(Grp(iA, oA0, pT, pC))
@@ -132,7 +132,6 @@ object SliwaInequality {
   def fromIndex1(index1: Int): SliwaInequality = fromIndex0(index1 - 1)
 }
 
-/*
 object Sliwa12PPT extends App {
   import Sliwa._
 
@@ -143,4 +142,3 @@ object Sliwa12PPT extends App {
   relaxation.program.sedumi.writeFile("sliwa12_ppt_sedumi.mat")
 
 }
-*/

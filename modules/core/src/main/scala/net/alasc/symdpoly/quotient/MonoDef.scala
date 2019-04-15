@@ -18,19 +18,23 @@ import cats.instances.option._
 import cats.instances.either._
 import cats.syntax.traverse._
 import cats.syntax.alternative._
+
 import syntax.phased._
 import net.alasc.symdpoly.util.{OrderedSet, SparseTrie}
 import shapeless.Witness
 import spire.util.Opt
 import spire.syntax.action._
+
 import net.alasc.util._
 import net.alasc.symdpoly.freebased.{Mono, Poly}
 import net.alasc.perms.default._
+import net.alasc.symdpoly.evaluation.Evaluator
+import net.alasc.symdpoly.evaluation.parts.OpPartition
 
 /** Tools for computation of symmetries of a quotient monoid. */
 class Symmetries[
-  M <: MonoidDef.Aux[F] with Singleton:Witness.Aux,
-  F <: free.MonoidDef.Aux[F] with Singleton
+  M <: MonoDef.Aux[F] with Singleton:Witness.Aux,
+  F <: free.MonoDef.Aux[F] with Singleton
 ] {
 
   def M: M = valueOf[M]
@@ -68,7 +72,7 @@ class Symmetries[
 }
 
 /** Base class for quotient monoids. */
-abstract class MonoidDef extends freebased.MonoidDef {
+abstract class MonoDef extends freebased.MonoDef {
   monoidDef =>
 
   def cyclotomicOrder: Int = Free.cyclotomicOrder
@@ -158,10 +162,22 @@ abstract class MonoidDef extends freebased.MonoidDef {
       rec(0, false)
     }
 
+  //region Evaluator creation
+
+
+  /** Creates an evaluator for optimization over states with positive partial transpose.
+    *
+    * @param blocks Blocks definining the partition of the free operators on which the partial transpose can be applied.
+
+    */
+  def pptEvaluator(blocks: Free#OpEnum*): Evaluator.Aux[this.type] =
+    evaluation.PPTEvaluator[this.type, Free](OpPartition(blocks.map(_.allInstances.toSet).toSet), Grp.trivial[PermutationType])
+  //endregion
+
 }
 
-object MonoidDef {
+object MonoDef {
 
-  type Aux[F <: free.MonoidDef with Singleton] = quotient.MonoidDef { type Free = F }
+  type Aux[F <: free.MonoDef with Singleton] = quotient.MonoDef { type Free = F }
 
 }

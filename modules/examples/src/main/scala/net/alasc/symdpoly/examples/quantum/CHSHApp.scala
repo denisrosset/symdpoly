@@ -7,13 +7,13 @@ object CHSHApp extends App {
   import CHSH._
   import Free.{A, B}
 
-  type RelaxationM[M <: generic.MonoidDef with Singleton] = Relaxation[_ <: Evaluator.Aux[M] with Singleton, M]
-  type ProblemM[M <: generic.MonoidDef with Singleton] = Optimization[_ <: Evaluator.Aux[M] with Singleton, M]
+  type RelaxationM[M <: generic.MonoDef with Singleton] = Relaxation[_ <: Evaluator.Aux[M] with Singleton, M]
+  type ProblemM[M <: generic.MonoDef with Singleton] = Optimization[_ <: Evaluator.Aux[M] with Singleton, M]
 
-  def bellOperator(M: quotient.MonoidDef.Aux[Free.type]): M.PolyType =
+  def bellOperator(M: quotient.MonoDef.Aux[Free.type]): M.PolyType =
     M.quotient(chsh)
 
-  def relaxation(M: quotient.MonoidDef.Aux[Free.type])(generatingSet: GSet[M.type]): (RelaxationM[M.type], RelaxationM[M.type]) = {
+  def relaxation(M: quotient.MonoDef.Aux[Free.type])(generatingSet: GSet[M.type]): (RelaxationM[M.type], RelaxationM[M.type]) = {
     /** Default evaluator. */
     val L = M.eigenvalueEvaluator(true)
 

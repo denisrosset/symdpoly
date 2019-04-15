@@ -26,20 +26,21 @@ import cats.instances.option._
 
 import net.alasc.util._
 import net.alasc.algebra.PermutationAction
-import net.alasc.symdpoly.evaluation.{EigenvalueEvaluator, Evaluator, FreeBasedEigenvalueEvaluator}
+import net.alasc.symdpoly.evaluation.parts.OpPartition
+import net.alasc.symdpoly.evaluation.{EigenvalueEvaluator, Evaluator, FreeBasedEigenvalueEvaluator, TraceEvaluator}
 import net.alasc.symdpoly.util.OrderedSet
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
   * Is not necessarily a strict quotient monoid, as free.MonoidDef inherits from
   * this; then code can be reused between free monoids and their quotients.
   */
-abstract class MonoidDef extends generic.MonoidDef {
+abstract class MonoDef extends generic.MonoDef {
   self =>
 
   //region Members to implement
 
-  /** Free monoid [[free.MonoidDef]] on which this monoid is based. */
-  type Free <: free.MonoidDef with Singleton {type Free = self.Free}
+  /** Free monoid [[free.MonoDef]] on which this monoid is based. */
+  type Free <: free.MonoDef with Singleton {type Free = self.Free}
 
   /** Free monoid instance. */
   def Free: Free
@@ -141,16 +142,26 @@ abstract class MonoidDef extends generic.MonoidDef {
 
   //endregion
 
-  override def eigenvalueEvaluator(real: Boolean = false,
-                          symmetryGroup: Grp[PermutationType] = Grp.trivial[PermutationType]
-                         ): Evaluator.Aux[this.type] =
-      if (Settings.optimize) new FreeBasedEigenvalueEvaluator[this.type, Free](real, symmetryGroup)
-      else super.eigenvalueEvaluator(real, symmetryGroup)
+  //region Evaluator construction
+
+  override def eigenvalueEvaluator(real: Boolean = false): Evaluator.Aux[this.type] =
+      if (Settings.optimize) new FreeBasedEigenvalueEvaluator[this.type, Free](real, Grp.trivial[PermutationType])
+      else super.eigenvalueEvaluator(real)
+
+  /** Creates an evaluator for trace optimization.
+    *
+    * @param real Whether the problem is real, i.e. we have L(x) = L(x.adjoint), where L is this evaluator
+    *             By default, we do not enforce the problem to be real..
+    */
+  def traceEvaluator(real: Boolean = false): Evaluator.Aux[this.type] =
+    new TraceEvaluator[this.type, Free](real, Grp.trivial[PermutationType])
+  //endregion
+
 
 }
 
-object MonoidDef {
+object MonoDef {
 
-  type Aux[F <: free.MonoidDef.Aux[F] with Singleton] = MonoidDef { type Free = F }
+  type Aux[F <: free.MonoDef.Aux[F] with Singleton] = MonoDef { type Free = F }
 
 }

@@ -12,7 +12,7 @@ import net.alasc.symdpoly.math.Phase
   * See [[generic.PolyLike]] for the structure behind this construction.
   *
   */
-trait PhasedOpLike[M <: MonoidDef.Aux[M] with Singleton] {
+trait PhasedOpLike[M <: MonoDef.Aux[M] with Singleton] {
   def toPhasedOp: PhasedOp[M]
   def *(rhs: Phase)(implicit d: DummyImplicit): PhasedOp[M] = toPhasedOp * rhs
   def unary_- : PhasedOp[M] = toPhasedOp * Phase.minusOne
@@ -20,12 +20,12 @@ trait PhasedOpLike[M <: MonoidDef.Aux[M] with Singleton] {
 
 object PhasedOpLike {
 
-  implicit def toPhasedOp[M <: MonoidDef.Aux[M] with Singleton](x: PhasedOpLike[M]): PhasedOp[M] = x.toPhasedOp
+  implicit def toPhasedOp[M <: MonoDef.Aux[M] with Singleton](x: PhasedOpLike[M]): PhasedOp[M] = x.toPhasedOp
 
 }
 
 /** An operator variable in a free monoid along with a phase. */
-case class PhasedOp[M <: MonoidDef.Aux[M] with Singleton: Witness.Aux](phase: Phase, op: M#Op) extends PhasedOpLike[M] with MonoLike[M] with PolyLike[M] {
+case class PhasedOp[M <: MonoDef.Aux[M] with Singleton: Witness.Aux](phase: Phase, op: M#Op) extends PhasedOpLike[M] with MonoLike[M] with PolyLike[M] {
   lhs =>
   def M: M = valueOf[M]
 
@@ -42,6 +42,6 @@ case class PhasedOp[M <: MonoidDef.Aux[M] with Singleton: Witness.Aux](phase: Ph
 
 object PhasedOp {
 
-  implicit def fromOp[M <: MonoidDef.Aux[M] with Singleton: Witness.Aux](op: M#Op): PhasedOp[M] = PhasedOp(Phase.one, op)
+  implicit def fromOp[M <: MonoDef.Aux[M] with Singleton: Witness.Aux](op: M#Op): PhasedOp[M] = PhasedOp(Phase.one, op)
 
 }

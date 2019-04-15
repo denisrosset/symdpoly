@@ -167,7 +167,7 @@ object SparseTrie {
   }
 
   /** Key strategy for MutableWord (with immutable bit set): the zero monomial cannot be a key. */
-  implicit def MutableWordKey[F <: free.MonoidDef.Aux[F] with Singleton:Witness.Aux]: Key[MutableWord[F]] = new Key[MutableWord[F]] {
+  implicit def MutableWordKey[F <: free.MonoDef.Aux[F] with Singleton:Witness.Aux]: Key[MutableWord[F]] = new Key[MutableWord[F]] {
     def nIndices: Int = valueOf[F].nOperators
     def length(key: MutableWord[F]): Int = key.length
     def indexAt(key: MutableWord[F], pos: Int): Int = key.indices(pos)
