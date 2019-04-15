@@ -115,15 +115,12 @@ class NativeMosekInstance(val program: Program) {
       val solsta = new Array[_root_.mosek.solsta](1)
       task.getsolsta(_root_.mosek.soltype.itr, solsta)
       val Optimal = _root_.mosek.solsta.optimal
-      val NearOptimal = _root_.mosek.solsta.near_optimal
       val DualInfeasCer = _root_.mosek.solsta.dual_infeas_cer
       val PrimInfeasCer = _root_.mosek.solsta.prim_infeas_cer
-      val NearDualInfeasCer = _root_.mosek.solsta.near_dual_infeas_cer
-      val NearPrimInfeasCer = _root_.mosek.solsta.near_prim_infeas_cer
       val Unknown = _root_.mosek.solsta.unknown
 
       res = solsta(0) match {
-        case Optimal | NearOptimal =>
+        case Optimal =>
           val primalobj = new Array[Double](1)
           val dualobj = new Array[Double](1)
           task.getprimalobj(_root_.mosek.soltype.itr, primalobj)
@@ -143,7 +140,7 @@ class NativeMosekInstance(val program: Program) {
           @tailrec def iter(i: Int, acc: Double): Double =
             if (i == n) acc else iter(i + 1, acc + y(i) * blc(i))
 */
-        case DualInfeasCer | PrimInfeasCer | NearDualInfeasCer | NearPrimInfeasCer =>
+        case DualInfeasCer | PrimInfeasCer =>
           Failure("Primal or dual infeasibility certificate found.")
         case Unknown =>
           Failure("The status of the solution could not be determined.")
