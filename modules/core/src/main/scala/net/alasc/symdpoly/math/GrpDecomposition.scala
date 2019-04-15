@@ -4,6 +4,7 @@ import scala.annotation.tailrec
 
 import spire.algebra.Group
 
+import net.alasc.attributes.Attributes
 import net.alasc.bsgs.{Chain, GrpChainPermutationAction, Node, Term}
 import net.alasc.finite.Grp
 import net.alasc.syntax.group._
@@ -17,8 +18,14 @@ class GrpDecomposition[G](val transversals: List[Vector[G]])
 
 object GrpDecomposition {
 
+  object Attributes extends Attributes("GrpDecomposition") {
+    object Decompostion extends Attribute("Decomposition") {
+      implicit def forGrp[G]: For[Grp[G], GrpDecomposition[G]] = For
+    }
+  }
+
   /** Returns the decomposition of a group. */
-  def apply[G](grp: Grp[G])(implicit G: GrpChainPermutationAction[G]): GrpDecomposition[G] = {
+  def make[G](grp: Grp[G])(implicit G: GrpChainPermutationAction[G]): GrpDecomposition[G] = {
     import G.{group, equ}
     val chain = G.fromGrp(grp).chain
     @tailrec def buildTransversal(c: Chain[G, _], acc: List[Vector[G]]): List[Vector[G]] = c match {

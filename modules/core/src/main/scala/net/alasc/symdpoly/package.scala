@@ -13,7 +13,9 @@ import spire.std.double._
 import spire.syntax.order._
 import spire.math.Complex
 
-import net.alasc.symdpoly.math.Phase
+import net.alasc.bsgs.GrpChainPermutationAction
+import net.alasc.symdpoly.math.GrpDecomposition.Attributes
+import net.alasc.symdpoly.math.{GrpDecomposition, Phase}
 import net.alasc.symdpoly.util.MemoMap
 
 /** SymDPoly contains different packages.
@@ -50,6 +52,11 @@ package object symdpoly {
   }
 
   @inline def valueOf[S <: Singleton](implicit wS: Witness.Aux[S]): S = wS.value
+
+  implicit class GrpDecompositionOps[G](val lhs: Grp[G]) extends AnyVal {
+    def decomposition(implicit G: GrpChainPermutationAction[G]): GrpDecomposition[G] =
+      Attributes.Decompostion(lhs)(GrpDecomposition.make[G](lhs))
+  }
 
   implicit class RichRealCyclo(val rc: RealCyclo) extends AnyVal {
     def toDouble: Double =

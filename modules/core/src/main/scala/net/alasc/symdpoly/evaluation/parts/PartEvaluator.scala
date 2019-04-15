@@ -1,6 +1,6 @@
 package net.alasc.symdpoly
 package evaluation
-package partially
+package parts
 
 import cats.Contravariant
 import net.alasc.algebra.PermutationAction

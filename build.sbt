@@ -101,6 +101,7 @@ lazy val commonSettings = Seq(
     Resolver.sonatypeRepo("releases")
   ),
   libraryDependencies ++= Seq(
+    "net.alasc" %% "attributes" % attributesVersion,
     "org.typelevel" %% "cats-core" % catsVersion,
     "org.scala-metal" %% "metal-core" % metalVersion,
     "org.scala-metal" %% "metal-library" % metalVersion,
