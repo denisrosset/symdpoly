@@ -1,5 +1,5 @@
 package net.alasc.symdpoly
-/*
+
 class BurgdorfSuite extends CommonSuite {
 
   test("Example 5.13 from Burgdorf, Klep and Povh") {
@@ -11,4 +11,3 @@ class BurgdorfSuite extends CommonSuite {
   }
 
 }
-*/

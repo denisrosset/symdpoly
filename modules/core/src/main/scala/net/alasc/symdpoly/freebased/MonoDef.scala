@@ -27,7 +27,7 @@ import cats.instances.option._
 import net.alasc.util._
 import net.alasc.algebra.PermutationAction
 import net.alasc.symdpoly.evaluation.parts.OpPartition
-import net.alasc.symdpoly.evaluation.{EigenvalueEvaluator, Evaluator, FreeBasedEigenvalueEvaluator, TraceEvaluator}
+import net.alasc.symdpoly.evaluation.{EigenvalueEvaluator, Evaluator, ScratchEigenvalueEvaluator, ScratchTraceEvaluator, TraceEvaluator}
 import net.alasc.symdpoly.util.OrderedSet
 
 /** Monoid whose elements are represented by normal forms in a free monoid.
@@ -145,8 +145,7 @@ abstract class MonoDef extends generic.MonoDef {
   //region Evaluator construction
 
   override def eigenvalueEvaluator(real: Boolean = false): Evaluator.Aux[this.type] =
-      if (Settings.optimize) new FreeBasedEigenvalueEvaluator[this.type, Free](real, Grp.trivial[PermutationType])
-      else super.eigenvalueEvaluator(real)
+      new ScratchEigenvalueEvaluator[this.type, Free](real, Grp.trivial[PermutationType])
 
   /** Creates an evaluator for trace optimization.
     *
@@ -156,7 +155,6 @@ abstract class MonoDef extends generic.MonoDef {
   def traceEvaluator(real: Boolean = false): Evaluator.Aux[this.type] =
     new TraceEvaluator[this.type, Free](real, Grp.trivial[PermutationType])
   //endregion
-
 
 }
 

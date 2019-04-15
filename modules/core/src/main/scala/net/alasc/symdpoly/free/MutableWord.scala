@@ -257,6 +257,22 @@ class MutableWord[F <: MonoDef with Singleton](var phase: Phase,
     lhs
   }
 
+  /** Rotates the operators in this word by one position to the right. */
+  def rotateRight(): MutableWord[F] = {
+    val last = indices(length - 1)
+    System.arraycopy(indices, 0, indices, 1, length - 1)
+    indices(0) = last
+    lhs
+  }
+
+  /** Rotates the operators in this word by one position to the right. */
+  def rotateLeft(): MutableWord[F] = {
+    val first = indices(0)
+    System.arraycopy(indices, 1, indices, 0, length - 1)
+    indices(length - 1) = first
+    lhs
+  }
+
   /** Replaces the range [from, until[ by the given word.
     *
     * Is equivalent to removeRange(from, until) followed by insert(from, replaceBy).

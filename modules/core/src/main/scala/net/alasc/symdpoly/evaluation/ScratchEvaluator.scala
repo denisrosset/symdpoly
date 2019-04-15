@@ -19,33 +19,31 @@ import spire.syntax.std.seq._
 import net.alasc.perms.default._
 
 /** Equivalence under the adjoint operation. */
-final case class FreeBasedEigenvalueEvaluator[
+abstract class ScratchEvaluator[
   M <: freebased.MonoDef.Aux[F] with Singleton,
   F <: free.MonoDef.Aux[F] with Singleton
-](real: Boolean, symmetryGroup: Grp[M#PermutationType])(implicit val witnessMono: Witness.Aux[M]) extends Evaluator {
+] extends Evaluator {
 
-  private[this] lazy val unoptimized: Evaluator.Aux[M] = new EigenvalueEvaluator[M](real, symmetryGroup)
+  implicit def witnessF: Witness.Aux[F]
 
-  implicit def witnessF: Witness.Aux[F] = valueOf[M].witnessFree
+  protected def unoptimized: Evaluator.Aux[M]
 
   type Mono = M
+
+  /** Populates the given pad with equivalences of the given monomial (not including symmetry equivalences).
+    * If it returns true, the monomial is equivalent to zero.
+    */
+  protected def populatePadAndCheckForZero(pad: FreeScratchPad[F], mono: Mono#MonoType): Boolean
 
   def apply(mono: Mono#MonoType): SingleMomentType =
     if (!Settings.optimize) new SingleMoment[this.type, M](unoptimized(mono).normalForm)
     else if (mono.isZero) zero
     else {
       val pad = FreeScratchPad[F]
-      pad.resetWithCopyOf(mono.data)
-      if (real) {
-        pad.scratch(1).setToContentOf(mono.data)
-        pad.scratch(1).inPlaceAdjoint()
-        M.inPlaceNormalForm(pad.scratch(1))
-        if (pad.registerAndTestForZero(2)) {
-          FreeScratchPad.release(pad)
-          return this.zero
-        }
+      if (populatePadAndCheckForZero(pad, mono)) {
+        FreeScratchPad.release(pad)
+        return this.zero
       }
-
       @tailrec def recAndTestForZero(pos: Int): Boolean =
         if (pos >= pad.n) false else {
           var newPos = pad.n
@@ -70,16 +68,9 @@ final case class FreeBasedEigenvalueEvaluator[
           imin = i
       }
       val resWord = pad.scratch(imin).mutableCopy().setPhase(Phase.fromEncoding(pad.phaseArray(imin))).setImmutable()
-      val res = new SingleMoment[this.type, M](new freebased.Mono[M, F](resWord))
+      val res = fromNormalForm(new freebased.Mono[M, F](resWord))
       FreeScratchPad.release(pad)
       res
     }
-
-  protected def buildWithSymmetryGroup(newSymmetryGroup: Grp[M#PermutationType]): Evaluator.Aux[M] =
-    new FreeBasedEigenvalueEvaluator[M, F](real, newSymmetryGroup)
-
-  def compatibleSubgroup(grp: Grp[M#PermutationType]): Grp[M#PermutationType] = grp
-
-  def isReal: Boolean = real
 
 }
