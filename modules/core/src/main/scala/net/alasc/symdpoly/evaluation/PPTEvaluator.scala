@@ -61,7 +61,6 @@ class PPTEvaluator[
   protected def buildWithSymmetryGroup(newSymmetryGroup: Grp[M#PermutationType]): Evaluator.Aux[M] =
     new PPTEvaluator[M, F](partition, newSymmetryGroup)
 
-
   private[this] val permAction: PermutationAction[M#PermutationType] = Contravariant[PermutationAction].contramap(Perm.algebra)(_.genPerm.perm)
 
   private[this] def predicate(p: Perm): Boolean = {
