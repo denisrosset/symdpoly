@@ -117,17 +117,17 @@
       </span>
       
       <p class="shortcomment cmt">SymDPoly contains different packages.</p><div class="fullcomment"><div class="comment cmt"><p>SymDPoly contains different packages.</p><p>- Monomial monoids and associated polynomial rings are defined in the
-  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
+  <a href="../generic/index.html" class="extype" name="net.alasc.symdpoly.generic"><code>generic</code></a>, <a href="../free/index.html" class="extype" name="net.alasc.symdpoly.free"><code>free</code></a>,
   <a href="../freebased/index.html" class="extype" name="net.alasc.symdpoly.freebased"><code>free based</code></a> and <a href="../quotient/index.html" class="extype" name="net.alasc.symdpoly.quotient"><code>quotient</code></a>
   packages.</p><p>- The evaluation of monomials into moments is performed through <a href="../evaluation/index.html" class="extype" name="net.alasc.symdpoly.evaluation"><code>evaluation</code></a>.</p><p>- Additional algebraic structures are defined in <a href="../algebra/index.html" class="extype" name="net.alasc.symdpoly.algebra"><code>algebra</code></a>, with syntax in
   <a href="../syntax/index.html" class="extype" name="net.alasc.symdpoly.syntax"><code>syntax</code></a>.</p><p>- The packages <a href="../sdp/index.html" class="extype" name="net.alasc.symdpoly.sdp"><code>sdp</code></a> and <a href="../solvers/index.html" class="extype" name="net.alasc.symdpoly.solvers"><code>solvers</code></a> respectively
   define floating point representations of conic linear programs and interface the supported solvers.</p><p>To obtain a good set of default types, values, syntax enrichments and instances,
 simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="net.alasc">alasc</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="free"></a><a id="free:free"></a>
+    </li><li name="net.alasc.symdpoly.pretty" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="pretty"></a><a id="pretty:pretty"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/index.html#free" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/index.html#pretty" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -136,88 +136,41 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="User-defined free algebraic structures, such as the monoid of free monomials." href="index.html"><span class="name">free</span></a>
+        <a title="This package provides pretty printing methods for the objects in SymDPoly." href="index.html"><span class="name">pretty</span></a>
       </span>
       
-      <p class="shortcomment cmt">User-defined free algebraic structures, such as the monoid of free monomials.</p><div class="fullcomment"><div class="comment cmt"><p>User-defined free algebraic structures, such as the monoid of free monomials.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoDef" visbl="pub" class="indented5 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="MonoDefextendsMonoDef"></a><a id="MonoDef:MonoDef"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/index.html#MonoDefextendsMonoDef" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="Base class for a generalized free monoid." href="MonoDef.html"><span class="name">MonoDef</span></a><span class="result"> extends <a href="../freebased/MonoDef.html" class="extype" name="net.alasc.symdpoly.freebased.MonoDef">freebased.MonoDef</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Base class for a generalized free monoid.</p><div class="fullcomment"><div class="comment cmt"><p>Base class for a generalized free monoid.</p><p>This class must be used as follows.</p><p>- Declare inner case classes extending Op for each type of operator involved in the ring.
-- Call declare for each operator with the relevant range of indices.
-- Implement the abstract method &quot;adjoint&quot; for non hermitian operators.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly.free">free</a></dd></dl></div>
-    </li><li class="current-entities indented5">
+      <p class="shortcomment cmt">This package provides pretty printing methods for the objects in SymDPoly.</p><div class="fullcomment"><div class="comment cmt"><p>This package provides pretty printing methods for the objects in SymDPoly.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+    </li><li class="current-entities indented4">
+                        <a class="object" href="Format$.html" title=""></a>
+                        <a class="trait" href="Format.html" title="An output format for pretty printing."></a>
+                        <a href="Format.html" title="An output format for pretty printing.">Format</a>
+                      </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="MonoDef$HermitianOp.html" title="Abstract base class for Hermitian operator variables: implement a no op adjoint operation."></a>
-                        <a href="MonoDef$HermitianOp.html" title="Abstract base class for Hermitian operator variables: implement a no op adjoint operation.">HermitianOp</a>
-                      </li><li class="current-entities indented5">
+                        <a class="object" href="" title="Mathematica source code format."></a>
+                        <a href="" title="Mathematica source code format.">Mathematica</a>
+                      </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="MonoDef$HermitianOpFamily1.html" title="Base class for the companion object of a family of operators with one index."></a>
-                        <a href="MonoDef$HermitianOpFamily1.html" title="Base class for the companion object of a family of operators with one index.">HermitianOpFamily1</a>
-                      </li><li class="current-entities indented5">
+                        <a class="object" href="Matlab$.html" title="Matlab source code format."></a>
+                        <a href="Matlab$.html" title="Matlab source code format.">Matlab</a>
+                      </li><li class="current-entities indented4">
+                        <a class="object" href="Printer$.html" title=""></a>
+                        <a class="trait" href="Printer.html" title="Describes the ability to pretty print instances of A in the format F."></a>
+                        <a href="Printer.html" title="Describes the ability to pretty print instances of A in the format F.">Printer</a>
+                      </li><li class="current-entities indented4">
                         <span class="separator"></span>
-                        <a class="class" href="MonoDef$HermitianOpFamily2.html" title="Base class for the companion object of a family of Hermitian operators with two indices."></a>
-                        <a href="MonoDef$HermitianOpFamily2.html" title="Base class for the companion object of a family of Hermitian operators with two indices.">HermitianOpFamily2</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="" title="Base class for the companion object of a family of Hermitian operators with three indices."></a>
-                        <a href="" title="Base class for the companion object of a family of Hermitian operators with three indices.">HermitianOpFamily3</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="MonoDef$HermitianSingleOp.html" title="Base class for a singleton family containing one Hermitian operator."></a>
-                        <a href="MonoDef$HermitianSingleOp.html" title="Base class for a singleton family containing one Hermitian operator.">HermitianSingleOp</a>
-                      </li><li class="current-entities indented5">
-                        <a class="object" href="MonoDef$Op$.html" title=""></a>
-                        <a class="class" href="MonoDef$Op.html" title="Abstract base class for operator variables."></a>
-                        <a href="MonoDef$Op.html" title="Abstract base class for operator variables.">Op</a>
-                      </li><li class="current-entities indented5">
-                        <a class="object" href="MonoDef$OpEnum$.html" title=""></a>
-                        <a class="trait" href="MonoDef$OpEnum.html" title="A collection of operator variables; more general than a family as it can describe slices, i.e."></a>
-                        <a href="MonoDef$OpEnum.html" title="A collection of operator variables; more general than a family as it can describe slices, i.e.">OpEnum</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="trait" href="MonoDef$OpFamily.html" title="Base trait for a family of operators, regrouping for example a sequence of operators indexed by 1, 2 or 3 integers."></a>
-                        <a href="MonoDef$OpFamily.html" title="Base trait for a family of operators, regrouping for example a sequence of operators indexed by 1, 2 or 3 integers.">OpFamily</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="MonoDef$OpFamily1.html" title="Base class for the companion object of a family of Hermitian operators with one index."></a>
-                        <a href="MonoDef$OpFamily1.html" title="Base class for the companion object of a family of Hermitian operators with one index.">OpFamily1</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="MonoDef$OpFamily2.html" title="Base class for the companion object of a family of operators with two indices."></a>
-                        <a href="MonoDef$OpFamily2.html" title="Base class for the companion object of a family of operators with two indices.">OpFamily2</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="class" href="MonoDef$OpFamily3.html" title="Base class for the companion object of a family of operators with three indices."></a>
-                        <a href="MonoDef$OpFamily3.html" title="Base class for the companion object of a family of operators with three indices.">OpFamily3</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="object" href="../freebased/MonoDef$Permutation$.html" title=""></a>
-                        <a href="../freebased/MonoDef$Permutation$.html" title="">Permutation</a>
+                        <a class="object" href="Text$.html" title="Text format, for example to output on the console, or to write into text files."></a>
+                        <a href="Text$.html" title="Text format, for example to output on the console, or to write into text files.">Text</a>
                       </li>
               </ul>
             </div>
           </div>
           <div id="content">
-            <body class="class type">
+            <body class="object value">
       <div id="definition">
-        <div class="big-circle class">c</div>
-        <p id="owner"><a href="../../../index.html" class="extype" name="net">net</a>.<a href="../../index.html" class="extype" name="net.alasc">alasc</a>.<a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a>.<a href="index.html" class="extype" name="net.alasc.symdpoly.free">free</a>.<a href="MonoDef.html" class="extype" name="net.alasc.symdpoly.free.MonoDef">MonoDef</a></p>
-        <h1>HermitianOpFamily3<span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html" title="Permalink">
+        <div class="big-circle object">o</div>
+        <p id="owner"><a href="../../../index.html" class="extype" name="net">net</a>.<a href="../../index.html" class="extype" name="net.alasc">alasc</a>.<a href="../index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a>.<a href="index.html" class="extype" name="net.alasc.symdpoly.pretty">pretty</a></p>
+        <h1>Mathematica<span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
@@ -226,31 +179,21 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">class</span>
+        <span class="modifier"></span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">HermitianOpFamily3</span><span class="result"> extends <a href="MonoDef$OpFamily.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpFamily">OpFamily</a></span>
+        <span class="name">Mathematica</span><span class="result"> extends <a href="Format.html" class="extype" name="net.alasc.symdpoly.pretty.Format">Format</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Base class for the companion object of a family of Hermitian operators with three indices.</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/free/MonoDef.scala" target="_blank">MonoDef.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Mathematica source code format.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/denisrosset/symdpoly/tree/master/modules/core/src/main/scala/net/alasc/symdpoly/pretty/Mathematica.scala" target="_blank">Mathematica.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="MonoDef$OpFamily.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpFamily">OpFamily</a>, <a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a>, <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
-        </div><div class="toggleContainer block diagram-container" id="inheritance-diagram-container">
-                <span class="toggle diagram-link">
-                  Type Hierarchy
-                </span>
-                <div class="diagram" id="inheritance-diagram"><svg class="class-diagram" id="graph1" viewBox="0.00 0.00 186.00 118.00" height="118pt" width="186pt" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1 1) rotate(0) translate(4 114)" class="graph" id="page0,1_graph0"><polygon points="-4,4 -4,-114 182,-114 182,4 -4,4" stroke="transparent" fill="#ffffff"></polygon><g class="cluster" id="clust1"></g><g class="cluster" id="clust2"></g><!-- node0 --><g class="node this class" id="graph1_0"><g id="a_this class|graph1_0"><a xlink:title="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3 (this class)" xlink:href="#inheritance-diagram"><path d="M145.6667,-49C145.6667,-49 32.3333,-49 32.3333,-49 28.1667,-49 24,-44.8333 24,-40.6667 24,-40.6667 24,-32.3333 24,-32.3333 24,-28.1667 28.1667,-24 32.3333,-24 32.3333,-24 145.6667,-24 145.6667,-24 149.8333,-24 154,-28.1667 154,-32.3333 154,-32.3333 154,-40.6667 154,-40.6667 154,-44.8333 149.8333,-49 145.6667,-49" stroke="#418565" fill="#418565"></path><image xlink:href="../../../../lib/class_diagram.png" y="-43.5" x="34" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-34.1" x="55" text-anchor="start">HermitianOpFamily3</text></a></g></g><!-- node1 --><g class="node trait" id="graph1_1"><g id="a_trait|graph1_1"><a xlink:title="net.alasc.symdpoly.free.MonoDef.OpFamily" xlink:href="MonoDef$OpFamily.html#inheritance-diagram"><path d="M122.6667,-110C122.6667,-110 55.3333,-110 55.3333,-110 51.1667,-110 47,-105.8333 47,-101.6667 47,-101.6667 47,-93.3333 47,-93.3333 47,-89.1667 51.1667,-85 55.3333,-85 55.3333,-85 122.6667,-85 122.6667,-85 126.8333,-85 131,-89.1667 131,-93.3333 131,-93.3333 131,-101.6667 131,-101.6667 131,-105.8333 126.8333,-110 122.6667,-110" stroke="#2e6d82" fill="#2e6d82"></path><image xlink:href="../../../../lib/trait_diagram.png" y="-104.5" x="57" preserveAspectRatio="xMinYMin meet" height="15px" width="15px"></image><text fill="#ffffff" font-size="8.00" font-family="Source Code Pro" y="-95.1" x="78" text-anchor="start">OpFamily</text></a></g></g><!-- node1&#45;&gt;node0 --><g class="edge inheritance" id="graph1_1_0"><g id="a_inheritance|graph1_1_0"><a xlink:title="HermitianOpFamily3 is a subtype of OpFamily"><path d="M89,-77.7386C89,-68.3393 89,-57.3803 89,-49.123" stroke="#d4d4d4" fill="none"></path><polygon points="86.5501,-77.8607 89,-84.8608 91.4501,-77.8608 86.5501,-77.8607" stroke="#d4d4d4" fill="none"></polygon></a></g></g></g></svg></div>
-                <div id="diagram-controls" class="hiddenContent">
-                  <button id="diagram-zoom-out" class="diagram-btn"><i class="material-icons"></i></button>
-                  <button id="diagram-zoom-in" class="diagram-btn"><i class="material-icons"></i></button>
-                  <button title="Toggle full-screen" id="diagram-fs" class="diagram-btn to-full"><i class="material-icons"></i></button>
-                </div>
-              </div></div>
+          <div class="superTypes hiddenContent"><a href="Format.html" class="extype" name="net.alasc.symdpoly.pretty.Format">Format</a>, <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -275,7 +218,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3"><span>HermitianOpFamily3</span></li><li class="in" name="net.alasc.symdpoly.free.MonoDef.OpFamily"><span>OpFamily</span></li><li class="in" name="net.alasc.symdpoly.free.MonoDef.OpEnum"><span>OpEnum</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="net.alasc.symdpoly.pretty.Mathematica"><span>Mathematica</span></li><li class="in" name="net.alasc.symdpoly.pretty.Format"><span>Format</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -293,37 +236,39 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(iSeq:Seq[Int],jSeq:Seq[Int],kSeq:Seq[Int]):MonoDef.this.HermitianOpFamily3"></a><a id="&lt;init&gt;:HermitianOpFamily3"></a>
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="net.alasc.symdpoly.pretty.Mathematica.Output" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Output=String"></a><a id="Output:Output"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#&lt;init&gt;(iSeq:Seq[Int],jSeq:Seq[Int],kSeq:Seq[Int]):MonoDef.this.HermitianOpFamily3" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#Output=String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">new</span>
+        <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">HermitianOpFamily3</span><span class="params">(<span name="iSeq">iSeq: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="jSeq">jSeq: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="kSeq">kSeq: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span>
+        <span class="name">Output</span><span class="result alias"> = <span class="extype" name="java.lang.String">String</span></span>
       </span>
       
-      
-    </li><li name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(iSeq:Seq[Int],jSeq:Int=&gt;Seq[Int],kSeq:(Int,Int)=&gt;Seq[Int]):MonoDef.this.HermitianOpFamily3"></a><a id="&lt;init&gt;:HermitianOpFamily3"></a>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a> → <a href="Format.html" class="extype" name="net.alasc.symdpoly.pretty.Format">Format</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica.Statement" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StatementextendsProductwithSerializable"></a><a id="Statement:Statement"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#&lt;init&gt;(iSeq:Seq[Int],jSeq:Int=&gt;Seq[Int],kSeq:(Int,Int)=&gt;Seq[Int]):MonoDef.this.HermitianOpFamily3" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#StatementextendsProductwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">new</span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">HermitianOpFamily3</span><span class="params">(<span name="iSeq">iSeq: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="jSeq">jSeq: (<span class="extype" name="scala.Int">Int</span>) ⇒ <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<span class="extype" name="scala.Int">Int</span>]</span>, <span name="kSeq">kSeq: (<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Int">Int</span>) ⇒ <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<span class="extype" name="scala.Int">Int</span>]</span>)</span>
+        <a title="" href="Mathematica$$Statement.html"><span class="name">Statement</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <a href="#Output=String" class="extmbr" name="net.alasc.symdpoly.pretty.Mathematica.Output">Output</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -333,33 +278,12 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         
 
         <div class="values members">
-              <h3>Abstract Value Members</h3>
-              <ol><li name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3#apply" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="apply(i:Int,j:Int,k:Int):MonoDef.this.Op"></a><a id="apply(Int,Int,Int):Op"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#apply(i:Int,j:Int,k:Int):MonoDef.this.Op" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="j">j: <span class="extype" name="scala.Int">Int</span></span>, <span name="k">k: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <a href="MonoDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.Op">Op</a></span>
-      </span>
-      
-      
-    </li></ol>
-            </div>
-
-        <div class="values members">
-              <h3>Concrete Value Members</h3>
+              <h3>Value Members</h3>
               <ol>
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -375,7 +299,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html###():Int" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -388,26 +312,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoDef.OpEnum#++" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="++(rhs:MonoDef.this.OpEnum):MonoDef.this.OpEnum"></a><a id="++(OpEnum):OpEnum"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#++(rhs:MonoDef.this.OpEnum):MonoDef.this.OpEnum" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $plus$plus" class="name">++</span><span class="params">(<span name="rhs">rhs: <a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a></span>)</span><span class="result">: <a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a></dd></dl></div>
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -420,26 +328,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3#allInstances" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="allInstances:Seq[MonoDef.this.Op]"></a><a id="allInstances:Seq[Op]"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#allInstances:Seq[MonoDef.this.Op]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">allInstances</span><span class="result">: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<a href="MonoDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.Op">Op</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Enumeration of all operators in this family of operators.</p><div class="fullcomment"><div class="comment cmt"><p>Enumeration of all operators in this family of operators. Is provided automatically by the helper subclasses.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3">HermitianOpFamily3</a> → <a href="MonoDef$OpFamily.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpFamily">OpFamily</a> → <a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -455,7 +347,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#clone():Object" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -481,7 +373,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -497,7 +389,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#equals(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#equals(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -510,10 +402,26 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#freeMono" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="freeMono[F&lt;:net.alasc.symdpoly.free.MonoDefwithSingleton](implicitevidence$1:shapeless.Witness.Aux[F],implicitev:net.alasc.symdpoly.pretty.Printer[F#Op,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[F#MonoType,net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="freeMono[F&lt;:MonoDefwithSingleton](Aux[F],Printer[Mathematica.freeMono.F.Op,Mathematica.type]):Printer[Mathematica.freeMono.F.MonoType,Mathematica.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#freeMono[F&lt;:net.alasc.symdpoly.free.MonoDefwithSingleton](implicitevidence$1:shapeless.Witness.Aux[F],implicitev:net.alasc.symdpoly.pretty.Printer[F#Op,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[F#MonoType,net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">freeMono</span><span class="tparams">[<span name="F">F &lt;: <a href="../free/MonoDef.html" class="extype" name="net.alasc.symdpoly.free.MonoDef">MonoDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.freeMono.F">F</span>]</span>, <span name="ev">ev: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.free.MonoDef.Op">Mathematica.freeMono.F.Op</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>)</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.freebased.MonoDef.MonoType">Mathematica.freeMono.F.MonoType</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#getClass():Class[_]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -534,7 +442,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#hashCode():Int" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#hashCode():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -552,26 +460,26 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3#instances" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="instances(si:net.alasc.symdpoly.free.Slice,sj:net.alasc.symdpoly.free.Slice,sk:net.alasc.symdpoly.free.Slice):Seq[MonoDef.this.Op]"></a><a id="instances(Slice,Slice,Slice):Seq[Op]"></a>
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#int" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="int:net.alasc.symdpoly.pretty.Printer[Int,net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="int:Printer[Int,Mathematica.type]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#instances(si:net.alasc.symdpoly.free.Slice,sj:net.alasc.symdpoly.free.Slice,sk:net.alasc.symdpoly.free.Slice):Seq[MonoDef.this.Op]" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#int:net.alasc.symdpoly.pretty.Printer[Int,net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">instances</span><span class="params">(<span name="si">si: <a href="Slice.html" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a></span>, <span name="sj">sj: <a href="Slice.html" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a></span>, <span name="sk">sk: <a href="Slice.html" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a></span>)</span><span class="result">: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<a href="MonoDef$Op.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.Op">Op</a>]</span>
+        <span class="name">int</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="scala.Int">Int</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+      
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -584,10 +492,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoDef.OpFamily#name" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="name:String"></a>
+    </li><li name="net.alasc.symdpoly.pretty.Format#makePrinter" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="makePrinter[A](f:A=&gt;Format.this.Output):net.alasc.symdpoly.pretty.Printer[A,Format.this.type]"></a><a id="makePrinter[A]((A)⇒Output):Printer[A,Mathematica.this.type]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#name:String" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#makePrinter[A](f:A=&gt;Format.this.Output):net.alasc.symdpoly.pretty.Printer[A,Format.this.type]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -596,14 +504,46 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">name</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+        <span class="name">makePrinter</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="net.alasc.symdpoly.pretty.Format.makePrinter.A">A</span>) ⇒ <a href="#Output=String" class="extmbr" name="net.alasc.symdpoly.pretty.Mathematica.Output">Output</a></span>)</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.pretty.Format.makePrinter.A">A</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.this.type]</span>
       </span>
       
-      <p class="shortcomment cmt">Name of this operator family.</p><div class="fullcomment"><div class="comment cmt"><p>Name of this operator family.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MonoDef$OpFamily.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpFamily">OpFamily</a> → <a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Format.html" class="extype" name="net.alasc.symdpoly.pretty.Format">Format</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#mat" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="mat[A](implicitev:net.alasc.symdpoly.pretty.Printer[A,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[scalin.immutable.Mat[A],net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="mat[A](Printer[A,Mathematica.type]):Printer[Mat[A],Mathematica.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#mat[A](implicitev:net.alasc.symdpoly.pretty.Printer[A,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[scalin.immutable.Mat[A],net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mat</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.mat.A">A</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>)</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="scalin.immutable.Mat">Mat</span>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.mat.A">A</span>], <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#mono" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="mono[M&lt;:net.alasc.symdpoly.quotient.MonoDef.Aux[F]withSingleton,F&lt;:net.alasc.symdpoly.free.MonoDef.Aux[F]withSingleton](implicitevidence$2:shapeless.Witness.Aux[M],implicitev:net.alasc.symdpoly.pretty.Printer[F#Op,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[M#MonoType,net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="mono[M&lt;:Aux[F]withSingleton,F&lt;:Aux[F]withSingleton](Aux[M],Printer[Mathematica.mono.F.Op,Mathematica.type]):Printer[Mathematica.mono.M.MonoType,Mathematica.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#mono[M&lt;:net.alasc.symdpoly.quotient.MonoDef.Aux[F]withSingleton,F&lt;:net.alasc.symdpoly.free.MonoDef.Aux[F]withSingleton](implicitevidence$2:shapeless.Witness.Aux[M],implicitev:net.alasc.symdpoly.pretty.Printer[F#Op,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[M#MonoType,net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mono</span><span class="tparams">[<span name="M">M &lt;: <a href="../quotient/MonoDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoDefwithSingleton]=net.alasc.symdpoly.quotient.MonoDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.quotient.MonoDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.mono.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="F">F &lt;: <a href="../free/MonoDef$.html#Aux[F&lt;:net.alasc.symdpoly.free.MonoDefwithSingleton]=net.alasc.symdpoly.free.MonoDef{typeFree=F}" class="extmbr" name="net.alasc.symdpoly.free.MonoDef.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.mono.F">F</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.mono.M">M</span>]</span>, <span name="ev">ev: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.free.MonoDef.Op">Mathematica.mono.F.Op</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>)</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.freebased.MonoDef.MonoType">Mathematica.mono.M.MonoType</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -619,7 +559,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#notify():Unit" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -640,7 +580,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#notifyAll():Unit" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -658,10 +598,74 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="net.alasc.symdpoly.free.MonoDef.HermitianOpFamily3#slice" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="slice(si:net.alasc.symdpoly.free.Slice,sj:net.alasc.symdpoly.free.Slice,sk:net.alasc.symdpoly.free.Slice):MonoDef.this.OpEnum"></a><a id="slice(Slice,Slice,Slice):OpEnum"></a>
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#phase" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="phase:net.alasc.symdpoly.pretty.Printer[net.alasc.symdpoly.math.Phase,net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="phase:Printer[Phase,Mathematica.type]"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#slice(si:net.alasc.symdpoly.free.Slice,sj:net.alasc.symdpoly.free.Slice,sk:net.alasc.symdpoly.free.Slice):MonoDef.this.OpEnum" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#phase:net.alasc.symdpoly.pretty.Printer[net.alasc.symdpoly.math.Phase,net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">phase</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<a href="../math/Phase.html" class="extype" name="net.alasc.symdpoly.math.Phase">Phase</a>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#singleMoment" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="singleMoment[E&lt;:net.alasc.symdpoly.evaluation.Evaluator.Aux[M]withSingleton,M&lt;:net.alasc.symdpoly.generic.MonoDefwithSingleton](implicitev:net.alasc.symdpoly.pretty.Printer[M#MonoType,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[net.alasc.symdpoly.generic.SingleMoment[E,M],net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="singleMoment[E&lt;:Aux[M]withSingleton,M&lt;:MonoDefwithSingleton](Printer[Mathematica.singleMoment.M.MonoType,Mathematica.type]):Printer[SingleMoment[E,M],Mathematica.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#singleMoment[E&lt;:net.alasc.symdpoly.evaluation.Evaluator.Aux[M]withSingleton,M&lt;:net.alasc.symdpoly.generic.MonoDefwithSingleton](implicitev:net.alasc.symdpoly.pretty.Printer[M#MonoType,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[net.alasc.symdpoly.generic.SingleMoment[E,M],net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">singleMoment</span><span class="tparams">[<span name="E">E &lt;: <a href="../evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.singleMoment.M">M</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="M">M &lt;: <a href="../generic/MonoDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoDef">MonoDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoDef.MonoType">Mathematica.singleMoment.M.MonoType</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>)</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<a href="../generic/SingleMoment.html" class="extype" name="net.alasc.symdpoly.generic.SingleMoment">SingleMoment</a>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.singleMoment.E">E</span>, <span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.singleMoment.M">M</span>], <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#statement" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="statement:net.alasc.symdpoly.pretty.Printer[net.alasc.symdpoly.pretty.Mathematica.Statement,net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="statement:Printer[Statement,Mathematica.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#statement:net.alasc.symdpoly.pretty.Printer[net.alasc.symdpoly.pretty.Mathematica.Statement,net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">statement</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<a href="Mathematica$$Statement.html" class="extype" name="net.alasc.symdpoly.pretty.Mathematica.Statement">Statement</a>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#statements" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="statements:net.alasc.symdpoly.pretty.Printer[Iterable[net.alasc.symdpoly.pretty.Mathematica.Statement],net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="statements:Printer[Iterable[Statement],Mathematica.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#statements:net.alasc.symdpoly.pretty.Printer[Iterable[net.alasc.symdpoly.pretty.Mathematica.Statement],net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">statements</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<a href="../../../../scala/index.html#Iterable[+A]=Iterable[A]" class="extmbr" name="scala.Iterable">Iterable</a>[<a href="Mathematica$$Statement.html" class="extype" name="net.alasc.symdpoly.pretty.Mathematica.Statement">Statement</a>], <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#statements" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="statements(pairs:net.alasc.symdpoly.pretty.Mathematica.Statement*):Seq[net.alasc.symdpoly.pretty.Mathematica.Statement]"></a><a id="statements(Statement*):Seq[Statement]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#statements(pairs:net.alasc.symdpoly.pretty.Mathematica.Statement*):Seq[net.alasc.symdpoly.pretty.Mathematica.Statement]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -670,14 +674,14 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">slice</span><span class="params">(<span name="si">si: <a href="Slice.html" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a></span>, <span name="sj">sj: <a href="Slice.html" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a></span>, <span name="sk">sk: <a href="Slice.html" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a></span>)</span><span class="result">: <a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a></span>
+        <span class="name">statements</span><span class="params">(<span name="pairs">pairs: <a href="Mathematica$$Statement.html" class="extype" name="net.alasc.symdpoly.pretty.Mathematica.Statement">Statement</a>*</span>)</span><span class="result">: <a href="../../../../scala/index.html#Seq[+A]=Seq[A]" class="extmbr" name="scala.Seq">Seq</a>[<a href="Mathematica$$Statement.html" class="extype" name="net.alasc.symdpoly.pretty.Mathematica.Statement">Statement</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Returns the subset of operators in this family corresponding to the given slices.</p><div class="fullcomment"><div class="comment cmt"><p>Returns the subset of operators in this family corresponding to the given slices. See <a href="Slice.html" class="extype" name="net.alasc.symdpoly.free.Slice">Slice</a>.</p></div></div>
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -693,7 +697,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#toString():String" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#toString():String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -706,10 +710,26 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica#vec" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="vec[A](implicitev:net.alasc.symdpoly.pretty.Printer[A,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[scalin.immutable.Vec[A],net.alasc.symdpoly.pretty.Mathematica.type]"></a><a id="vec[A](Printer[A,Mathematica.type]):Printer[Vec[A],Mathematica.type]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#vec[A](implicitev:net.alasc.symdpoly.pretty.Printer[A,net.alasc.symdpoly.pretty.Mathematica.type]):net.alasc.symdpoly.pretty.Printer[scalin.immutable.Vec[A],net.alasc.symdpoly.pretty.Mathematica.type]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">vec</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.vec.A">A</span>, <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>)</span><span class="result">: <a href="Printer.html" class="extype" name="net.alasc.symdpoly.pretty.Printer">Printer</a>[<span class="extype" name="scalin.immutable.Vec">Vec</span>[<span class="extype" name="net.alasc.symdpoly.pretty.Mathematica.vec.A">A</span>], <a href="" class="extype" name="net.alasc.symdpoly.pretty.Mathematica">Mathematica</a>.type]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -731,7 +751,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -755,7 +775,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#wait():Unit" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -774,6 +794,22 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="net.alasc.symdpoly.pretty.Mathematica.Statement" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Statement"></a><a id="Statement:Statement"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#Statement" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Mathematica$$Statement$.html"><span class="name">Statement</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li>
               </ol>
             </div>
@@ -785,7 +821,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
               <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/free/MonoDef$HermitianOpFamily3.html#finalize():Unit" title="Permalink">
+      <a href="../../../../net/alasc/symdpoly/pretty/Mathematica$.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -813,10 +849,8 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="net.alasc.symdpoly.free.MonoDef.OpFamily">
-              <h3>Inherited from <a href="MonoDef$OpFamily.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpFamily">OpFamily</a></h3>
-            </div><div class="parent" name="net.alasc.symdpoly.free.MonoDef.OpEnum">
-              <h3>Inherited from <a href="MonoDef$OpEnum.html" class="extype" name="net.alasc.symdpoly.free.MonoDef.OpEnum">OpEnum</a></h3>
+        <div class="parent" name="net.alasc.symdpoly.pretty.Format">
+              <h3>Inherited from <a href="Format.html" class="extype" name="net.alasc.symdpoly.pretty.Format">Format</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">

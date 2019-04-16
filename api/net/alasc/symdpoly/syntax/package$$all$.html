@@ -154,12 +154,24 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a href="PhasedSyntax.html" title="">PhasedSyntax</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
+                        <a class="class" href="PrinterOps.html" title="Syntax for pretty printing operations."></a>
+                        <a href="PrinterOps.html" title="Syntax for pretty printing operations.">PrinterOps</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="trait" href="PrinterSyntax.html" title="Syntax for pretty printing objects"></a>
+                        <a href="PrinterSyntax.html" title="Syntax for pretty printing objects">PrinterSyntax</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
                         <a class="object" href="" title=""></a>
                         <a href="" title="">all</a>
                       </li><li class="current-entities indented4">
                         <span class="separator"></span>
                         <a class="object" href="package$$phased$.html" title=""></a>
                         <a href="package$$phased$.html" title="">phased</a>
+                      </li><li class="current-entities indented4">
+                        <span class="separator"></span>
+                        <a class="object" href="package$$printer$.html" title=""></a>
+                        <a href="package$$printer$.html" title="">printer</a>
                       </li>
               </ul>
             </div>
@@ -192,7 +204,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="AllSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.AllSyntax">AllSyntax</a>, <a href="PhasedSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.PhasedSyntax">PhasedSyntax</a>, <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="AllSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.AllSyntax">AllSyntax</a>, <a href="PrinterSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.PrinterSyntax">PrinterSyntax</a>, <a href="PhasedSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.PhasedSyntax">PhasedSyntax</a>, <a href="../../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -218,7 +230,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="net.alasc.symdpoly.syntax.all"><span>all</span></li><li class="in" name="net.alasc.symdpoly.syntax.AllSyntax"><span>AllSyntax</span></li><li class="in" name="net.alasc.symdpoly.syntax.PhasedSyntax"><span>PhasedSyntax</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="net.alasc.symdpoly.syntax.all"><span>all</span></li><li class="in" name="net.alasc.symdpoly.syntax.AllSyntax"><span>AllSyntax</span></li><li class="in" name="net.alasc.symdpoly.syntax.PrinterSyntax"><span>PrinterSyntax</span></li><li class="in" name="net.alasc.symdpoly.syntax.PhasedSyntax"><span>PhasedSyntax</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -327,6 +339,8 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
@@ -365,28 +379,6 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/syntax/package$$all$.html#finalize():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="symbol">classOf[java.lang.Throwable]</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -404,6 +396,8 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -423,6 +417,8 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -475,6 +471,8 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
         </dd></dl></div>
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
@@ -494,6 +492,8 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
+                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
+              
         </dd></dl></div>
     </li><li name="net.alasc.symdpoly.syntax.PhasedSyntax#phasedOps" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="phasedOps[A](a:A)(implicitevidence$1:net.alasc.symdpoly.algebra.Phased[A]):net.alasc.symdpoly.syntax.PhasedOps[A]"></a><a id="phasedOps[A](A)(Phased[A]):PhasedOps[A]"></a>
@@ -511,6 +511,22 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PhasedSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.PhasedSyntax">PhasedSyntax</a></dd></dl></div>
+    </li><li name="net.alasc.symdpoly.syntax.PrinterSyntax#prettyOps" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="prettyOps[A](a:A):net.alasc.symdpoly.syntax.PrinterOps[A]"></a><a id="prettyOps[A](A):PrinterOps[A]"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/syntax/package$$all$.html#prettyOps[A](a:A):net.alasc.symdpoly.syntax.PrinterOps[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">prettyOps</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="net.alasc.symdpoly.syntax.PrinterSyntax.prettyOps.A">A</span></span>)</span><span class="result">: <a href="PrinterOps.html" class="extype" name="net.alasc.symdpoly.syntax.PrinterOps">PrinterOps</a>[<span class="extype" name="net.alasc.symdpoly.syntax.PrinterSyntax.prettyOps.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="PrinterSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.PrinterSyntax">PrinterSyntax</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -543,28 +559,6 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <span class="permalink">
-      <a href="../../../../net/alasc/symdpoly/syntax/package$$all$.html#wait():Unit" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
@@ -611,18 +605,71 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/syntax/package$$all$.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li>
               </ol>
             </div>
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../../../net/alasc/symdpoly/syntax/package$$all$.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version ) see corresponding Javadoc for more information.">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@Deprecated</span>
+              
+                <span class="name">@deprecated</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version )</i> see corresponding Javadoc for more information.</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
         <div class="parent" name="net.alasc.symdpoly.syntax.AllSyntax">
               <h3>Inherited from <a href="AllSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.AllSyntax">AllSyntax</a></h3>
+            </div><div class="parent" name="net.alasc.symdpoly.syntax.PrinterSyntax">
+              <h3>Inherited from <a href="PrinterSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.PrinterSyntax">PrinterSyntax</a></h3>
             </div><div class="parent" name="net.alasc.symdpoly.syntax.PhasedSyntax">
               <h3>Inherited from <a href="PhasedSyntax.html" class="extype" name="net.alasc.symdpoly.syntax.PhasedSyntax">PhasedSyntax</a></h3>
             </div><div class="parent" name="scala.AnyRef">
