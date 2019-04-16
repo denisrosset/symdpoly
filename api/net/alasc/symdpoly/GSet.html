@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="This is the API documentation for the SymDPoly polynomial optimization framework." href="../../../index.html"><span class="name">root</span></a>
+        <a title="" href="../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the API documentation for the SymDPoly polynomial optimization framework.</p><div class="fullcomment"><div class="comment cmt"><h4> SymDPoly </h4><p>This is the API documentation for the SymDPoly polynomial optimization framework.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.net" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="net"></a><a id="net:net"></a>
       <span class="permalink">
@@ -248,10 +248,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="mosek/index.html"><span class="name">mosek</span></a>
+        <a title="Native interface to Mosek." href="mosek/index.html"><span class="name">mosek</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Native interface to Mosek.</p><div class="fullcomment"><div class="comment cmt"><p>Native interface to Mosek. Add <code>lib</code> directory in the modules/mosek folder containing <code>mosek.jar</code> to compile this module.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.pretty" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="pretty"></a><a id="pretty:pretty"></a>
       <span class="permalink">
@@ -385,6 +385,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a class="trait" href="" title="Generating set of monomials."></a>
                         <a href="" title="Generating set of monomials.">GSet</a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$GrpDecompositionOps.html" title=""></a>
+                        <a href="package$$GrpDecompositionOps.html" title="">GrpDecompositionOps</a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="LocalizingMatrix$.html" title=""></a>
                         <a class="class" href="LocalizingMatrix.html" title="Localizing matrix"></a>
                         <a href="LocalizingMatrix.html" title="Localizing matrix">LocalizingMatrix</a>
@@ -414,12 +418,24 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a href="Reynolds$.html" title="Reynolds operator that averages the orbit of an element under the action of a group.">Reynolds</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="package$$RichRealCyclo.html" title=""></a>
+                        <a href="package$$RichRealCyclo.html" title="">RichRealCyclo</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="ScalarConstraint.html" title=""></a>
                         <a href="ScalarConstraint.html" title="">ScalarConstraint</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="object" href="Settings$.html" title=""></a>
+                        <a href="Settings$.html" title="">Settings</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="trait" href="Solution.html" title=""></a>
                         <a href="Solution.html" title="">Solution</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="Verbosity$.html" title=""></a>
+                        <a class="class" href="Verbosity.html" title=""></a>
+                        <a href="Verbosity.html" title="">Verbosity</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="object" href="defaults$.html" title="A set of default imports, syntax extensions and instances to work easily with SymDPoly."></a>
@@ -449,7 +465,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">GSet</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">GSet</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/MonoDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoDef">MonoDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       </h4>
 
@@ -536,7 +552,7 @@ combinators.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a hre
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">metalSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="metal.immutable.HashSet">HashSet</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>]</span>
+        <span class="name">metalSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.M">M</span>]</span>)</span><span class="result">: <span class="extype" name="metal.immutable.HashSet">HashSet</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoDef.MonoType">M.MonoType</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials.</p>
@@ -840,7 +856,7 @@ combinators.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a hre
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">orbit</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="action">action: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>, <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.M">M</span>]</span>
+        <span class="name">orbit</span><span class="params">(<span name="grp">grp: <span class="extype" name="net.alasc.finite.Grp">Grp</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="action">action: <span class="extype" name="spire.algebra.Action">Action</span>[<span class="extype" name="net.alasc.symdpoly.generic.MonoDef.MonoType">M.MonoType</span>, <span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PermutationType">M.PermutationType</span>]</span>)</span><span class="result">: <a href="" class="extype" name="net.alasc.symdpoly.GSet">GSet</a>[<span class="extype" name="net.alasc.symdpoly.GSet.M">M</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Completes a generating set of monomials by their orbit under a group.</p>
@@ -888,7 +904,7 @@ combinators.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a hre
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toOrderedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.M">M</span>]</span>)</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>]</span>
+        <span class="name">toOrderedSet</span><span class="params">(<span class="implicit">implicit </span><span name="wM">wM: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.GSet.M">M</span>]</span>)</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoDef.MonoType">M.MonoType</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Computes and returns the sorted generating set of monomials as an OrderedSet.</p>

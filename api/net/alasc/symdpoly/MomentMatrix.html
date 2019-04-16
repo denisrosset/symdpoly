@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="This is the API documentation for the SymDPoly polynomial optimization framework." href="../../../index.html"><span class="name">root</span></a>
+        <a title="" href="../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the API documentation for the SymDPoly polynomial optimization framework.</p><div class="fullcomment"><div class="comment cmt"><h4> SymDPoly </h4><p>This is the API documentation for the SymDPoly polynomial optimization framework.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.net" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="net"></a><a id="net:net"></a>
       <span class="permalink">
@@ -248,10 +248,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="mosek/index.html"><span class="name">mosek</span></a>
+        <a title="Native interface to Mosek." href="mosek/index.html"><span class="name">mosek</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Native interface to Mosek.</p><div class="fullcomment"><div class="comment cmt"><p>Native interface to Mosek. Add <code>lib</code> directory in the modules/mosek folder containing <code>mosek.jar</code> to compile this module.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.pretty" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="pretty"></a><a id="pretty:pretty"></a>
       <span class="permalink">
@@ -385,6 +385,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a class="trait" href="GSet.html" title="Generating set of monomials."></a>
                         <a href="GSet.html" title="Generating set of monomials.">GSet</a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$GrpDecompositionOps.html" title=""></a>
+                        <a href="package$$GrpDecompositionOps.html" title="">GrpDecompositionOps</a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="LocalizingMatrix$.html" title=""></a>
                         <a class="class" href="LocalizingMatrix.html" title="Localizing matrix"></a>
                         <a href="LocalizingMatrix.html" title="Localizing matrix">LocalizingMatrix</a>
@@ -414,12 +418,24 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a href="Reynolds$.html" title="Reynolds operator that averages the orbit of an element under the action of a group.">Reynolds</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="package$$RichRealCyclo.html" title=""></a>
+                        <a href="package$$RichRealCyclo.html" title="">RichRealCyclo</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="ScalarConstraint.html" title=""></a>
                         <a href="ScalarConstraint.html" title="">ScalarConstraint</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="object" href="Settings$.html" title=""></a>
+                        <a href="Settings$.html" title="">Settings</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="trait" href="Solution.html" title=""></a>
                         <a href="Solution.html" title="">Solution</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="Verbosity$.html" title=""></a>
+                        <a class="class" href="Verbosity.html" title=""></a>
+                        <a href="Verbosity.html" title="">Verbosity</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="object" href="defaults$.html" title="A set of default imports, syntax extensions and instances to work easily with SymDPoly."></a>
@@ -449,7 +465,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">MomentMatrix</span><span class="tparams">[<span name="E">E &lt;: <a href="evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoidDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.MomentMatrix.M">M</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="M">M &lt;: <a href="generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">MomentMatrix</span><span class="tparams">[<span name="E">E &lt;: <a href="evaluation/Evaluator$.html#Aux[M&lt;:net.alasc.symdpoly.generic.MonoDefwithSingleton]=net.alasc.symdpoly.evaluation.Evaluator{typeMono=M}" class="extmbr" name="net.alasc.symdpoly.evaluation.Evaluator.Aux">Aux</a>[<span class="extype" name="net.alasc.symdpoly.MomentMatrix.M">M</span>] with <span class="extype" name="scala.Singleton">Singleton</span></span>, <span name="M">M &lt;: <a href="generic/MonoDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoDef">MonoDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="result"> extends <a href="../../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       </h4>
 
@@ -527,7 +543,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">MomentMatrix</span><span class="params">(<span name="generatingMoments">generatingMoments: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>]</span>, <span name="mat">mat: <span class="extype" name="scalin.immutable.Mat">Mat</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">E.SingleMomentType</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.MomentMatrix.E">E</span>]</span>, <span name="arg1">arg1: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.MomentMatrix.M">M</span>]</span>)</span>
+        <span class="name">MomentMatrix</span><span class="params">(<span name="generatingMoments">generatingMoments: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoDef.MonoType">M.MonoType</span>]</span>, <span name="mat">mat: <span class="extype" name="scalin.immutable.Mat">Mat</span>[<span class="extype" name="net.alasc.symdpoly.evaluation.Evaluator.SingleMomentType">E.SingleMomentType</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.MomentMatrix.E">E</span>]</span>, <span name="arg1">arg1: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.MomentMatrix.M">M</span>]</span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">generatingMoments</dt><dd class="cmt"><p>Generating moments of this moment matrix</p></dd><dt class="param">mat</dt><dd class="cmt"><p>Matrix of evaluated moments, such that moments(r, c) = E(generatingMoments(r).adjoint * generatingMoments(c))</p></dd></dl></div>
@@ -693,10 +709,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+    </li><li name="net.alasc.symdpoly.MomentMatrix#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(any:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../net/alasc/symdpoly/MomentMatrix.html#equals(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../net/alasc/symdpoly/MomentMatrix.html#equals(any:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -705,10 +721,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="any">any: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.MomentMatrix">MomentMatrix</a> → AnyRef → Any</dd></dl></div>
     </li><li name="net.alasc.symdpoly.MomentMatrix#expandIn" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="expandIn(relaxation:net.alasc.symdpoly.Relaxation[E,M]):(net.alasc.symdpoly.sdp.Block,Boolean)"></a><a id="expandIn(Relaxation[E,M]):(Block,Boolean)"></a>
       <span class="permalink">
@@ -759,7 +775,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">generatingMoments</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.MonoType">M.MonoType</span>]</span>
+        <span class="name">generatingMoments</span><span class="result">: <a href="util/OrderedSet.html" class="extype" name="net.alasc.symdpoly.util.OrderedSet">OrderedSet</a>[<span class="extype" name="net.alasc.symdpoly.generic.MonoDef.MonoType">M.MonoType</span>]</span>
       </span>
       
       
@@ -782,7 +798,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="net.alasc.symdpoly.MomentMatrix#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
       <a href="../../../net/alasc/symdpoly/MomentMatrix.html#hashCode():Int" title="Permalink">
@@ -797,10 +813,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-        </dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.MomentMatrix">MomentMatrix</a> → AnyRef → Any</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -919,7 +932,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="net.alasc.symdpoly.MomentMatrix#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
       <a href="../../../net/alasc/symdpoly/MomentMatrix.html#toString():String" title="Permalink">
@@ -931,10 +944,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.alasc.symdpoly.MomentMatrix">MomentMatrix</a> → AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">

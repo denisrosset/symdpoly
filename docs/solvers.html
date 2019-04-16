@@ -7,7 +7,7 @@
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">net.alasc.symdpoly._</span>
 <span class="k">import</span> <span class="nn">net.alasc.symdpoly.examples.quantum.CHSH</span>
 <span class="k">import</span> <span class="nn">CHSH._</span>
-<span class="k">val</span> <span class="n">L</span> <span class="k">=</span> <span class="nc">Quantum</span><span class="o">.</span><span class="n">evaluator</span><span class="o">(</span><span class="n">evaluation</span><span class="o">.</span><span class="n">real</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">L</span> <span class="k">=</span> <span class="nc">Quantum</span><span class="o">.</span><span class="n">eigenvalueEvaluator</span><span class="o">(</span><span class="n">real</span> <span class="k">=</span> <span class="kc">true</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">generatingSet</span> <span class="k">=</span> <span class="nc">Quantum</span><span class="o">.</span><span class="n">quotient</span><span class="o">(</span><span class="nc">GSet</span><span class="o">.</span><span class="n">onePlus</span><span class="o">(</span><span class="nc">Free</span><span class="o">.</span><span class="n">A</span><span class="o">,</span> <span class="nc">Free</span><span class="o">.</span><span class="n">B</span><span class="o">))</span>
 <span class="k">val</span> <span class="n">program</span> <span class="k">=</span> <span class="n">L</span><span class="o">(</span><span class="nc">Quantum</span><span class="o">.</span><span class="n">quotient</span><span class="o">(</span><span class="nc">CHSH</span><span class="o">.</span><span class="n">chsh</span><span class="o">)).</span><span class="n">maximize</span><span class="o">.</span><span class="n">relaxation</span><span class="o">(</span><span class="n">generatingSet</span><span class="o">).</span><span class="n">program</span>
 </code></pre></div></div>
@@ -62,7 +62,7 @@
 <p>You want to run the Mosek solver directly, without writing intermediate files, or write problems in the <a href="https://docs.mosek.com/8.1/toolbox/task-format.html#doc-shared-taskformat">Task Format</a> or <a href="https://docs.mosek.com/8.1/toolbox/json-format.html#doc-shared-jtaskformat">JSON Format</a> formats.</p>
 
 <p>For that, you need to interface Mosek with the Java Virtual Machine. First, import the <code class="highlighter-rouge">symdpoly-mosek</code> module in your <code class="highlighter-rouge">build.sbt</code> file.</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-mosek"</span>    <span class="o">%</span> <span class="s">"0.6.1"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-mosek"</span>    <span class="o">%</span> <span class="s">"0.7.0"</span>
 </code></pre></div></div>
 
 <p>Then, add a <code class="highlighter-rouge">lib</code> subfolder at the root of your project, which contains the JAR files and shared libraries of <code class="highlighter-rouge">mosek/8/tools/platform/XXX/bin</code> from your Mosek installation.</p>

@@ -65,10 +65,10 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="This is the API documentation for the SymDPoly polynomial optimization framework." href="../../../index.html"><span class="name">root</span></a>
+        <a title="" href="../../../index.html"><span class="name">root</span></a>
       </span>
       
-      <p class="shortcomment cmt">This is the API documentation for the SymDPoly polynomial optimization framework.</p><div class="fullcomment"><div class="comment cmt"><h4> SymDPoly </h4><p>This is the API documentation for the SymDPoly polynomial optimization framework.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.net" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="net"></a><a id="net:net"></a>
       <span class="permalink">
@@ -248,10 +248,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="mosek/index.html"><span class="name">mosek</span></a>
+        <a title="Native interface to Mosek." href="mosek/index.html"><span class="name">mosek</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
+      <p class="shortcomment cmt">Native interface to Mosek.</p><div class="fullcomment"><div class="comment cmt"><p>Native interface to Mosek. Add <code>lib</code> directory in the modules/mosek folder containing <code>mosek.jar</code> to compile this module.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="net.alasc.symdpoly">symdpoly</a></dd></dl></div>
     </li><li name="net.alasc.symdpoly.pretty" visbl="pub" class="indented4 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="pretty"></a><a id="pretty:pretty"></a>
       <span class="permalink">
@@ -385,6 +385,10 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a class="trait" href="GSet.html" title="Generating set of monomials."></a>
                         <a href="GSet.html" title="Generating set of monomials.">GSet</a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$GrpDecompositionOps.html" title=""></a>
+                        <a href="package$$GrpDecompositionOps.html" title="">GrpDecompositionOps</a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="LocalizingMatrix$.html" title=""></a>
                         <a class="class" href="LocalizingMatrix.html" title="Localizing matrix"></a>
                         <a href="LocalizingMatrix.html" title="Localizing matrix">LocalizingMatrix</a>
@@ -414,12 +418,24 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
                         <a href="Reynolds$.html" title="Reynolds operator that averages the orbit of an element under the action of a group.">Reynolds</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="package$$RichRealCyclo.html" title=""></a>
+                        <a href="package$$RichRealCyclo.html" title="">RichRealCyclo</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="ScalarConstraint.html" title=""></a>
                         <a href="ScalarConstraint.html" title="">ScalarConstraint</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="object" href="Settings$.html" title=""></a>
+                        <a href="Settings$.html" title="">Settings</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="trait" href="Solution.html" title=""></a>
                         <a href="Solution.html" title="">Solution</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="Verbosity$.html" title=""></a>
+                        <a class="class" href="Verbosity.html" title=""></a>
+                        <a href="Verbosity.html" title="">Verbosity</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="object" href="defaults$.html" title="A set of default imports, syntax extensions and instances to work easily with SymDPoly."></a>
@@ -447,7 +463,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">OperatorConstraint</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/MonoidDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoidDef">MonoidDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span name="lhs">lhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>, <span name="op">op: <a href="ComparisonOp.html" class="extype" name="net.alasc.symdpoly.ComparisonOp">ComparisonOp</a></span>, <span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.OperatorConstraint.M">M</span>]</span>)</span><span class="result"> extends <a href="Constraint.html" class="extype" name="net.alasc.symdpoly.Constraint">Constraint</a>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="net.alasc.symdpoly.OperatorConstraint.M">M</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">OperatorConstraint</span><span class="tparams">[<span name="M">M &lt;: <a href="generic/MonoDef.html" class="extype" name="net.alasc.symdpoly.generic.MonoDef">MonoDef</a> with <span class="extype" name="scala.Singleton">Singleton</span></span>]</span><span class="params">(<span name="lhs">lhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PolyType">M.PolyType</span></span>, <span name="op">op: <a href="ComparisonOp.html" class="extype" name="net.alasc.symdpoly.ComparisonOp">ComparisonOp</a></span>, <span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PolyType">M.PolyType</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.OperatorConstraint.M">M</span>]</span>)</span><span class="result"> extends <a href="Constraint.html" class="extype" name="net.alasc.symdpoly.Constraint">Constraint</a>[<span class="extype" name="scala.Nothing">Nothing</span>, <span class="extype" name="net.alasc.symdpoly.OperatorConstraint.M">M</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -524,7 +540,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">OperatorConstraint</span><span class="params">(<span name="lhs">lhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>, <span name="op">op: <a href="ComparisonOp.html" class="extype" name="net.alasc.symdpoly.ComparisonOp">ComparisonOp</a></span>, <span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.OperatorConstraint.M">M</span>]</span>)</span>
+        <span class="name">OperatorConstraint</span><span class="params">(<span name="lhs">lhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PolyType">M.PolyType</span></span>, <span name="op">op: <a href="ComparisonOp.html" class="extype" name="net.alasc.symdpoly.ComparisonOp">ComparisonOp</a></span>, <span name="rhs">rhs: <span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PolyType">M.PolyType</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="shapeless.Witness.Aux">Aux</span>[<span class="extype" name="net.alasc.symdpoly.OperatorConstraint.M">M</span>]</span>)</span>
       </span>
       
       
@@ -727,7 +743,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">lhs</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+        <span class="name">lhs</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PolyType">M.PolyType</span></span>
       </span>
       
       
@@ -813,7 +829,7 @@ simply import <code>net.alasc.symdpoly.defaults._</code> in your code.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">rhs</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoidDef.PolyType">M.PolyType</span></span>
+        <span class="name">rhs</span><span class="result">: <span class="extype" name="net.alasc.symdpoly.generic.MonoDef.PolyType">M.PolyType</span></span>
       </span>
       
       
