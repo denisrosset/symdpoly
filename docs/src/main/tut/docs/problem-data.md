@@ -12,7 +12,7 @@ Again, we work with the CHSH relaxation.
 import net.alasc.symdpoly._
 import net.alasc.symdpoly.examples.quantum.CHSH
 import CHSH._
-val L = Quantum.evaluator(evaluation.real)
+val L = Quantum.eigenvalueEvaluator(real = true)
 val generatingSet = Quantum.quotient(GSet.onePlus(Free.A, Free.B))
 val relaxation = L(Quantum.quotient(CHSH.chsh)).maximize.relaxation(generatingSet)
 ```
@@ -22,7 +22,7 @@ val relaxation = L(Quantum.quotient(CHSH.chsh)).maximize.relaxation(generatingSe
 To explore the moment matrix, inspect:
 
 ```tut
-relaxation.momentMatrix
+relaxation.momentMatrix.mat
 ```
 
 Note that the monomials are included into brackets, as they represent equivalence classes of monomials in the quotient algebra. 

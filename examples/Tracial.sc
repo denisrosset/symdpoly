@@ -11,7 +11,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.6.1`
+import $ivy.`net.alasc::symdpoly-core:0.7.0`
 import net.alasc.symdpoly._
 import defaults._
 
@@ -19,7 +19,7 @@ import defaults._
 object Free extends free.MonoDef(1) {
   case object X1 extends HermitianSingleOp
   case object X2 extends HermitianSingleOp
-  lazy val operators = Seq(X1, X2)
+  lazy val families = Seq(X1, X2)
 }
 
 import Free.{X1, X2}
@@ -32,7 +32,7 @@ val f = (X1.pow(2) + X1.pow(3) * 2 + X1.pow(4) * 2 + X1.pow(6) + 3
 println(s"We minimize the polynomial $f")
 
 // Operators are real, so trace(f.adjoint) = trace(f), and we also have the cyclic property trace(f g) = trace(g f)
-val L = Free.evaluator(evaluation.cyclicReal[Free.type, Free.type])
+val L = Free.traceEvaluator(real = true)
 
 // The problem is a minimization problem
 val problem = L(f).minimize

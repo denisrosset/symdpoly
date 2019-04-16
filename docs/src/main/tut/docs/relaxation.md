@@ -14,7 +14,7 @@ import Free.{A, B}
 ```
 ```tut
 val bellOperator = Quantum.quotient(CHSH.chsh)
-val L = Quantum.evaluator(evaluation.real) // real moment evaluation
+val L = Quantum.eigenvalueEvaluator(real = true) // real moment evaluation
 val problem = L(bellOperator).maximize
 ```
 We now compute an upper bound using a moment-based semidefinite relaxation. For that purpose, we need a set of unique monomials. The level 1 of the NPA hierarchy is readily obtained:

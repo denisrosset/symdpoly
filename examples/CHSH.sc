@@ -7,7 +7,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.6.1`
+import $ivy.`net.alasc::symdpoly-core:0.7.0`
 import net.alasc.symdpoly._
 import defaults._
 
@@ -22,7 +22,7 @@ object Free extends free.MonoDef(cyclotomicOrder) {
   case class B(y: Int) extends HermitianOp
   object B extends HermitianOpFamily1(0 to 1)
 
-  val operators = Seq(A, B)
+  lazy val families = Seq(A, B)
 }
 
 import Free.{A, B}
@@ -46,7 +46,7 @@ val chsh = Quantum.quotient( A(0)*B(0) + A(0)*B(1) + A(1)*B(0) - A(1)*B(1) )
 println(s"We maximize the CHSH expression $chsh")
 
 // Evaluation of monomials: we have trace(f) = trace(f.adjoint) as we can assume all operators/states are real
-val L = Quantum.evaluator(evaluation.real)
+val L = Quantum.eigenvalueEvaluator(real = true)
 
 // Maximization problem
 val problem = L(chsh).maximize

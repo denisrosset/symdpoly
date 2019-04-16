@@ -5,7 +5,7 @@ title: "Details: free algebra"
 
 # {{page.title}}
 
-A [free algebra](https://en.wikipedia.org/wiki/Free_algebra) is a polynomial ring in noncommutative variables. Variables are standard Scala objects and can bear indices and flags. Those objects must exist in an object inheriting `free.MonoidDef`, and themselves inherit `Op`.
+A [free algebra](https://en.wikipedia.org/wiki/Free_algebra) is a polynomial ring in noncommutative variables. Variables are standard Scala objects and can bear indices and flags. Those objects must exist in an object inheriting `free.MonoDef`, and themselves inherit `Op`.
 
 Free algebras are defined as [monoid rings](https://en.wikipedia.org/wiki/Monoid_ring) over a free monoid (with little added mathematical structure, see below); the ring we use is the field of [cyclotomic numbers](https://en.wikipedia.org/wiki/Cyclotomic_field).
 
@@ -18,7 +18,7 @@ import net.alasc.symdpoly._
 import math.Phase
 import defaults._
 
-object Free extends free.MonoidDef(cyclotomicOrder = 2) {
+object Free extends free.MonoDef(cyclotomicOrder = 2) {
   case class A(x: Int) extends Op {
 	def adjoint: Op = this
   }
@@ -31,7 +31,7 @@ object Free extends free.MonoidDef(cyclotomicOrder = 2) {
   object B extends OpFamily {
     val allInstances = Seq(B(0), B(1))
   }
-  val operators = Seq(A, B)
+  val families = Seq(A, B)
 }
 import Free.{A, B}
 ```
@@ -42,7 +42,7 @@ import Free.{A, B}
 We can also represent non-Hermitian variables:
 
 ```tut:silent
-object Free1 extends free.MonoidDef(cyclotomicOrder = 4) {
+object Free1 extends free.MonoDef(cyclotomicOrder = 4) {
   case class X(i: Int, isAdjoint: Boolean = false) extends Op {
     override def toString = if (isAdjoint) s"X($i)*" else s"X($i)"
     def adjoint: Op = X(i, !isAdjoint)
@@ -50,7 +50,7 @@ object Free1 extends free.MonoidDef(cyclotomicOrder = 4) {
   object X extends OpFamily {
     val allInstances = Seq(X(0), X(1), X(2), X(0).adjoint, X(1).adjoint, X(2).adjoint)
   }
-  val operators = Seq(X)
+  val families = Seq(X)
 }
 import Free1.X
 ```
@@ -70,25 +70,25 @@ X(0)*A(0)
 To ease the boilerplate of defining `allInstances` and the `adjoint` method for Hermitian operators, we can use the following shortcuts.
 
 ```tut:silent
-object FreeSimplified extends free.MonoidDef(2) {
+object FreeSimplified extends free.MonoDef(2) {
   case class A(x: Int) extends HermitianOp // defines an `adjoint` method that is the identity
   object A extends HermitianOpFamily1(0 to 1)  // enumerates the instances from a given Range, if the operator has a single index
   case class B(y: Int) extends HermitianOp
   object B extends HermitianOpFamily1(0 to 1)
-  val operators = Seq(A, B)
+  val families = Seq(A, B)
 }
 ```
 
 The same holds for non-Hermitian variables.
 
 ```tut:silent
-object Free1Simplified extends free.MonoidDef(4) {
+object Free1Simplified extends free.MonoDef(4) {
   case class X(i: Int, isAdjoint: Boolean = false) extends Op {
     override def toString = if (isAdjoint) s"X($i)*" else s"X($i)"
     def adjoint: Op = X(i, !isAdjoint)
   }
   object X extends OpFamily1(0 to 2)
-  val operators = Seq(X)
+  val families = Seq(X)
 }
 ```
 

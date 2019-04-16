@@ -18,7 +18,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.6.1`
+import $ivy.`net.alasc::symdpoly-core:0.7.0`
 import net.alasc.symdpoly._
 import defaults._
 
@@ -31,7 +31,7 @@ import defaults._
 object Free extends free.MonoDef(2) {
   case object X extends HermitianSingleOp
   case object Y extends HermitianSingleOp
-  lazy val operators = Seq(X, Y)
+  lazy val families = Seq(X, Y)
 }
 
 // Import the variables X and Y in the current scope
@@ -52,7 +52,7 @@ val f = Quotient.quotient(
 println(s"We optimize over the polynomial $f")
 
 // Evaluation of polynomials over real variables
-val L = Quotient.evaluator(evaluation.real)
+val L = Quotient.eigenvalueEvaluator(real = true)
 
 // Symmetry group that leaves the objective invariant
 val group = L(f).invariantSubgroupOf(Quotient.symmetryGroup)
@@ -87,7 +87,7 @@ val generatingSet = Quotient.quotient(GSet.onePlus(X, Y).pow(3))
 println(s"We work with the generating set ${generatingSet} containing the monomials ${generatingSet.toOrderedSet}")
 
 /** Symmetric relaxation. */
-val relaxationSym = problem.symmetrize().relaxation(generatingSet)
+val relaxationSym = problem.symmetrize()._1.relaxation(generatingSet)
 
 println(s"The symmetric relaxation: $relaxationSym")
 

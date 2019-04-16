@@ -16,7 +16,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.6.1`
+import $ivy.`net.alasc::symdpoly-core:0.7.0`
 import net.alasc.symdpoly._
 import defaults._
 
@@ -32,7 +32,7 @@ object Free extends free.MonoDef(2) {
   case class C(z: Int) extends HermitianOp
   object C extends HermitianOpFamily1(0 to 1)
 
-  lazy val operators = Seq(A, B, C)
+  lazy val families = Seq(A, B, C)
 }
 
 // We import the symbols A, B, C in the script scope
@@ -58,13 +58,13 @@ val sliwa4 = Quotient.quotient(A(0)*2 + B(0)*C(0) + B(0)*C(1) + B(1)*C(0) - B(1)
 println(s"Optimizing the expression $sliwa4")
 
 /** Evaluator for real states/operators, such that L(f) = L(f.adjoint). */
-val L = Quotient.evaluator(evaluation.real)
+val L = Quotient.eigenvalueEvaluator(real = true)
 
 /** Evaluator for states with positive partial transpose. */
-val LptA = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.A, Free.B ++ Free.C))
-val LptB = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.B, Free.A ++ Free.C))
-val LptC = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.C, Free.A ++ Free.B))
-val LptAll = Quotient.evaluator(evaluation.partialTransposes(Quotient)(Free.A, Free.B, Free.C))
+val LptA = Quotient.pptEvaluator(Free.A, Free.B ++ Free.C)
+val LptB = Quotient.pptEvaluator(Free.B, Free.A ++ Free.C)
+val LptC = Quotient.pptEvaluator(Free.C, Free.A ++ Free.B)
+val LptAll = Quotient.pptEvaluator(Free.A, Free.B, Free.C)
 
 val almostQuantumGeneratingSet = Quotient.quotient(GSet.onePlus(A) * GSet.onePlus(B) * GSet.onePlus(C))
 val (problem, group) = L(sliwa4).maximize.symmetrize()

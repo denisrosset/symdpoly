@@ -7,7 +7,6 @@ import shapeless.Witness
 import spire.syntax.cfor._
 import net.alasc.perms.default._
 
-
 class SliwaBounds extends CommonSuite {
 
   test("Almost quantum bounds, including PPT, are reproduced") {

@@ -154,6 +154,7 @@ abstract class MonoDef extends generic.MonoDef {
     */
   def traceEvaluator(real: Boolean = false): Evaluator.Aux[this.type] =
     new TraceEvaluator[this.type, Free](real, Grp.trivial[PermutationType])
+
   //endregion
 
 }

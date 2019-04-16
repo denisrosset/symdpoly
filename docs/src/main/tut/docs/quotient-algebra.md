@@ -29,12 +29,12 @@ Now, if we have more than two outcomes, we write using the Collins-Gisin basis:
 ```tut:silent
 val nOutputs = 3
 val nInputs = 2
-object FreeCG extends free.MonoidDef(cyclotomicOrder = 1) {
+object FreeCG extends free.MonoDef(cyclotomicOrder = 1) {
   case class A(a: Int, x: Int) extends HermitianOp
   object A extends HermitianOpFamily2(0 to nOutputs - 1, 0 to nInputs - 1)
   case class B(a: Int, x: Int) extends HermitianOp
   object B extends HermitianOpFamily2(0 to nOutputs - 1, 0 to nInputs - 1)
-  val operators = Seq(A, B)
+  val families = Seq(A, B)
 }
 val QuotientCG = FreeCG.quotientMonoid(quotient.pairs {
   case (FreeCG.A(a1, x1), FreeCG.A(a2, x2)) if x1 == x2 && a1 == a2 => FreeCG.A(a1, x1)
@@ -69,10 +69,10 @@ A(2, 1) * B(2, 1)
 Finally, we show an example where the rewrite rule includes a phase.
 Note that we use `cyclotomicOrder = 4` in order to use the roots of unity `1`, `i`, `-1`, `-i` as phases.
 ```tut:silent
-object PauliFree extends free.MonoidDef(cyclotomicOrder = 4) {
+object PauliFree extends free.MonoDef(cyclotomicOrder = 4) {
   case class σ(i: Int) extends HermitianOp
   object σ extends HermitianOpFamily1(1 to 3)
-  val operators = Seq(σ)
+  val families = Seq(σ)
 }
 
 import PauliFree.σ

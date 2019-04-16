@@ -14,7 +14,7 @@ In the following, we assume that the variable `program` contains the conic linea
 import net.alasc.symdpoly._
 import net.alasc.symdpoly.examples.quantum.CHSH
 import CHSH._
-val L = Quantum.evaluator(evaluation.real)
+val L = Quantum.eigenvalueEvaluator(real = true)
 val generatingSet = Quantum.quotient(GSet.onePlus(Free.A, Free.B))
 val program = L(Quantum.quotient(CHSH.chsh)).maximize.relaxation(generatingSet).program
 ```

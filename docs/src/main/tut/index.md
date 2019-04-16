@@ -34,17 +34,17 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 import $ivy.`net.alasc::symdpoly-core:{{site.symdpolyVersion}}`
 ```
 
-Then, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We import the operator types `A` and `B` in global scope.
+Then, we define the free algebra for four operators `A(0)`, `A(1)`, `B(0)` and `B(1)`, corresponding to measurements with outcomes `+1` and `-1`. We import the operator families `A` and `B` in global scope.
 ```tut:silent
 import net.alasc.symdpoly._; 
 import defaults._
 
-object Free extends free.MonoidDef(cyclotomicOrder = 2) { // allows signed monomials
+object Free extends free.MonoDef(cyclotomicOrder = 2) { // allows signed monomials
   case class A(x: Int) extends HermitianOp
   object A extends HermitianOpFamily1(0 to 1)
   case class B(y: Int) extends HermitianOp
   object B extends HermitianOpFamily1(0 to 1)
-  val operators = Seq(A, B)
+  val families = Seq(A, B)
 }
 
 import Free.{A, B}
@@ -59,7 +59,7 @@ val chsh = Quotient.quotient(A(0) * B(0) + A(0) * B(1) + A(1) * B(0) - A(1) * B(
 
 val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
-val L = Quotient.evaluator(evaluation.real)
+val L = Quotient.eigenvalueEvaluator(real = true)
 
 val (problem, symmetryGroup) = L(chsh).maximize.symmetrize()
 val relaxation = problem.relaxation(generatingSet)

@@ -15,12 +15,12 @@ Note that the argument `cyclotomic = 2` enables us to use the roots of unity `-1
 ```tut:silent
 import net.alasc.symdpoly._; import defaults._
 
-object Free extends free.MonoidDef(cyclotomicOrder = 2) {
+object Free extends free.MonoDef(cyclotomicOrder = 2) {
   case class A(x: Int) extends HermitianOp
   object A extends HermitianOpFamily1(0 to 1)
   case class B(y: Int) extends HermitianOp
   object B extends HermitianOpFamily1(0 to 1)
-  val operators = Seq(A, B)
+  val families = Seq(A, B)
 }
 
 import Free.{A, B, one} // one is the unit monomial 1
@@ -46,7 +46,7 @@ We then define the generating set of monomials (in the quotient again!). We stat
 ```tut:silent
 val generatingSet = Quotient.quotient(GSet.onePlus(A, B))
 
-val L = Quotient.evaluator(evaluation.real)
+val L = Quotient.eigenvalueEvaluator(real = true)
 
 val (symProblem, symGroup) = L(chsh).maximize.symmetrize()
 val relaxation = symProblem.relaxation(generatingSet)

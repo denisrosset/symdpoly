@@ -27,19 +27,16 @@ final case class TraceEvaluator[
   type Mono = M
 
   def allCyclicPermutations(mono: M#MonoType): Set[M#MonoType] = {
-    val normalForm = mono.normalForm
-    if (normalForm.length <= 1) Set(mono) else {
-      var rewritten = false
+    if (mono.data.length <= 1) Set(mono) else {
       val l = mono.data.length
-      val res = Seq.tabulate(l) { i =>
+      Seq.tabulate(l) { i =>
         val w = mono.data.mutableCopy
         cforRange(0 until l) { j =>
           w(j) = mono.data((i + j) % l)
         }
-        rewritten |= M.inPlaceNormalForm(w)
+        M.inPlaceNormalForm(w)
         new freebased.Mono[M, F](w.setImmutable())
       }.toSet
-      if (rewritten) res.flatMap(allCyclicPermutations) else res
     }
   }
 
