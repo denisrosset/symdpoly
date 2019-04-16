@@ -6,8 +6,9 @@ import syntax._
 /** An output format for pretty printing. */
 trait Format { self =>
   type Output
-  def settings: HMap[Key.Relation] = HMap.empty[Key.Relation]
-  def apply(key: Key): key.V = settings.value(key)
+  def makePrinter[A](f: A => Output): Printer[A, self.type] = new Printer[A, self.type] {
+    def apply(a: A): Output = f(a)
+  }
 }
 
 object Format {

@@ -4,6 +4,7 @@ package net.alasc.symdpoly
 package object syntax {
 
   object phased extends PhasedSyntax
+  object printer extends PrinterSyntax
 
   object all extends AllSyntax
 
