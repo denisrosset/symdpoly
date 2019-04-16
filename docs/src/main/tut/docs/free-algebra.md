@@ -179,4 +179,4 @@ and monomials with a phase, useful to define substitution rules:
 X(0) * X(1) -> X(2) * Phase.minusI
 ```
 
-When constructing the moment matrix, **SymDPoly* processes monomials with a phase.
+When constructing the moment matrix, **SymDPoly** processes monomials with a phase.

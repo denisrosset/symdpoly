@@ -44,7 +44,7 @@ class PrinterOps[A](val a: A) {
   def prettyPrint[F <: Format.Aux[String] with Singleton](format: F)(implicit ev: Printer[A, F]): Unit =
     println(pretty(format: F))
 
-  /** Pretty prints to the standard output using the default [[Text]] format. */
+  /** Pretty prints to the standard output using the default [[net.alasc.symdpoly.pretty.Text]] format. */
   def prettyPrint()(implicit ev: Printer[A, Text.type]): Unit = prettyPrint[Text.type](Text)
 
   /** Formats the object using the given format.
