@@ -2,12 +2,10 @@ package net.alasc.symdpoly.pretty
 
 import scala.annotation.tailrec
 
-import shapeless.HMap
-import spire.syntax.cfor.cforRange
+import spire.syntax.cfor._
 
 import cyclo.Cyclo
 import scalin.immutable.Mat
-import syntax._
 
 /** Text format, for example to output on the console, or to write into text files. */
 object Text extends Format {

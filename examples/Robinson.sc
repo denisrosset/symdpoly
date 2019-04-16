@@ -1,5 +1,5 @@
 /* Example of a form due to Robinson, published in
- *    	 
+ *
  * B. Reznick, Some concrete aspects of Hilbert’s 17th problem, Contemporary Mathematics, Vol. 253,
  * American Mathematical Society, Providence, RI, 2000, pp. 251–272.
  *
@@ -18,7 +18,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.7.0`
+import $ivy.`net.alasc::symdpoly-core:0.7.1`
 import net.alasc.symdpoly._
 import defaults._
 
