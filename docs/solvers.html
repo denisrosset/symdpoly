@@ -62,7 +62,7 @@
 <p>You want to run the Mosek solver directly, without writing intermediate files, or write problems in the <a href="https://docs.mosek.com/8.1/toolbox/task-format.html#doc-shared-taskformat">Task Format</a> or <a href="https://docs.mosek.com/8.1/toolbox/json-format.html#doc-shared-jtaskformat">JSON Format</a> formats.</p>
 
 <p>For that, you need to interface Mosek with the Java Virtual Machine. First, import the <code class="highlighter-rouge">symdpoly-mosek</code> module in your <code class="highlighter-rouge">build.sbt</code> file.</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-mosek"</span>    <span class="o">%</span> <span class="s">"0.7.5"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"net.alasc"</span> <span class="o">%%</span> <span class="s">"symdpoly-mosek"</span>    <span class="o">%</span> <span class="s">"0.7.6"</span>
 </code></pre></div></div>
 
 <p>Then, add a <code class="highlighter-rouge">lib</code> subfolder at the root of your project, which contains the JAR files and shared libraries of <code class="highlighter-rouge">mosek/8/tools/platform/XXX/bin</code> from your Mosek installation.</p>
