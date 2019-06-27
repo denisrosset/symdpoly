@@ -61,11 +61,12 @@ object SymmetricGroup {
         val grpRight = Grp(split.generators.map(_._2): _*)
         val orbitSize = grpLeft.largestMovedPoint.fold(0)(_ + 1)
         if (orbitSize == n && grpLeft.order == grp.order) {
-
-          val actionInOrbit = (Perm.algebra: PermutationAction[Perm]).contramap( (perm: Perm) => Perm.fromImageFun(orbitSize, i => ((i + skipped) <|+| perm) - skipped) )
+          val actionInOrbit = (Perm.algebra: PermutationAction[Perm]).contramap( (perm: Perm) => phi(perm)._1 )
+          val sOption = grp.findSameAction(actionInOrbit, shift(n)).toOption
+          val tOption = grp.findSameAction(actionInOrbit, transposition(0, 1)).toOption
           for {
-            s <- grp.findSameAction(actionInOrbit, shift(n)).toOption
-            t <- grp.findSameAction(actionInOrbit, transposition(0, 1)).toOption
+            s <- sOption
+            t <- tOption
           } yield Presentation(n, s, t)
         } else rec(grpRight, skipped + orbitSize)
       }
