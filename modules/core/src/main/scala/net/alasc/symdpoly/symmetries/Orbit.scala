@@ -5,11 +5,12 @@ import cyclo.Cyclo
 import net.alasc.algebra.PermutationAction
 import net.alasc.finite.{FaithfulPermutationActionBuilder, Grp, GrpPermutationAction}
 import net.alasc.partitions.Partition
-import net.alasc.symdpoly.algebra.Phased
+import net.alasc.symdpoly.algebra.{Morphism, Phased}
 import util.OrderedSet
 import shapeless.Witness
 import spire.algebra.{Action, Eq, Group, Order}
 import spire.syntax.cfor._
+import spire.syntax.group._
 import scala.annotation.tailrec
 import scala.collection.immutable.SortedSet
 import scala.collection.mutable
@@ -17,12 +18,47 @@ import scala.reflect.ClassTag
 
 import spire.syntax.group._
 import spire.syntax.order._
-
+import spire.syntax.lattice._
+import net.alasc.perms.Perm
 import net.alasc.perms.default._
+import net.alasc.syntax.all._
+import spire.std.tuples._
 import net.alasc.symdpoly.math.Phase
 import net.alasc.util._
 
 object Orbit {
+
+  /** For a nontransitive permutation group `grp`, subgroup of the symmetric group S(n),
+    * gives an isomorphism to a direct product S(n1) x S(n2), where the image of `grp` in S(n1) is transitive.
+    *
+    * Extracts the largest orbits first.
+    *
+    * If the group is trivial or transitive, returns a morphism g => (g, identity)
+    */
+  def splitNonTransitive(grp: Grp[Perm]): Morphism[Perm, (Perm, Perm), Group] = {
+
+    def trivialMorphism: Morphism[Perm, (Perm, Perm), Group] = Morphism[Perm, (Perm, Perm), Group](g => (g, Perm.id))
+
+    if (grp.isTrivial) trivialMorphism else {
+      val n = grp.largestMovedPoint.get + 1
+      val atoms = Partition((0 until n).map(Set(_)): _*)
+      val partition = grp.generators.foldLeft(atoms)(_ join Partition.fromPermutation(n, _))
+      val orbits = partition.blocks.toVector.sortBy(b => -b.size).map(_.toVector.sorted)
+      if (orbits.size == 1) trivialMorphism else {
+        val n1 = orbits(0).size
+        val n2 = n - n1
+        val newToOld = Perm.fromImages(orbits.flatten)
+        val oldToNew = newToOld.inverse
+        Morphism[Perm, (Perm, Perm), Group] { p =>
+          val p1 = newToOld |+| p |+| oldToNew
+          val img = p1.images(n)
+          val img1 = img.take(n1)
+          val img2 = img.drop(n1).map(_ - n1)
+          (Perm.fromImages(img1), Perm.fromImages(img2))
+        }
+      }
+    }
+  }
 
   /** Checks whether the given groups has an action compatible with the given set of elements.
     *
