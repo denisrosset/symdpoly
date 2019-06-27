@@ -58,7 +58,7 @@ object SymmetricGroup {
         val phi = Orbit.splitNonTransitive(rest)
         val split: Grp[(Perm, Perm)] = phi.grpImage(grp)
         val grpLeft = Grp(split.generators.map(_._1): _*)
-        val grpRight = Grp(split.generators.map(_._1): _*)
+        val grpRight = Grp(split.generators.map(_._2): _*)
         val orbitSize = grpLeft.largestMovedPoint.fold(0)(_ + 1)
         if (orbitSize == n && grpLeft.order == grp.order) {
 

@@ -1,8 +1,11 @@
-// Computation of the quantum upper bounds of the Sliwa inequality #4
+// Computation of the quantum upper bounds of the Mermin inequality for three parties
+//
+// We purposely only exploit the symmetry group S3 that permutes the parties and export
+// in SeDuMi format; the "recognizeSymmetricGroup" forces the presentation of S3 in the
+// exported files.
 //
 // The inequality was described in
 // C. Śliwa, Physics Letters A 317, 165 (2003),
-// see also https://arxiv.org/abs/quant-ph/0305190
 //
 // The 46 families were exhaustively studied in
 // J. Vallins, A. B. Sainz, and Y.-C. Liang, Phys. Rev. A 95, 022111 (2017).
@@ -16,7 +19,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.7.4`
+import $ivy.`net.alasc::symdpoly-core:0.7.5`
 import net.alasc.symdpoly._
 import defaults._
 
@@ -84,7 +87,7 @@ val relaxation_npa2 = problem.relaxation(npa2)
 val relaxation_npa3 = problem.relaxation(npa3)
 
 println("Writing files in SeDuMi format.")
-relaxation_local1.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_local1.mat")
-relaxation_local2.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_local2.mat")
-relaxation_npa2.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_npa2.mat")
-relaxation_npa3.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_npa3.mat")
+relaxation_local1.program.recognizeSymmetricGroup.sedumi.writeFile("Mermin_S3_local1.mat")
+relaxation_local2.program.recognizeSymmetricGroup.sedumi.writeFile("Mermin_S3_local2.mat")
+relaxation_npa2.program.recognizeSymmetricGroup.sedumi.writeFile("Mermin_S3_npa2.mat")
+relaxation_npa3.program.recognizeSymmetricGroup.sedumi.writeFile("Mermin_S3_npa3.mat")
