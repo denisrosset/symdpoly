@@ -57,6 +57,8 @@ case class Program(direction: Direction, obj: Vec[Double], sdpCon: SDPConstraint
     Program(direction, obj, sdpCon.adding(Seq(newBlock), newRepresentation), eqA, Mat.zeros[Double](0, obj.length))
   }
 
+  def recognizeSymmetricGroup: Program = Program(direction, obj, sdpCon.recognizeSymmetricGroup, eqA, ineqA)
+
   def mergeBlocks: Program = Program(direction, obj, sdpCon.mergeBlocks, eqA, ineqA)
 
   def sdpa: SDPAFormat = SDPAFormat(this)

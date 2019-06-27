@@ -16,7 +16,7 @@ interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denis
 
 @
 
-import $ivy.`net.alasc::symdpoly-core:0.7.3`
+import $ivy.`net.alasc::symdpoly-core:0.7.4`
 import net.alasc.symdpoly._
 import defaults._
 
@@ -63,25 +63,28 @@ val transpose = Free.permutation {
   case op => op
 }
 
-val mermin = Quotient.quotient( A(1)*B(0)*C(1) + A(0)*B(1)*C(0) + A(0)*B(0)*C(1) - A(1)*B(1)*C(1) )
+val mermin = Quotient.quotient( A(1)*B(0)*C(0) + A(0)*B(1)*C(0) + A(0)*B(0)*C(1) - A(1)*B(1)*C(1) )
 
 println(s"Optimizing the expression $mermin")
 
 /** Evaluator for real states/operators, such that L(f) = L(f.adjoint). */
 val L = Quotient.eigenvalueEvaluator(real = true)
 
-val level1 = Quotient.quotient(GSet.onePlus(A, B, C))
-val level2 = Quotient.quotient(GSet.onePlus(A, B, C).pow(2))
-val level3 = Quotient.quotient(GSet.onePlus(A, B, C).pow(3))
+val local1 = Quotient.quotient(GSet.onePlus(A) * GSet.onePlus(B) * GSet.onePlus(C))
+val local2 = Quotient.quotient(GSet.onePlus(A).pow(2) * GSet.onePlus(B).pow(2) * GSet.onePlus(C).pow(2))
+val npa2 = Quotient.quotient(GSet.onePlus(A, B, C).pow(2))
+val npa3 = Quotient.quotient(GSet.onePlus(A, B, C).pow(3))
 
 val symmetryGroup = Quotient.groupInQuotient( Grp(cyclic, transpose) )
 val (problem, _) = L(mermin).maximize.symmetrize(evaluationFeasibilityGroup = Some(symmetryGroup))
 
-val relaxation1 = problem.relaxation(level1)
-val relaxation2 = problem.relaxation(level2)
-val relaxation3 = problem.relaxation(level3)
+val relaxation_local1 = problem.relaxation(local1)
+val relaxation_local2 = problem.relaxation(local2)
+val relaxation_npa2 = problem.relaxation(npa2)
+val relaxation_npa3 = problem.relaxation(npa3)
 
 println("Writing files in SeDuMi format.")
-relaxation1.program.sedumi.writeFile("mermin_S3_level1.mat")
-relaxation2.program.sedumi.writeFile("mermin_S3_level2.mat")
-relaxation3.program.sedumi.writeFile("mermin_S3_level3.mat")
+relaxation_local1.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_local1.mat")
+relaxation_local2.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_local2.mat")
+relaxation_npa2.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_npa2.mat")
+relaxation_npa3.program.recognizeSymmetricGroup.sedumi.writeFile("mermin_S3_npa3.mat")
