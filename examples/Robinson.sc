@@ -10,11 +10,11 @@
  * (equation 16)
  *
  * symmetric under the dihedral group D4 of order 8.
- * 
+ *
  */
 
 // Let's import the relevant libraries
-interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denisrosset/maven")
+interp.repositories() :+= coursierapi.MavenRepository.of("https://dl.bintray.com/denisrosset/maven")
 
 @
 
@@ -24,7 +24,7 @@ import defaults._
 
 /* Free monomial monoid in two variables X and Y. We want to work with signed monomials
  * preceded by a sign (-1 or +1), so the cyclotomic order is 2 to include both roots of unity.
- * 
+ *
  * SymDPoly supports commutative polynomial rings as quotients of the free noncommutative ring,
  * thus the ceremonial below.
  */

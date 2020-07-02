@@ -5,7 +5,7 @@
 // We only exploit the symmetry group S2 that permutes Alice and Bob
 
 // Let's import the relevant libraries
-interp.repositories() :+= coursier.MavenRepository("https://dl.bintray.com/denisrosset/maven")
+interp.repositories() :+= coursierapi.MavenRepository.of("https://dl.bintray.com/denisrosset/maven")
 
 @
 
