@@ -43,6 +43,7 @@ lazy val docs = (project in file("docs"))
   .dependsOn(core, mosek, examples, tests)
 
 lazy val core = (project in file("modules/core"))
+  .enablePlugins(PackPlugin)
   .settings(moduleName := "symdpoly-core")
   .settings(symdpolySettings)
 
